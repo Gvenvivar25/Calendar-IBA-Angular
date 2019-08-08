@@ -1,0 +1,44 @@
+<p>Hello from edit</p>
+
+
+<div class="row">
+    <div class="col-xs-12">
+        <form [formGroup]="disciplineForm" (ngSubmit)="onSubmit(disciplineForm.value)">
+             <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="shortDisciplineName">Краткое наименование предмета</label>
+                        <input
+                                type="text"
+                                id="shortDisciplineName"
+                                formControlName="shortDisciplineName"
+                                class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="disciplineName">Полное наименование предмета</label>
+                        <input
+                                type="text"
+                                id="disciplineName"
+                                formControlName="disciplineName"
+                                class="form-control"
+                                #imagePath>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <button
+                            type="submit"
+                            class="btn btn-success"
+                            [disabled]="!disciplineForm.valid">Сохранить</button>
+                    <button type="button" class="btn btn-danger" (click)="onCancel()">Отменить</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+

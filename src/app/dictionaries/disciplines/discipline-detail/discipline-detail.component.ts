@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {DisciplinesService} from '../disciplines.service';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Discipline} from '../discipline.model';
 
 @Component({
@@ -10,7 +9,6 @@ import {Discipline} from '../discipline.model';
   styleUrls: ['./discipline-detail.component.css']
 })
 export class DisciplineDetailComponent implements OnInit {
-    disciplineForm: FormGroup;
     id: number;
     discipline: Discipline;
 
@@ -22,20 +20,13 @@ export class DisciplineDetailComponent implements OnInit {
         this.id = +params['id'];
         this.getDisciplineDetail(this.id);
       });
-
   }
 
     getDisciplineDetail(id: number) {
-        this.disciplineService.getDiscipline(id).subscribe(res => {
-            this.discipline = res;
-            console.log(this.discipline)
-            this.id = res.id;
-
-            this.disciplineForm.setValue({
-                disciplineName: res.disciplineName,
-                shortDisciplineName: res.shortDisciplineName
-            });
+      this.disciplineService.getDiscipline(id).subscribe(res => {
+          this.discipline = res;
+          console.log(this.discipline)
+          this.id = res.id;
         });
     }
-
 }

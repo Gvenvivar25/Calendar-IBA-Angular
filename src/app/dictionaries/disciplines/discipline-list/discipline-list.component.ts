@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {DisciplinesService} from '../disciplines.service';
-import {Subscription} from 'rxjs';
+import {Subject, Subscription} from 'rxjs';
 import {Discipline} from '../discipline.model';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
+import {takeUntil} from 'rxjs/operators';
 
 @Component({
   selector: 'app-subject',
@@ -12,7 +13,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 export class DisciplineListComponent implements OnInit {
     disciplines: Discipline [];
 
-  constructor(private disciplineService: DisciplinesService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private disciplineService: DisciplinesService, private router: Router, private route: ActivatedRoute) {  }
 
   ngOnInit() {
     this.loadDisciplines();
@@ -20,21 +21,16 @@ export class DisciplineListComponent implements OnInit {
   }
 
     loadDisciplines() {
-       return this.disciplineService.getDisciplines()
+        return this.disciplineService.getDisciplines()
            .subscribe((data: Discipline[]) => {
            this.disciplines = data;
+
        });
     }
-
-    /*onEditDiscipline(id: number) {
-        this.router.navigate([ 'edit'], {relativeTo: this.route});
-
-    }*/
 
     onDeleteDiscipline(discipline: Discipline) {
         this.disciplineService.deleteDiscipline(discipline.id).subscribe(() => {
                 console.log('Deleted');
         });
     }
-
 }

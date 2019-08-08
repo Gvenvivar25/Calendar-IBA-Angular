@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
+import {DisciplinesService} from '../disciplines.service';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {Discipline} from '../discipline.model';
 
 @Component({
   selector: 'app-discipline-detail',
@@ -7,20 +10,32 @@ import {ActivatedRoute, Params, Router} from '@angular/router';
   styleUrls: ['./discipline-detail.component.css']
 })
 export class DisciplineDetailComponent implements OnInit {
-  id: number;
-  disciplineName: string;
+    disciplineForm: FormGroup;
+    id: number;
+    discipline: Discipline;
 
-  constructor(private route: ActivatedRoute, private router: Router) { }
+  constructor(private route: ActivatedRoute, private router: Router, private disciplineService: DisciplinesService) { }
 
   ngOnInit() {
-    this.id = +this.route.snapshot.params['id'];
-    this.disciplineName = this.route.snapshot.params['disciplineName'];
 
       this.route.params.subscribe((params: Params) => {
-          this.id = +params['id'];
-          this.disciplineName = params['disciplineName'];
+        this.id = +params['id'];
+        this.getDisciplineDetail(this.id);
       });
 
   }
+
+    getDisciplineDetail(id: number) {
+        this.disciplineService.getDiscipline(id).subscribe(res => {
+            this.discipline = res;
+            console.log(this.discipline)
+            this.id = res.id;
+
+            this.disciplineForm.setValue({
+                disciplineName: res.disciplineName,
+                shortDisciplineName: res.shortDisciplineName
+            });
+        });
+    }
 
 }

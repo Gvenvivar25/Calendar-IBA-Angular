@@ -13,7 +13,6 @@ const discUrl = 'http://localhost:8080/api/disciplines';
     providedIn: 'root'
 })
 export class DisciplinesService {
-   disciplinesChanged = new Subject<Discipline[]>();
 
     constructor(private httpClient: HttpClient) {}
     getDisciplines(): Observable<Discipline[]> {
@@ -21,7 +20,6 @@ export class DisciplinesService {
             .pipe(
                 catchError(() => Observable.throw('Сервер не доступен'))
             );
-
     }
 
     getDiscipline(id: number): Observable<Discipline> {
@@ -34,7 +32,7 @@ export class DisciplinesService {
 
     saveDisciplines(discipline) {
         return this.httpClient.post<Discipline>(discUrl, discipline).pipe(
-            tap((discipline: Discipline) => console.log(`added discipline id=${discipline.id}`)),
+            tap((res: Discipline) => console.log(`added discipline id=${discipline.id}`)),
             catchError(() => Observable.throw('addDiscipline'))
         );
     }
@@ -48,7 +46,6 @@ export class DisciplinesService {
             tap(_ => console.log(`updated discipline id=${id}`)),
             catchError(() => Observable.throw('updateDiscipline'))
         );
-
     }
 
     deleteDiscipline(id: number): Observable<any> {

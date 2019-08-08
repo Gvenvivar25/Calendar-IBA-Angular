@@ -44,7 +44,7 @@ import {DictionariesModule} from './dictionaries/dictionaries.module';
           useFactory: adapterFactory
       }),
     SchedulerModule.forRoot({ locale: 'en', headerDateFormat: 'daysRange' }),
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
 
   ],
   providers: [AppService,

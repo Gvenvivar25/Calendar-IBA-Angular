@@ -12,9 +12,10 @@ const dictionariesRoutes: Routes = [
     {path: 'dictionaries', component: DictionariesComponent, children: [
             {path: 'disciplines', component: DisciplineListComponent, children: [
                     {path: 'edit/:id', component: DisciplineEditComponent},
-                    {path: 'add', component: DisciplineAddComponent},
+
                     {path: ':id/:disciplineName', component: DisciplineDetailComponent},
              ]},
+            {path: 'add', component: DisciplineAddComponent},
       ] }
 ]
 @NgModule({

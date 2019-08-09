@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {DisciplinesService} from '../disciplines.service';
 import {Discipline} from '../discipline.model';
@@ -10,9 +10,9 @@ import {FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
   styleUrls: ['./discipline-edit.component.css']
 })
 export class DisciplineEditComponent implements OnInit {
- disciplineForm: FormGroup;
- id: number;
- discipline: Discipline;
+     disciplineForm: FormGroup;
+     id: number;
+     discipline: Discipline;
 
     constructor(private route: ActivatedRoute, private router: Router, private disciplineService: DisciplinesService) {    }
 
@@ -56,11 +56,9 @@ export class DisciplineEditComponent implements OnInit {
             );
     }
 
-
     onCancel() {
         this.router.navigate(['/dictionaries/disciplines'], {relativeTo: this.route});
     }
-
 }
 
 

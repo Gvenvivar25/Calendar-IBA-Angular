@@ -25,7 +25,8 @@
             <table class="table table-bordered table-striped">
                 <thead style="background-color: #6186a8" >
                 <tr>
-                    <th>Id</th>
+                    <th></th>
+                    <th>№</th>
                     <th>Краткое наименование</th>
                     <th>Полное наименование</th>
                     <th></th>
@@ -33,19 +34,30 @@
 
                 </tr>
                 </thead>
+
+
                 <tbody>
-                <tr *ngFor="let discipline of disciplines">
-                    <td scope="row"><a [routerLink]="['/dictionaries/disciplines', discipline.id, discipline.disciplineName]">
-                        {{discipline.id}}</a></td>
-                    <td><a [routerLink]="['/dictionaries/disciplines', discipline.id, discipline.disciplineName]">
-                        {{discipline.shortDisciplineName}}</a></td>
-                    <td><a [routerLink]="['/dictionaries/disciplines', discipline.id, discipline.disciplineName]">
-                        {{discipline.disciplineName}}</a></td>
-                    <td><button class="btn btn-warning"
-                                [routerLink]="['edit', discipline.id]" >
-                        Редактировать</button></td>
-                    <td><button class="btn btn-danger" (click)="onDeleteDiscipline(discipline)">Удалить</button></td>
-                </tr>
+                <ng-template ngFor let-discipline [ngForOf]="disciplines" let-i="index"
+                    >
+                    <tr (click)="onSelect(discipline.id)">
+                        <td><img src="./assets/arrow.ico" alt="Развернуть" width="15" height="15"></td>
+                        <td scope="row"> {{i+1}}</td>
+                        <td>{{discipline.shortDisciplineName}} </td>
+                        <td>{{discipline.disciplineName}}</td>
+                        <td><button class="btn btn-warning"
+                                    [routerLink]="['edit', discipline.id]" >
+                            Редактировать</button></td>
+                        <td><button class="btn btn-danger" (click)="onDeleteDiscipline(discipline)">Удалить</button></td>
+                    </tr>
+                    <tr>
+                        <td colspan="6" *ngIf="rowSelected==discipline.id" >
+                            <p>Id: {{discipline.id}}</p>
+                            <p>Краткое наименование: {{discipline.shortDisciplineName}}</p>
+                            <p>Полное наименование: {{discipline.disciplineName}}</p>
+                        </td>
+                    </tr>
+                    </ng-template>
+
                 </tbody>
             </table>
         </div>
@@ -55,22 +67,4 @@
 <br>
 <br>
 <br>
-
-            <!--
-            <div class="row">
-                <div class="col-xs-4">
-                    <ul class="list-group">
-                        <li class="list-group-item" *ngFor="let discipline of disciplines">
-                                {{discipline.id}}
-                                {{discipline.disciplineName}}
-                                {{discipline.shortDisciplineName}}
-
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-xs-8">
-                    <router-outlet></router-outlet>
-                </div>
-            </div>
-            -->
 

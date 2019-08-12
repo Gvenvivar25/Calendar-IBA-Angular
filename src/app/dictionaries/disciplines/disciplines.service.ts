@@ -15,6 +15,7 @@ const discUrl = 'http://localhost:8080/api/disciplines';
 export class DisciplinesService {
 
     constructor(private httpClient: HttpClient) {}
+
     getDisciplines(): Observable<Discipline[]> {
         return this.httpClient.get<Discipline[]>(discUrl)
             .pipe(

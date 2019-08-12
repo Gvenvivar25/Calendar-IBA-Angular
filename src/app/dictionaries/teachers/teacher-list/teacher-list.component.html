@@ -2,7 +2,7 @@
 
     <div class="row" >
         <div class="col-sm-12" >
-                   <h3>Предметы</h3>
+            <h3>Преподаватели</h3>
         </div>
     </div>
 
@@ -19,9 +19,9 @@
                 <tr>
                     <th></th>
                     <th>№</th>
-
-                    <th>Краткое наименование</th>
-                    <th>Полное наименование</th>
+                    <th>Фамилия</th>
+                    <th>Имя</th>
+                    <th>Отчество</th>
                     <th></th>
 
                 </tr>
@@ -29,29 +29,30 @@
 
 
                 <tbody>
-                <ng-template ngFor let-discipline [ngForOf]="disciplines" let-i="index"
-                    >
-                    <tr (click)="onSelect(discipline.id)">
+                <ng-template ngFor let-teacher [ngForOf]="teachers" let-i="index"
+                >
+                    <tr (click)="onSelect(teacher.id)">
                         <td><img src="./assets/arrow.ico" alt="Развернуть" width="15" height="15"></td>
                         <td scope="row"> {{i+1}}</td>
 
-                        <td>{{discipline.shortDisciplineName}} </td>
-                        <td>{{discipline.disciplineName}}</td>
-                        <td class="td-p-4">
-                            <button class="btn-edit" title="Редактировать" [routerLink]="['edit', discipline.id]" >
+                        <td>{{teacher.lastName}} </td>
+                        <td>{{teacher.firstName}}</td>
+                        <td>{{teacher.patronymic}}</td>
+                        <td class="td-p-1">
+                            <button class="btn-edit" title="Редактировать" [routerLink]="['edit', teacher.id]" >
                                 <span class="oi oi-pencil"></span>
                             </button>
-                            <button class="btn-delete" title="Удалить" (click)="onDeleteDiscipline(discipline)">
+                            <button class="btn-delete" title="Удалить" (click)="onDeleteTeacher(teacher)">
                                 <span class="oi oi-trash"></span>
                             </button>
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="6" *ngIf="rowSelected==discipline.id" >
-                            <app-discipline-detail [idDisc]="discipline.id"></app-discipline-detail>
+                        <td colspan="6" *ngIf="rowSelected==teacher.id" >
+                            <app-teacher-detail [idTeach]="teacher.id"></app-teacher-detail>
                         </td>
                     </tr>
-                    </ng-template>
+                </ng-template>
 
                 </tbody>
             </table>
@@ -62,4 +63,5 @@
 <br>
 <br>
 <br>
+
 

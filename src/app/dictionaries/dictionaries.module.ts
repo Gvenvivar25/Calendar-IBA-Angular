@@ -11,6 +11,10 @@ import {DisciplinesService} from './disciplines/disciplines.service';
 import { DisciplineEditComponent } from './disciplines/discipline-edit/discipline-edit.component';
 import {DisciplineListComponent} from './disciplines/discipline-list/discipline-list.component';
 import {SidebarModule} from 'ng-sidebar';
+import { TeacherAddComponent } from './teachers/teacher-add/teacher-add.component';
+import { TeacherEditComponent } from './teachers/teacher-edit/teacher-edit.component';
+import { TeacherListComponent } from './teachers/teacher-list/teacher-list.component';
+import { TeacherDetailComponent } from './teachers/teacher-detail/teacher-detail.component';
 
 @NgModule ({
     declarations: [
@@ -18,7 +22,11 @@ import {SidebarModule} from 'ng-sidebar';
         DictionariesComponent,
         DisciplineDetailComponent,
         DisciplineAddComponent,
-        DisciplineEditComponent
+        DisciplineEditComponent,
+        TeacherAddComponent,
+        TeacherEditComponent,
+        TeacherListComponent,
+        TeacherDetailComponent
     ],
     imports: [
         BrowserModule,

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Params, Router} from '@angular/router';
+import {Component, Input, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 import {DisciplinesService} from '../disciplines.service';
 import {Discipline} from '../discipline.model';
 
@@ -9,6 +9,7 @@ import {Discipline} from '../discipline.model';
     styleUrls: ['./discipline-detail.component.css']
 })
 export class DisciplineDetailComponent implements OnInit {
+    @Input() idDisc: number;
     id: number;
     shortDisciplineName: string;
     disciplineName: string;
@@ -17,17 +18,14 @@ export class DisciplineDetailComponent implements OnInit {
     constructor(private route: ActivatedRoute, private router: Router, private disciplineService: DisciplinesService) { }
 
     ngOnInit() {
-
-        this.route.params.subscribe((params: Params) => {
-            this.id = +params['id'];
-            this.getDisciplineDetail(this.id);
-        });
+        this.getDisciplineDetail(this.idDisc);
     }
+
 
     getDisciplineDetail(id: number) {
         this.disciplineService.getDiscipline(id).subscribe(res => {
             this.discipline = res;
-            console.log(this.discipline)
+           // console.log(this.discipline)
             this.id = res.id;
             this.disciplineName = res.disciplineName;
             this.shortDisciplineName = res.shortDisciplineName;

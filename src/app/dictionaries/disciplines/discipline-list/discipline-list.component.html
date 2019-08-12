@@ -1,35 +1,30 @@
 <div class="container-fluid">
-    <br>
-    <div class="row">
 
-        <div class="col-sm-2">
-            <h4>Предметы</h4>
+    <div class="row" >
+        <div class="col-sm-12" >
+                   <h3>Предметы</h3>
         </div>
-        <div class="col-sm">
-            <button class="btn btn-primary" (click)="onAdd()" > Добавить</button>
-        </div>
-
     </div>
-    <br>
-    <div class="row">
-
-        <div class="col-sm-10">
-            <router-outlet></router-outlet>
-        </div>
 
 
-    </div>
+
+
     <hr>
     <div class="row">
-        <div class="col-sm-10">
+        <div class="col-sm">
+            <button class="btn-add" title="Добавить" (click)="onAdd()" > <span class="oi oi-plus"></span> Добавить </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm">
             <table class="table table-bordered table-striped">
-                <thead style="background-color: #6186a8" >
+                <thead class="table-head">
                 <tr>
                     <th></th>
                     <th>№</th>
+
                     <th>Краткое наименование</th>
                     <th>Полное наименование</th>
-                    <th></th>
                     <th></th>
 
                 </tr>
@@ -42,18 +37,21 @@
                     <tr (click)="onSelect(discipline.id)">
                         <td><img src="./assets/arrow.ico" alt="Развернуть" width="15" height="15"></td>
                         <td scope="row"> {{i+1}}</td>
+
                         <td>{{discipline.shortDisciplineName}} </td>
                         <td>{{discipline.disciplineName}}</td>
-                        <td><button class="btn btn-warning"
-                                    [routerLink]="['edit', discipline.id]" >
-                            Редактировать</button></td>
-                        <td><button class="btn btn-danger" (click)="onDeleteDiscipline(discipline)">Удалить</button></td>
+                        <td class="td-p-4">
+                            <button class="btn-edit" title="Редактировать" [routerLink]="['edit', discipline.id]" >
+                                <span class="oi oi-pencil"></span>
+                            </button>
+                            <button class="btn-delete" title="Удалить" (click)="onDeleteDiscipline(discipline)">
+                                <span class="oi oi-trash"></span>
+                            </button>
+                        </td>
                     </tr>
                     <tr>
                         <td colspan="6" *ngIf="rowSelected==discipline.id" >
-                            <p>Id: {{discipline.id}}</p>
-                            <p>Краткое наименование: {{discipline.shortDisciplineName}}</p>
-                            <p>Полное наименование: {{discipline.disciplineName}}</p>
+                            <app-discipline-detail [idDisc]="discipline.id"></app-discipline-detail>
                         </td>
                     </tr>
                     </ng-template>

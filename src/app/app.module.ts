@@ -22,6 +22,7 @@ import {AppService} from './app.service';
 
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {DictionariesModule} from './dictionaries/dictionaries.module';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import {DictionariesModule} from './dictionaries/dictionaries.module';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     DictionariesModule,
     AppRoutingModule,
 

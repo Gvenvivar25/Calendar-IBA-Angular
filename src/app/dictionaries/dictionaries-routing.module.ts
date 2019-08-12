@@ -8,18 +8,16 @@ import {DisciplineAddComponent} from './disciplines/discipline-add/discipline-ad
 import {DisciplineListComponent} from './disciplines/discipline-list/discipline-list.component';
 
 
-
-
 const dictionariesRoutes: Routes = [
     {path: 'dictionaries', component: DictionariesComponent, children: [
-            {path: 'disciplines', component: DisciplineListComponent, children: [
-                    {path: 'edit/:id', component: DisciplineEditComponent},
+            {path: 'disciplines/add', component: DisciplineAddComponent},
+            {path: 'disciplines/detail', component: DisciplineDetailComponent},
+            {path: 'disciplines/edit/:id', component: DisciplineEditComponent},
 
-                    {path: ':id/:disciplineName', component: DisciplineDetailComponent},
-                ]},
-            {path: 'add', component: DisciplineAddComponent},
+            {path: 'disciplines', component: DisciplineListComponent},
         ] }
 ]
+
 @NgModule({
     imports: [
         RouterModule.forChild(dictionariesRoutes)

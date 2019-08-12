@@ -10,6 +10,7 @@ import { DisciplineAddComponent } from './disciplines/discipline-add/discipline-
 import {DisciplinesService} from './disciplines/disciplines.service';
 import { DisciplineEditComponent } from './disciplines/discipline-edit/discipline-edit.component';
 import {DisciplineListComponent} from './disciplines/discipline-list/discipline-list.component';
+import {SidebarModule} from 'ng-sidebar';
 
 @NgModule ({
     declarations: [
@@ -24,7 +25,8 @@ import {DisciplineListComponent} from './disciplines/discipline-list/discipline-
         HttpClientModule,
         FormsModule,
         ReactiveFormsModule,
-        DictionariesRoutingModule
+        DictionariesRoutingModule,
+        SidebarModule.forRoot()
 
     ],
     providers: [DisciplinesService]

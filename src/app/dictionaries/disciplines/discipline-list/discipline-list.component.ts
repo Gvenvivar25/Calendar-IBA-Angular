@@ -1,16 +1,17 @@
-import { Component, OnInit} from '@angular/core';
+import {Component,  OnInit} from '@angular/core';
 import {DisciplinesService} from '../disciplines.service';
 
 import {Discipline} from '../discipline.model';
-import {ActivatedRoute, NavigationEnd, Router, RoutesRecognized} from '@angular/router';
-import {filter} from 'rxjs/operators';
+import {ActivatedRoute, Router} from '@angular/router';
+
 
 @Component({
     selector: 'app-subject',
     templateUrl: './discipline-list.component.html',
-    styleUrls: ['./discipline-list.component.css']
+    styleUrls: ['./discipline-list.component.scss']
 })
 export class DisciplineListComponent implements OnInit {
+    id: number;
     disciplines: Discipline [];
     rowSelected: number;
 
@@ -20,14 +21,13 @@ export class DisciplineListComponent implements OnInit {
 
     ngOnInit() {
         this.loadDisciplines();
-        this.router.events.subscribe( (event) => {
+        /*this.router.events.subscribe( (event) => {
             if (event instanceof RoutesRecognized) {
                 this.loadDisciplines();
                 console.log('hey');
             }
-        });
+        });*/
     }
-
 
     onSelect(idDisc: number): void {
         if (this.rowSelected === -1) {
@@ -38,7 +38,6 @@ export class DisciplineListComponent implements OnInit {
             } else {
                 this.rowSelected = idDisc;
             }
-
         }
     }
 
@@ -52,11 +51,10 @@ export class DisciplineListComponent implements OnInit {
     onDeleteDiscipline(discipline: Discipline) {
         this.disciplineService.deleteDiscipline(discipline.id).subscribe(() => {
             this.loadDisciplines();
-            console.log('Deleted');
         });
     }
 
     onAdd() {
-        this.router.navigate(['/dictionaries/add'], {relativeTo: this.route});
+        this.router.navigate(['./add'], {relativeTo: this.route});
     }
 }

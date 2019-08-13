@@ -30,7 +30,7 @@ export class TeachersService {
             );
     }
 
-    saveTeachers(teacher) {
+    saveTeacher(teacher): Observable<Teacher> {
         return this.httpClient.post<Teacher>(teachUrl, teacher).pipe(
             tap((res: Teacher) => console.log(`added teacher id=${teacher.id}`)),
             catchError(() => Observable.throw('addTeacher'))
@@ -55,5 +55,10 @@ export class TeachersService {
             tap(_ => console.log(`deleted teacher id=${id}`)),
             catchError(() => Observable.throw('deleteTeacher'))
         );
+    }
+
+    getTypesOfEmployment() {
+        const url = 'http://localhost:8080/api/types_of_employment';
+        return this.httpClient.get<{id: string; value: string}>(url);
     }
 }

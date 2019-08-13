@@ -1,1 +1,50 @@
-<p>teacher-add works!</p>
+<div class="card my-10">
+    <div class="card-body">
+        <form [formGroup]="teacherAddForm" (ngSubmit)="onSubmit(teacherAddForm.value)">
+            <div class="form-group">
+                <p>Введите данные о преподавателе: </p>
+                <label >Фамилия</label>
+                <input type="text" formControlName="lastName"
+                       class="form-control"  placeholder="Введите фамилию">
+
+                <p *ngIf="!teacherAddForm.get('lastName').valid
+                && teacherAddForm.get('lastName').touched" class="alert alert-danger">
+                    Поле обязательно для заполнения. Введите фамилию!</p>
+            </div>
+
+            <div class="form-group">
+                <label>Имя</label>
+                <input type="text" formControlName="firstName"
+                       class="form-control" placeholder="Введите имя">
+                <p *ngIf="!teacherAddForm.get('firstName').valid
+                && teacherAddForm.get('firstName').touched" class="alert alert-danger">
+                    Поле обязательно для заполнения. Введите имя!</p>
+            </div>
+
+            <div class="form-group">
+                <label>Отчество</label>
+                <input type="text" formControlName="patronymic"
+                       class="form-control" placeholder="Введите отчество">
+                <p *ngIf="!teacherAddForm.get('patronymic').valid
+                && teacherAddForm.get('patronymic').touched" class="alert alert-danger">
+                    Поле обязательно для заполнения. Введите отчество!</p>
+            </div>
+
+            <div>
+                <select class="custom-select" (change)="changeType($event)" formControlName="typeOfEmployment">
+
+                    <option *ngFor="let type of types" [ngValue]="type.id" > {{type.value}}</option>
+                </select>
+            </div>
+            <div>
+                <br>
+                <button type="submit" [disabled]="!teacherAddForm.valid" class="btn btn-info">Добавить</button>
+                <button type="button" class="btn btn-warning"  (click)="gotoTeacherList()">Отмена</button>
+            </div>
+        </form>
+    </div>
+</div>
+<br>
+<br>
+<br>
+

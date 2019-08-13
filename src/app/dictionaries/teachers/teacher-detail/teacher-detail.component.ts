@@ -34,7 +34,8 @@ export class TeacherDetailComponent implements OnInit {
             this.id = res.id;
             this.lastName = res.lastName;
             this.firstName = res.firstName;
-            this.typeOfEmployment = res.typeOfEmployment;
+            this.patronymic = res.patronymic;
+            this.typeOfEmployment = res.typeOfEmployment.value;
 
         });
     }

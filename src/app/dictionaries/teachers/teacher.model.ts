@@ -3,5 +3,5 @@ export class Teacher {
     public lastName: string;
     public firstName: string;
     public patronymic: string;
-    public typeOfEmployment: string;
+    public typeOfEmployment: {id: string; value: string};
 }

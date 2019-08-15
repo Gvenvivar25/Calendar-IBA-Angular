@@ -5,3 +5,14 @@ export class Teacher {
     public patronymic: string;
     public typeOfEmployment: {id: string; value: string};
 }
+
+export class TeacherRequest {
+    public teacherData: Teacher;
+    public disciplinesData: any [];
+
+}
+
+export class Type {
+    public id: string;
+    public value: string;
+}

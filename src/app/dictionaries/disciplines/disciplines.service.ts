@@ -33,14 +33,15 @@ export class DisciplinesService {
 
     saveDisciplines(discipline) {
         return this.httpClient.post<Discipline>(discUrl, discipline).pipe(
-            tap((res: Discipline) => console.log(`added discipline id=${discipline.id}`)),
+            tap((res: Discipline) => console.log(`added discipline id=${res.id}`)),
             catchError(() => Observable.throw('addDiscipline'))
         );
     }
 
     updateDiscipline(id: number, discipline): Observable<any> {
         const url = `${discUrl}/${id}`;
-        // без id не получается сделать update, поэтому вручную передаю сюда его. возможно стоит как-то через форму реализовать присвоение id
+        // без id не получается сделать update, поэтому вручную передаю сюда его.
+        // возможно стоит как-то через форму реализовать присвоение id
         discipline.id = id;
        // console.log(discipline);
         return this.httpClient.put(url, discipline, httpOptions).pipe(

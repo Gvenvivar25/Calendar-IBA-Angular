@@ -1,9 +1,14 @@
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
 .navbar-dark,  .page-footer {
     background-color: #4c7091;
 }
 
 .nav-link {
     font-size: 18px;
+}
+.card-body {
+    padding: 4px;
 }
 
 .header {

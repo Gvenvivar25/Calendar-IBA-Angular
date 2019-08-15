@@ -1,1 +1,102 @@
-<p>teacher-edit works!</p>
+<div class="col-sm-12">
+    <form [formGroup]="teacherEditForm" >
+<div class="col-sm-6">
+
+        <div formGroupName="teacherData">
+            <p>Введите данные о преподавателе: </p>
+            <div class="form-row">
+                <div class="col-sm form-group">
+
+                    <label >Фамилия</label>
+                    <input type="text" formControlName="lastName"
+                           class="form-control"  placeholder="Введите фамилию">
+
+                    <p *ngIf="!teacherEditForm.get('teacherData.lastName').valid
+                        && teacherEditForm.get('teacherData.lastName').touched" class="alert alert-danger">
+                        Поле обязательно для заполнения. Введите фамилию!</p>
+                </div>
+
+                <div class="col-sm form-group">
+                    <label>Имя</label>
+                    <input type="text" formControlName="firstName"
+                           class="form-control" placeholder="Введите имя">
+                    <p *ngIf="!teacherEditForm.get('teacherData.firstName').valid
+                        && teacherEditForm.get('teacherData.firstName').touched" class="alert alert-danger">
+                        Поле обязательно для заполнения. Введите имя!</p>
+                </div>
+
+                <div class="col-sm form-group">
+                    <label>Отчество</label>
+                    <input type="text" formControlName="patronymic"
+                           class="form-control" placeholder="Введите отчество">
+                    <p *ngIf="!teacherEditForm.get('teacherData.patronymic').valid
+                    && teacherEditForm.get('teacherData.patronymic').touched" class="alert alert-danger">
+                        Поле обязательно для заполнения. Введите отчество!</p>
+                </div>
+            </div>
+
+
+
+            <div class="form-row">
+                <div class="col-md form-group">
+                    <label>Выберите вид найма: </label>
+                    <ng-select formControlName="typeOfEmployment"
+                               [items]="typesE"
+                               bindLabel="value"
+                               bindValue="id"
+                               [multiple]="false"
+                               placeholder="Выберите вид найма"
+                               clearAllText="Clear"
+                    >
+
+                    </ng-select>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-row">
+            <div class="col-md form-group">
+                <label >Добавить новые предметы преподавателю</label>
+                <ng-select formControlName="disciplinesData"
+                           [items]="disciplines"
+                           bindLabel="shortDisciplineName"
+                           bindValue="id"
+                           [multiple]="true"
+                           placeholder="Выберите один или несколько предметов, которые ведет преподаватель"
+                           clearAllText="Clear"
+                >
+                </ng-select>
+            </div>
+        </div>
+            <div class="form-row">
+                <div class="col-md form-group">
+                    <label>Выбранные предметы преподавателя</label>
+                    <ul class="list-group list-group-flush ">
+                        <li class="list-group-item d-flex justify-content-between align-items-center"
+                            *ngFor="let disc of selectedDisciplines">
+                            {{disc.shortDisciplineName}}
+                            <span class="badge badge-pill"><button class="btn btn-danger btn-sm"
+                                (click)="onDeleteSelectedDiscipline(disc.id)">Удалить</button></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+</div>
+        <div class="form-row">
+            <div class="col-md form-group">
+                <br>
+                <button type="submit" [disabled]="!teacherEditForm.valid" (click)="onSubmit()" class="btn btn-info">Добавить</button>
+                <button type="button" class="btn btn-warning"  (click)="gotoTeacherList()">Отмена</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<br>
+<br>
+<br>
+
+

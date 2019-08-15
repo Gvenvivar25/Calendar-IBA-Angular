@@ -3,6 +3,7 @@ import { NgModule, LOCALE_ID } from '@angular/core';
 
 import { registerLocaleData } from '@angular/common';
 import localeIt from '@angular/common/locales/it';
+import { NgSelectModule } from '@ng-select/ng-select';
 registerLocaleData(localeIt);
 
 import { AppRoutingModule } from './app-routing.module';
@@ -39,7 +40,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     BrowserAnimationsModule,
     DictionariesModule,
     AppRoutingModule,
-
+    NgSelectModule,
 
     CalendarModule.forRoot({
           provide: DateAdapter,

@@ -1,49 +1,80 @@
-<div class="card my-10">
-    <div class="card-body">
-        <form [formGroup]="teacherAddForm" (ngSubmit)="onSubmit(teacherAddForm.value)">
-            <div class="form-group">
-                <p>Введите данные о преподавателе: </p>
-                <label >Фамилия</label>
-                <input type="text" formControlName="lastName"
-                       class="form-control"  placeholder="Введите фамилию">
+<form [formGroup]="teacherAddForm" (ngSubmit)="onSubmit()">
+    <p>Введите данные о преподавателе: </p>
+    <div formGroupName="teacherData">
+        <div class="form-row">
+                    <div class="col-md form-group">
 
-                <p *ngIf="!teacherAddForm.get('lastName').valid
-                && teacherAddForm.get('lastName').touched" class="alert alert-danger">
-                    Поле обязательно для заполнения. Введите фамилию!</p>
-            </div>
+                        <label >Фамилия</label>
+                        <input type="text" formControlName="lastName"
+                               class="form-control"  placeholder="Введите фамилию">
 
-            <div class="form-group">
-                <label>Имя</label>
-                <input type="text" formControlName="firstName"
-                       class="form-control" placeholder="Введите имя">
-                <p *ngIf="!teacherAddForm.get('firstName').valid
-                && teacherAddForm.get('firstName').touched" class="alert alert-danger">
-                    Поле обязательно для заполнения. Введите имя!</p>
-            </div>
+                        <p *ngIf="!teacherAddForm.get('teacherData.lastName').valid
+                        && teacherAddForm.get('teacherData.lastName').touched" class="alert alert-danger">
+                            Поле обязательно для заполнения. Введите фамилию!</p>
+                    </div>
 
-            <div class="form-group">
-                <label>Отчество</label>
-                <input type="text" formControlName="patronymic"
-                       class="form-control" placeholder="Введите отчество">
-                <p *ngIf="!teacherAddForm.get('patronymic').valid
-                && teacherAddForm.get('patronymic').touched" class="alert alert-danger">
-                    Поле обязательно для заполнения. Введите отчество!</p>
-            </div>
+                    <div class="col-md form-group">
+                        <label>Имя</label>
+                        <input type="text" formControlName="firstName"
+                               class="form-control" placeholder="Введите имя">
+                        <p *ngIf="!teacherAddForm.get('teacherData.firstName').valid
+                        && teacherAddForm.get('teacherData.firstName').touched" class="alert alert-danger">
+                            Поле обязательно для заполнения. Введите имя!</p>
+                    </div>
 
-            <div>
-                <select class="custom-select" (change)="changeType($event)" formControlName="typeOfEmployment">
+                </div>
+        <div class="form-row">
+                <div class="col-md form-group">
+                    <label>Отчество</label>
+                    <input type="text" formControlName="patronymic"
+                           class="form-control" placeholder="Введите отчество">
+                    <p *ngIf="!teacherAddForm.get('teacherData.patronymic').valid
+                    && teacherAddForm.get('teacherData.patronymic').touched" class="alert alert-danger">
+                        Поле обязательно для заполнения. Введите отчество!</p>
+                </div>
+        </div>
+        <div class="form-row">
+                <div class="col-md form-group">
+                    <label>Вид найма </label>
+                    <ng-select formControlName="typeOfEmployment"
+                               [items]="types"
+                               bindLabel="value"
+                               bindValue="id"
+                               [multiple]="false"
+                               placeholder="Выберите вид найма"
+                               clearAllText="Clear"
+                    >
+                    </ng-select>
 
-                    <option *ngFor="let type of types" [ngValue]="type.id" > {{type.value}}</option>
-                </select>
-            </div>
-            <div>
+                </div>
+        </div>
+    </div>
+
+        <div class="form-row">
+                <div class="col-md form-group">
+                    <label >Предметы преподавателя</label>
+                    <ng-select formControlName="disciplinesData"
+                               [items]="disciplines"
+                               bindLabel="shortDisciplineName"
+                               bindValue="id"
+                               [multiple]="true"
+                               placeholder="Выберите один или несколько предметов, которые ведет преподаватель"
+                               clearAllText="Clear"
+                               >
+                    </ng-select>
+                </div>
+        </div>
+
+    <div class="form-row">
+            <div class="col-md form-group">
                 <br>
                 <button type="submit" [disabled]="!teacherAddForm.valid" class="btn btn-info">Добавить</button>
                 <button type="button" class="btn btn-warning"  (click)="gotoTeacherList()">Отмена</button>
             </div>
-        </form>
     </div>
-</div>
+   </form>
+
+
 <br>
 <br>
 <br>

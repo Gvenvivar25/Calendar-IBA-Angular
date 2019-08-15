@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Discipline} from '../../disciplines/discipline.model';
 import {ActivatedRoute, Router} from '@angular/router';
-import {DisciplinesService} from '../../disciplines/disciplines.service';
 import {Teacher} from '../teacher.model';
 import {TeachersService} from '../teachers.service';
 
@@ -18,12 +17,15 @@ export class TeacherDetailComponent implements OnInit {
     firstName: string;
     patronymic: string;
     typeOfEmployment: string;
+
     teacher: Teacher;
+    disciplines: Discipline[];
 
     constructor(private route: ActivatedRoute, private router: Router, private teachersService: TeachersService) { }
 
     ngOnInit() {
         this.getTeacherDetail(this.idTeach);
+        this.getTeacherDisciplines(this.idTeach);
     }
 
 
@@ -38,6 +40,17 @@ export class TeacherDetailComponent implements OnInit {
             this.typeOfEmployment = res.typeOfEmployment.value;
 
         });
+    }
+
+    getTeacherDisciplines(id: number) {
+        this.teachersService.getAllDisciplinesOfTeacher(id).subscribe(
+            res => {
+                if (res == null) {
+                    console.log('нет данных');
+                 } else { this.disciplines = res;
+                }
+            }
+        );
     }
 
 }

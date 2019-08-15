@@ -17,13 +17,10 @@ export class DisciplineEditComponent implements OnInit {
     constructor(private route: ActivatedRoute, private router: Router, private disciplineService: DisciplinesService) {    }
 
     ngOnInit() {
-        this.id = this.route.snapshot.params['id'];
-        console.log(this.id);
         this.getDiscipline(this.id = this.route.snapshot.params['id']);
-
         this.disciplineForm = new FormGroup({
-            'disciplineName': new FormControl('', Validators.required),
-            'shortDisciplineName': new FormControl('', Validators.required),
+            disciplineName: new FormControl('', Validators.required),
+            shortDisciplineName: new FormControl('', Validators.required),
         });
 
     }
@@ -32,8 +29,6 @@ export class DisciplineEditComponent implements OnInit {
         this.disciplineService.getDiscipline(id).subscribe(res => {
             console.log(res);
             this.discipline = res;
-            this.id = res.id;
-            console.log(this.discipline.shortDisciplineName);
             this.disciplineForm.setValue({
                 disciplineName: res.disciplineName,
                 shortDisciplineName: res.shortDisciplineName

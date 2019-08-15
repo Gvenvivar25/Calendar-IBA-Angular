@@ -1,7 +1,20 @@
-<div>
+<div class="row">
+<div class="col-sm-6">
     <p>Id: {{id}}</p>
     <p>Фамилия: {{lastName}}</p>
     <p>Имя: {{firstName}}</p>
     <p>Отчество: {{patronymic}}</p>
     <p>Вид занятости: {{typeOfEmployment}}</p>
+</div>
+
+    <div class="col-sm-6">
+        <div class="card-header">
+            <p>Предметы преподавателя</p>
+        <div class=" w-75 card bg-light" *ngFor="let discipline of disciplines" >
+            <div class="card-body" *ngIf="disciplines!=null">
+                {{discipline.shortDisciplineName}}
+            </div>
+        </div>
+        </div>
+    </div>
 </div>

@@ -15,6 +15,8 @@ import { TeacherAddComponent } from './teachers/teacher-add/teacher-add.componen
 import { TeacherEditComponent } from './teachers/teacher-edit/teacher-edit.component';
 import { TeacherListComponent } from './teachers/teacher-list/teacher-list.component';
 import { TeacherDetailComponent } from './teachers/teacher-detail/teacher-detail.component';
+import {CommonModule} from '@angular/common';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule ({
     declarations: [
@@ -29,12 +31,14 @@ import { TeacherDetailComponent } from './teachers/teacher-detail/teacher-detail
         TeacherDetailComponent
     ],
     imports: [
+        CommonModule,
         BrowserModule,
         HttpClientModule,
         FormsModule,
         ReactiveFormsModule,
         DictionariesRoutingModule,
-        SidebarModule.forRoot()
+        SidebarModule.forRoot(),
+        NgSelectModule,
 
     ],
     providers: [DisciplinesService]

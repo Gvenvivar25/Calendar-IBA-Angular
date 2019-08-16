@@ -10,6 +10,9 @@ import {TeacherListComponent} from './teachers/teacher-list/teacher-list.compone
 import {TeacherAddComponent} from './teachers/teacher-add/teacher-add.component';
 import {TeacherDetailComponent} from './teachers/teacher-detail/teacher-detail.component';
 import {TeacherEditComponent} from './teachers/teacher-edit/teacher-edit.component';
+import {ClassroomListComponent} from './classrooms/classroom-list/classroom-list.component';
+import {ClassroomAddComponent} from './classrooms/classroom-add/classroom-add.component';
+import {ClassroomEditComponent} from './classrooms/classroom-edit/classroom-edit.component';
 
 
 const dictionariesRoutes: Routes = [
@@ -23,6 +26,10 @@ const dictionariesRoutes: Routes = [
             {path: 'teachers/add', component: TeacherAddComponent},
             {path: 'teachers/detail', component: TeacherDetailComponent},
             {path: 'teachers/edit/:id', component: TeacherEditComponent},
+
+            {path: 'classrooms', component: ClassroomListComponent},
+            {path: 'classrooms/add', component: ClassroomAddComponent},
+            {path: 'classrooms/edit/:id', component: ClassroomEditComponent},
         ] }
 ]
 

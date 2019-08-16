@@ -17,7 +17,7 @@ export class DisciplineEditComponent implements OnInit {
     constructor(private route: ActivatedRoute, private router: Router, private disciplineService: DisciplinesService) {    }
 
     ngOnInit() {
-        this.getDiscipline(this.id = this.route.snapshot.params['id']);
+        this.getDiscipline(this.id = this.route.snapshot.params.id);
         this.disciplineForm = new FormGroup({
             disciplineName: new FormControl('', Validators.required),
             shortDisciplineName: new FormControl('', Validators.required),
@@ -38,7 +38,7 @@ export class DisciplineEditComponent implements OnInit {
 
     onSubmit(form: NgForm) {
         this.disciplineService.updateDiscipline(this.id, form)
-            .subscribe(res => {
+            .subscribe(() => {
                     this.router.navigate(['/dictionaries/disciplines']);
                 }, (err) => {
                     console.log(err);

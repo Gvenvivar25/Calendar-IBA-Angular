@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {catchError, tap} from 'rxjs/operators';
-import {Observable, Subject} from 'rxjs';
+import {Observable} from 'rxjs';
 import {Discipline} from './discipline.model';
 
 const httpOptions = {
@@ -45,7 +45,7 @@ export class DisciplinesService {
         discipline.id = id;
        // console.log(discipline);
         return this.httpClient.put(url, discipline, httpOptions).pipe(
-            tap(_ => console.log(`updated discipline id=${id}`)),
+            tap(() => console.log(`updated discipline id=${id}`)),
             catchError(() => Observable.throw('updateDiscipline'))
         );
     }
@@ -53,7 +53,7 @@ export class DisciplinesService {
     deleteDiscipline(id: number): Observable<any> {
         const url = `${discUrl}/${id}`;
         return this.httpClient.delete(url, httpOptions).pipe(
-            tap(_ => console.log(`deleted discipline id=${id}`)),
+            tap(() => console.log(`deleted discipline id=${id}`)),
             catchError(() => Observable.throw('deleteDiscipline'))
         );
     }

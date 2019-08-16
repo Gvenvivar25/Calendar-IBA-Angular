@@ -49,6 +49,12 @@ export class TeacherListComponent implements OnInit {
     }
 
     onDeleteTeacher(teacher: Teacher) {
+        /*this.teachersService.getAllDisciplinesOfTeacher(teacher.id).subscribe(res => {
+            for (let i = 0, len = Object.keys(res).length; i < len; i++) {
+                this.teachersService.deleteDisciplineOfTeacher(teacher.id, res[i].id)
+                    .subscribe();
+            }
+        })*/
         this.teachersService.deleteTeacher(teacher.id).subscribe(() => {
             this.loadTeachers();
         });

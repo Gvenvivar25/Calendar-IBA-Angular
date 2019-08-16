@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import { FormControl, FormGroup, Validators} from '@angular/forms';
 import {TeacherRequest, Type} from '../teacher.model';
 import {Discipline} from '../../disciplines/discipline.model';
 import {TeachersService} from '../teachers.service';
@@ -16,19 +16,19 @@ export class TeacherEditComponent implements OnInit {
     teacherEditForm: FormGroup;
     typesE: Type [];
     disciplines: Discipline [];
-    selectedDisciplines: Array <Discipline> = new Array();
+    selectedDisciplines: Discipline [];
     typeOfEmployment: string;
     discId: number[];
     id: number;
 
     constructor(private teachersService: TeachersService, private route: ActivatedRoute, private router: Router,
-                private disciplinesService: DisciplinesService, private fb: FormBuilder) {
+                private disciplinesService: DisciplinesService) {
         this.teacherEditForm = this.createFormGroup();
     }
 
     ngOnInit() {
-      this.id = this.route.snapshot.params['id'];
-      this.getTeacher(this.route.snapshot.params['id']);
+      this.id = this.route.snapshot.params.id;
+      this.getTeacher(this.route.snapshot.params.id);
       this.teachersService.getTypesOfEmployment().subscribe((res: Type[]) => {
             this.typesE = res;
         } );
@@ -37,7 +37,7 @@ export class TeacherEditComponent implements OnInit {
             this.disciplines = data;
         });
 
-      this.teachersService.getAllDisciplinesOfTeacher(this.route.snapshot.params['id'])
+      this.teachersService.getAllDisciplinesOfTeacher(this.route.snapshot.params.id)
             .subscribe((data: Discipline[]) => {
               this.selectedDisciplines = data;
         });
@@ -76,7 +76,7 @@ export class TeacherEditComponent implements OnInit {
     }
 
     onDeleteSelectedDiscipline(idD: number) {
-        this.teachersService.deleteDisciplineOfTeacher(this.id, idD).subscribe(res => console.log('Discipline is deleted'));
+        this.teachersService.deleteDisciplineOfTeacher(this.id, idD).subscribe(() => console.log('Discipline is deleted'));
     }
 // старый вариант селектора
     /*    get typeOfEmployment() {
@@ -99,7 +99,7 @@ export class TeacherEditComponent implements OnInit {
         this.discId = result.disciplinesData;
         console.log( result.disciplinesData);
         this.teachersService.updateTeacher(this.id, result.teacherData)
-            .subscribe(res => console.log('Submitted!'));
+            .subscribe(() => console.log('Submitted!'));
 
         console.log('id: ', this.id);
 

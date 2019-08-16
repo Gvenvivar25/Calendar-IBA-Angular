@@ -17,6 +17,9 @@ import { TeacherListComponent } from './teachers/teacher-list/teacher-list.compo
 import { TeacherDetailComponent } from './teachers/teacher-detail/teacher-detail.component';
 import {CommonModule} from '@angular/common';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { ClassroomListComponent } from './classrooms/classroom-list/classroom-list.component';
+import { ClassroomAddComponent } from './classrooms/classroom-add/classroom-add.component';
+import { ClassroomEditComponent } from './classrooms/classroom-edit/classroom-edit.component';
 
 @NgModule ({
     declarations: [
@@ -28,7 +31,10 @@ import { NgSelectModule } from '@ng-select/ng-select';
         TeacherAddComponent,
         TeacherEditComponent,
         TeacherListComponent,
-        TeacherDetailComponent
+        TeacherDetailComponent,
+        ClassroomListComponent,
+        ClassroomAddComponent,
+        ClassroomEditComponent
     ],
     imports: [
         CommonModule,

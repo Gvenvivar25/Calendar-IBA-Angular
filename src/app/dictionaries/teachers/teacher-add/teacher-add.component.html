@@ -36,13 +36,14 @@
         <div class="form-row">
                 <div class="col-md form-group">
                     <label>Вид найма </label>
-                    <ng-select formControlName="typeOfEmployment"
+                    <ng-select
                                [items]="types"
                                bindLabel="value"
                                bindValue="id"
                                [multiple]="false"
                                placeholder="Выберите вид найма"
                                clearAllText="Clear"
+                               formControlName="typeOfEmployment"
                     >
                     </ng-select>
 
@@ -53,13 +54,14 @@
         <div class="form-row">
                 <div class="col-md form-group">
                     <label >Предметы преподавателя</label>
-                    <ng-select formControlName="disciplinesData"
+                    <ng-select
                                [items]="disciplines"
                                bindLabel="shortDisciplineName"
                                bindValue="id"
                                [multiple]="true"
                                placeholder="Выберите один или несколько предметов, которые ведет преподаватель"
                                clearAllText="Clear"
+                               formControlName="disciplinesData"
                                >
                     </ng-select>
                 </div>

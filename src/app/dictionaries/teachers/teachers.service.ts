@@ -48,7 +48,9 @@ export class TeachersService {
         teacher.id = id;
         // console.log(discipline);
         return this.httpClient.put(url, teacher, httpOptions).pipe(
-            tap(() => console.log(`updated teacher id=${id}`)),
+            tap(() => {
+                return console.log(`updated teacher id=${id}`);
+            }),
             catchError(err => {console.log(err, 'Отсутсвуют данные в БД');
                                return of(null); })
         );

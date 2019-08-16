@@ -1,0 +1,47 @@
+<div class="col-sm-6">
+    <form [formGroup]="classroomEditForm" (ngSubmit)="onSubmit()">
+        <p>Введите новые данные об аудитории: </p>
+
+        <div class="form-row">
+            <div class="col-md form-group">
+                <label >Номер аудитории</label>
+                <input type="text" formControlName="number"
+                       class="form-control"  placeholder="Введите номер аудитории">
+
+                <p *ngIf="!classroomEditForm.get('number').valid
+                          && classroomEditForm.get('number').touched" class="alert alert-danger">
+                                Поле обязательно для заполнения. Введите номер аудитории!</p>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md form-group">
+                <label>Выберите тип аудитории: </label>
+
+                <ng-select formControlName="typeOfClassroom"
+                                   [items]="typesOfClassroom"
+                                   bindLabel="value"
+                                   bindValue="id"
+                                   [multiple]="false"
+                                   placeholder="Выберите тип аудитории"
+                                   clearAllText="Clear"
+                >
+                </ng-select>
+            </div>
+        </div>
+
+        <br>
+        <button type="submit" [disabled]="!classroomEditForm.valid"
+                class="btn btn-info">Сохранить</button>
+        <button type="button" class="btn btn-warning"  (click)="gotoClassroomList()">Отмена</button>
+
+
+    </form>
+</div>
+
+<br>
+<br>
+<br>
+
+
+

@@ -1,4 +1,4 @@
-export class ClassroomModel {
+export class Classroom {
     public id: number;
     public number: string;
     public typeOfClassroom: TypeOfClassroom;
@@ -6,6 +6,6 @@ export class ClassroomModel {
 
 export class TypeOfClassroom {
     public id: string;
-    public description: string;
+    public value: string;
 
 }

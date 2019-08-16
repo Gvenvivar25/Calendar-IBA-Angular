@@ -18,14 +18,14 @@ export class DisciplineAddComponent implements OnInit {
 
     ngOnInit() {
         this.disciplineAddForm = new FormGroup({
-            'shortDisciplineName': new FormControl('', Validators.required),
-            'disciplineName': new FormControl('', Validators.required),
+            shortDisciplineName: new FormControl('', Validators.required),
+            disciplineName: new FormControl('', Validators.required),
         });
     }
 
     onSubmit(form: NgForm) {
         console.log('Submitted!', form);
-        this.disciplineService.saveDisciplines(form).subscribe(result => this.gotoDisciplineList());
+        this.disciplineService.saveDisciplines(form).subscribe(() => this.gotoDisciplineList());
     }
 
     gotoDisciplineList() {

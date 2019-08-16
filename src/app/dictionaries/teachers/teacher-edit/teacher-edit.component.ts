@@ -113,9 +113,4 @@ export class TeacherEditComponent implements OnInit {
     gotoTeacherList() {
         this.router.navigate(['/dictionaries/teachers']);
     }
-
-
-
-
-
 }

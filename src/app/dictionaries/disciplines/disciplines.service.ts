@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {catchError, tap} from 'rxjs/operators';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {Discipline} from './discipline.model';
+import {Teacher} from '../teachers/teacher.model';
 
 const httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -17,24 +18,25 @@ export class DisciplinesService {
     constructor(private httpClient: HttpClient) {}
 
     getDisciplines(): Observable<Discipline[]> {
-        return this.httpClient.get<Discipline[]>(discUrl)
-            .pipe(
-                catchError(() => Observable.throw('Сервер не доступен'))
-            );
+        return this.httpClient.get<Discipline[]>(discUrl).pipe(
+            catchError(err => {console.log(err, 'Не удалось получить данные');
+                               return of(null); })
+        );
     }
 
     getDiscipline(id: number): Observable<Discipline> {
         const url = `${discUrl}/${id}`;
-        return this.httpClient.get<Discipline>(url)
-            .pipe(
-            catchError(() => Observable.throw('Сервер не доступен'))
+        return this.httpClient.get<Discipline>(url).pipe(
+            catchError(err => {console.log(err, 'Не удалось получить данные');
+                               return of(null); })
         );
     }
 
     saveDisciplines(discipline) {
         return this.httpClient.post<Discipline>(discUrl, discipline).pipe(
             tap((res: Discipline) => console.log(`added discipline id=${res.id}`)),
-            catchError(() => Observable.throw('addDiscipline'))
+            catchError(err => {console.log(err, 'Не удалось сохранить данные');
+                               return of(null); })
         );
     }
 
@@ -46,7 +48,8 @@ export class DisciplinesService {
        // console.log(discipline);
         return this.httpClient.put(url, discipline, httpOptions).pipe(
             tap(() => console.log(`updated discipline id=${id}`)),
-            catchError(() => Observable.throw('updateDiscipline'))
+            catchError(err => {console.log(err, 'Не удалось обновить данные');
+                               return of(null); })
         );
     }
 
@@ -54,7 +57,8 @@ export class DisciplinesService {
         const url = `${discUrl}/${id}`;
         return this.httpClient.delete(url, httpOptions).pipe(
             tap(() => console.log(`deleted discipline id=${id}`)),
-            catchError(() => Observable.throw('deleteDiscipline'))
+            catchError(err => {console.log(err, 'Не удалось удалить данные');
+                               return of(null); })
         );
     }
 }

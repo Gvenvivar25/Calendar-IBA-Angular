@@ -1,0 +1,41 @@
+<div class="col-sm-6">
+    <form [formGroup]="departmentEditForm" (ngSubmit)="onSubmit()">
+        <p>Введите новые данные о кафедре: </p>
+
+        <div class="form-group">
+            <label >Краткое наименование кафедры</label>
+            <input type="text" formControlName="shortName"
+                   class="form-control"  placeholder="Введите краткое наименование кафедры">
+
+            <p *ngIf="!departmentEditForm.get('shortName').valid
+                        && departmentEditForm.get('shortName').touched" class="alert alert-danger">
+                Поле обязательно для заполнения. Введите краткое наименование кафедры!</p>
+        </div>
+
+        <div class="form-group">
+            <label >Полное наименование кафедры</label>
+            <input type="text" formControlName="name"
+                   class="form-control"  placeholder="Введите полное наименование кафедры">
+
+            <p *ngIf="!departmentEditForm.get('name').valid
+                        && departmentEditForm.get('name').touched" class="alert alert-danger">
+                Поле обязательно для заполнения. Введите полное наименование кафедры!</p>
+        </div>
+
+        <br>
+        <button type="submit" [disabled]="!departmentEditForm.valid"
+                class="btn btn-info">Сохранить</button>
+        <button type="button" class="btn btn-warning"  (click)="gotoCoursesList()">Отмена</button>
+
+
+    </form>
+</div>
+
+<br>
+<br>
+<br>
+
+
+
+
+

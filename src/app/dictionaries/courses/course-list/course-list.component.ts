@@ -33,6 +33,4 @@ export class CourseListComponent implements OnInit {
     onAdd() {
         this.router.navigate(['./add'], {relativeTo: this.route});
     }
-
-
 }

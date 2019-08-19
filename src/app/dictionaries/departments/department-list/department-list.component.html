@@ -1,0 +1,62 @@
+<div class="container-fluid">
+
+    <div class="row" >
+        <div class="col-sm-12" >
+            <h3>Кафедры</h3>
+        </div>
+    </div>
+
+    <hr>
+    <div class="row">
+        <div class="col-sm">
+            <button class="btn-add" title="Добавить" (click)="onAdd()" > <span class="oi oi-plus"></span> Добавить </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm">
+            <table class="table table-active">
+                <thead class="thead-light">
+                <tr>
+
+                    <th>№</th>
+                    <th>Краткое наименование кафедры</th>
+                    <th>Полное наименование кафедры</th>
+                    <th></th>
+
+                </tr>
+                </thead>
+
+
+                <tbody>
+                <ng-template ngFor let-department [ngForOf]="departments" let-i="index"
+                >
+                    <tr>
+
+                        <td scope="row"> {{i+1}}</td>
+
+                        <td>{{department.shortName}} </td>
+                        <td>{{department.name}}</td>
+                        <td class="td-p-4">
+                            <button class="btn-edit" title="Редактировать" [routerLink]="['edit', department.id]" >
+                                <span class="oi oi-pencil"></span>
+                            </button>
+                            <button class="btn-delete" title="Удалить" (click)="onDeleteDepartment(department)">
+                                <span class="oi oi-trash"></span>
+                            </button>
+                        </td>
+                    </tr>
+                </ng-template>
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+<br>
+<br>
+<br>
+
+
+
+

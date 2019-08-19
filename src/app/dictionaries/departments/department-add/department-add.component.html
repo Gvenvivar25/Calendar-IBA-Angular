@@ -1,0 +1,33 @@
+<div class="card my-10">
+    <div class="card-body">
+        <form [formGroup]="departmentForm" (ngSubmit)="onSubmit(departmentForm.value)">
+            <div class="form-group">
+                <label >Краткое наименование кафедры</label>
+                <input type="text" formControlName="shortName"
+                       class="form-control"  placeholder="Введите краткоенаименование кафедры">
+
+                <p *ngIf="!departmentForm.get('shortName').valid
+                    && departmentForm.get('shortName').touched" class="alert alert-danger">
+                    Поле обязательно для заполнения. Введите краткое наименование курса!</p>
+            </div>
+
+            <div class="form-group">
+                <label >Полное наименование кафедры</label>
+                <input type="text" formControlName="name"
+                       class="form-control"  placeholder="Введите полное наименование кафедры">
+
+                <p *ngIf="!departmentForm.get('name').valid
+                && departmentForm.get('name').touched" class="alert alert-danger">
+                    Поле обязательно для заполнения. Введите полное наименование кафедры!</p>
+            </div>
+
+
+            <button type="submit" [disabled]="!departmentForm" class="btn btn-info">Добавить</button>
+            <button type="button" class="btn btn-warning"  (click)="gotoDepartmentsList()">Отмена</button>
+
+        </form>
+    </div>
+</div>
+
+
+

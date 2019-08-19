@@ -24,6 +24,14 @@ import { TeacherEditDisciplinesComponent } from './teachers/teacher-edit-discipl
 import { CourseListComponent } from './courses/course-list/course-list.component';
 import { CourseAddComponent } from './courses/course-add/course-add.component';
 import { CourseEditComponent } from './courses/course-edit/course-edit.component';
+import { DepartmentListComponent } from './departments/department-list/department-list.component';
+import { DepartmentAddComponent } from './departments/department-add/department-add.component';
+import { DepartmentEditComponent } from './departments/department-edit/department-edit.component';
+import { DepartmentDetailComponent } from './departments/department-detail/department-detail.component';
+import { GroupListComponent } from './groups/group-list/group-list.component';
+import { GroupAddComponent } from './groups/group-add/group-add.component';
+import { GroupEditComponent } from './groups/group-edit/group-edit.component';
+import { GroupDetailComponent } from './groups/group-detail/group-detail.component';
 
 @NgModule ({
     declarations: [
@@ -42,7 +50,15 @@ import { CourseEditComponent } from './courses/course-edit/course-edit.component
         TeacherEditDisciplinesComponent,
         CourseListComponent,
         CourseAddComponent,
-        CourseEditComponent
+        CourseEditComponent,
+        DepartmentListComponent,
+        DepartmentAddComponent,
+        DepartmentEditComponent,
+        DepartmentDetailComponent,
+        GroupListComponent,
+        GroupAddComponent,
+        GroupEditComponent,
+        GroupDetailComponent
     ],
     imports: [
         CommonModule,

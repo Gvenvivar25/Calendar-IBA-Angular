@@ -1,0 +1,63 @@
+<div class="container-fluid">
+
+    <div class="row" >
+        <div class="col-sm-12" >
+            <h3>Группы</h3>
+        </div>
+    </div>
+
+    <hr>
+    <div class="row">
+        <div class="col-sm">
+            <button class="btn-add" title="Добавить" (click)="onAdd()" > <span class="oi oi-plus"></span> Добавить </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm">
+            <table class="table table-active">
+                <thead class="thead-light">
+                <tr>
+
+                    <th>№</th>
+                    <th>Наименование группы</th>
+                    <th>Количество подгрупп</th>
+                    <th></th>
+
+                </tr>
+                </thead>
+
+
+                <tbody>
+                <ng-template ngFor let-group [ngForOf]="groups" let-i="index"
+                >
+                    <tr>
+
+                        <td scope="row"> {{i+1}}</td>
+
+                        <td>{{group.groupName}} </td>
+                        <td>{{group.numberOfSubgroup}}</td>
+                        <td class="td-p-4">
+                            <button class="btn-edit" title="Редактировать" [routerLink]="['edit', group.id]" >
+                                <span class="oi oi-pencil"></span>
+                            </button>
+                            <button class="btn-delete" title="Удалить" (click)="onDelete(group)">
+                                <span class="oi oi-trash"></span>
+                            </button>
+                        </td>
+                    </tr>
+                </ng-template>
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+<br>
+<br>
+<br>
+
+
+
+
+

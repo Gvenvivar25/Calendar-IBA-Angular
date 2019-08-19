@@ -17,6 +17,14 @@ import {TeacherEditDisciplinesComponent} from './teachers/teacher-edit-disciplin
 import {CourseListComponent} from './courses/course-list/course-list.component';
 import {CourseAddComponent} from './courses/course-add/course-add.component';
 import {CourseEditComponent} from './courses/course-edit/course-edit.component';
+import {DepartmentListComponent} from './departments/department-list/department-list.component';
+import {DepartmentAddComponent} from './departments/department-add/department-add.component';
+import {DepartmentEditComponent} from './departments/department-edit/department-edit.component';
+import {DepartmentDetailComponent} from './departments/department-detail/department-detail.component';
+import {GroupListComponent} from './groups/group-list/group-list.component';
+import {GroupAddComponent} from './groups/group-add/group-add.component';
+import {GroupDetailComponent} from './groups/group-detail/group-detail.component';
+import {GroupEditComponent} from './groups/group-edit/group-edit.component';
 
 
 const dictionariesRoutes: Routes = [
@@ -39,8 +47,19 @@ const dictionariesRoutes: Routes = [
             {path: 'courses', component: CourseListComponent},
             {path: 'courses/add', component: CourseAddComponent},
             {path: 'courses/edit/:id', component: CourseEditComponent},
-        ] }
-        ];
+
+            {path: 'departments', component: DepartmentListComponent},
+            {path: 'departments/add', component: DepartmentAddComponent},
+            {path: 'departments/edit/:id', component: DepartmentEditComponent},
+            {path: 'departments/detail', component: DepartmentDetailComponent},
+
+            {path: 'groups', component: GroupListComponent},
+            {path: 'groups/add', component: GroupAddComponent},
+            {path: 'groups/detail', component: GroupDetailComponent},
+            {path: 'groups/edit/:id', component: GroupEditComponent},
+        ]}
+];
+
 
 @NgModule({
     imports: [

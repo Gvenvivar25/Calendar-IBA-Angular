@@ -1,0 +1,30 @@
+<div class="card my-10">
+    <div class="card-body">
+        <form [formGroup]="groupForm" (ngSubmit)="onSubmit(groupForm.value)">
+            <div class="form-group">
+                <label >Наименование группы</label>
+                <input type="text" formControlName="groupName"
+                       class="form-control"  placeholder="Введите наименование группы">
+
+                <p *ngIf="!groupForm.get('groupName').valid
+                    && groupForm.get('groupName').touched" class="alert alert-danger">
+                    Поле обязательно для заполнения. Введите наименование группы!</p>
+            </div>
+
+            <div class="form-group">
+                <label >Количество подгрупп</label>
+                <input type="text" formControlName="numberOfSubgroup"
+                       class="form-control"  placeholder="Введите количество подгрупп">
+
+                <p *ngIf="!groupForm.get('numberOfSubgroup').valid
+                && groupForm.get('numberOfSubgroup').touched" class="alert alert-danger">
+                    Поле не заполнено или введены не цифры. Введите цифры от 1 до 9!</p>
+            </div>
+
+
+            <button type="submit" [disabled]="!groupForm" class="btn btn-info">Добавить</button>
+            <button type="button" class="btn btn-warning"  (click)="gotoDepartmentsList()">Отмена</button>
+
+        </form>
+    </div>
+</div>

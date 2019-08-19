@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {DisciplinesService} from '../../disciplines/disciplines.service';
 import {ClassroomService} from '../classroom.service';
 import {TypeOfClassroom} from '../classroom.model';
 import {Type} from '../../teachers/teacher.model';
@@ -37,8 +36,4 @@ export class ClassroomAddComponent implements OnInit {
     gotoClassroomList() {
         this.router.navigate(['/dictionaries/classrooms']);
     }
-
-
-
-
 }

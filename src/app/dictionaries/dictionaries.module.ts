@@ -20,6 +20,10 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { ClassroomListComponent } from './classrooms/classroom-list/classroom-list.component';
 import { ClassroomAddComponent } from './classrooms/classroom-add/classroom-add.component';
 import { ClassroomEditComponent } from './classrooms/classroom-edit/classroom-edit.component';
+import { TeacherEditDisciplinesComponent } from './teachers/teacher-edit-disciplines/teacher-edit-disciplines.component';
+import { CourseListComponent } from './courses/course-list/course-list.component';
+import { CourseAddComponent } from './courses/course-add/course-add.component';
+import { CourseEditComponent } from './courses/course-edit/course-edit.component';
 
 @NgModule ({
     declarations: [
@@ -34,7 +38,11 @@ import { ClassroomEditComponent } from './classrooms/classroom-edit/classroom-ed
         TeacherDetailComponent,
         ClassroomListComponent,
         ClassroomAddComponent,
-        ClassroomEditComponent
+        ClassroomEditComponent,
+        TeacherEditDisciplinesComponent,
+        CourseListComponent,
+        CourseAddComponent,
+        CourseEditComponent
     ],
     imports: [
         CommonModule,

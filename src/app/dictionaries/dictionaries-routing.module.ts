@@ -13,6 +13,10 @@ import {TeacherEditComponent} from './teachers/teacher-edit/teacher-edit.compone
 import {ClassroomListComponent} from './classrooms/classroom-list/classroom-list.component';
 import {ClassroomAddComponent} from './classrooms/classroom-add/classroom-add.component';
 import {ClassroomEditComponent} from './classrooms/classroom-edit/classroom-edit.component';
+import {TeacherEditDisciplinesComponent} from './teachers/teacher-edit-disciplines/teacher-edit-disciplines.component';
+import {CourseListComponent} from './courses/course-list/course-list.component';
+import {CourseAddComponent} from './courses/course-add/course-add.component';
+import {CourseEditComponent} from './courses/course-edit/course-edit.component';
 
 
 const dictionariesRoutes: Routes = [
@@ -26,12 +30,17 @@ const dictionariesRoutes: Routes = [
             {path: 'teachers/add', component: TeacherAddComponent},
             {path: 'teachers/detail', component: TeacherDetailComponent},
             {path: 'teachers/edit/:id', component: TeacherEditComponent},
+            {path: 'teachers/disciplines/:id', component: TeacherEditDisciplinesComponent},
 
             {path: 'classrooms', component: ClassroomListComponent},
             {path: 'classrooms/add', component: ClassroomAddComponent},
             {path: 'classrooms/edit/:id', component: ClassroomEditComponent},
+
+            {path: 'courses', component: CourseListComponent},
+            {path: 'courses/add', component: CourseAddComponent},
+            {path: 'courses/edit/:id', component: CourseEditComponent},
         ] }
-]
+        ];
 
 @NgModule({
     imports: [

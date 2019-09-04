@@ -3,11 +3,13 @@ import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 import {Group} from './group.model';
+import {DescriptionOfPlan} from '../courses/course.model';
 
 const httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
 const urlG = 'http://localhost:8080/api/groups';
+const urlD = 'http://localhost:8080/api/description_of_plans';
 
 @Injectable({
     providedIn: 'root'
@@ -59,4 +61,14 @@ export class GroupService {
                                return of(null); })
         );
     }
+
+    getDiscriptionOfPlan(id: number): Observable<DescriptionOfPlan> {
+        const url = `${urlD}/${id}`;
+        return this.httpClient.get<DescriptionOfPlan>(url).pipe(
+            catchError(err => {console.log(err, 'Отсутсвуют данные в БД');
+                               return of(null); })
+        );
+    }
+
+
 }

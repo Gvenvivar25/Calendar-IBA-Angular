@@ -11,6 +11,8 @@ import {GroupService} from '../group.service';
 export class GroupListComponent implements OnInit {
 
     groups: Group [];
+    descOfPlanName: string;
+
     constructor(private groupService: GroupService, private router: Router, private route: ActivatedRoute) {}
 
     ngOnInit() {
@@ -21,8 +23,12 @@ export class GroupListComponent implements OnInit {
         return this.groupService.getGroups()
             .subscribe((data: Group[]) => {
                 this.groups = data;
+                for (let i = 0, len = this.groups.length; i < len; i++) {
+                   this.groupService.getDiscriptionOfPlan(this.groups[i].id_descriptionOfPlan)
+                        .subscribe(res => this.descOfPlanName = res.description); }
             });
     }
+
 
     onDelete(group: Group) {
         this.groupService.deleteGroup(group.id).subscribe(() => {

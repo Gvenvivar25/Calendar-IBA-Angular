@@ -20,6 +20,9 @@
 
                     <th>№</th>
                     <th>Наименование группы</th>
+                    <th>Вид курса</th>
+                    <th>Форма образования</th>
+                    <th>Учебный план</th>
                     <th>Количество подгрупп</th>
                     <th></th>
 
@@ -35,6 +38,9 @@
                         <td scope="row"> {{i+1}}</td>
 
                         <td>{{group.groupName}} </td>
+                        <td>{{group.typeOfCourse.short_value}} </td>
+                        <td>{{group.typeOfEducation.short_value}} </td>
+                        <td>{{descOfPlanName}} </td>
                         <td>{{group.numberOfSubgroup}}</td>
                         <td class="td-p-4">
                             <button class="btn-edit" title="Редактировать" [routerLink]="['edit', group.id]" >

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {CourseService} from '../course.service';
+import {DescriptionOfPlanService} from '../../../shared/services/description-of-plan.service';
 
 @Component({
   selector: 'app-course-add',
@@ -12,20 +12,18 @@ export class CourseAddComponent implements OnInit {
 
     courseForm: FormGroup;
 
-    constructor(private route: ActivatedRoute, private router: Router, private courseService: CourseService) {
+    constructor(private route: ActivatedRoute, private router: Router, private descriptionOfPlanService: DescriptionOfPlanService) {
     }
 
     ngOnInit() {
         this.courseForm = new FormGroup({
-            shortCourseName: new FormControl('', Validators.required),
-            courseName: new FormControl('', Validators.required),
-            numberOfHours: new FormControl(''), //поставить валидаторы?
+            description: new FormControl('', Validators.required),
         });
     }
 
     onSubmit(form: NgForm) {
         console.log('Submitted!', form);
-        this.courseService.saveCourse(form).subscribe(() => this.gotoCoursesList());
+        this.descriptionOfPlanService.saveDescriptionOfPlan(form).subscribe(() => this.gotoCoursesList());
     }
 
     gotoCoursesList() {

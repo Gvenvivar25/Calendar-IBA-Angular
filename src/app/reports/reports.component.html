@@ -1,0 +1,23 @@
+<div class="col-sm-8">
+    <form [formGroup]="reportForm">
+        <div class="form-group">
+            <label>Выберите формат отчета: </label>
+            <ng-select formControlName="format"
+                       [items]="formats"
+                       bindLabel="value"
+                       bindValue="value"
+                       [multiple]="false"
+                       placeholder="Выберите формат отчета"
+                       clearAllText="Clear"
+            >
+
+            </ng-select>
+        </div>
+        <button class=" btn btn-outline-info" type="submit" style=" width:250px; text-align: left"
+                (click)="getTeachersReport()">Отчет по преподавателям</button>
+        <br>
+        <button class="btn btn-outline-info" type="submit" style=" width:250px; text-align: left"
+                (click)="getDisciplinesReport()">Отчет по предметам</button>
+
+    </form>
+</div>

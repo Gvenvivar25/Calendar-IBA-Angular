@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Course} from '../course.model';
+import {Course, DescriptionOfPlan} from '../course.model';
 import {CourseService} from '../course.service';
+import {DescriptionOfPlanService} from '../../../shared/services/description-of-plan.service';
 
 @Component({
   selector: 'app-course-list',
@@ -10,22 +11,39 @@ import {CourseService} from '../course.service';
 })
 export class CourseListComponent implements OnInit {
 
-    courses: Course [];
-    constructor(private courseService: CourseService, private router: Router, private route: ActivatedRoute) {}
+    id: number;
+    courses: DescriptionOfPlan [];
+    rowSelected: number;
+
+    constructor(private descriptionOfPlanService: DescriptionOfPlanService, private router: Router, private route: ActivatedRoute) {
+        this.rowSelected = -1;
+    }
 
     ngOnInit() {
         this.loadCourses();
     }
 
     loadCourses() {
-        return this.courseService.getCourses()
-            .subscribe((data: Course[]) => {
+        return this.descriptionOfPlanService.getDescriptionOfPlans()
+            .subscribe((data: DescriptionOfPlan[]) => {
                 this.courses = data;
             });
     }
 
+    onSelect(idCourse: number): void {
+        if (this.rowSelected === -1) {
+            this.rowSelected = idCourse;
+        } else {
+            if (this.rowSelected === idCourse) {
+                this.rowSelected = -1;
+            } else {
+                this.rowSelected = idCourse;
+            }
+        }
+    }
+
     onDeleteCourse(course: Course) {
-        this.courseService.deleteCourse(course.id).subscribe(() => {
+        this.descriptionOfPlanService.deleteDescriptionOfPlan(course.id).subscribe(() => {
             this.loadCourses();
         });
     }

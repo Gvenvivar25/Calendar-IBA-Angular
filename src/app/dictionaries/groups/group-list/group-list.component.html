@@ -40,7 +40,7 @@
                         <td>{{group.groupName}} </td>
                         <td>{{group.typeOfCourse.short_value}} </td>
                         <td>{{group.typeOfEducation.short_value}} </td>
-                        <td>{{descOfPlanName}} </td>
+                        <td>{{descOfPlanName[i]}} </td>
                         <td>{{group.numberOfSubgroup}}</td>
                         <td class="td-p-4">
                             <button class="btn-edit" title="Редактировать" [routerLink]="['edit', group.id]" >

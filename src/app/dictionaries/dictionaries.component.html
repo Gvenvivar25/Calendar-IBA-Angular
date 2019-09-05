@@ -25,7 +25,11 @@
 
             <nav class="navbar-dark">
                     <ul class="navbar-nav">
-
+                        <li class="nav-item"
+                            routerLinkActive="active"
+                            [routerLinkActiveOptions]="{exact: false}">
+                            <a class="nav-link" [routerLink]="'./classrooms'">Аудитории</a>
+                        </li>
                         <li class="nav-item"
                             routerLinkActive="active"
                             [routerLinkActiveOptions]="{exact: true}">
@@ -39,7 +43,12 @@
                         <li class="nav-item"
                             routerLinkActive="active"
                             [routerLinkActiveOptions]="{exact: false}">
-                            <a class="nav-link" [routerLink]="'./classrooms'">Аудитории</a>
+                            <a class="nav-link" [routerLink]="'./groups'">Группы</a>
+                        </li>
+                        <li class="nav-item"
+                            routerLinkActive="active"
+                            [routerLinkActiveOptions]="{exact: false}">
+                            <a class="nav-link" [routerLink]="'./courses'">Учебные планы</a>
                         </li>
                         <li class="nav-item"
                             routerLinkActive="active"
@@ -50,16 +59,6 @@
                             routerLinkActive="active"
                             [routerLinkActiveOptions]="{exact: false}">
                             <a class="nav-link" href="#">Сотрудники</a>
-                        </li>
-                        <li class="nav-item"
-                            routerLinkActive="active"
-                            [routerLinkActiveOptions]="{exact: false}">
-                            <a class="nav-link" [routerLink]="'./groups'">Группы</a>
-                        </li>
-                        <li class="nav-item"
-                            routerLinkActive="active"
-                            [routerLinkActiveOptions]="{exact: false}">
-                            <a class="nav-link" [routerLink]="'./courses'">Учебные планы</a>
                         </li>
                         <li class="nav-item"
                             routerLinkActive="active"

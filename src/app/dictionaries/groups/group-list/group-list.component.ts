@@ -11,7 +11,7 @@ import {GroupService} from '../group.service';
 export class GroupListComponent implements OnInit {
 
     groups: Group [];
-    descOfPlanName: string;
+    descOfPlanName: string [];
 
     constructor(private groupService: GroupService, private router: Router, private route: ActivatedRoute) {}
 
@@ -23,9 +23,10 @@ export class GroupListComponent implements OnInit {
         return this.groupService.getGroups()
             .subscribe((data: Group[]) => {
                 this.groups = data;
+                this.descOfPlanName = [];
                 for (let i = 0, len = this.groups.length; i < len; i++) {
                    this.groupService.getDiscriptionOfPlan(this.groups[i].id_descriptionOfPlan)
-                        .subscribe(res => this.descOfPlanName = res.description); }
+                        .subscribe(res => this.descOfPlanName.push(res.description)); }
             });
     }
 

@@ -17,11 +17,10 @@
             <table class="table table-active">
                 <thead class="thead-light">
                 <tr>
-
+                    <th></th>
                     <th>№</th>
-                    <th>Краткое наименование курса</th>
-                    <th>Полное наименование курса</th>
-                    <th>Количество часов в курсе</th>
+                    <th>Наименование учебного плана</th>
+                    <th>Количество часов в плане</th>
                     <th></th>
 
                 </tr>
@@ -31,20 +30,28 @@
                 <tbody>
                 <ng-template ngFor let-course [ngForOf]="courses" let-i="index"
                 >
-                    <tr>
-
+                    <tr (click)="onSelect(course.id)">
+                        <td><img src="./assets/arrow.ico" alt="Развернуть" width="15" height="15"></td>
                         <td scope="row"> {{i+1}}</td>
 
-                        <td>{{course.shortCourseName}} </td>
-                        <td>{{course.courseName}}</td>
-                        <td>{{course.numberOfHours}}</td>
+                        <td>{{course.description}} </td>
+                        <td></td>
                         <td class="td-p-4">
+                            <button class="btn-edit-yellow" title="Добавить/удалить дисциплины в учебный план"
+                                    [routerLink]="['lessonplans', course.id]" >
+                                <span class="oi oi-list"></span>
+                            </button>
                             <button class="btn-edit" title="Редактировать" [routerLink]="['edit', course.id]" >
                                 <span class="oi oi-pencil"></span>
                             </button>
                             <button class="btn-delete" title="Удалить" (click)="onDeleteCourse(course)">
                                 <span class="oi oi-trash"></span>
                             </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="6" *ngIf="rowSelected==course.id" >
+                            <app-course-detail [idCourse]="course.id"></app-course-detail>
                         </td>
                     </tr>
                 </ng-template>

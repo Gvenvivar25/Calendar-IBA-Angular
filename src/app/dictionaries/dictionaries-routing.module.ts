@@ -25,6 +25,7 @@ import {GroupListComponent} from './groups/group-list/group-list.component';
 import {GroupAddComponent} from './groups/group-add/group-add.component';
 import {GroupDetailComponent} from './groups/group-detail/group-detail.component';
 import {GroupEditComponent} from './groups/group-edit/group-edit.component';
+import {LessonPlanEditComponent} from './courses/lesson-plan-edit/lesson-plan-edit.component';
 
 
 const dictionariesRoutes: Routes = [
@@ -47,6 +48,7 @@ const dictionariesRoutes: Routes = [
             {path: 'courses', component: CourseListComponent},
             {path: 'courses/add', component: CourseAddComponent},
             {path: 'courses/edit/:id', component: CourseEditComponent},
+            {path: 'courses/lessonplans/:id', component: LessonPlanEditComponent},
 
             {path: 'departments', component: DepartmentListComponent},
             {path: 'departments/add', component: DepartmentAddComponent},

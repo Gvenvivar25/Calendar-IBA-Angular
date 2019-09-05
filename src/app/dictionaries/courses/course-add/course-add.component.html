@@ -2,31 +2,22 @@
     <div class="card-body">
         <form [formGroup]="courseForm" (ngSubmit)="onSubmit(courseForm.value)">
             <div class="form-group">
-                <label >Краткое наименование курса</label>
-                <input type="text" formControlName="shortCourseName"
-                       class="form-control"  placeholder="Введите краткое наименование курса">
+                <label >Наименование учебного плана</label>
+                <input type="text" formControlName="description"
+                       class="form-control"  placeholder="Введите наименование учебного плана">
 
-                <p *ngIf="!courseForm.get('shortCourseName').valid
-                    && courseForm.get('shortCourseName').touched" class="alert alert-danger">
-                    Поле обязательно для заполнения. Введите краткое наименование курса!</p>
+                <p *ngIf="!courseForm.get('description').valid
+                    && courseForm.get('description').touched" class="alert alert-danger">
+                    Поле обязательно для заполнения. Введите наименование учебного плана!</p>
              </div>
 
-            <div class="form-group">
-                <label >Полное наименование курса</label>
-                <input type="text" formControlName="courseName"
-                       class="form-control"  placeholder="Введите полное наименование курса">
 
-                <p *ngIf="!courseForm.get('courseName').valid
-                && courseForm.get('courseName').touched" class="alert alert-danger">
-                    Поле обязательно для заполнения. Введите полное наименование курса!</p>
-            </div>
-
-            <div class="form-group">
+            <!--<div class="form-group">
                 <label>Количество часов в курсе</label>
                 <input type="text" formControlName="numberOfHours"
                        class="form-control"  placeholder="Введите количество часов в курсе">
 
-            </div>
+            </div>-->
             <button type="submit" [disabled]="!courseForm" class="btn btn-info">Добавить</button>
             <button type="button" class="btn btn-warning"  (click)="gotoCoursesList()">Отмена</button>
 

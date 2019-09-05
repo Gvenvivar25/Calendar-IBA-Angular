@@ -1,5 +1,6 @@
-<div class="card my-10">
-    <div class="card-body">
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
         <form [formGroup]="disciplineAddForm" (ngSubmit)="onSubmit(disciplineAddForm.value)">
             <div class="form-group">
                 <label >Краткое наименование предмета</label>
@@ -24,5 +25,7 @@
             <button type="button" class="btn btn-warning"  (click)="gotoDisciplineList()">Отмена</button>
 
         </form>
+        </div>
     </div>
+
 </div>

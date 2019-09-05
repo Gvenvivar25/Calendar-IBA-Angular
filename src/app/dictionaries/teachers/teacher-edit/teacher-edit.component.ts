@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators} from '@angular/forms';
-import {Teacher, TeacherRequest, Type} from '../teacher.model';
-import {Discipline} from '../../disciplines/discipline.model';
+import {Teacher, Type} from '../teacher.model';
 import {TeachersService} from '../teachers.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {DisciplinesService} from '../../disciplines/disciplines.service';
 
 @Component({
   selector: 'app-teacher-edit',
@@ -36,12 +34,10 @@ export class TeacherEditComponent implements OnInit {
             this.typeOfEmployment = res.typeOfEmployment.value;
             console.log(this.typeOfEmployment);
             this.teacherEditForm.patchValue({
-                teacherData: {
                 lastName: res.lastName,
                 firstName: res.firstName,
                 patronymic: res.patronymic,
                 typeOfEmployment: res.typeOfEmployment.id
-                }
             });
         });
     }

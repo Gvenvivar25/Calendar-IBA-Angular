@@ -24,6 +24,8 @@ import {AppService} from './app.service';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {DictionariesModule} from './dictionaries/dictionaries.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { ReportsComponent } from './reports/reports.component';
+import {ReportsModule} from './reports/reports.module';
 
 
 @NgModule({
@@ -33,12 +35,14 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     FooterComponent,
     MainComponent,
     SignInComponent,
-    SignUpComponent
+    SignUpComponent,
+
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     DictionariesModule,
+    ReportsModule,
     AppRoutingModule,
     NgSelectModule,
 

@@ -32,6 +32,8 @@ import { GroupListComponent } from './groups/group-list/group-list.component';
 import { GroupAddComponent } from './groups/group-add/group-add.component';
 import { GroupEditComponent } from './groups/group-edit/group-edit.component';
 import { GroupDetailComponent } from './groups/group-detail/group-detail.component';
+import { CourseDetailComponent } from './courses/course-detail/course-detail.component';
+import { LessonPlanEditComponent } from './courses/lesson-plan-edit/lesson-plan-edit.component';
 
 @NgModule ({
     declarations: [
@@ -58,7 +60,9 @@ import { GroupDetailComponent } from './groups/group-detail/group-detail.compone
         GroupListComponent,
         GroupAddComponent,
         GroupEditComponent,
-        GroupDetailComponent
+        GroupDetailComponent,
+        CourseDetailComponent,
+        LessonPlanEditComponent
     ],
     imports: [
         CommonModule,

@@ -6,7 +6,7 @@ export class Group {
     public numberOfSubgroup: number;
     public typeOfCourse: TypeOfCourse;
     public typeOfEducation: TypeOfEducation;
-    public id_descriptionOfPlan: number;
+    public descriptionOfPlanDto: DescriptionOfPlan;
 }
 
 export class TypeOfCourse {

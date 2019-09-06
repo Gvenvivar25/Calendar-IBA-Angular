@@ -19,7 +19,7 @@ export class ClassroomAddComponent implements OnInit {
 
     ngOnInit() {
 
-        this.classroomService.getTypesOfClassroom().subscribe((res: Type[]) => {
+        this.classroomService.getTypesOfClassroom().subscribe((res: TypeOfClassroom[]) => {
             this.typesOfClassroom = res;
         } );
         this.classroomForm = new FormGroup({

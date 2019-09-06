@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CourseService} from '../course.service';
 import {Course} from '../course.model';
+import {DescriptionOfPlanService} from '../../../shared/services/description-of-plan.service';
 
 @Component({
   selector: 'app-course-edit',
@@ -14,7 +15,8 @@ export class CourseEditComponent implements OnInit {
     courseEditForm: FormGroup;
     id: number;
 
-    constructor(private courseService: CourseService, private route: ActivatedRoute, private router: Router) {
+    constructor(private courseService: CourseService, private route: ActivatedRoute, private router: Router,
+                private descriptionOfPlanService: DescriptionOfPlanService) {
         this.courseEditForm = this.createFormGroup();
     }
 
@@ -24,27 +26,23 @@ export class CourseEditComponent implements OnInit {
     }
 
     getCourse(id: number) {
-        this.courseService.getCourse(id).subscribe(res => {
+        this.descriptionOfPlanService.getDescriptionOfPlan(id).subscribe(res => {
             console.log(res);
             this.courseEditForm.patchValue({
-                shortCourseName: res.shortCourseName,
-                courseName: res.courseName,
-                numberOfHours: res.numberOfHours,
+                description: res.description,
             });
         });
     }
 
     createFormGroup() {
         return new FormGroup({
-            shortCourseName: new FormControl('', Validators.required),
-            courseName: new FormControl('', Validators.required),
-            numberOfHours: new FormControl(''), //поставить валидаторы?
+            description: new FormControl('', Validators.required),
         });
     }
 
     onSubmit() {
         const result: Course = Object.assign({}, this.courseEditForm.value);
-        this.courseService.updateCourse(this.id, result)
+        this.descriptionOfPlanService.updateDescriptionOfPlan(this.id, result)
             .subscribe(() => {console.log('Submitted!'); this.gotoCoursesList(); });
     }
 

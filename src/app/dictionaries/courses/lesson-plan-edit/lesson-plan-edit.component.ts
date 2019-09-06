@@ -15,16 +15,16 @@ import {DescriptionOfPlanService} from '../../../shared/services/description-of-
 })
 export class LessonPlanEditComponent implements OnInit {
 
-    id: number;
-    descriptionOfPlan: string;
-    lessonPlan: LessonPlan;
     lessonPlanEditForm: FormGroup;
+    id: number;
+    descriptionOfPlan: DescriptionOfPlan;
+    lessonPlan: LessonPlan;
+    lessonPlans: LessonPlan [];
     disciplines: Discipline [];
     typesOfWork: TypeOfWork[];
-    selectedDisciplines: Discipline [];
     discId: number[];
 
-    constructor(private getDescriptionOfPlanService: DescriptionOfPlanService, private route: ActivatedRoute, private router: Router,
+    constructor(private descriptionOfPlanService: DescriptionOfPlanService, private route: ActivatedRoute, private router: Router,
                 private disciplinesService: DisciplinesService) {
         this. lessonPlanEditForm = this.createFormGroup();
     }
@@ -35,28 +35,48 @@ export class LessonPlanEditComponent implements OnInit {
         this.disciplinesService.getDisciplines().subscribe((data: Discipline[]) => {
             this.disciplines = data;
         });
+        this.descriptionOfPlanService.getTypesOfWork().subscribe((data: TypeOfWork[]) => {
+            this.typesOfWork = data;
+        });
 
-      //  this.getDisciplines(this.route.snapshot.params.id);
+        this.getLessonPlans(this.route.snapshot.params.id);
+
     }
 
     getDescriptionOfPlan(id: number) {
-        this.getDescriptionOfPlanService.getDescriptionOfPlan(id).subscribe(res => {
+        this.descriptionOfPlanService.getDescriptionOfPlan(id).subscribe(res => {
             console.log(res);
-            this.descriptionOfPlan = res.description;
+            this.descriptionOfPlan = res;
+            this.lessonPlanEditForm.patchValue({
+                descriptionOfPlan_id: this.descriptionOfPlan.id,
+            });
         });
     }
 
-    /*getDisciplines(id: number) {
-        this.teachersService.getAllDisciplinesOfTeacher(id)
-            .subscribe((data: Discipline[]) => {
-                this.selectedDisciplines = data;
+    getLessonPlans(id: number) {
+        this.descriptionOfPlanService.getAllLessonPlansOfDescrOfPlan(id)
+            .subscribe((data: LessonPlan[]) => {
+                console.log(data);
+                this.lessonPlans = data;
             });
-    }*/
+    }
+
+    onAdd() {
+      //  const result: any = Object.assign({}, this.lessonPlanEditForm.value);
+        console.log(this.lessonPlanEditForm.value);
+        this.descriptionOfPlanService.addlLessonPlansOfDescrOfPlan(this.id, this.lessonPlanEditForm.value).subscribe(
+            () => {console.log('Запись добавлена!');
+                   this.getLessonPlans(this.id); }
+                   );
+
+
+    }
 
     createFormGroup() {
         return new FormGroup({
-            disciplinesData: new FormControl(''),
-            typeOfWorkData: new FormControl(''),
+            descriptionOfPlan_id: new FormControl(''),
+            discipline_id: new FormControl(''),
+            typeOfWork: new FormControl(''),
             numberOfHours: new FormControl(''),
         });
     }

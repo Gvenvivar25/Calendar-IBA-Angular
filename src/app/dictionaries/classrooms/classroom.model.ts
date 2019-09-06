@@ -7,5 +7,6 @@ export class Classroom {
 export class TypeOfClassroom {
     public id: string;
     public value: string;
+    public short_value: string;
 
 }

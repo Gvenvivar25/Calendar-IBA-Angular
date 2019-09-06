@@ -52,7 +52,7 @@ export class GroupEditComponent implements OnInit {
                 groupName: res.groupName,
                 typeOfCourse: res.typeOfCourse.id,
                 typeOfEducation: res.typeOfEducation.id,
-                id_descriptionOfPlan: res.id_descriptionOfPlan,
+                descriptionOfPlanDto: res.descriptionOfPlanDto.description,
                 numberOfSubgroup: res.numberOfSubgroup,
             });
         });
@@ -63,14 +63,14 @@ export class GroupEditComponent implements OnInit {
             groupName: new FormControl('', Validators.required),
             typeOfCourse: new FormControl([], Validators.required),
             typeOfEducation: new FormControl([], Validators.required),
-            id_descriptionOfPlan: new FormControl([], Validators.required),
+            descriptionOfPlanDto: new FormControl([], Validators.required),
             numberOfSubgroup: new FormControl('', [Validators.required, Validators.pattern('^[0-9]*$')])
         });
     }
 
     onSubmit() {
         const result: Group = Object.assign({}, this.groupEditForm.value);
-        this.groupService.updateGroup(this.id, result)
+        this.groupService.updateGroup(this.id, this.groupEditForm.value)
             .subscribe(() => {console.log('Submitted!'); this.gotoGroupList(); });
     }
 

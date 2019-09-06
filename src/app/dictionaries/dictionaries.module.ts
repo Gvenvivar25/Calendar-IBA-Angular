@@ -34,6 +34,10 @@ import { GroupEditComponent } from './groups/group-edit/group-edit.component';
 import { GroupDetailComponent } from './groups/group-detail/group-detail.component';
 import { CourseDetailComponent } from './courses/course-detail/course-detail.component';
 import { LessonPlanEditComponent } from './courses/lesson-plan-edit/lesson-plan-edit.component';
+import { EmployeeAddComponent } from './employees/employee-add/employee-add.component';
+import { EmployeeEditComponent } from './employees/employee-edit/employee-edit.component';
+import { EmployeeListComponent } from './employees/employee-list/employee-list.component';
+import { EmployeeDetailComponent } from './employees/employee-detail/employee-detail.component';
 
 @NgModule ({
     declarations: [
@@ -62,7 +66,11 @@ import { LessonPlanEditComponent } from './courses/lesson-plan-edit/lesson-plan-
         GroupEditComponent,
         GroupDetailComponent,
         CourseDetailComponent,
-        LessonPlanEditComponent
+        LessonPlanEditComponent,
+        EmployeeAddComponent,
+        EmployeeEditComponent,
+        EmployeeListComponent,
+        EmployeeDetailComponent
     ],
     imports: [
         CommonModule,

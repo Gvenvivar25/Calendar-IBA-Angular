@@ -26,6 +26,10 @@ import {GroupAddComponent} from './groups/group-add/group-add.component';
 import {GroupDetailComponent} from './groups/group-detail/group-detail.component';
 import {GroupEditComponent} from './groups/group-edit/group-edit.component';
 import {LessonPlanEditComponent} from './courses/lesson-plan-edit/lesson-plan-edit.component';
+import {EmployeeListComponent} from './employees/employee-list/employee-list.component';
+import {EmployeeAddComponent} from './employees/employee-add/employee-add.component';
+import {EmployeeDetailComponent} from './employees/employee-detail/employee-detail.component';
+import {EmployeeEditComponent} from './employees/employee-edit/employee-edit.component';
 
 
 const dictionariesRoutes: Routes = [
@@ -59,6 +63,11 @@ const dictionariesRoutes: Routes = [
             {path: 'groups/add', component: GroupAddComponent},
             {path: 'groups/detail', component: GroupDetailComponent},
             {path: 'groups/edit/:id', component: GroupEditComponent},
+
+            {path: 'employees', component: EmployeeListComponent},
+            {path: 'employees/add', component: EmployeeAddComponent},
+            {path: 'employees/detail', component: EmployeeDetailComponent},
+            {path: 'employees/edit/:id', component: EmployeeEditComponent},
         ]}
 ];
 

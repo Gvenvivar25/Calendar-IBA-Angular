@@ -7,7 +7,6 @@ import {DescriptionOfPlan} from '../../courses/course.model';
 import {TypeOfCourseService} from '../../../shared/services/type-of-course.service';
 import {TypeOfEducationService} from '../../../shared/services/type-of-education.service';
 import {DescriptionOfPlanService} from '../../../shared/services/description-of-plan.service';
-import {TeacherRequest} from '../../teachers/teacher.model';
 
 @Component({
   selector: 'app-group-add',
@@ -21,7 +20,6 @@ export class GroupAddComponent implements OnInit {
     typesOfEducation: TypeOfEducation [];
     descriptionsOfPlan: DescriptionOfPlan [];
     descriptionOfPlanDto: DescriptionOfPlan;
-    descOfPlanId: number;
     group: Group;
 
     constructor(private route: ActivatedRoute, private router: Router,
@@ -54,15 +52,6 @@ export class GroupAddComponent implements OnInit {
 
     onSubmit(form: NgForm) {
         console.log('form', form);
-        /*const result: Group = Object.assign({}, this.groupForm.value);
-        console.log('result', result);
-        this.descriptionOfPlanDto = result.descriptionOfPlanDto;
-        console.log('dto', this.descriptionOfPlanDto);
-        this.descriptionOfPlanService.getDescriptionOfPlan(this.descriptionOfPlanDto.id).subscribe(res => {this.descriptionOfPlanDto = res; });
-        this.group = form.value;
-        this.group.descriptionOfPlanDto = this.descriptionOfPlanDto;
-        console.log('group', this.group);*/
-
         this.groupService.saveGroup(form).subscribe(() => this.gotoGroupsList());
     }
 

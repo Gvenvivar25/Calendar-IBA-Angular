@@ -1,0 +1,72 @@
+<div class="container-fluid">
+
+    <div class="row" >
+        <div class="col-sm-12" >
+            <h3>Сотрудники</h3>
+        </div>
+    </div>
+
+    <hr>
+    <div class="row">
+        <div class="col-sm">
+            <button class="btn-add" title="Добавить" (click)="onAdd()" > <span class="oi oi-plus"></span> Добавить </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm">
+            <table class="table table-striped">
+                <thead class="thead-light">
+                <tr>
+                    <th></th>
+                    <th>№</th>
+                    <th>ФИО</th>
+                    <th>Должность</th>
+                    <th>Кафедра</th>
+                    <th></th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <ng-template ngFor let-employee [ngForOf]="employees" let-i="index"
+                >
+                    <tr (click)="onSelect(employee.id)">
+                        <td><img src="./assets/arrow.ico" alt="Развернуть" width="15" height="15"></td>
+                        <td scope="row"> {{i+1}}</td>
+
+                        <td>{{employee.lastName}} {{employee.firstName}} {{employee.patronymic}}</td>
+                        <td>{{employee.typeOfPosition.value}}</td>
+                        <td *ngIf="employee.departmentDto; else noRecord">{{employee.departmentDto.shortName}}</td>
+                        <ng-template #noRecord>
+                            <td>
+                                Нет
+                            </td>
+                        </ng-template>
+                        <td class="td-p-4" >
+                            <button class="btn-edit" title="Редактировать" [routerLink]="['edit', employee.id]" >
+                                <span class="oi oi-pencil"></span>
+                            </button>
+
+                            <button class="btn-delete" title="Удалить" (click)="onDeleteEmployee(employee)">
+                                <span class="oi oi-trash"></span>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="6" *ngIf="rowSelected==employee.id" >
+                            <app-employee-detail [idEmp]="employee.id"></app-employee-detail>
+                        </td>
+                    </tr>
+                </ng-template>
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+<br>
+<br>
+<br>
+
+
+

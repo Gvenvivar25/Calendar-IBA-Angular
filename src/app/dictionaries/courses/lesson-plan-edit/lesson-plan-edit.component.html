@@ -40,7 +40,7 @@
 
                 <div class="col-md form-group">
                     <label >Введите количество часов</label>
-                    <input type="text" formControlName="numberOfHours"
+                    <input type="number" formControlName="numberOfHours"
                            class="form-control"  placeholder="Введите количество часов">
 
                     <p *ngIf="!lessonPlanEditForm.get('numberOfHours').valid
@@ -80,7 +80,7 @@
                                 <td>{{lessonPlan.typeOfWork.value}}</td>
                                 <td>{{lessonPlan.numberOfHours}}</td>
                                 <td >
-                                    <button class="btn btn-danger btn-sm" title="Удалить" (click)="onDeleteLessonPlan()">
+                                    <button class="btn btn-danger btn-sm" title="Удалить" (click)="onDeleteLessonPlan(lessonPlan.id)">
                                             Удалить
                                     </button>
                                 </td>
@@ -108,8 +108,7 @@
         <div class="form-row">
             <div class="col-md form-group">
                 <br>
-                <button type="submit" (click)="onSubmit()" class="btn btn-info">Сохранить</button>
-                <button type="button" class="btn btn-warning"  (click)="gotoTeacherList()">Отмена</button>
+                <button type="button" class="btn btn-warning"  (click)="gotoTeacherList()">Закрыть</button>
             </div>
         </div>
     </form>

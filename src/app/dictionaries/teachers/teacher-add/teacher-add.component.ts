@@ -80,6 +80,4 @@ export class TeacherAddComponent implements OnInit {
     gotoTeacherList() {
         this.router.navigate(['/dictionaries/teachers']);
     }
-
-
 }

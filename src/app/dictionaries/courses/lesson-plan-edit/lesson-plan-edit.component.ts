@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Teacher} from '../../teachers/teacher.model';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Discipline} from '../../disciplines/discipline.model';
-import {TeachersService} from '../../teachers/teachers.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DisciplinesService} from '../../disciplines/disciplines.service';
 import {DescriptionOfPlan, LessonPlan, TypeOfWork} from '../course.model';
@@ -18,11 +16,9 @@ export class LessonPlanEditComponent implements OnInit {
     lessonPlanEditForm: FormGroup;
     id: number;
     descriptionOfPlan: DescriptionOfPlan;
-    lessonPlan: LessonPlan;
     lessonPlans: LessonPlan [];
     disciplines: Discipline [];
     typesOfWork: TypeOfWork[];
-    discId: number[];
 
     constructor(private descriptionOfPlanService: DescriptionOfPlanService, private route: ActivatedRoute, private router: Router,
                 private disciplinesService: DisciplinesService) {
@@ -77,33 +73,24 @@ export class LessonPlanEditComponent implements OnInit {
             descriptionOfPlan_id: new FormControl(''),
             discipline_id: new FormControl(''),
             typeOfWork: new FormControl(''),
-            numberOfHours: new FormControl(''),
+            numberOfHours: new FormControl('', [Validators.pattern('^[0-9]*$')]),
         });
     }
 
-    /*onDeleteSelectedDiscipline(idD: number) {
-        this.teachersService.deleteDisciplineOfTeacher(this.id, idD)
+    onDeleteLessonPlan(idL: number) {
+        this.descriptionOfPlanService.deleteLessonPlanOfDescrOfPlan(this.id, idL)
             .subscribe(() => {console.log('Discipline is deleted');
-                    this.getDisciplines(this.id);
+                              this.getLessonPlans(this.id);
                 }
             );
     }
 
     onSubmit() {
-        const result: any = Object.assign({}, this.teacherEditDisciplinesForm.value);
-        result.disciplinesData = Object.assign({}, result.disciplinesData);
-        this.discId = result.disciplinesData;
-        console.log( result.disciplinesData);
+        this. gotoCourseList();
+    }
 
-        for (let i = 0, len = Object.keys(this.discId).length; i < len; i++) {
-            this.teachersService.addDisciplineToTeacher(this.id, this.discId[i])
-                .subscribe();
-        }
-        this.gotoTeacherList();
-    }*/
-
-    gotoTeacherList() {
-        this.router.navigate(['/dictionaries/teachers']);
+    gotoCourseList() {
+        this.router.navigate(['/dictionaries/courses']);
     }
 
 }

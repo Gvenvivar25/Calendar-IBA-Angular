@@ -52,7 +52,7 @@ export class GroupEditComponent implements OnInit {
                 groupName: res.groupName,
                 typeOfCourse: res.typeOfCourse.id,
                 typeOfEducation: res.typeOfEducation.id,
-                descriptionOfPlanDto: res.descriptionOfPlanDto.description,
+                descriptionOfPlanDto: res.descriptionOfPlanDto,
                 numberOfSubgroup: res.numberOfSubgroup,
             });
         });
@@ -69,7 +69,6 @@ export class GroupEditComponent implements OnInit {
     }
 
     onSubmit() {
-        const result: Group = Object.assign({}, this.groupEditForm.value);
         this.groupService.updateGroup(this.id, this.groupEditForm.value)
             .subscribe(() => {console.log('Submitted!'); this.gotoGroupList(); });
     }

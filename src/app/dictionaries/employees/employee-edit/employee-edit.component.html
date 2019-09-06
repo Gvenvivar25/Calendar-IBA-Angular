@@ -1,0 +1,97 @@
+<div class="container">
+    <form [formGroup]="employeeEditForm" (ngSubmit)="onSubmit()">
+        <p>Введите новые данные о сотруднике: </p>
+        <div class="form-row">
+            <div class="col-md form-group">
+
+                <label >Фамилия</label>
+                <input type="text" formControlName="lastName"
+                       class="form-control"  placeholder="Введите фамилию">
+
+                <p *ngIf="!employeeEditForm.get('lastName').valid
+                            && employeeEditForm.get('lastName').touched" class="alert alert-danger">
+                    Поле обязательно для заполнения. Введите фамилию!</p>
+            </div>
+
+            <div class="col-md form-group">
+                <label>Имя</label>
+                <input type="text" formControlName="firstName"
+                       class="form-control" placeholder="Введите имя">
+                <p *ngIf="!employeeEditForm.get('firstName').valid
+                            && employeeEditForm.get('firstName').touched" class="alert alert-danger">
+                    Поле обязательно для заполнения. Введите имя!</p>
+            </div>
+
+        </div>
+        <div class="form-row">
+            <div class="col-md form-group">
+                <label>Отчество</label>
+                <input type="text" formControlName="patronymic"
+                       class="form-control" placeholder="Введите отчество">
+                <p *ngIf="!employeeEditForm.get('patronymic').valid
+                        && employeeEditForm.get('patronymic').touched" class="alert alert-danger">
+                    Поле обязательно для заполнения. Введите отчество!</p>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md form-group">
+                <label>Должность: </label>
+                <ng-select
+                        [items]="typesOfPosition"
+                        bindLabel="value"
+                        bindValue="id"
+                        [multiple]="false"
+                        placeholder="Выберите должность"
+                        clearAllText="Clear"
+                        formControlName="typeOfPosition"
+                >
+                </ng-select>
+
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md form-group">
+                <label>Кафедра: </label>
+                <ng-select
+                        [items]="departments"
+                        bindLabel="name"
+                        [multiple]="false"
+                        placeholder="Выберите кафедру"
+                        clearAllText="Clear"
+                        formControlName="departmentDto"
+                >
+                </ng-select>
+
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md form-group">
+                <label >Дата приема:</label>
+                <input type="date"  formControlName="startDate" placeholder="дд-мм-гггг"/>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md form-group">
+                <label >Дата увольнения:</label>
+                <input type="date"  formControlName="endDate" placeholder="дд-мм-гггг"/>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md form-group">
+                <br>
+                <button type="submit" [disabled]="!employeeEditForm.valid" class="btn btn-info">Изменить</button>
+                <button type="button" class="btn btn-warning"  (click)="gotoEmployeeList()">Отмена</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<br>
+<br>
+<br>
+
+
+

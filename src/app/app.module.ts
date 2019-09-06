@@ -24,7 +24,6 @@ import {AppService} from './app.service';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {DictionariesModule} from './dictionaries/dictionaries.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { ReportsComponent } from './reports/reports.component';
 import {ReportsModule} from './reports/reports.module';
 
 
@@ -52,7 +51,6 @@ import {ReportsModule} from './reports/reports.module';
       }),
     SchedulerModule.forRoot({ locale: 'en', headerDateFormat: 'daysRange' }),
     MatProgressSpinnerModule,
-
   ],
   providers: [AppService,
 { provide: LOCALE_ID, useValue: 'en-US' }

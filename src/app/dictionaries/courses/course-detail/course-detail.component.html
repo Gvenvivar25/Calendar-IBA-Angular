@@ -1,20 +1,36 @@
 <div class="row">
-    <div class="col-sm-6">
-        <p>Id: {{id}}</p>
-        <p>Наименование учебного плана: {{description}}</p>
-        <p>Имя: {{firstName}}</p>
-        <p>Отчество: {{patronymic}}</p>
-        <p>Вид занятости: {{typeOfEmployment}}</p>
-    </div>
-
-    <div class="col-sm-6">
-        <div class="card-header">
-            <p>Предметы преподавателя</p>
-            <div class=" w-75 card bg-light" *ngFor="let discipline of disciplines" >
-                <div class="card-body" *ngIf="disciplines!=null">
-                    {{discipline.shortDisciplineName}}
-                </div>
-            </div>
-        </div>
+    <div class="col-md">
+        <p><b>Учебный план:</b> {{id}} {{description}}</p>
     </div>
 </div>
+<div class="form-row">
+
+        <label>Предметы в учебном плане:</label>
+</div>
+<div class="form-row">
+        <table class="table-info">
+            <thead class="thead-light">
+            <tr>
+
+                <th>№</th>
+                <th>Предмет</th>
+                <th>Вид занятий</th>
+                <th>Количество часов</th>
+
+
+            </tr>
+            </thead>
+            <tbody>
+            <ng-template ngFor let-lessonPlan [ngForOf]="lessonPlans" let-i="index">
+                <tr>
+                    <td scope="row"> {{i+1}}</td>
+                    <td>{{lessonPlan.disciplineDto.shortDisciplineName}} </td>
+                    <td>{{lessonPlan.typeOfWork.value}}</td>
+                    <td>{{lessonPlan.numberOfHours}}</td>
+                </tr>
+            </ng-template>
+
+            </tbody>
+        </table>
+</div>
+

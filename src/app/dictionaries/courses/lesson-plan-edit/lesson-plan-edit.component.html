@@ -3,18 +3,18 @@
         <div class="col-sm-8">
             <p>Добавьте или удалите предметы для учебного плана: </p>
             <hr>
-            <p><b>Учебный план:</b> {{descriptionOfPlan.description}}</p>
-            <input type="text" formControlName="descriptionOfPlan_id"
-                   class="form-control"  placeholder="Введите количество часов">
+            <p><b>Учебный план:</b> {{description}}</p>
+            <input type="text" formControlName="descriptionOfPlanDto"
+                   class="form-control" >
 
             <hr>
             <div class="form-row">
                 <div class="col-md form-group">
                     <label >Добавить новые предметы для учебного плана</label>
-                    <ng-select formControlName="discipline_id"
+                    <ng-select formControlName="disciplineDto"
                                [items]="disciplines"
                                bindLabel="shortDisciplineName"
-                               bindValue="id"
+
                                [multiple]="false"
                                placeholder="Выберите предмет"
                                clearAllText="Clear"
@@ -29,7 +29,7 @@
                     <ng-select formControlName="typeOfWork"
                                [items]="typesOfWork"
                                bindLabel="value"
-
+                               bindValue="id"
                                [multiple]="false"
                                placeholder="Выберите вид занятий"
                                clearAllText="Clear"

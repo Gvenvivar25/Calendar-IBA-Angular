@@ -15,6 +15,7 @@ export class LessonPlanEditComponent implements OnInit {
 
     lessonPlanEditForm: FormGroup;
     id: number;
+    description: string;
     descriptionOfPlan: DescriptionOfPlan;
     lessonPlans: LessonPlan [];
     disciplines: Discipline [];
@@ -43,8 +44,9 @@ export class LessonPlanEditComponent implements OnInit {
         this.descriptionOfPlanService.getDescriptionOfPlan(id).subscribe(res => {
             console.log(res);
             this.descriptionOfPlan = res;
+            this.description = res.description;
             this.lessonPlanEditForm.patchValue({
-                descriptionOfPlan_id: this.descriptionOfPlan.id,
+                descriptionOfPlanDto: this.descriptionOfPlan,
             });
         });
     }
@@ -70,8 +72,8 @@ export class LessonPlanEditComponent implements OnInit {
 
     createFormGroup() {
         return new FormGroup({
-            descriptionOfPlan_id: new FormControl(''),
-            discipline_id: new FormControl(''),
+            descriptionOfPlanDto: new FormControl(''),
+            disciplineDto: new FormControl(''),
             typeOfWork: new FormControl(''),
             numberOfHours: new FormControl('', [Validators.pattern('^[0-9]*$')]),
         });

@@ -4,7 +4,7 @@
             <p>Добавьте или удалите предметы для учебного плана: </p>
             <hr>
             <p><b>Учебный план:</b> {{description}}</p>
-            <input type="text" formControlName="descriptionOfPlanDto"
+            <input type="hidden" formControlName="descriptionOfPlanDto"
                    class="form-control" >
 
             <hr>
@@ -75,9 +75,9 @@
                         <ng-template ngFor let-lessonPlan [ngForOf]="lessonPlans" let-i="index">
                             <tr>
                                 <td scope="row"> {{i+1}}</td>
-                                <td>{{lessonPlan.discipline}} </td>
+                                <td>{{lessonPlan.disciplineDto.shortDisciplineName}} </td>
                                 <td>{{lessonPlan.typeOfWork.value}}</td>
-                                <td>{{lessonPlan.typeOfWork.value}}</td>
+
                                 <td>{{lessonPlan.numberOfHours}}</td>
                                 <td >
                                     <button class="btn btn-danger btn-sm" title="Удалить" (click)="onDeleteLessonPlan(lessonPlan.id)">
@@ -89,18 +89,6 @@
 
                         </tbody>
                     </table>
-
-
-
-
-                    <!--<ul class="list-group list-group-flush ">
-                        <li class="list-group-item d-flex justify-content-between align-items-center"
-                            *ngFor="let disc of selectedDisciplines">
-                            {{disc.shortDisciplineName}}
-                            <span class="badge badge-pill"><button class="btn btn-danger btn-sm"
-                                                                   (click)="onDeleteSelectedDiscipline(disc.id)">Удалить</button></span>
-                        </li>
-                    </ul>-->
                 </div>
             </div>
 
@@ -108,7 +96,7 @@
         <div class="form-row">
             <div class="col-md form-group">
                 <br>
-                <button type="button" class="btn btn-warning"  (click)="gotoTeacherList()">Закрыть</button>
+                <button type="button" class="btn btn-warning"  (click)="gotoCourseList()">Закрыть</button>
             </div>
         </div>
     </form>

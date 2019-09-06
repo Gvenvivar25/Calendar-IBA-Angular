@@ -13,7 +13,7 @@ export class LessonPlan {
     public id: number;
     public numberOfHours: number;
     public typeOfWork: TypeOfWork;
-    public discipline: Discipline;
+    public disciplineDto: Discipline;
     public descriptionOfPlan: DescriptionOfPlan;
 
 }

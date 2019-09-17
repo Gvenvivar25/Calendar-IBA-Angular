@@ -2,26 +2,34 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CourseService} from '../course.service';
-import {Course} from '../course.model';
+import {Course, TypeOfCourse} from '../course.model';
 import {DescriptionOfPlanService} from '../../../shared/services/description-of-plan.service';
+
+import {TypeOfCourseService} from '../../../shared/services/type-of-course.service';
+
 
 @Component({
   selector: 'app-course-edit',
   templateUrl: './course-edit.component.html',
   styleUrls: ['./course-edit.component.scss']
 })
+
 export class CourseEditComponent implements OnInit {
 
     courseEditForm: FormGroup;
     id: number;
+    typesOfCourse: TypeOfCourse [];
 
     constructor(private courseService: CourseService, private route: ActivatedRoute, private router: Router,
-                private descriptionOfPlanService: DescriptionOfPlanService) {
+                private descriptionOfPlanService: DescriptionOfPlanService, private typeOfCourseService: TypeOfCourseService) {
         this.courseEditForm = this.createFormGroup();
     }
 
     ngOnInit() {
         this.id = this.route.snapshot.params.id;
+        this.typeOfCourseService.getTypesOfCourse().subscribe((res: TypeOfCourse[]) => {
+            this.typesOfCourse = res;
+        } );
         this.getCourse(this.route.snapshot.params.id);
     }
 
@@ -30,6 +38,7 @@ export class CourseEditComponent implements OnInit {
             console.log(res);
             this.courseEditForm.patchValue({
                 description: res.description,
+                typeOfCourse: res.typeOfCourse.id,
             });
         });
     }
@@ -37,6 +46,7 @@ export class CourseEditComponent implements OnInit {
     createFormGroup() {
         return new FormGroup({
             description: new FormControl('', Validators.required),
+            typeOfCourse: new FormControl([], Validators.required),
         });
     }
 

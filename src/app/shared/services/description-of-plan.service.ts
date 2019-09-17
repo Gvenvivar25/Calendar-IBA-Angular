@@ -81,7 +81,7 @@ export class DescriptionOfPlanService {
 
     addlLessonPlansOfDescrOfPlan(idDescrOfPlan: number, lessonPlan: LessonPlan) {
         const urlL = `${url}/${idDescrOfPlan}/lesson_plans`;
-        return this.httpClient.post(urlL, [idDescrOfPlan, lessonPlan], httpOptions).pipe(
+        return this.httpClient.post(urlL,  lessonPlan, httpOptions).pipe(
             tap(() => console.log(`added lessonPlan to DescrOfPlan id=${idDescrOfPlan}`)),
             catchError(err => {console.log(err, 'Не удалось добавить запись учебного плана');
                                return of(null); })
@@ -90,7 +90,7 @@ export class DescriptionOfPlanService {
 
     deleteLessonPlanOfDescrOfPlan(idDescrOfPlan: number, idLessonPlan: number) {
         const urlL = `${url}/${idDescrOfPlan}/lesson_plans/${idLessonPlan}`;
-        return this.httpClient.delete(url, httpOptions).pipe(
+        return this.httpClient.delete(urlL, httpOptions).pipe(
             tap(() => console.log(`deleted lessonPlan id=${idLessonPlan} of DescrOfPlan id=${idDescrOfPlan}`)),
             catchError(err => {console.log(err, 'Не удалось удалить запись учебного плана');
                                return of(null); })

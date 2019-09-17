@@ -4,15 +4,9 @@ export class Group {
     public id: number;
     public groupName: string;
     public numberOfSubgroup: number;
-    public typeOfCourse: TypeOfCourse;
+ //   public typeOfCourse: TypeOfCourse;
     public typeOfEducation: TypeOfEducation;
     public descriptionOfPlanDto: DescriptionOfPlan;
-}
-
-export class TypeOfCourse {
-    public id: string;
-    public value: string;
-    public short_value: string;
 }
 
 export class TypeOfEducation {

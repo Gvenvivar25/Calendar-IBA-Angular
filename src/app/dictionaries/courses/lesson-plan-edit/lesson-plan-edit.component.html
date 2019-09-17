@@ -4,8 +4,21 @@
             <p>Добавьте или удалите предметы для учебного плана: </p>
             <hr>
             <p><b>Учебный план:</b> {{description}}</p>
-            <input type="hidden" formControlName="descriptionOfPlanDto"
+
+            <!--Скрытые поля для передачи объекта на сервер-->
+            <div formGroupName="descriptionOfPlanDto">
+                <input type="hidden" formControlName="id"
+                       class="form-control" >
+                <input type="hidden" formControlName="description"
+                       class="form-control" >
+                <input type="hidden" formControlName="typeOfCourse"
+                       class="form-control" >
+            </div>
+
+            <input type="hidden" formControlName="id"
                    class="form-control" >
+
+            <!---->
 
             <hr>
             <div class="form-row">

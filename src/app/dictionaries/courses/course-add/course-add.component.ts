@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DescriptionOfPlanService} from '../../../shared/services/description-of-plan.service';
+import {TypeOfCourseService} from '../../../shared/services/type-of-course.service';
+import {TypeOfCourse} from '../course.model';
 
 @Component({
   selector: 'app-course-add',
@@ -11,13 +13,19 @@ import {DescriptionOfPlanService} from '../../../shared/services/description-of-
 export class CourseAddComponent implements OnInit {
 
     courseForm: FormGroup;
+    typesOfCourse: TypeOfCourse [];
 
-    constructor(private route: ActivatedRoute, private router: Router, private descriptionOfPlanService: DescriptionOfPlanService) {
+    constructor(private route: ActivatedRoute, private router: Router, private descriptionOfPlanService: DescriptionOfPlanService,
+                private typeOfCourseService: TypeOfCourseService) {
     }
 
     ngOnInit() {
+        this.typeOfCourseService.getTypesOfCourse().subscribe((res: TypeOfCourse[]) => {
+            this.typesOfCourse = res;
+        } );
         this.courseForm = new FormGroup({
             description: new FormControl('', Validators.required),
+            typeOfCourse: new FormControl([], Validators.required),
         });
     }
 

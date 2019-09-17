@@ -23,9 +23,16 @@ export class TypeOfWork {
     public value: string;
 }
 
+export class TypeOfCourse {
+    public id: string;
+    public value: string;
+    public short_value: string;
+}
+
 export class DescriptionOfPlan {
     public id: number;
     public description: string;
+    public typeOfCourse: TypeOfCourse;
 }
 
 

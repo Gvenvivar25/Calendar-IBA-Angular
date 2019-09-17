@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-
 import {ActivatedRoute, Router} from '@angular/router';
 import {GroupService} from '../group.service';
-import {Group, TypeOfCourse, TypeOfEducation} from '../group.model';
+import { TypeOfEducation} from '../group.model';
 import {DescriptionOfPlan} from '../../courses/course.model';
-import {TypeOfCourseService} from '../../../shared/services/type-of-course.service';
 import {TypeOfEducationService} from '../../../shared/services/type-of-education.service';
 import {DescriptionOfPlanService} from '../../../shared/services/description-of-plan.service';
 
@@ -19,12 +17,12 @@ export class GroupEditComponent implements OnInit {
 
     groupEditForm: FormGroup;
     id: number;
-    typesOfCourse: TypeOfCourse [];
+
     typesOfEducation: TypeOfEducation [];
     descriptionsOfPlan: DescriptionOfPlan [];
 
     constructor(private route: ActivatedRoute, private router: Router,
-                private groupService: GroupService, private typeOfCourseService: TypeOfCourseService,
+                private groupService: GroupService,
                 private typeOfEducationService: TypeOfEducationService, private descriptionOfPlanService: DescriptionOfPlanService) {
         this.groupEditForm = this.createFormGroup();
     }
@@ -32,9 +30,7 @@ export class GroupEditComponent implements OnInit {
     ngOnInit() {
         this.id = this.route.snapshot.params.id;
         this.getGroup(this.route.snapshot.params.id);
-        this.typeOfCourseService.getTypesOfCourse().subscribe((res: TypeOfCourse[]) => {
-            this.typesOfCourse = res;
-        } );
+
 
         this.typeOfEducationService.getTypesOfEducation().subscribe((res: TypeOfEducation[]) => {
             this.typesOfEducation = res;
@@ -50,7 +46,6 @@ export class GroupEditComponent implements OnInit {
             console.log(res);
             this.groupEditForm.patchValue({
                 groupName: res.groupName,
-                typeOfCourse: res.typeOfCourse.id,
                 typeOfEducation: res.typeOfEducation.id,
                 descriptionOfPlanDto: res.descriptionOfPlanDto,
                 numberOfSubgroup: res.numberOfSubgroup,
@@ -61,7 +56,6 @@ export class GroupEditComponent implements OnInit {
     createFormGroup() {
         return new FormGroup({
             groupName: new FormControl('', Validators.required),
-            typeOfCourse: new FormControl([], Validators.required),
             typeOfEducation: new FormControl([], Validators.required),
             descriptionOfPlanDto: new FormControl([], Validators.required),
             numberOfSubgroup: new FormControl('', [Validators.required, Validators.pattern('^[0-9]*$')])

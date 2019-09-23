@@ -25,6 +25,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {DictionariesModule} from './dictionaries/dictionaries.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ReportsModule} from './reports/reports.module';
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 
 @NgModule({
@@ -44,6 +45,7 @@ import {ReportsModule} from './reports/reports.module';
     ReportsModule,
     AppRoutingModule,
     NgSelectModule,
+    FullCalendarModule,
 
     CalendarModule.forRoot({
           provide: DateAdapter,

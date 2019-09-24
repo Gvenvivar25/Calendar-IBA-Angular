@@ -30,6 +30,7 @@
     "@fullcalendar/timegrid": "^4.3.0",
     "@ng-bootstrap/ng-bootstrap": "^5.1.1",
     "@ng-select/ng-select": "^3.0.6",
+    "@types/fullcalendar": "^3.8.0",
     "angular-calendar": "latest",
     "angular-calendar-scheduler": "^1.0.10",
     "bootstrap": "^4.3.1",
@@ -40,8 +41,10 @@
     "ng-sidebar": "^9.0.0",
     "ngx-toastr": "^10.0.4",
     "open-iconic": "^1.1.1",
+    "popper.js": "^1.15.0",
     "rxjs": "~6.4.0",
     "tooltip-js": "^3.0.0",
+    "tooltip.js": "^1.3.2",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"
   },

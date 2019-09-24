@@ -1,42 +1,68 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import {EventInput, OptionsInput} from '@fullcalendar/core';
 import timeGrigPlugin from '@fullcalendar/timegrid';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import listPlugin from '@fullcalendar/list';
-import Tooltip from 'tooltip-js/dist/tooltip.js';
+import Tooltip from 'tooltip.js';
+import {TimetableOfClasses} from '../shared/models/timetable-of-classes.model';
+import {TimetableOfClassesService} from '../shared/services/timetable-of-classes.service';
 
 
 @Component({
     selector: 'app-main',
     templateUrl: './main.component.html',
-    styleUrls: ['./main.component.css'],
+    styleUrls: ['./main.component.scss'],
+    encapsulation: ViewEncapsulation.None,
     providers: []
 })
 
-export class MainComponent implements OnInit {
+export class MainComponent implements AfterViewInit {
+    tooltip: Tooltip;
+    timetableOfClasses: TimetableOfClasses [];
+    calendarEvents: EventInput [];
+    day;
 
-    @ViewChild('calendar', {static: false}) calendarComponent: FullCalendarComponent;
+    @ViewChild('calendar', {static: true}) calendarComponent: FullCalendarComponent;
+    constructor(private timetableOfClassesService: TimetableOfClassesService) {}
 
-    calendarEvents: any [] = [{
+
+    // ------------------- настройки отображения расписания ----------------------------------//
+
+    /*events =  {
+        url: 'http://localhost:8080/api/timetable_of_classes?classDate=2019-09-09',
+        method: 'POST',
+        extraParams: {
+            custom_param1: 'something',
+            custom_param2: 'somethingelse'
+        },
+        failure() {
+        alert('there was an error while fetching events!');
+    },
+    color: 'yellow',   // a non-ajax option
+    textColor: 'black' // a non-ajax option
+};*/
+
+    /*calendarEvents = [{
         events: [
             {title: 'Java1', description: 'Java1, препод: Салапура, группа ПП1.18', start: '2019-09-17T08:30:00',
-                end: '2019-09-17T09:20:00', allDay: false},
-            { title: 'Java1', start: '2019-09-17T08:50:00', end: '2019-09-17T09:50:00', allDay: false },
-            { title: 'АПИС', date: '2019-09-17T11:20:00', end: '2019-09-17T12:40:00', allDay: false },
+                end: '2019-09-17T09:20:00', allDay: false, customRender: true},
+            { title: 'Java1', start: '2019-09-17T08:50:00', description: 'Java1, препод: Storojev, группа ПП1.18',
+                end: '2019-09-17T09:50:00', allDay: false },
+            { title: 'АПИС', date: '2019-09-17T11:20:00', description: 'Java2', end: '2019-09-17T12:40:00', allDay: false },
             { title: 'Android', date: '2019-09-19T10:40:00', end: '2019-09-19T13:50:00', allDay: false }
-            ],
+        ],
         color: '#07f59e'
-        },
+    },
         {
             events: [
-                {title: 'Java1', start: '2019-09-18T08:30:00', end: '2019-09-18T09:20:00', allDay: false},
+                {title: 'Java1', start: '2019-09-18T08:30:00', description: 'Java3', end: '2019-09-18T09:20:00', allDay: false},
                 { title: 'Android', date: '2019-09-19T10:40:00', end: '2019-09-19T13:50:00', allDay: false }
             ],
             color: '#f5f30f'
         }
-    ];
+    ];*/
 
     calendarPlugins = [dayGridPlugin, timeGrigPlugin, interactionPlugin, listPlugin];
 
@@ -48,27 +74,84 @@ export class MainComponent implements OnInit {
         list:     'Список'
     };
     header = {
-    left: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek',
-    center: 'title',
-    right:  'prev,next today'};
+        left: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek',
+        center: 'title',
+        right:  'prev,next today'};
 
     slotLabelFormat = {
-    hour: 'numeric',
-    minute: '2-digit',
-    omitZeroMinute: false,
-    meridiem: 'short'};
+        hour: 'numeric',
+        minute: '2-digit',
+        omitZeroMinute: false,
+        meridiem: 'short'};
 
-    ngOnInit() {}
+    // ------------------- конец настроек расписания ----------------------------------//
+    ngAfterViewInit() {
+        this.timetableOfClassesService.getTimetableOfClasses('2019-09-09').subscribe(
+            (data: TimetableOfClasses[]) => {
+                this.timetableOfClasses = data;
+                console.log(this.timetableOfClasses);
+                this.calendarEvents = [];
 
-    /*MouseOver(info) {
+                // конвертация объектов из БД в event на календарь
+                for (let i = 0, len = Object.keys(data).length; i < len; i++) {
+                    this.calendarEvents.push (
+                        {
+                            title: data[i].disciplineDto.shortDisciplineName + ' ' +  data[i].teacherDto.lastName + ' ауд. ' +
+                                data[i].classroomDto.number,
+                            start: data[i].classDate + 'T' + data[i].beginTime,
+                            end: data[i].classDate + 'T' + data[i].finishTime,
+                            description: data[i].disciplineDto.shortDisciplineName + ' ' + data[i].teacherDto.lastName + ' ауд. ' +
+                                data[i].classroomDto.number + ' группа ' + data[i].groupDto.groupName + ' подгр.' + data[i].subgroup,
+                            color: '#a7f2f5',
+                        }
+                    );
+                }
+                console.log(this.calendarEvents);
+            }
+        );
+        this.getDaysPeriod();
+
+    }
+
+    getDaysPeriod() {
+        const calendarApi = this.calendarComponent.getApi();
+        this.day = calendarApi.getDate();
+        const view = calendarApi.view;
+        const start = view.activeStart;
+        const end = view.activeEnd;
+        console.log(start + ' ' + end);
+    }
+
+/*    MouseOver(event) {
+        console.log(event);
+
+    }*/
+    handleDateClick(arg) { // handler method
+        alert(arg.dateStr);
+    }
+
+    click(info) {
+        console.log(info.event.extendedProps.description);
+    }
+
+
+
+    eventRender(info) {
         console.log(info);
-        const tooltip = new Tooltip(info.el, {
+        this.tooltip = new Tooltip(info.el, {
             title: info.event.extendedProps.description,
+
             placement: 'top',
             trigger: 'hover',
-            container: 'body'
+            container: 'body',
         });
-    }*/
+        console.log(this.tooltip);
+        console.log(info.event.extendedProps.description);
+    }
+
+    handleEventMouseLeave(info) {
+        this.tooltip.dispose();
+    }
 
 
     /*handleDateClick(arg) {
@@ -91,24 +174,24 @@ export class MainComponent implements OnInit {
      dateClick(model) {
          console.log(model);
      }*/
-   /* updateHeader() {
-        this.option.header = {
-            left: 'prev,next myCustomButton',
-            center: 'title',
-            right: ''
-        };
-    }
-    updateEvents() {
-        this.calendarEvents = [{
-            title: 'Updaten Event',
-            start: this.yearMonth + '-08',
-            end: this.yearMonth + '-10'
-        }];
-    }
-    get yearMonth(): string {
-        const dateObj = new Date();
-        return dateObj.getUTCFullYear() + '-' + (dateObj.getUTCMonth() + 1);
-    }*/
+    /* updateHeader() {
+         this.option.header = {
+             left: 'prev,next myCustomButton',
+             center: 'title',
+             right: ''
+         };
+     }
+     updateEvents() {
+         this.calendarEvents = [{
+             title: 'Updaten Event',
+             start: this.yearMonth + '-08',
+             end: this.yearMonth + '-10'
+         }];
+     }
+     get yearMonth(): string {
+         const dateObj = new Date();
+         return dateObj.getUTCFullYear() + '-' + (dateObj.getUTCMonth() + 1);
+     }*/
 
 
 }

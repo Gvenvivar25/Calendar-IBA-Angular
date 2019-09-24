@@ -14,22 +14,22 @@
 
                 [editable]="true"
                 [selectable]="true"
-                [eventSources]="calendarEvents"
+                [events]="calendarEvents"
                 [minTime]="'08:00'"
                 [maxTime]="'22:00'"
                 [allDaySlot]="false"
                 [slotEventOverlap]="false"
                 [slotLabelFormat]="slotLabelFormat"
-                [slotLabelInterval]="'00:30'"
-                [slotDuration]="'00:30'"
+                [slotLabelInterval]="'00:20'"
+                [slotDuration]="'00:20'"
                 [firstDay]="1"
                 [weekends]="true"
                 [header]="header"
                 [buttonText]="buttonText"
                 [height]="parent"
                 (dateClick)="handleDateClick($event)"
-                (eventMouseover)="MouseOver($event)"
-
+                (eventMouseEnter)="eventRender($event)"
+                (eventMouseLeave)="handleEventMouseLeave($event)"
         ></full-calendar>
     </div>
 </div>

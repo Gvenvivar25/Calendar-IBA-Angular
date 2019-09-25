@@ -3,7 +3,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {GroupService} from '../group.service';
 import { TypeOfEducation} from '../group.model';
-import {DescriptionOfPlan} from '../../courses/course.model';
+import {DescriptionOfPlan, DescriptionOfPlanDto} from '../../courses/course.model';
 import {TypeOfEducationService} from '../../../shared/services/type-of-education.service';
 import {DescriptionOfPlanService} from '../../../shared/services/description-of-plan.service';
 
@@ -19,7 +19,7 @@ export class GroupEditComponent implements OnInit {
     id: number;
 
     typesOfEducation: TypeOfEducation [];
-    descriptionsOfPlan: DescriptionOfPlan [];
+    descriptionsOfPlan: DescriptionOfPlanDto [];
 
     constructor(private route: ActivatedRoute, private router: Router,
                 private groupService: GroupService,
@@ -29,6 +29,17 @@ export class GroupEditComponent implements OnInit {
 
     ngOnInit() {
         this.id = this.route.snapshot.params.id;
+        this.descriptionOfPlanService.getDescriptionOfPlans().subscribe((res: DescriptionOfPlan[]) => {
+            this.descriptionsOfPlan = [];
+            for (let i = 0, len = Object.keys(res).length; i < len; i++) {
+                this.descriptionsOfPlan.push(
+                    {
+                        id: res[i].id,
+                        description: res[i].description,
+                        typeOfCourse: res[i].typeOfCourse.id
+                    });
+            }
+        } );
         this.getGroup(this.route.snapshot.params.id);
 
 
@@ -36,9 +47,11 @@ export class GroupEditComponent implements OnInit {
             this.typesOfEducation = res;
         } );
 
-        this.descriptionOfPlanService.getDescriptionOfPlans().subscribe((res: DescriptionOfPlan[]) => {
-            this.descriptionsOfPlan = res;
-        } );
+
+    }
+// метод для изменения объекта DescriptionOfPlanDto для того, чтобы потом закинуть на сервер
+    getDescriptionOfPlanToForm(id: number): DescriptionOfPlanDto {
+        return this.descriptionsOfPlan.find(res => res.id === id);
     }
 
     getGroup(id: number) {
@@ -47,7 +60,7 @@ export class GroupEditComponent implements OnInit {
             this.groupEditForm.patchValue({
                 groupName: res.groupName,
                 typeOfEducation: res.typeOfEducation.id,
-                descriptionOfPlanDto: res.descriptionOfPlanDto,
+                descriptionOfPlanDto: this.getDescriptionOfPlanToForm(res.id),
                 numberOfSubgroup: res.numberOfSubgroup,
             });
         });

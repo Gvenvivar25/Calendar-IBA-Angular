@@ -3,7 +3,7 @@ import {FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {GroupService} from '../group.service';
 import {Group, TypeOfEducation} from '../group.model';
-import {DescriptionOfPlan} from '../../courses/course.model';
+import {DescriptionOfPlan, DescriptionOfPlanDto} from '../../courses/course.model';
 import {TypeOfEducationService} from '../../../shared/services/type-of-education.service';
 import {DescriptionOfPlanService} from '../../../shared/services/description-of-plan.service';
 
@@ -16,7 +16,7 @@ export class GroupAddComponent implements OnInit {
 
     groupForm: FormGroup;
     typesOfEducation: TypeOfEducation [];
-    descriptionsOfPlan: DescriptionOfPlan [];
+    descriptionsOfPlan: DescriptionOfPlanDto [];
     descriptionOfPlanDto: DescriptionOfPlan;
     group: Group;
 
@@ -31,7 +31,16 @@ export class GroupAddComponent implements OnInit {
         } );
 
         this.descriptionOfPlanService.getDescriptionOfPlans().subscribe((res: DescriptionOfPlan[]) => {
-            this.descriptionsOfPlan = res;
+            this.descriptionsOfPlan = [];
+            for (let i = 0, len = Object.keys(res).length; i < len; i++) {
+                this.descriptionsOfPlan.push(
+                    {
+                        id: res[i].id,
+                        description: res[i].description,
+                        typeOfCourse: res[i].typeOfCourse.id
+                    });
+            }
+          //  this.descriptionsOfPlan = res;
         } );
 
 

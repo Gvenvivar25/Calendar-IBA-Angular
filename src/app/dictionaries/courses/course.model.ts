@@ -35,4 +35,8 @@ export class DescriptionOfPlan {
     public typeOfCourse: TypeOfCourse;
 }
 
-
+export class DescriptionOfPlanDto {
+    public id: number;
+    public description: string;
+    public typeOfCourse: string;
+}

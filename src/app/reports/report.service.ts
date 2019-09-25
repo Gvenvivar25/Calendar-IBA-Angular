@@ -2,8 +2,8 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {catchError} from 'rxjs/operators';
 import {of} from 'rxjs';
+import {UrlConstants} from '../shared/url-constants';
 
-const urlR = 'http://localhost:8080/api/report';
 const httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json', Accept: 'application/XLSX'})
 };
@@ -15,7 +15,7 @@ export class ReportService {
     constructor(private httpClient: HttpClient) {}
 
     getTeachersReport(format: string, name: string) {
-        const url = `${urlR}/teachers/${format}/${name}`;
+        const url = `${UrlConstants.URL_TEACHER_REPORT}${format}/${name}`;
         return this.httpClient.get(url, httpOptions)
             .pipe(
                 catchError(err => {console.log(err, 'Отсутсвуют данные в БД');
@@ -24,7 +24,7 @@ export class ReportService {
     }
 
     getDisciplinesReport(format: string, name: string) {
-        const url = `${urlR}/disciplines/${format}/${name}`;
+        const url = `${UrlConstants.URL_DISCIPLINE_REPORT}${format}/${name}`;
         return this.httpClient.get(url)
             .pipe(
                 catchError(err => {console.log(err, 'Отсутсвуют данные в БД');

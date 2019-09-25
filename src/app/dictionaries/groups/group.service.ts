@@ -3,13 +3,11 @@ import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 import {Group} from './group.model';
-import {DescriptionOfPlan} from '../courses/course.model';
+import {UrlConstants} from '../../shared/url-constants';
 
 const httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
-const urlG = 'http://localhost:8080/api/groups';
-const urlD = 'http://localhost:8080/api/description_of_plans';
 
 @Injectable({
     providedIn: 'root'
@@ -19,7 +17,7 @@ export class GroupService {
     constructor(private httpClient: HttpClient) {}
 
     getGroup(id: number): Observable<Group> {
-        const url = `${urlG}/${id}`;
+        const url = `${UrlConstants.URL_GROUP}/${id}`;
         return this.httpClient.get<Group>(url).pipe(
             catchError(err => {console.log(err, 'Отсутсвуют данные в БД');
                                return of(null); })
@@ -27,7 +25,7 @@ export class GroupService {
     }
 
     getGroups(): Observable<Group []> {
-        return this.httpClient.get<Group []>(urlG).pipe(
+        return this.httpClient.get<Group []>(UrlConstants.URL_GROUP).pipe(
             catchError(err => {console.log(err, 'Отсутсвуют данные в БД');
                                return of(null); })
         );
@@ -35,7 +33,7 @@ export class GroupService {
     }
 
     saveGroup(group): Observable<Group> {
-        return this.httpClient.post<Group>(urlG, group).pipe(
+        return this.httpClient.post<Group>(UrlConstants.URL_GROUP, group).pipe(
             tap((res: Group) => console.log(`added group id=${res.id}`)),
             catchError(err => {console.log(err, 'Не удалось добавить группу');
                                return of(null); })
@@ -43,7 +41,7 @@ export class GroupService {
     }
 
     updateGroup(id: number, group): Observable<any> {
-        const url = `${urlG}/${id}`;
+        const url = `${UrlConstants.URL_GROUP}/${id}`;
         group.id = id;
         return this.httpClient.put(url, group, httpOptions).pipe(
             tap(() => {return console.log(`updated group id=${id}`);
@@ -54,21 +52,11 @@ export class GroupService {
     }
 
     deleteGroup(id: number) {
-        const url = `${urlG}/${id}`;
+        const url = `${UrlConstants.URL_GROUP}/${id}`;
         return this.httpClient.delete(url, httpOptions).pipe(
             tap(() => console.log(`deleted group id=${id}`)),
             catchError(err => {console.log(err, 'Не удалось удалить группу');
                                return of(null); })
         );
     }
-
-    getDiscriptionOfPlan(id: number): Observable<DescriptionOfPlan> {
-        const url = `${urlD}/${id}`;
-        return this.httpClient.get<DescriptionOfPlan>(url).pipe(
-            catchError(err => {console.log(err, 'Отсутсвуют данные в БД');
-                               return of(null); })
-        );
-    }
-
-
 }

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {CourseService} from '../course.service';
 import {Course, TypeOfCourse} from '../course.model';
 import {DescriptionOfPlanService} from '../../../shared/services/description-of-plan.service';
 
@@ -20,8 +19,8 @@ export class CourseEditComponent implements OnInit {
     id: number;
     typesOfCourse: TypeOfCourse [];
 
-    constructor(private courseService: CourseService, private route: ActivatedRoute, private router: Router,
-                private descriptionOfPlanService: DescriptionOfPlanService, private typeOfCourseService: TypeOfCourseService) {
+    constructor( private route: ActivatedRoute, private router: Router,
+                 private descriptionOfPlanService: DescriptionOfPlanService, private typeOfCourseService: TypeOfCourseService) {
         this.courseEditForm = this.createFormGroup();
     }
 

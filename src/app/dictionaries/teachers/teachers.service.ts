@@ -4,12 +4,12 @@ import {Observable, of} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 import {Teacher, Type} from './teacher.model';
 import {Discipline} from '../disciplines/discipline.model';
+import {UrlConstants} from '../../shared/url-constants';
 
 
 const httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
-const teachUrl = 'http://localhost:8080/api/teachers';
 
 @Injectable({
     providedIn: 'root'
@@ -17,7 +17,7 @@ const teachUrl = 'http://localhost:8080/api/teachers';
 export class TeachersService {
     constructor(private httpClient: HttpClient) {}
     getTeachers(): Observable<Teacher[]> {
-        return this.httpClient.get<Teacher[]>(teachUrl)
+        return this.httpClient.get<Teacher[]>(UrlConstants.URL_TEACHER)
             .pipe(
                 catchError(err => {console.log(err, 'Отсутсвуют данные в БД');
                                    return of(null); })
@@ -25,7 +25,7 @@ export class TeachersService {
     }
 
     getTeacher(id: number): Observable<Teacher> {
-        const url = `${teachUrl}/${id}`;
+        const url = `${UrlConstants.URL_TEACHER}/${id}`;
         return this.httpClient.get<Teacher>(url)
             .pipe(
                 catchError(err => {console.log(err, 'Отсутсвуют данные в БД');
@@ -34,7 +34,7 @@ export class TeachersService {
     }
 
     saveTeacher(teacher): Observable<Teacher> {
-        return this.httpClient.post<Teacher>(teachUrl, teacher).pipe(
+        return this.httpClient.post<Teacher>(UrlConstants.URL_TEACHER, teacher).pipe(
             tap((res: Teacher) => console.log(`added teacher id=${res.id}`)),
             catchError(err => {console.log(err, 'Не удалось добавить преподавателя');
                                return of(null); })
@@ -42,11 +42,8 @@ export class TeachersService {
     }
 
     updateTeacher(id: number, teacher): Observable<any> {
-        const url = `${teachUrl}/${id}`;
-        // без id не получается сделать update, поэтому вручную передаю сюда его.
-        // возможно стоит как-то через форму реализовать присвоение id
+        const url = `${UrlConstants.URL_TEACHER}/${id}`;
         teacher.id = id;
-        // console.log(discipline);
         return this.httpClient.put(url, teacher, httpOptions).pipe(
             tap(() => {
                 return console.log(`updated teacher id=${id}`);
@@ -57,7 +54,7 @@ export class TeachersService {
     }
 
     deleteTeacher(id: number): Observable<any> {
-        const url = `${teachUrl}/${id}`;
+        const url = `${UrlConstants.URL_TEACHER}/${id}`;
         return this.httpClient.delete(url, httpOptions).pipe(
             tap(() => console.log(`deleted teacher id=${id}`)),
             catchError(err => {console.log(err, 'Не удалось удалить преподавателя');
@@ -66,12 +63,14 @@ export class TeachersService {
     }
 
     getTypesOfEmployment() {
-        const url = 'http://localhost:8080/api/types_of_employment';
-        return this.httpClient.get<Type []>(url);
+        return this.httpClient.get<Type []>(UrlConstants.URL_TYPE_OF_EMPLOYMENT).pipe(
+            catchError(err => {console.log(err, 'Отсутсвуют данные в БД');
+                               return of(null); })
+        );
     }
 
     addDisciplineToTeacher(idTeacher: number, idDiscipline: number) {
-        const url = `${teachUrl}/${idTeacher}/disciplines/${idDiscipline}`;
+        const url = `${UrlConstants.URL_TEACHER}/${idTeacher}/disciplines/${idDiscipline}`;
         return this.httpClient.put(url, [idTeacher, idDiscipline], httpOptions).pipe(
             tap(() => console.log(`added discipline id=${idDiscipline} to teacher id=${idTeacher}`)),
             catchError(err => {console.log(err, 'Не удалось добавить дисциплину');
@@ -80,7 +79,7 @@ export class TeachersService {
     }
 
     getAllDisciplinesOfTeacher(id: number): Observable<Discipline[]> {
-        const url = `${teachUrl}/${id}/disciplines`;
+        const url = `${UrlConstants.URL_TEACHER}/${id}/disciplines`;
         return this.httpClient.get<Discipline []>(url).pipe(
             catchError(err => {console.log(err, 'Отсутсвуют данные в БД');
                                return of(null); })
@@ -89,7 +88,7 @@ export class TeachersService {
     }
 
     deleteDisciplineOfTeacher(idTeacher: number, idDiscipline: number) {
-        const url = `${teachUrl}/${idTeacher}/disciplines/${idDiscipline}`;
+        const url = `${UrlConstants.URL_TEACHER}/${idTeacher}/disciplines/${idDiscipline}`;
         return this.httpClient.delete(url, httpOptions).pipe(
             tap(() => console.log(`deleted discipline id=${idDiscipline} of teacher id=${idTeacher}`)),
             catchError(err => {console.log(err, 'Не удалось удалить дисциплину преподавателя');

@@ -23,9 +23,11 @@ export class MainComponent implements AfterViewInit {
     timetableOfClasses: TimetableOfClasses [];
     calendarEvents: EventInput [];
     day;
+    time: string;
 
-    @ViewChild('calendar', {static: true}) calendarComponent: FullCalendarComponent;
-    constructor(private timetableOfClassesService: TimetableOfClassesService) {}
+    @ViewChild('calendar', {static: false}) calendarComponent: FullCalendarComponent;
+    constructor(private timetableOfClassesService: TimetableOfClassesService) {
+    }
 
 
     // ------------------- настройки отображения расписания ----------------------------------//
@@ -85,8 +87,20 @@ export class MainComponent implements AfterViewInit {
         meridiem: 'short'};
 
     // ------------------- конец настроек расписания ----------------------------------//
+
     ngAfterViewInit() {
-        this.timetableOfClassesService.getTimetableOfClasses('2019-09-09').subscribe(
+    }
+
+ // метод для передачи Диме периода для ивентов из БД
+    getDaysPeriod(info) {
+        const startDay = this.calendarComponent.getApi().view.currentStart;
+        const endDay = this.calendarComponent.getApi().view.currentEnd;
+        startDay.setDate(startDay.getDate() + 1);
+        const start = startDay.toISOString().split('T')[0];
+        const end = endDay.toISOString().split('T')[0];
+        console.log('?classDate1=' + start + '&classDate2=' + end);
+        this.time = '?classDate1=' + start + '&classDate2=' + end;
+        this.timetableOfClassesService.getTimetableOfClasses(this.time).subscribe(
             (data: TimetableOfClasses[]) => {
                 this.timetableOfClasses = data;
                 console.log(this.timetableOfClasses);
@@ -109,18 +123,8 @@ export class MainComponent implements AfterViewInit {
                 console.log(this.calendarEvents);
             }
         );
-        this.getDaysPeriod();
 
-    }
-
-    getDaysPeriod() {
-        const calendarApi = this.calendarComponent.getApi();
-        this.day = calendarApi.getDate();
-        const view = calendarApi.view;
-        const start = view.activeStart;
-        const end = view.activeEnd;
-        console.log(start + ' ' + end);
-    }
+        }
 
 /*    MouseOver(event) {
         console.log(event);

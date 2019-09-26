@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {AuthenticationRequestDto} from '../../shared/models/auth.model';
+import {AuthenticationRequest} from '../../shared/models/auth.model';
 import {AuthenticationService} from '../../shared/services/authentication.service';
 
 @Component({
@@ -14,7 +14,7 @@ export class SignInComponent implements OnInit {
     loading = false;
     submitted = false;
     returnUrl: string;
-    authReqDto: AuthenticationRequestDto;
+    authReqDto: AuthenticationRequest;
 
 
   constructor( private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router,

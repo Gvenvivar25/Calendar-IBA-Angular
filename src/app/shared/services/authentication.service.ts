@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {UrlConstants} from '../url-constants';
 import {Router} from '@angular/router';
-import {AuthenticationRequestDto} from '../models/auth.model';
+import {AuthenticationRequest} from '../models/auth.model';
 
 
 @Injectable({ providedIn: 'root' })
@@ -12,8 +12,9 @@ export class AuthenticationService {
     auth = UrlConstants.URL_AUTH + '/login';
     constructor(private http: HttpClient, private router: Router) {}
 
-    login(authReqDto: AuthenticationRequestDto) {
-        this.http.post(this.auth, {authReqDto})
+    login(AuthenticationRequestDto: AuthenticationRequest) {
+        console.log(AuthenticationRequestDto);
+        this.http.post(this.auth, AuthenticationRequestDto)
             .subscribe((resp: any) => {
 
                 this.router.navigate(['/main']);

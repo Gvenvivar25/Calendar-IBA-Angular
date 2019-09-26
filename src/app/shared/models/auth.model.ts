@@ -1,4 +1,4 @@
-export class AuthenticationRequestDto {
+export class AuthenticationRequest {
     public uername: string;
     public password: string;
 }

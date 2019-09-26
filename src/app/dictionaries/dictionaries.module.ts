@@ -38,6 +38,9 @@ import { EmployeeAddComponent } from './employees/employee-add/employee-add.comp
 import { EmployeeEditComponent } from './employees/employee-edit/employee-edit.component';
 import { EmployeeListComponent } from './employees/employee-list/employee-list.component';
 import { EmployeeDetailComponent } from './employees/employee-detail/employee-detail.component';
+import { UserListComponent } from './users/user-list/user-list.component';
+import { UserAddComponent } from './users/user-add/user-add.component';
+import { UserEditComponent } from './users/user-edit/user-edit.component';
 
 @NgModule ({
     declarations: [
@@ -70,7 +73,10 @@ import { EmployeeDetailComponent } from './employees/employee-detail/employee-de
         EmployeeAddComponent,
         EmployeeEditComponent,
         EmployeeListComponent,
-        EmployeeDetailComponent
+        EmployeeDetailComponent,
+        UserListComponent,
+        UserAddComponent,
+        UserEditComponent
     ],
     imports: [
         CommonModule,

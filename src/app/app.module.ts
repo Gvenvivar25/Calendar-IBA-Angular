@@ -10,12 +10,13 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { MainComponent } from './main/main.component';
 import { SignInComponent } from './auth/sign-in/sign-in.component';
-import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import {AppService} from './app.service';
 import {DictionariesModule} from './dictionaries/dictionaries.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ReportsModule} from './reports/reports.module';
 import { FullCalendarModule } from '@fullcalendar/angular';
+import { AlertComponent } from './shared/components/alert/alert.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -25,12 +26,14 @@ import { FullCalendarModule } from '@fullcalendar/angular';
     FooterComponent,
     MainComponent,
     SignInComponent,
-    SignUpComponent,
+    AlertComponent,
 
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
     DictionariesModule,
     ReportsModule,
     AppRoutingModule,

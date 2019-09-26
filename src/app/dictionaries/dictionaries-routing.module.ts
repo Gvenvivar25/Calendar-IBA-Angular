@@ -30,6 +30,9 @@ import {EmployeeListComponent} from './employees/employee-list/employee-list.com
 import {EmployeeAddComponent} from './employees/employee-add/employee-add.component';
 import {EmployeeDetailComponent} from './employees/employee-detail/employee-detail.component';
 import {EmployeeEditComponent} from './employees/employee-edit/employee-edit.component';
+import {UserListComponent} from './users/user-list/user-list.component';
+import {UserAddComponent} from './users/user-add/user-add.component';
+import {UserEditComponent} from './users/user-edit/user-edit.component';
 
 
 const dictionariesRoutes: Routes = [
@@ -68,6 +71,10 @@ const dictionariesRoutes: Routes = [
             {path: 'employees/add', component: EmployeeAddComponent},
             {path: 'employees/detail', component: EmployeeDetailComponent},
             {path: 'employees/edit/:id', component: EmployeeEditComponent},
+
+            {path: 'users', component: UserListComponent},
+            {path: 'users/add', component: UserAddComponent},
+            {path: 'users/edit/:id', component: UserEditComponent},
         ]}
 ];
 

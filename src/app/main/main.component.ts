@@ -141,7 +141,7 @@ export class MainComponent implements AfterViewInit {
 
 
     eventRender(info) {
-        console.log(info);
+       // console.log(info);
         this.tooltip = new Tooltip(info.el, {
             title: info.event.extendedProps.description,
 
@@ -149,8 +149,8 @@ export class MainComponent implements AfterViewInit {
             trigger: 'hover',
             container: 'body',
         });
-        console.log(this.tooltip);
-        console.log(info.event.extendedProps.description);
+      //  console.log(this.tooltip);
+      //  console.log(info.event.extendedProps.description);
     }
 
     handleEventMouseLeave(info) {

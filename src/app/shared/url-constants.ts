@@ -1,6 +1,7 @@
 import {environment} from '../../environments/environment';
 
 export class UrlConstants {
+    public static URL_API =  environment.apiUrl + '/api';
     public static URL_CLASSROOM = environment.apiUrl + '/api/classrooms';
     public static URL_TYPE_OF_CLASSROOM = environment.apiUrl + '/api/types_of_classroom';
     public static URL_TEACHER = environment.apiUrl + '/api/teachers';
@@ -17,4 +18,6 @@ export class UrlConstants {
     public static URL_GROUP = environment.apiUrl + '/api/groups';
     public static URL_DESCRIPTION_OF_PLAN = environment.apiUrl + '/api/description_of_plans';
     public static URL_TIMETABLE_OF_CLASSES = environment.apiUrl + '/api/timetable_of_classes';
+    public static URL_USER = environment.apiUrl + '/api/users';
+    public static URL_AUTH = environment.apiUrl + '/api/auth';
 }

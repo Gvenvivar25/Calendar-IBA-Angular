@@ -1,11 +1,34 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {UrlConstants} from '../url-constants';
+import {Router} from '@angular/router';
+import {AuthenticationRequestDto} from '../models/auth.model';
 
 
 @Injectable({ providedIn: 'root' })
 
 export class AuthenticationService {
-    constructor(private http: HttpClient) {}
+    token;
+    auth = UrlConstants.URL_AUTH + '/login';
+    constructor(private http: HttpClient, private router: Router) {}
+
+    login(authReqDto: AuthenticationRequestDto) {
+        this.http.post(this.auth, {authReqDto})
+            .subscribe((resp: any) => {
+
+                this.router.navigate(['/main']);
+                localStorage.setItem('auth_token', resp.token);
+
+            });
+    }
+
+    logout() {
+        localStorage.removeItem('token');
+    }
+
+    public get logIn(): boolean {
+        return (localStorage.getItem('token') !== null);
+    }
 
     /*login(username: string, password: string) {
         return this.http.post<any>(`/users/authenticate`, { username, password })

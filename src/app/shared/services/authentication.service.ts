@@ -25,7 +25,7 @@ export class AuthenticationService {
         this.http.post(this.auth, AuthenticationRequestDto)
             .subscribe((resp: any) => {
                 this.router.navigate(['/main']);
-                localStorage.setItem('token', JSON.stringify(resp.token));
+                localStorage.setItem('token', resp.token);
                 this.currentTokenSubject.next(resp.token);
 
 

@@ -3,65 +3,44 @@ import {HttpClient} from '@angular/common/http';
 import {UrlConstants} from '../url-constants';
 import {Router} from '@angular/router';
 import {AuthenticationRequest} from '../models/auth.model';
-import {BehaviorSubject, Observable} from 'rxjs';
+
+
 
 
 
 @Injectable({ providedIn: 'root' })
 
 export class AuthenticationService {
-    token;
+    static readonly TOKEN_STORAGE_KEY = 'token';
     auth = UrlConstants.URL_AUTH + '/login';
-    private currentTokenSubject: BehaviorSubject<string>;
-    public currentToken: Observable<string>;
+    redirectToUrl = '/main';
 
-    constructor(private http: HttpClient, private router: Router) {
-        this.currentTokenSubject = new BehaviorSubject<string>(JSON.parse(localStorage.getItem('token')));
-        this.currentToken = this.currentTokenSubject.asObservable();
+    constructor(private http: HttpClient, private router: Router) { }
+
+    public isLoggedIn(): boolean {
+        return !!this.getToken();
     }
 
-    login(AuthenticationRequestDto: AuthenticationRequest) {
-        console.log(AuthenticationRequestDto);
+    public login(AuthenticationRequestDto: AuthenticationRequest): void {
         this.http.post(this.auth, AuthenticationRequestDto)
-            .subscribe((resp: any) => {
-                this.router.navigate(['/main']);
-                localStorage.setItem('token', resp.token);
-                this.currentTokenSubject.next(resp.token);
-
-
-
+            .subscribe((res: any) => {
+                localStorage.setItem('token', res.token);
+                this.router.navigate([this.redirectToUrl]);
             });
     }
-    public get currentTokenValue(): string {
-        return this.currentTokenSubject.value;
+
+    private saveToken(token: string) {
+        localStorage.setItem(AuthenticationService.TOKEN_STORAGE_KEY, token);
     }
 
-    logout() {
-        localStorage.removeItem('token');
-        this.currentTokenSubject.next(null);
-    }
-
-    public get logIn(): boolean {
-        return (localStorage.getItem('token') !== null);
-    }
-
-    /*login(username: string, password: string) {
-        return this.http.post<any>(`/users/authenticate`, { username, password })
-            .pipe(map(user => {
-                // login successful if there's a jwt token in the response
-                if (user && user.token) {
-                    // store user details and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify(user));
-                    this.currentUserSubject.next(user);
-                }
-
-                return user;
-            }));
-    }
-
-    logout() {
-        // remove user from local storage to log user out
-        localStorage.removeItem('currentUser');
-        this.currentUserSubject.next(null);
+    /*public logout(): void {
+        this.tokenService.logout()
+            .subscribe(() => {
+                localStorage.removeItem(AuthenticationService.TOKEN_STORAGE_KEY);
+            });
     }*/
+
+    public getToken(): string {
+        return localStorage.getItem(AuthenticationService.TOKEN_STORAGE_KEY);
+    }
 }

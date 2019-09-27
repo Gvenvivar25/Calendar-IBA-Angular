@@ -17,6 +17,8 @@ import {ReportsModule} from './reports/reports.module';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { AlertComponent } from './shared/components/alert/alert.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {JwtInterceptor} from './shared/helpers/jwt.interceptor';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 
 
 @NgModule({
@@ -31,6 +33,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
@@ -40,7 +43,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     NgSelectModule,
     FullCalendarModule,
   ],
-  providers: [AppService],
+  providers: [AppService,
+      { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

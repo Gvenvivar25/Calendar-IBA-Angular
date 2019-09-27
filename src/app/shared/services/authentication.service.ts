@@ -3,6 +3,8 @@ import {HttpClient} from '@angular/common/http';
 import {UrlConstants} from '../url-constants';
 import {Router} from '@angular/router';
 import {AuthenticationRequest} from '../models/auth.model';
+import {BehaviorSubject, Observable} from 'rxjs';
+
 
 
 @Injectable({ providedIn: 'root' })
@@ -10,21 +12,33 @@ import {AuthenticationRequest} from '../models/auth.model';
 export class AuthenticationService {
     token;
     auth = UrlConstants.URL_AUTH + '/login';
-    constructor(private http: HttpClient, private router: Router) {}
+    private currentTokenSubject: BehaviorSubject<string>;
+    public currentToken: Observable<string>;
+
+    constructor(private http: HttpClient, private router: Router) {
+        this.currentTokenSubject = new BehaviorSubject<string>(JSON.parse(localStorage.getItem('token')));
+        this.currentToken = this.currentTokenSubject.asObservable();
+    }
 
     login(AuthenticationRequestDto: AuthenticationRequest) {
         console.log(AuthenticationRequestDto);
         this.http.post(this.auth, AuthenticationRequestDto)
             .subscribe((resp: any) => {
-
                 this.router.navigate(['/main']);
-                localStorage.setItem('auth_token', resp.token);
+                localStorage.setItem('token', JSON.stringify(resp.token));
+                this.currentTokenSubject.next(resp.token);
+
+
 
             });
+    }
+    public get currentTokenValue(): string {
+        return this.currentTokenSubject.value;
     }
 
     logout() {
         localStorage.removeItem('token');
+        this.currentTokenSubject.next(null);
     }
 
     public get logIn(): boolean {

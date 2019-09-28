@@ -1,12 +1,14 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {UrlConstants} from '../url-constants';
 import {Router} from '@angular/router';
 import {AuthenticationRequest} from '../models/auth.model';
 
 
 
-
+const httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
 @Injectable({ providedIn: 'root' })
 
@@ -22,15 +24,15 @@ export class AuthenticationService {
     }
 
     public login(AuthenticationRequestDto: AuthenticationRequest): void {
-        this.http.post(this.auth, AuthenticationRequestDto)
+        this.http.post(this.auth, AuthenticationRequestDto, httpOptions)
             .subscribe((res: any) => {
-                localStorage.setItem('token', res.token);
+                sessionStorage.setItem('token', res.token);
                 this.router.navigate([this.redirectToUrl]);
             });
     }
 
     private saveToken(token: string) {
-        localStorage.setItem(AuthenticationService.TOKEN_STORAGE_KEY, token);
+        sessionStorage.setItem(AuthenticationService.TOKEN_STORAGE_KEY, token);
     }
 
     /*public logout(): void {
@@ -41,6 +43,6 @@ export class AuthenticationService {
     }*/
 
     public getToken(): string {
-        return localStorage.getItem(AuthenticationService.TOKEN_STORAGE_KEY);
+        return sessionStorage.getItem(AuthenticationService.TOKEN_STORAGE_KEY);
     }
 }

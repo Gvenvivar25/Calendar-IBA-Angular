@@ -3,7 +3,6 @@ import {FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ClassroomService} from '../classroom.service';
 import {TypeOfClassroom} from '../classroom.model';
-import {Type} from '../../teachers/teacher.model';
 
 @Component({
   selector: 'app-classroom-add',

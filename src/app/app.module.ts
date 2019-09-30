@@ -19,6 +19,8 @@ import { AlertComponent } from './shared/components/alert/alert.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {JwtInterceptor} from './shared/helpers/jwt.interceptor';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {AuthenticationService} from './shared/services/authentication.service';
+
 
 
 @NgModule({
@@ -43,8 +45,9 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
     NgSelectModule,
     FullCalendarModule,
   ],
-  providers: [AppService,
-      { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }],
+  providers: [AuthenticationService,
+      { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+      ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

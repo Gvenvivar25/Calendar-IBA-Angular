@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthenticationRequest} from '../../shared/models/auth.model';
 import {AuthenticationService} from '../../shared/services/authentication.service';
+import {first} from 'rxjs/operators';
 
 @Component({
   selector: 'app-sign-in',
@@ -14,6 +15,7 @@ export class SignInComponent implements OnInit {
     loading = false;
     submitted = false;
     returnUrl: string;
+    error = '';
     authReqDto: AuthenticationRequest;
 
 
@@ -21,9 +23,9 @@ export class SignInComponent implements OnInit {
                private authenticationService: AuthenticationService,
                ) {
       // redirect to home if already logged in
-      /*if (this.authenticationService.currentUserValue) {
-          this.router.navigate(['/']);
-      }*/
+      if (this.authenticationService.currentTokenValue) {
+          this.router.navigate(['/main']);
+      }
   }
 
   ngOnInit() {
@@ -48,7 +50,15 @@ export class SignInComponent implements OnInit {
       this.loading = true;
       this.authReqDto = Object.assign({}, this.signInForm.value);
       console.log(this.authReqDto);
-      this.authenticationService.login(this.authReqDto);
+      this.authenticationService.login(this.authReqDto).pipe(first())
+          .subscribe(
+              () => {
+                  this.router.navigate([this.returnUrl]);
+              },
+              error => {
+                  this.error = error;
+                  this.loading = false;
+              });
 
       /*this.authenticationService.login(this.f.username.value, this.f.password.value)
           .pipe(first())

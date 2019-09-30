@@ -13,19 +13,27 @@ export class AuthGuard implements CanActivate {
     canActivate(
         next: ActivatedRouteSnapshot,
         state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+        const currentToken = this.authService.currentTokenValue;
         let url: string = state.url;
 
-        return this.checkLogin(url);
+        if (currentToken) {
+            // authorised so return true
+            return true;
+        }
+
+        // not logged in so redirect to login page with the return url
+        this.router.navigate(['/sign-in'], { queryParams: { returnUrl: state.url }});
+        return false;
     }
 
-    private checkLogin(url: string): boolean {
+    /*private checkLogin(url: string): boolean {
         if (this.authService.isLoggedIn()) {
             return true;
         }
         this.authService.redirectToUrl = url;
         this.router.navigate(['/sign-in']);
         return false;
-    }
+    }*/
 
     /*canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         const currentToken = sessionStorage.getItem('token');

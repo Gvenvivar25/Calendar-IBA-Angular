@@ -1,5 +1,6 @@
-<div class="col-sm-8">
-    <form [formGroup]="reportForm">
+
+<div class="container-fluid">
+   <!-- <form [formGroup]="reportForm">
         <div class="form-group">
             <label>Выберите формат отчета: </label>
             <ng-select formControlName="format"
@@ -19,5 +20,16 @@
         <button class="btn btn-outline-info" type="submit" style=" width:250px; text-align: left"
                 (click)="getDisciplinesReport()">Отчет по предметам</button>
 
-    </form>
+    </form>-->
+
+    <div>
+        <app-ngx-doc-viewer></app-ngx-doc-viewer>
+    </div>
 </div>
+<br>
+<br>
+<br>
+<br>
+
+<!--
+http://localhost:8080/api/report/disciplines/PDF/report-->

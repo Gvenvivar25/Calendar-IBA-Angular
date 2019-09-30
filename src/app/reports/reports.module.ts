@@ -8,9 +8,17 @@ import {HttpClientModule} from '@angular/common/http';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {ReportsComponent} from './reports.component';
 
+import {SheetJSComponent} from './sheetjs.component';
+import {NgxDocViewerModule} from 'ngx-doc-viewer';
+import { NgxDocViewerComponent } from './ngx-doc-viewer/ngx-doc-viewer.component';
+
+
 @NgModule({
   declarations: [
-      ReportsComponent
+      ReportsComponent,
+      SheetJSComponent,
+      NgxDocViewerComponent,
+
   ],
   imports: [
       CommonModule,
@@ -20,6 +28,7 @@ import {ReportsComponent} from './reports.component';
       HttpClientModule,
       FormsModule,
       NgSelectModule,
-  ]
+      NgxDocViewerModule,
+]
 })
 export class ReportsModule { }

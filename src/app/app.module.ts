@@ -10,7 +10,6 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { MainComponent } from './main/main.component';
 import { SignInComponent } from './auth/sign-in/sign-in.component';
-import {AppService} from './app.service';
 import {DictionariesModule} from './dictionaries/dictionaries.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ReportsModule} from './reports/reports.module';
@@ -20,8 +19,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {JwtInterceptor} from './shared/helpers/jwt.interceptor';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AuthenticationService} from './shared/services/authentication.service';
-
-
 
 @NgModule({
   declarations: [
@@ -44,6 +41,7 @@ import {AuthenticationService} from './shared/services/authentication.service';
     AppRoutingModule,
     NgSelectModule,
     FullCalendarModule,
+
   ],
   providers: [AuthenticationService,
       { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }

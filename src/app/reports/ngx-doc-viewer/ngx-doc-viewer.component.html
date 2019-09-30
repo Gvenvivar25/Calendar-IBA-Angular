@@ -1,0 +1,18 @@
+<div style="text-align:center">
+    <div class="d-flex">
+       <!-- <button [class.active]="viewer == 'google'" class="btn btn-outline-primary m-2" (click)="viewer = 'google'">Google viewer</button>-->
+
+    </div>
+    <div class="d-flex">
+        <button [class.active]="selectedType === 'docx'" class="btn btn-outline-secondary m-2"
+                (click)="setDocLocation('docx')">.docx</button>
+        <button [class.active]="selectedType === 'xslx'" class="btn btn-outline-secondary m-2"
+                (click)="setDocLocation('xslx')">.xslx</button>
+        <button [class.active]="selectedType === 'pdf'"class="btn btn-outline-secondary m-2"
+                    (click)="setDocLocation('pdf')">.pdf</button>
+
+        <input class="form-control w-100 m-2" type="text" placeholder="your document url" #input>
+        <button class="btn btn-outline-secondary m-2" (click)="doc = input.value; selectedType = ''">Go</button>
+    </div>
+    <ngx-doc-viewer [url]="doc" [viewer]="viewer" style="width:100%;height:80vh;"></ngx-doc-viewer>
+</div>

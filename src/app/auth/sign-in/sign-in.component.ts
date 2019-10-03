@@ -23,7 +23,7 @@ export class SignInComponent implements OnInit {
                private authenticationService: AuthenticationService,
                ) {
       // redirect to home if already logged in
-      if (this.authenticationService.currentTokenValue) {
+      if (this.authenticationService.currentToken) {
           this.router.navigate(['/main']);
       }
   }

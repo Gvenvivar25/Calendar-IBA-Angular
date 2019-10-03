@@ -3,41 +3,49 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {UrlConstants} from '../url-constants';
 import {Router} from '@angular/router';
 import {AuthenticationRequest} from '../models/auth.model';
-import {BehaviorSubject, Observable} from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
 import {map} from 'rxjs/operators';
 
-
-
-const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
 
 @Injectable({ providedIn: 'root' })
 
 export class AuthenticationService {
   //  static readonly TOKEN_STORAGE_KEY = 'token';
     auth = UrlConstants.URL_AUTH + '/login';
-    private currentTokenSubject: BehaviorSubject<Token>;
-    public currentToken: Observable<Token>;
+   /* private currentTokenSubject: BehaviorSubject<Token>;
+    public currentToken: Observable<Token>;*/
     private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
     constructor(private http: HttpClient, private router: Router) {
-        this.currentTokenSubject = new BehaviorSubject<Token>(JSON.parse(localStorage.getItem('token')));
-        this.currentToken = this.currentTokenSubject.asObservable();
-    }
+           /* this.currentTokenSubject = new BehaviorSubject<Token>(JSON.parse(localStorage.getItem('token')));
+            this.currentToken = this.currentTokenSubject.asObservable();*/
+        }
+
     get isLoggedIn() {
         console.log(this.loggedIn);
         return this.loggedIn.asObservable();
     }
-    public get currentTokenValue(): Token {
-        return this.currentTokenSubject.value;
+
+   public setLoggedIn(value) {
+        this.loggedIn.next(value);
     }
+
+    public get currentToken(): boolean {
+        return localStorage.getItem('token') !==  null;
+    }
+
+    public getToken(): string {
+        return localStorage.getItem('token');
+    }
+    /*public get currentTokenValue(): Token {
+        return this.currentTokenSubject.value;
+    }*/
 
     public login(AuthenticationRequestDto: AuthenticationRequest) {
        return this.http.post<any>(this.auth, AuthenticationRequestDto)
            .pipe(map((res: any) => {
                 localStorage.setItem('token', res.token);
-                this.currentTokenSubject.next(res);
+             //   this.currentTokenSubject.next(res);
                 this.loggedIn.next(true);
                 return res;
 
@@ -47,7 +55,7 @@ export class AuthenticationService {
     logout() {
         // remove user from local storage to log user out
         localStorage.removeItem('token');
-        this.currentTokenSubject.next(null);
+     //   this.currentTokenSubject.next(null);
         this.loggedIn.next(false);
     }
 
@@ -76,9 +84,7 @@ export class AuthenticationService {
             });
     }*/
 
-    public getToken(): string {
-        return localStorage.getItem('token');
-    }
+
 }
 
 export class Token {

@@ -19,6 +19,10 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {JwtInterceptor} from './shared/helpers/jwt.interceptor';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AuthenticationService} from './shared/services/authentication.service';
+import {TimetablesModule} from './timetables/timetables.module';
+import {TimetablesComponent} from './timetables/timetables.component';
+
+
 
 @NgModule({
   declarations: [
@@ -41,7 +45,7 @@ import {AuthenticationService} from './shared/services/authentication.service';
     AppRoutingModule,
     NgSelectModule,
     FullCalendarModule,
-
+    TimetablesModule
   ],
   providers: [AuthenticationService,
       { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }

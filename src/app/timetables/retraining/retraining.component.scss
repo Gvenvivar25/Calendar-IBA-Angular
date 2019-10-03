@@ -1,0 +1,92 @@
+.row-table{
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.row-table [class*=col-]{
+  background: #ccc;
+  display: table-cell;
+  vertical-align: top;
+  float: none;
+  width: 100%;
+}
+.row-table [class*=col-]:nth-of-type(2){
+  background: #777;
+}
+.row-table [class*=col-]:empty{
+  display: none;
+}
+
+
+li {
+  border-bottom: #304260 1px solid;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 8px;
+}
+
+.navbar-dark {
+  background-color: #6186a8;
+  padding: 16px;
+}
+
+.menu {
+  align-items: center;
+  background: #6186a8;
+  box-shadow: 0 0.1em 1.5em rgba(84,85,85, 0.5);
+  color: white;
+  display: flex;
+  padding: 3px;
+  font-size: 14pt;
+}
+
+.ng-sidebar ng-sidebar--opened ng-sidebar--left ng-sidebar--push navbar-light {
+  background-color: #6186a8;
+
+}
+
+.ng-sidebar {
+  width: 300px;
+}
+
+.demo-contents {
+  padding: 0 20px;
+}
+
+.demo-header__toggle {
+  background: transparent;
+  border: 0.15rem solid white;
+  border-left: 0;
+  border-right: 0;
+  cursor: pointer;
+  font-size: 0;
+  height: 1.5rem;
+  margin-right: 1rem;
+  position: relative;
+  width: 2rem;
+
+  &::after {
+    background: white;
+    content: '';
+    height: 0.15rem;
+    left: 0;
+    margin-top: -0.075rem;
+    position: absolute;
+    top: 50%;
+    width: 100%;
+  }
+}
+.demo-sidebar {
+  background-color: #fff;
+  padding: 2em 1em;
+
+  &.ng-sidebar--opened.ng-sidebar--over {
+    box-shadow: 0 0 2.5em rgba(85, 85, 85, 0.5);
+  }
+}
+
+ng-sidebar-container {
+  height: 85vh;
+  padding: 0px
+}

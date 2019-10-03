@@ -1,0 +1,111 @@
+<ng-sidebar-container
+        (onBackdropClicked)="_onBackdropClicked()">
+
+    <!-- A sidebar -->
+
+    <ng-sidebar
+            [(opened)]="_opened"
+            [mode]="_MODES[_modeNum]"
+            [keyClose]="_keyClose"
+            [position]="_POSITIONS[_positionNum]"
+            [dock]="_dock"
+            [dockedSize]="'50px'"
+            [autoCollapseHeight]="_autoCollapseHeight"
+            [autoCollapseWidth]="_autoCollapseWidth"
+            [closeOnClickOutside]="_closeOnClickOutside"
+            [closeOnClickBackdrop]="_closeOnClickBackdrop"
+            [showBackdrop]="_showBackdrop"
+            [animate]="_animate"
+            [trapFocus]="_trapFocus"
+            [autoFocus]="_autoFocus"
+            [sidebarClass]="'navbar-dark2'"
+            [ariaLabel]="'My sidebar'"
+    >
+<div class="container">
+    <p>Расписание</p>
+
+    <form >
+            <div class="col-md">
+                <ng-select
+                        [items]="typesOfPosition"
+                        bindLabel="value"
+                        bindValue="id"
+                        [multiple]="false"
+                        placeholder="Выберите группу"
+                        clearAllText="Clear"
+                        formControlName="typeOfPosition"
+                >
+                </ng-select>
+            </div>
+            <div class="col-md">
+                <ng-select
+                        [items]="typesOfPosition"
+                        bindLabel="value"
+                        bindValue="id"
+                        [multiple]="false"
+                        placeholder="Выберите предмет"
+                        clearAllText="Clear"
+                        formControlName="typeOfPosition"
+                >
+                </ng-select>
+            </div>
+    </form>
+</div>
+
+    </ng-sidebar>
+
+    <!-- Page content -->
+
+    <div ng-sidebar-content >
+        <!-- Header -->
+        <header class="menu">
+            <button (click)="_toggleOpened()" class="demo-header__toggle" title="Скрыть меню">Toggle sidebar</button>
+            <!-- <span>Справочники</span>-->
+        </header>
+        <section class="demo-contents">
+
+            <!-- Body -->
+            <div class="flex-container">
+                <div class="row">
+                <div class="col-md-2" *ngIf="yes">
+                    <p>lalalala</p>
+                </div>
+                <div class="col-md-10">
+                    <full-calendar
+
+                            #calendar2
+                            defaultView="timeGridWeek"
+                            [plugins]="calendarPlugins"
+                            locale="ru"
+                            timeZone="local"
+                            [editable]="true"
+                            [selectable]="true"
+                            [droppable]="true"
+                            [events]="calendarEvents"
+                            [minTime]="'08:00'"
+                            [maxTime]="'22:00'"
+                            [allDaySlot]="false"
+                            [slotEventOverlap]="false"
+                            [slotLabelFormat]="slotLabelFormat"
+                            [slotLabelInterval]="'00:20'"
+                            [slotDuration]="'00:20'"
+                            [firstDay]="1"
+                            [weekends]="true"
+                            [header]="header"
+                            [buttonText]="buttonText"
+                            [height]="parent"
+                            (dateClick)="handleDateClick($event)"
+                            (eventMouseEnter)="eventRender($event)"
+                            (eventMouseLeave)="handleEventMouseLeave($event)"
+                            (datesRender)="getDaysPeriod($event)"
+                    ></full-calendar>
+                </div>
+            </div>
+            </div>
+            <br>
+            <br>
+            <br>
+        </section>
+    </div>
+
+</ng-sidebar-container>

@@ -9,9 +9,10 @@ const routes: Routes = [
     {path: '', redirectTo: '/sign-in', pathMatch: 'full'},
     {path: 'main', component: MainComponent, canActivate: [AuthGuard] },
     {path: 'sign-in', component: SignInComponent},
+  //  {path: 'retraining', component: RetrainingComponent},
 
     // в других случаях редирект на главную страницу
-    { path: '**', redirectTo: '' }
+   // { path: '**', redirectTo: '' }
 ];
 
 @NgModule({

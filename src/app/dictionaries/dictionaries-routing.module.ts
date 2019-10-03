@@ -33,10 +33,11 @@ import {EmployeeEditComponent} from './employees/employee-edit/employee-edit.com
 import {UserListComponent} from './users/user-list/user-list.component';
 import {UserAddComponent} from './users/user-add/user-add.component';
 import {UserEditComponent} from './users/user-edit/user-edit.component';
+import {AuthGuard} from '../shared/helpers/auth.guard';
 
 
 const dictionariesRoutes: Routes = [
-    {path: 'dictionaries', component: DictionariesComponent, children: [
+    {path: 'dictionaries', component: DictionariesComponent, canActivate: [AuthGuard], children: [
             {path: 'disciplines/add', component: DisciplineAddComponent},
             {path: 'disciplines/detail', component: DisciplineDetailComponent},
             {path: 'disciplines/edit/:id', component: DisciplineEditComponent},

@@ -17,7 +17,7 @@ export class JwtInterceptor implements HttpInterceptor {
         let authReq = request;
         const currentToken = this.auth.getToken();
         console.log(currentToken);
-        console.log(request);
+      //  console.log(request);
         if (currentToken) {
             authReq = request.clone( {
                 setHeaders: {
@@ -25,7 +25,7 @@ export class JwtInterceptor implements HttpInterceptor {
                 }
             });
         }
-        console.log(authReq);
+      //  console.log(authReq);
         return next.handle(authReq);
     }
 }

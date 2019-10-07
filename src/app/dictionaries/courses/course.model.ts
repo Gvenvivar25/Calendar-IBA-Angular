@@ -1,4 +1,5 @@
 import {Discipline} from '../disciplines/discipline.model';
+import {Teacher} from '../teachers/teacher.model';
 
 export class Course {
     public id: number;
@@ -14,6 +15,7 @@ export class LessonPlan {
     public numberOfHours: number;
     public typeOfWork: TypeOfWork;
     public disciplineDto: Discipline;
+    public teacherDto: Teacher;
     public descriptionOfPlan: DescriptionOfPlan;
 
 }

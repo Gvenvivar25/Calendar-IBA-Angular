@@ -5,7 +5,7 @@ export class UrlConstants {
     public static URL_CLASSROOM = environment.apiUrl + '/api/classrooms';
     public static URL_TYPE_OF_CLASSROOM = environment.apiUrl + '/api/types_of_classroom';
     public static URL_TEACHER = environment.apiUrl + '/api/teachers';
-    public static URL_TEACHER_REPORT = environment.apiUrl + '/api/report/teachers';
+    public static URL_REPORT = environment.apiUrl + '/api/report';
     public static URL_DISCIPLINE_REPORT =  environment.apiUrl + '/api/report/disciplines';
     public static URL_DISCIPLINE = environment.apiUrl + '/api/disciplines';
     public static URL_TYPE_OF_EMPLOYMENT = environment.apiUrl + '/api/types_of_employment';

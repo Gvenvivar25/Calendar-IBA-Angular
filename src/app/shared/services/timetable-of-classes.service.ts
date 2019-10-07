@@ -25,5 +25,13 @@ export class TimetableOfClassesService {
 
     }
 
+    findAllSpanByGroupId(groupId) {
+        const url = `${UrlConstants.URL_TIMETABLE_OF_CLASSES}/need/${groupId}`;
+        return this.httpClient.get(url).pipe(
+            catchError(err => {console.log(err, 'Отсутсвуют данные в БД');
+                               return of(null); })
+        );
+    }
+
 
 }

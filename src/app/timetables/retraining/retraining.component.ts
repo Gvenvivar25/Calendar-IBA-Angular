@@ -8,6 +8,9 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGrigPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import listPlugin from '@fullcalendar/list';
+import {FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
+import {GroupService} from '../../dictionaries/groups/group.service';
+import {Group} from '../../dictionaries/groups/group.model';
 
 @Component({
   selector: 'app-retraining',
@@ -15,8 +18,10 @@ import listPlugin from '@fullcalendar/list';
   styleUrls: ['./retraining.component.scss']
 })
 export class RetrainingComponent implements OnInit {
-
-    public yes = true;
+    classesForm: FormGroup;
+    public events: any [] = ['lalala'];
+    public groups: Group[];
+    gruopNeed: TimetableOfClasses[];
 
     private _opened: boolean = true;
     private _modeNum: number = 1;
@@ -125,7 +130,24 @@ export class RetrainingComponent implements OnInit {
     }
 // ------------------- конец методов sidebar ---------------------------------------------//
 
-    constructor(private timetableOfClassesService: TimetableOfClassesService) {}
+    constructor(private timetableOfClassesService: TimetableOfClassesService, private groupService: GroupService) {}
+    ngOnInit(): void {
+        this.groupService.getGroups().subscribe((res: Group[]) => {
+            this.groups = res;
+        } );
+
+        this.classesForm = new FormGroup({
+            group: new FormControl([]),
+        });
+    }
+
+    onSubmit(form: NgForm) {
+        console.log('form', form);
+        this.timetableOfClassesService.findAllSpanByGroupId(form).subscribe((res: TimetableOfClasses[]) => {
+            this.gruopNeed = res;
+            console.log(this.gruopNeed);
+        } ) ;
+    }
 
     // метод для передачи Диме периода для ивентов из БД
     getDaysPeriod(info) {
@@ -189,8 +211,7 @@ export class RetrainingComponent implements OnInit {
         this.tooltip.dispose();
     }
 
-    ngOnInit(): void {
-    }
+
 
 
 }

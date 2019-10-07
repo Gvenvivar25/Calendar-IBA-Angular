@@ -5,6 +5,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {DisciplinesService} from '../../disciplines/disciplines.service';
 import {DescriptionOfPlan, LessonPlan, TypeOfWork} from '../course.model';
 import {DescriptionOfPlanService} from '../../../shared/services/description-of-plan.service';
+import {Teacher, TeacherDto} from '../../teachers/teacher.model';
+import {TeachersService} from '../../teachers/teachers.service';
 
 @Component({
   selector: 'app-lesson-plan-edit',
@@ -20,10 +22,28 @@ export class LessonPlanEditComponent implements OnInit {
     lessonPlans: LessonPlan [];
     disciplines: Discipline [];
     typesOfWork: TypeOfWork[];
+    teachers: Teacher[];
+    teachersDto: TeacherDto[];
 
     constructor(private descriptionOfPlanService: DescriptionOfPlanService, private route: ActivatedRoute, private router: Router,
-                private disciplinesService: DisciplinesService) {
+                private disciplinesService: DisciplinesService, private teacherService: TeachersService) {
         this. lessonPlanEditForm = this.createFormGroup();
+    }
+
+    createFormGroup() {
+        return new FormGroup({
+
+            descriptionOfPlanDto: new FormGroup({
+                id: new FormControl(''),
+                description: new FormControl(''),
+                typeOfCourse: new FormControl(''),
+            }),
+            disciplineDto: new FormControl(''),
+            id: new FormControl(''),
+            typeOfWork: new FormControl(''),
+            teacherDto: new FormControl(''),
+            numberOfHours: new FormControl('', [Validators.pattern('^[0-9]*$')]),
+        });
     }
 
     ngOnInit() {
@@ -34,6 +54,20 @@ export class LessonPlanEditComponent implements OnInit {
         });
         this.descriptionOfPlanService.getTypesOfWork().subscribe((data: TypeOfWork[]) => {
             this.typesOfWork = data;
+        });
+
+        this.teacherService.getTeachers().subscribe((res: Teacher[]) => {
+            this.teachersDto = [];
+            for (let i = 0, len = Object.keys(res).length; i < len; i++) {
+                this.teachersDto.push(
+                    {
+                        id: res[i].id,
+                        lastName: res[i].lastName,
+                        firstName: res[i].firstName,
+                        patronymic: res[i].patronymic,
+                        typeOfEmployment: res[i].typeOfEmployment.id
+                    });
+            }
         });
 
         this.getLessonPlans(this.route.snapshot.params.id);
@@ -75,20 +109,6 @@ export class LessonPlanEditComponent implements OnInit {
 
     }
 
-    createFormGroup() {
-        return new FormGroup({
-
-            descriptionOfPlanDto: new FormGroup({
-                id: new FormControl(''),
-                description: new FormControl(''),
-                typeOfCourse: new FormControl(''),
-                }),
-            disciplineDto: new FormControl(''),
-            id: new FormControl(''),
-            typeOfWork: new FormControl(''),
-            numberOfHours: new FormControl('', [Validators.pattern('^[0-9]*$')]),
-        });
-    }
 
     onDeleteLessonPlan(idL: number) {
         this.descriptionOfPlanService.deleteLessonPlanOfDescrOfPlan(this.id, idL)

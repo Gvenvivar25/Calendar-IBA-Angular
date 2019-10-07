@@ -21,23 +21,23 @@
             [sidebarClass]="'navbar-dark2'"
             [ariaLabel]="'My sidebar'"
     >
-<div class="container">
-    <p>Расписание</p>
+<div class="container-fluid">
+    <p>Настройки создания занятий</p>
 
-    <form >
+    <form [formGroup]="classesForm" (ngSubmit)="onSubmit()">
             <div class="col-md">
                 <ng-select
-                        [items]="typesOfPosition"
-                        bindLabel="value"
+                        [items]="groups"
+                        bindLabel="groupName"
                         bindValue="id"
                         [multiple]="false"
                         placeholder="Выберите группу"
                         clearAllText="Clear"
-                        formControlName="typeOfPosition"
+                        formControlName="group"
                 >
                 </ng-select>
             </div>
-            <div class="col-md">
+            <!--<div class="col-md">
                 <ng-select
                         [items]="typesOfPosition"
                         bindLabel="value"
@@ -48,7 +48,12 @@
                         formControlName="typeOfPosition"
                 >
                 </ng-select>
-            </div>
+            </div>-->
+        <br>
+        <div class="col-md" style="text-align: center">
+            <button type="submit" [disabled]="!classesForm" class="btn btn-light" >Создать</button>
+        </div>
+
     </form>
 </div>
 
@@ -67,8 +72,11 @@
             <!-- Body -->
             <div class="flex-container">
                 <div class="row">
-                <div class="col-md-2" *ngIf="yes">
-                    <p>lalalala</p>
+                <div class="col-md-2">
+                    <p>Занятия:</p>
+                    <div *ngFor="let event of events">
+                        {{event}}
+                    </div>
                 </div>
                 <div class="col-md-10">
                     <full-calendar

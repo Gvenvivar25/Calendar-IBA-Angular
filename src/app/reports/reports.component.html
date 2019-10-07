@@ -1,9 +1,9 @@
 
 <div class="container-fluid">
-   <!-- <form [formGroup]="reportForm">
+
         <div class="form-group">
             <label>Выберите формат отчета: </label>
-            <ng-select formControlName="format"
+            <ng-select [(ngModel)]="format"
                        [items]="formats"
                        bindLabel="value"
                        bindValue="value"
@@ -11,20 +11,39 @@
                        placeholder="Выберите формат отчета"
                        clearAllText="Clear"
             >
+            </ng-select>
 
+        </div>
+        <div>Selected format: {{format}}</div>
+
+        <div class="form-group">
+            <label>Выберите отчет: </label>
+            <ng-select [(ngModel)]="filename"
+                       [items]="filenames"
+                       bindLabel="name"
+                       bindValue="id"
+                       [multiple]="false"
+                       placeholder="Выберите отчет"
+                       clearAllText="Clear"
+            >
             </ng-select>
         </div>
-        <button class=" btn btn-outline-info" type="submit" style=" width:250px; text-align: left"
+
+    <div>Selected format: {{filename}}</div>
+        <!--<button class=" btn btn-outline-info" type="submit" style=" width:250px; text-align: left"
                 (click)="getTeachersReport()">Отчет по преподавателям</button>
         <br>
         <button class="btn btn-outline-info" type="submit" style=" width:250px; text-align: left"
-                (click)="getDisciplinesReport()">Отчет по предметам</button>
+                (click)="getDisciplinesReport()">Отчет по предметам</button>-->
 
-    </form>-->
 
     <div>
-        <app-ngx-doc-viewer></app-ngx-doc-viewer>
+        <input type="button" (click)="download()" value="Download Disciplines report"/>
     </div>
+
+   <!-- <div>
+        <app-ngx-doc-viewer></app-ngx-doc-viewer>
+    </div>-->
 </div>
 <br>
 <br>

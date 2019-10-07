@@ -8,10 +8,11 @@ import {Component, HostListener} from '@angular/core';
 })
 export class AppComponent {
   title = 'calendar';
-    @HostListener('window:beforeunload', ['$event'])
+  /*  @HostListener('window:beforeunload', ['$event'])
     clearLocalStorage(event) {
         localStorage.clear();
-    }
+        console.log('token cleared!');
+    }*/
 
     constructor() {}
 }

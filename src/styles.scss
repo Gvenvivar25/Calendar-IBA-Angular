@@ -1,7 +1,13 @@
-@import "~@ng-select/ng-select/themes/default.theme.css";
-@import '~@fullcalendar/core/main.css';
-@import '~@fullcalendar/daygrid/main.css';
-@import '~@fullcalendar/timegrid/main.css';
+.space {
+  border: 3px outset #39648a;
+  border-radius: 2%;
+  background-color: #d5ffff;
+  color: #0c0a73;
+  font-weight: bold;
+  text-align: center;
+}
+
+
 
 .navbar-dark,  .page-footer {
     background-color: #4c7091;

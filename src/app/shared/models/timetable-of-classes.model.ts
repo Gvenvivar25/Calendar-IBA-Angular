@@ -13,6 +13,7 @@ export class TimetableOfClasses {
     public lessonNumber: number;
     public groupDto: Group;
     public subgroup: number;
+    public typeOfWork: string;
     public disciplineDto: Discipline;
     public classroomDto: Classroom;
     public teacherDto: Teacher;

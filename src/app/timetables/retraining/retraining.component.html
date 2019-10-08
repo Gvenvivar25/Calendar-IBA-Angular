@@ -24,7 +24,7 @@
 <div class="container-fluid">
     <p>Настройки создания занятий</p>
 
-    <form [formGroup]="classesForm" (ngSubmit)="onSubmit()">
+
             <div class="col-md">
                 <ng-select
                         [items]="groups"
@@ -33,7 +33,7 @@
                         [multiple]="false"
                         placeholder="Выберите группу"
                         clearAllText="Clear"
-                        formControlName="group"
+                        [(ngModel)]="group"
                 >
                 </ng-select>
             </div>
@@ -51,10 +51,10 @@
             </div>-->
         <br>
         <div class="col-md" style="text-align: center">
-            <button type="submit" [disabled]="!classesForm" class="btn btn-light" >Создать</button>
+            <button type="submit" class="btn btn-light" (click)="onSubmit()" >Создать</button>
         </div>
 
-    </form>
+
 </div>
 
     </ng-sidebar>
@@ -72,9 +72,10 @@
             <!-- Body -->
             <div class="flex-container">
                 <div class="row">
-                <div class="col-md-2">
+                <div class="space col-md-2">
                     <p>Занятия:</p>
-                    <div *ngFor="let event of events">
+                    <div class="fc-event" ngDraggable [zIndex]="99999" [zIndexMoving]="99999" [trackPosition]="false"
+                         *ngFor="let event of events">
                         {{event}}
                     </div>
                 </div>

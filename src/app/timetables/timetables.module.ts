@@ -10,6 +10,7 @@ import { RetrainingComponent } from './retraining/retraining.component';
 import {SidebarModule} from 'ng-sidebar';
 import {FullCalendarModule} from '@fullcalendar/angular';
 import {NgSelectModule} from '@ng-select/ng-select';
+import {AngularDraggableModule} from 'angular2-draggable';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import {NgSelectModule} from '@ng-select/ng-select';
         SidebarModule.forRoot(),
         FullCalendarModule,
         NgSelectModule,
+      AngularDraggableModule
   ]
 })
 export class TimetablesModule { }

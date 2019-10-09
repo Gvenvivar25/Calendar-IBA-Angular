@@ -20,17 +20,8 @@ import interactionPlugin, { ThirdPartyDraggable } from '@fullcalendar/interactio
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class RetrainingComponent implements OnInit, AfterViewChecked {
- //   classesForm: FormGroup;
-    public events: any [] = ['lalala'];
-    public groups: Group[];
-    groupNeedMap: Map<TimetableOfClasses, number>;
-    groupNeedMapStr: Map<string, number>;
-   // groupNeedMap = new Map<TimetableOfClasses, number>();
-    group: number;
-    public groupEvents: TimetableOfClasses;
- //   public events = new Map<EventTimetable, number>();
 
-    private _opened: boolean = true;
+    private _opened: boolean = false;
     private _modeNum: number = 1;
     private _positionNum: number = 0;
     private _dock: boolean = false;
@@ -47,34 +38,6 @@ export class RetrainingComponent implements OnInit, AfterViewChecked {
     private _MODES: Array<string> = ['over', 'push', 'slide'];
     private _POSITIONS: Array<string> = ['left', 'right', 'top', 'bottom'];
 
-    // ------------------- настройки отображения расписания ----------------------------------//
-
-    tooltip: Tooltip;
-    timetableOfClasses: TimetableOfClasses [];
-    calendarEvents: EventInput [];
-    time: string;
-    @ViewChild('calendar2', {static: false}) calendarComponent: FullCalendarComponent;
-    calendarPlugins = [dayGridPlugin, timeGrigPlugin, interactionPlugin, listPlugin];
-
-    buttonText = {
-        today:    'Сегодня',
-        month:    'Месяц',
-        week:     'Неделя',
-        day:      'День',
-        list:     'Список'
-    };
-    header = {
-        left: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek',
-        center: 'title',
-        right:  'prev,next today'};
-
-    slotLabelFormat = {
-        hour: 'numeric',
-        minute: '2-digit',
-        omitZeroMinute: false,
-        meridiem: 'short'};
-
-    // ------------------- конец настроек расписания ----------------------------------//
 
     // ------------------- методы sidebar ---------------------------------------------//
 
@@ -139,10 +102,10 @@ export class RetrainingComponent implements OnInit, AfterViewChecked {
 
     constructor(private timetableOfClassesService: TimetableOfClassesService, private groupService: GroupService) {}
     ngOnInit(): void {
-        this.groupService.getGroups().subscribe((res: Group[]) => {
+        /*this.groupService.getGroups().subscribe((res: Group[]) => {
             this.groups = res;
         } );
-
+*/
         /*this.classesForm = new FormGroup({
             group: new FormControl([]),
         });*/
@@ -150,18 +113,13 @@ export class RetrainingComponent implements OnInit, AfterViewChecked {
 
     ngAfterViewChecked() {
 
-            this.calendarComponent.dragula({
-                containers: [this.externalsRef],
-                copy: true
-            })
-
     }
 
-    addValueToMap(key: string, value: number) {
+   /* addValueToMap(key: string, value: number) {
         this.groupNeedMapStr.set(key, value);
-    }
+    }*/
 
-    onSubmit() {
+    /*onSubmit() {
         console.log(this.group);
 
 
@@ -173,17 +131,18 @@ export class RetrainingComponent implements OnInit, AfterViewChecked {
                 this.addValueToMap(key, value);
             }
             console.log(this.groupNeedMapStr);
-            /*
+            /!*
             res.forEach((value: number, key: TimetableOfClasses) => {
                 this.events.set({title: key.disciplineDto.shortDisciplineName + ' ' + key.typeOfWork,
                     description: key.disciplineDto.shortDisciplineName + ' ' + key.teacherDto.lastName + ' ' +
                 key.typeOfWork, start: null, end: null}, value);
-                 } ) ;*/
+                 } ) ;*!/
         });
       //  console.log(this.events);
-    }
+    }*/
 
     // метод для передачи Диме периода для ивентов из БД
+/*
     getDaysPeriod(info) {
         const startDay = this.calendarComponent.getApi().view.currentStart;
         const endDay = this.calendarComponent.getApi().view.currentEnd;
@@ -249,6 +208,7 @@ export class RetrainingComponent implements OnInit, AfterViewChecked {
         console.log('drop: ', date);
     }
 
+*/
 
 
 

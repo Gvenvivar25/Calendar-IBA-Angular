@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 
 @Component({
-    selector: 'app-timetable',
+    selector: 'app-timetables',
     templateUrl: './timetables.component.html',
     styleUrls: ['./timetables.component.scss']
 })

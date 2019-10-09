@@ -1,0 +1,47 @@
+<div class="flex-container">
+    <div class="row">
+        <div class="space col-md-2" #external>
+            <p>Занятия:</p>
+            <div class="fc-event" ngDraggable [zIndex]="99999" [zIndexMoving]="99999" [trackPosition]="false"
+                 style="display: grid; margin: 1em 0; padding: .5em; cursor: move;"
+                 *ngFor="let event of events">
+                {{event}}
+            </div>
+        </div>
+        <div class="col-md-10">
+            <full-calendar
+                    *ngIf="options"
+                    #fullcalendar
+                    schedulerLicenseKey="GPL-My-Project-Is-Open-Source"
+                    defaultView="resourceTimeGridDay"
+                    resourceLabelText="Rooms"
+                    [resources]="rooms"
+                    [views]="options.views"
+                    [plugins]="options.plugins"
+                    locale="ru"
+                    timeZone="local"
+                    [datesAboveResources]="true"
+                    [editable]="true"
+                    [selectable]="true"
+                    [droppable]="true"
+                    [events]="calendarEvents"
+                    [minTime]="'08:00'"
+                    [maxTime]="'22:00'"
+                    [allDaySlot]="false"
+                    [slotEventOverlap]="false"
+                    [slotLabelFormat]="options.slotLabelFormat"
+                    [slotLabelInterval]="'00:30'"
+                    [slotDuration]="'00:30'"
+                    [firstDay]="1"
+                    [weekends]="true"
+                    [header]="options.header"
+                    [buttonText]="options.buttonText"
+                    [height]="parent"
+                    (dateClick)="handleDateClick($event)"
+                    (eventMouseEnter)="eventRender($event)"
+                    (eventMouseLeave)="handleEventMouseLeave($event)"
+
+            ></full-calendar>
+        </div>
+    </div>
+</div>

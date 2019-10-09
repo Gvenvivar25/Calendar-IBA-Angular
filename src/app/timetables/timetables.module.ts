@@ -11,11 +11,13 @@ import {SidebarModule} from 'ng-sidebar';
 import {FullCalendarModule} from '@fullcalendar/angular';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {AngularDraggableModule} from 'angular2-draggable';
+import { TimetableComponent } from './timetable/timetable.component';
 
 @NgModule({
   declarations: [
       TimetablesComponent,
-      RetrainingComponent
+      RetrainingComponent,
+      TimetableComponent
   ],
   imports: [
         CommonModule,

@@ -64,53 +64,13 @@
     <div ng-sidebar-content >
         <!-- Header -->
         <header class="menu">
-            <button (click)="_toggleOpened()" class="demo-header__toggle" title="Скрыть меню">Toggle sidebar</button>
-            <!-- <span>Справочники</span>-->
+            <button (click)="_toggleOpened()"  title="Скрыть меню"><span class="oi oi-wrench"></span></button>
+             <span>Настройки</span>
         </header>
         <section class="demo-contents">
 
             <!-- Body -->
-            <div class="flex-container">
-                <div class="row">
-                <div class="space col-md-2">
-                    <p>Занятия:</p>
-                    <div class="fc-event" ngDraggable [zIndex]="99999" [zIndexMoving]="99999" [trackPosition]="false"
-                         *ngFor="let event of events">
-                        {{event}}
-                    </div>
-                </div>
-                <div class="col-md-10">
-                    <full-calendar
-
-                            #calendar2
-                            defaultView="timeGridWeek"
-                            [plugins]="calendarPlugins"
-                            locale="ru"
-                            timeZone="local"
-                            [editable]="true"
-                            [selectable]="true"
-                            [droppable]="true"
-                            [events]="calendarEvents"
-                            [minTime]="'08:00'"
-                            [maxTime]="'22:00'"
-                            [allDaySlot]="false"
-                            [slotEventOverlap]="false"
-                            [slotLabelFormat]="slotLabelFormat"
-                            [slotLabelInterval]="'00:20'"
-                            [slotDuration]="'00:20'"
-                            [firstDay]="1"
-                            [weekends]="true"
-                            [header]="header"
-                            [buttonText]="buttonText"
-                            [height]="parent"
-                            (dateClick)="handleDateClick($event)"
-                            (eventMouseEnter)="eventRender($event)"
-                            (eventMouseLeave)="handleEventMouseLeave($event)"
-                            (datesRender)="getDaysPeriod($event)"
-                    ></full-calendar>
-                </div>
-            </div>
-            </div>
+            <app-timetable></app-timetable>
             <br>
             <br>
             <br>

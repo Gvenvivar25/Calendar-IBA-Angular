@@ -1,17 +1,8 @@
-import {AfterViewChecked, Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
-import Tooltip from 'tooltip.js';
-import {TimetableOfClasses} from '../../shared/models/timetable-of-classes.model';
-import {EventInput} from '@fullcalendar/core/structs/event';
-import {FullCalendarComponent} from '@fullcalendar/angular';
+import {AfterViewChecked, Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {ExternalEvent, TimetableOfClassesForEvents} from '../../shared/models/timetable-of-classes.model';
 import {TimetableOfClassesService} from '../../shared/services/timetable-of-classes.service';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGrigPlugin from '@fullcalendar/timegrid';
-import listPlugin from '@fullcalendar/list';
-import {FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
 import {GroupService} from '../../dictionaries/groups/group.service';
 import {Group} from '../../dictionaries/groups/group.model';
-import {Classroom} from '../../dictionaries/classrooms/classroom.model';
-import interactionPlugin, { ThirdPartyDraggable } from '@fullcalendar/interaction';
 
 @Component({
   selector: 'app-retraining',
@@ -20,6 +11,8 @@ import interactionPlugin, { ThirdPartyDraggable } from '@fullcalendar/interactio
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class RetrainingComponent implements OnInit, AfterViewChecked {
+
+    constructor(private timetableOfClassesService: TimetableOfClassesService, private groupService: GroupService) {}
 
     private _opened: boolean = false;
     private _modeNum: number = 1;
@@ -37,6 +30,11 @@ export class RetrainingComponent implements OnInit, AfterViewChecked {
 
     private _MODES: Array<string> = ['over', 'push', 'slide'];
     private _POSITIONS: Array<string> = ['left', 'right', 'top', 'bottom'];
+// ------------------- конец методов sidebar ---------------------------------------------//
+
+    group: Group;
+    groups: Group [];
+    externalEvents: ExternalEvent[];
 
 
     // ------------------- методы sidebar ---------------------------------------------//
@@ -98,14 +96,11 @@ export class RetrainingComponent implements OnInit, AfterViewChecked {
     private _toggleKeyClose(): void {
         this._keyClose = !this._keyClose;
     }
-// ------------------- конец методов sidebar ---------------------------------------------//
-
-    constructor(private timetableOfClassesService: TimetableOfClassesService, private groupService: GroupService) {}
     ngOnInit(): void {
-        /*this.groupService.getGroups().subscribe((res: Group[]) => {
+        this.groupService.getGroups().subscribe((res: Group[]) => {
             this.groups = res;
         } );
-*/
+
         /*this.classesForm = new FormGroup({
             group: new FormControl([]),
         });*/
@@ -115,31 +110,26 @@ export class RetrainingComponent implements OnInit, AfterViewChecked {
 
     }
 
-   /* addValueToMap(key: string, value: number) {
-        this.groupNeedMapStr.set(key, value);
-    }*/
 
-    /*onSubmit() {
+
+    onSubmit() {
         console.log(this.group);
 
 
-        this.timetableOfClassesService.findAllSpanByGroupId(this.group).subscribe((res: Map<TimetableOfClasses, number>) => {
+        this.timetableOfClassesService.findAllSpanByGroupId(this.group).subscribe((res: TimetableOfClassesForEvents[]) => {
             console.log(res);
-            this.groupNeedMapStr = new Map<string, number>();
-            for (let [key, value] of Object.entries(res)) {
-                console.log('ключ: ' + key + ' значение: ' + value);
-                this.addValueToMap(key, value);
+            this.externalEvents = [];
+            for (let i = 0, len = Object.keys(res).length; i < len; i++) {
+                this.externalEvents.push({title: res[i].timetableOfClassesDto.disciplineDto.shortDisciplineName + ' ' +
+                                            res[i].timetableOfClassesDto.groupDto.groupName,
+                                            description: res[i].timetableOfClassesDto.teacherDto.lastName,
+                                            objectData: res[i].timetableOfClassesDto});
             }
-            console.log(this.groupNeedMapStr);
-            /!*
-            res.forEach((value: number, key: TimetableOfClasses) => {
-                this.events.set({title: key.disciplineDto.shortDisciplineName + ' ' + key.typeOfWork,
-                    description: key.disciplineDto.shortDisciplineName + ' ' + key.teacherDto.lastName + ' ' +
-                key.typeOfWork, start: null, end: null}, value);
-                 } ) ;*!/
+            console.log(this.externalEvents);
         });
+        this._opened = false;
       //  console.log(this.events);
-    }*/
+    }
 
     // метод для передачи Диме периода для ивентов из БД
 /*
@@ -214,9 +204,4 @@ export class RetrainingComponent implements OnInit, AfterViewChecked {
 
 }
 
-export class EventTimetable {
-    title: string;
-    description: string;
-    start: string;
-    end: string;
-}
+

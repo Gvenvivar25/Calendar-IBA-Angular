@@ -16,10 +16,13 @@ export class ReportsComponent implements OnInit {
   reportForm: FormGroup;
   formats: string[] = ['XLSX', 'PDF', 'DOC'];
 
-  filenames: Filename[] = [ {id: 'teachers', name: 'Отчет по преподавателям'}, {id: 'disciplines', name: 'Отчет по предметам'}];
+  filenames: Filename[] = [ {id: 'teachers', name: 'Отчет по преподавателям'}, {id: 'disciplines', name: 'Отчет по предметам'},
+      {id: 'timetable', name: 'Расписание общее'}];
     filename;
     blob;
     format;
+    startDate;
+    endDate;
 
     constructor( private reportService: ReportService, private route: ActivatedRoute, private router: Router,
                  ) {
@@ -29,7 +32,9 @@ export class ReportsComponent implements OnInit {
   }
     createFormGroup() {
         return new FormGroup({
-            format: new FormControl('XLSX', Validators.required)
+            format: new FormControl('XLSX', Validators.required),
+            startDate: new FormControl('', Validators.required),
+            endDate: new FormControl('', Validators.required),
         });
     }
 
@@ -38,10 +43,26 @@ export class ReportsComponent implements OnInit {
   }
 
     download() {
+        console.log(this.startDate, this.endDate);
+        if (this.startDate != null && this.endDate != null) {
+            this.reportService.downloadReportForPeriod(this.format, this.filename, this.startDate, this.endDate)
+                .subscribe(response => {
+
+                    console.log(this.format, this.filename);
+                    if (this.format === 'XLSX') {
+                        this.blob = new Blob([response], {type: 'application/xlsx'});
+                        fileSaver.saveAs(this.blob, this.filename + '.' + this.format);
+                    }
+                    if (this.format === 'PDF') {
+                        this.blob = new Blob([response], {type: 'application/pdf'});
+                        fileSaver.saveAs(this.blob, this.filename + '.' + this.format);
+                    }
+                });
+        } else {
         this.reportService.downloadReport(this.format, this.filename)
             .subscribe(response => {
 
-                console.log(this.format, this.filename)
+                console.log(this.format, this.filename);
                 if (this.format === 'XLSX') {
                     this.blob = new Blob([response], {type: 'application/xlsx'});
                     fileSaver.saveAs(this.blob, this.filename + '.' + this.format);
@@ -58,6 +79,7 @@ export class ReportsComponent implements OnInit {
                 window.open(downloadURL);*/
               //  fileSaver.saveAs(this.blob, this.filename);
             });
+        }
     }
 
     /*getTeachersReport() {

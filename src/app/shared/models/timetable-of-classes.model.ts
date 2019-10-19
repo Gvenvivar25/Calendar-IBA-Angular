@@ -20,3 +20,16 @@ export class TimetableOfClasses {
     public status: boolean;
 
 }
+
+export class TimetableOfClassesForEvents {
+    timetableOfClassesDto: TimetableOfClasses;
+    number: number;
+}
+
+export class ExternalEvent {
+    title: string;
+    description: string;
+   /* start: string;
+    end: string;*/
+    objectData: TimetableOfClasses;
+}

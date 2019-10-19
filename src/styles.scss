@@ -7,7 +7,30 @@
   text-align: center;
 }
 
+th.fc-resource-cell {
+  font-size: 12px;
+}
 
+.popper,
+.tooltip {
+  position: absolute;
+  z-index: 9999;
+background-color: red;
+  color: red;
+  width: 150px;
+  border-radius: 1px;
+
+  padding: 1px;
+  text-align: center;
+  opacity: 1;
+}
+.style5 .tooltip {
+  background-color: red;
+  color: red;
+  max-width: 200px;
+  width: auto;
+  font-size: .8rem;
+}
 
 .navbar-dark,  .page-footer {
     background-color: #4c7091;

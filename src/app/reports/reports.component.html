@@ -1,5 +1,22 @@
 
-<div class="container-fluid">
+<div class="container">
+   <div class="col-md-6">
+        <div class="form-row">
+            <label>Выберите период отчета: </label>
+            <div class="form-row">
+                <div class="col-md form-group">
+                    <input type="date"  [(ngModel)]="startDate" placeholder="дд-мм-гггг"/>
+                </div>
+                <div class="col-md form-group">
+                     -
+                </div>
+                <div class="col-md form-group">
+                    <input type="date"  [(ngModel)]="endDate" placeholder="дд-мм-гггг"/>
+                </div>
+            </div>
+
+
+        </div>
 
         <div class="form-group">
             <label>Выберите формат отчета: </label>
@@ -38,12 +55,13 @@
 
 
     <div>
-        <input type="button" (click)="download()" value="Скачать отчет"/>
+        <input type="button" class="btn btn-outline-primary" (click)="download()" value="Скачать отчет"/>
     </div>
 
    <!-- <div>
         <app-ngx-doc-viewer></app-ngx-doc-viewer>
     </div>-->
+   </div>
 </div>
 <br>
 <br>

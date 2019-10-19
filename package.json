@@ -44,6 +44,8 @@
     "file-saver": "^2.0.2",
     "fullcalendar": "^3.10.1",
     "jquery": "^3.4.1",
+    "jquery-ui": "^1.12.1",
+    "jquery-ui-dist": "^1.12.1",
     "moment": "^2.24.0",
     "ng-sidebar": "^9.0.0",
     "ngx-doc-viewer": "^0.1.20",

@@ -18,11 +18,10 @@ import {TimetableOfClassesService} from '../shared/services/timetable-of-classes
     providers: []
 })
 
-export class MainComponent implements AfterViewInit {
+export class MainComponent {
     tooltip: Tooltip;
     timetableOfClasses: TimetableOfClasses [];
     calendarEvents: EventInput [];
-    day;
     time: string;
 
     @ViewChild('calendar', {static: false}) calendarComponent: FullCalendarComponent;
@@ -88,8 +87,6 @@ export class MainComponent implements AfterViewInit {
 
     // ------------------- конец настроек расписания ----------------------------------//
 
-    ngAfterViewInit() {
-    }
 
  // метод для передачи Диме периода для ивентов из БД
     getDaysPeriod(info) {

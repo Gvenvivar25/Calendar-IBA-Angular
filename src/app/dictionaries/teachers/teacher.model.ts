@@ -17,6 +17,7 @@ export class Type {
     public value: string;
 }
 
+// модификация класса для возврата на сервер
 export class TeacherDto {
     public id: number;
     public lastName: string;

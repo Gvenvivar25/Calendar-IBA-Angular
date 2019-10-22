@@ -1,8 +1,9 @@
 import {Time} from '@angular/common';
-import {Group} from '../../dictionaries/groups/group.model';
+import {Group, GroupDto, TypeOfEducation} from '../../dictionaries/groups/group.model';
 import {Discipline} from '../../dictionaries/disciplines/discipline.model';
-import {Classroom} from '../../dictionaries/classrooms/classroom.model';
-import {Teacher} from '../../dictionaries/teachers/teacher.model';
+import {Classroom, ClassroomDto} from '../../dictionaries/classrooms/classroom.model';
+import {Teacher, TeacherDto} from '../../dictionaries/teachers/teacher.model';
+import {DescriptionOfPlan, DescriptionOfPlanDto, TypeOfWork} from '../../dictionaries/courses/course.model';
 
 export class TimetableOfClasses {
     public id: number;
@@ -13,7 +14,7 @@ export class TimetableOfClasses {
     public lessonNumber: number;
     public groupDto: Group;
     public subgroup: number;
-    public typeOfWork: string;
+    public typeOfWork: TypeOfWork;
     public disciplineDto: Discipline;
     public classroomDto: Classroom;
     public teacherDto: Teacher;
@@ -32,4 +33,20 @@ export class ExternalEvent {
    /* start: string;
     end: string;*/
     objectData: TimetableOfClasses;
+}
+
+export class TimetableOfClassesDto {
+    public id: number;
+    public classDate: Date;
+    public beginTime: Time;
+    public finishTime: Time;
+    public pairNumber: number;
+    public lessonNumber: number;
+    public groupDto: GroupDto;
+    public subgroup: number;
+    public typeOfWork: string;
+    public disciplineDto: Discipline;
+    public classroomDto: ClassroomDto;
+    public teacherDto: TeacherDto;
+    public status: boolean;
 }

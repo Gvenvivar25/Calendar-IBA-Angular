@@ -2,7 +2,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
-import {TimetableOfClasses, TimetableOfClassesForEvents} from '../models/timetable-of-classes.model';
+import {TimetableOfClasses, TimetableOfClassesDto, TimetableOfClassesForEvents} from '../models/timetable-of-classes.model';
 import {UrlConstants} from '../url-constants';
 
 const httpOptions = {
@@ -28,6 +28,14 @@ export class TimetableOfClassesService {
     findAllSpanByGroupId(groupId): Observable<TimetableOfClassesForEvents[]> {
         const url = `${UrlConstants.URL_TIMETABLE_OF_CLASSES}/need/${groupId}`;
         return this.httpClient.get<TimetableOfClassesForEvents []>(url).pipe(
+            catchError(err => {console.log(err, 'Отсутсвуют данные в БД');
+                               return of(null); })
+        );
+    }
+
+    saveOneTimetableOfClasses(timetable: TimetableOfClassesDto): Observable<TimetableOfClasses> {
+      //  const url = `${UrlConstants.URL_TIMETABLE_OF_CLASSES}/need/${groupId}`;
+        return this.httpClient.post(UrlConstants.URL_TIMETABLE_OF_CLASSES, timetable).pipe(
             catchError(err => {console.log(err, 'Отсутсвуют данные в БД');
                                return of(null); })
         );

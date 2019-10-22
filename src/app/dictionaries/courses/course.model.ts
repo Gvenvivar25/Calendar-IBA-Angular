@@ -37,6 +37,7 @@ export class DescriptionOfPlan {
     public typeOfCourse: TypeOfCourse;
 }
 
+// модификация класса для возврата на сервер
 export class DescriptionOfPlanDto {
     public id: number;
     public description: string;

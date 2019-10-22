@@ -14,10 +14,13 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import {EventInput} from '@fullcalendar/core/structs/event';
 import {ClassroomService} from '../../dictionaries/classrooms/classroom.service';
-import {Classroom} from '../../dictionaries/classrooms/classroom.model';
-import {ExternalEvent, TimetableOfClasses} from '../../shared/models/timetable-of-classes.model';
+import {Classroom, ClassroomDto} from '../../dictionaries/classrooms/classroom.model';
+import {ExternalEvent, TimetableOfClasses, TimetableOfClassesDto} from '../../shared/models/timetable-of-classes.model';
 import Tooltip from 'tooltip.js';
 import {TimetableOfClassesService} from '../../shared/services/timetable-of-classes.service';
+import {Teacher, TeacherDto} from '../../dictionaries/teachers/teacher.model';
+import {GroupDto} from '../../dictionaries/groups/group.model';
+import {DescriptionOfPlanDto} from '../../dictionaries/courses/course.model';
 
 declare let $: any;
 
@@ -112,14 +115,34 @@ export class TimetableComponent implements  AfterViewInit {
 
     eventReceive(event) {
         const data = event.draggedEl.dataset.event;
-        console.log(data);
-        const dataObj: ExternalEvent = JSON.parse(data);
+        const dataObj = JSON.parse(data);
+        console.log('Data' + data);
+        console.log('DataObj' + dataObj.objectData.teacherDto);
+        // сборка объекта для отправки на сервер
+        const timetable: TimetableOfClassesDto = new TimetableOfClassesDto();
+        timetable.teacherDto = new TeacherDto();
+        timetable.groupDto = new GroupDto();
+        timetable.classroomDto = new ClassroomDto();
+        timetable.id = null;
 
-        const timetable: TimetableOfClasses = new TimetableOfClasses();
+
+
         timetable.disciplineDto = dataObj.objectData.disciplineDto;
-        timetable.teacherDto = dataObj.objectData.teacherDto;
-        timetable.groupDto = dataObj.objectData.groupDto;
-        timetable.typeOfWork = dataObj.objectData.typeOfWork;
+      //  console.log(timetable);
+        timetable.teacherDto.id = dataObj.objectData.teacherDto.id;
+       // console.log(timetable);
+        timetable.teacherDto.firstName = dataObj.objectData.teacherDto.firstName;
+        timetable.teacherDto.lastName = dataObj.objectData.teacherDto.lastName;
+        timetable.teacherDto.patronymic = dataObj.objectData.teacherDto.patronymic;
+        timetable.teacherDto.typeOfEmployment = dataObj.objectData.teacherDto.typeOfEmployment.id;
+        timetable.groupDto.id = dataObj.objectData.groupDto.id;
+        timetable.groupDto.groupName = dataObj.objectData.groupDto.groupName;
+        timetable.groupDto.numberOfSubgroup = dataObj.objectData.groupDto.numberOfSubgroup;
+        timetable.groupDto.typeOfEducation = dataObj.objectData.groupDto.typeOfEducation.id;
+        /*timetable.groupDto.descriptionOfPlanDto.id = dataObj.objectData.groupDto.descriptionOfPlanDto.id;
+        timetable.groupDto.descriptionOfPlanDto.description = dataObj.objectData.groupDto.descriptionOfPlanDto.description;
+        timetable.groupDto.descriptionOfPlanDto.typeOfCourse = dataObj.objectData.groupDto.descriptionOfPlanDto.typeOfCourse.id;*/
+        timetable.typeOfWork = dataObj.objectData.typeOfWork.id;
         timetable.lessonNumber = dataObj.objectData.lessonNumber;
         timetable.pairNumber = dataObj.objectData.pairNumber;
         timetable.subgroup = dataObj.objectData.subgroup;
@@ -128,17 +151,19 @@ export class TimetableComponent implements  AfterViewInit {
         timetable.beginTime = event.event.start.toTimeString().slice(0, 8);
         timetable.finishTime = event.event.end.toTimeString().slice(0, 8);
         this.classroomService.getClassroom(event.event._def.resourceIds[0]).subscribe((res: Classroom) => {
-            timetable.classroomDto = res;
+            timetable.classroomDto.id = res.id;
+            timetable.classroomDto.number = res.number;
+            timetable.classroomDto.typeOfClassroom = res.typeOfClassroom.id;
         });
 
 
 
         console.log(timetable);
-
-
-        console.log(event);
+        this.timetableOfClassesService.saveOneTimetableOfClasses(timetable).subscribe((res: TimetableOfClasses) => {
+            console.log('Пришло с сервера' + res); } );
+      //  console.log(event);
       //  console.log(event.draggedEl.dataset.event);
-        console.log(event.event._def.resourceIds[0]);
+      //  console.log(event.event._def.resourceIds[0]);
 
     }
 

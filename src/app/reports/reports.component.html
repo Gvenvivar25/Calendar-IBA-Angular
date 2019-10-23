@@ -1,4 +1,82 @@
+<!--<router-outlet></router-outlet>-->
+<br>
+<div class="container-fluid offset-1">
+    <div class="row">
+        <div class="col-md-4">
+            <h5>Расписание:</h5>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <a [routerLink]="'/view'" >Расписание общее</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="#">Расписание по группе</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="#">Расписание по преподавателю</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="#">Расписание по аудитории</a>
+                </li>
+            </ul>
+        </div>
 
+        <div class="col-md-5">
+            <h5>Отчеты:</h5>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <a href="#">Ведомость выполненной нагрузки ППС (форма Ф02-015) общая</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="#">Ведомость выполненной нагрузки ППС (форма Ф02-015) по преподавателю</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="#">Ведомость выполненной нагрузки ППС (форма Ф02-015) по найму</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="#">Сводная ведомость учета проведения занятий</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+        <div class="col-md-4">
+            <h5>Отчеты по справочникам:</h5>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <a href="#">Отчет по преподавателям</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="#">Отчет по предметам</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="#">Отчет по учебным планам</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="#">Отчет по сотрудникам</a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
 <div class="container-fluid">
    <div class="col-md-4">
         <div class="form-row">
@@ -32,7 +110,7 @@
             </ng-select>
 
         </div>
-      <!--  <div>Selected format: {{format}}</div>-->
+      &lt;!&ndash;  <div>Selected format: {{format}}</div>&ndash;&gt;
 
         <div class="form-group">
             <label>Выберите отчет: </label>
@@ -47,21 +125,21 @@
             </ng-select>
         </div>
 
-   <!--     <div>Selected format: {{filename}}</div>-->
-        <!--<button class=" btn btn-outline-info" type="submit" style=" width:250px; text-align: left"
+   &lt;!&ndash;     <div>Selected format: {{filename}}</div>&ndash;&gt;
+        &lt;!&ndash;<button class=" btn btn-outline-info" type="submit" style=" width:250px; text-align: left"
                 (click)="getTeachersReport()">Отчет по преподавателям</button>
         <br>
         <button class="btn btn-outline-info" type="submit" style=" width:250px; text-align: left"
-                (click)="getDisciplinesReport()">Отчет по предметам</button>-->
+                (click)="getDisciplinesReport()">Отчет по предметам</button>&ndash;&gt;
 
 
     <div>
         <input type="button" class="btn btn-outline-primary" (click)="download()" value="Скачать отчет"/>
     </div>
 
-   <!-- <div>
+   &lt;!&ndash; <div>
         <app-ngx-doc-viewer></app-ngx-doc-viewer>
-    </div>-->
+    </div>&ndash;&gt;
    </div>
 </div>
 <br>
@@ -69,5 +147,6 @@
 <br>
 <br>
 
-<!--
-http://localhost:8080/api/report/disciplines/PDF/report-->
+&lt;!&ndash;
+http://localhost:8080/api/report/disciplines/PDF/report&ndash;&gt;
+-->

@@ -11,6 +11,7 @@ import {ReportsComponent} from './reports.component';
 import {SheetJSComponent} from './sheetjs.component';
 import {NgxDocViewerModule} from 'ngx-doc-viewer';
 import { NgxDocViewerComponent } from './ngx-doc-viewer/ngx-doc-viewer.component';
+import { ReportViewComponent } from './report-view/report-view.component';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { NgxDocViewerComponent } from './ngx-doc-viewer/ngx-doc-viewer.component
       ReportsComponent,
       SheetJSComponent,
       NgxDocViewerComponent,
+      ReportViewComponent,
 
   ],
   imports: [

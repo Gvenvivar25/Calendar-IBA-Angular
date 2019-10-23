@@ -30,9 +30,8 @@ export class TimetableOfClassesForEvents {
 export class ExternalEvent {
     title: string;
     description: string;
-   /* start: string;
-    end: string;*/
     objectData: TimetableOfClasses;
+    number: number;
 }
 
 export class TimetableOfClassesDto {

@@ -7,8 +7,8 @@
                  style="display: block; margin: 1em 0; padding: 0.5em; cursor: move;"
                  *ngFor="let event of events" [attr.data-event]="getEvent(event)">
                 {{event.title}}
-
             </div>
+            <!--<div style="border: 1px solid black">{{event.number}}</div>-->
         </div>
         <div class="col-md-10">
             <full-calendar
@@ -17,7 +17,7 @@
 
                     schedulerLicenseKey="GPL-My-Project-Is-Open-Source"
                     defaultView="resourceTimeGridDay"
-                    defaultDate="2019-09-29"
+                    defaultDate="2019-09-30"
                     resourceLabelText="Rooms"
                     [resources]="resources"
 
@@ -35,21 +35,23 @@
                     [allDaySlot]="false"
                     [slotEventOverlap]="false"
                     [slotLabelFormat]="slotLabelFormat"
-                    [slotLabelInterval]="'00:20'"
-                    [slotDuration]="'00:20'"
+                    [slotLabelInterval]="'00:15'"
+                    [slotDuration]="'00:05'"
                     [firstDay]="1"
                     [weekends]="true"
                     [header]="header"
                     [buttonText]="buttonText"
                     [height]="parent"
-                    (eventClick)="click($event)"
+                    (eventClick)="eventClick($event)"
                     (eventMouseEnter)="eventRender($event)"
                     (eventMouseLeave)="handleEventMouseLeave($event)"
                     (datesRender)="getDaysPeriod($event)"
                     (eventReceive)="eventReceive($event)"
                     (eventDrop)="eventDrop($event)"
+                    (dateClick)="handleDateClick($event)"
 
             ></full-calendar>
         </div>
+
     </div>
 </div>

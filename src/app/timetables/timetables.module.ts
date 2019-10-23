@@ -12,12 +12,14 @@ import {FullCalendarModule} from '@fullcalendar/angular';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {AngularDraggableModule} from 'angular2-draggable';
 import { TimetableComponent } from './timetable/timetable.component';
+import { TimetableDetailComponent } from './timetable/timetable-detail/timetable-detail.component';
 
 @NgModule({
   declarations: [
       TimetablesComponent,
       RetrainingComponent,
-      TimetableComponent
+      TimetableComponent,
+      TimetableDetailComponent
   ],
   imports: [
         CommonModule,

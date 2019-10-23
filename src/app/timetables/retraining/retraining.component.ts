@@ -3,6 +3,7 @@ import {ExternalEvent, TimetableOfClassesForEvents} from '../../shared/models/ti
 import {TimetableOfClassesService} from '../../shared/services/timetable-of-classes.service';
 import {GroupService} from '../../dictionaries/groups/group.service';
 import {Group} from '../../dictionaries/groups/group.model';
+import {EventInput} from '@fullcalendar/core';
 
 @Component({
   selector: 'app-retraining',
@@ -35,9 +36,10 @@ export class RetrainingComponent implements OnInit, AfterViewChecked {
     group: Group;
     groups: Group [];
     externalEvents: ExternalEvent[];
+    timetableDetail: EventInput;
+    isNew = null;
 
-
-    // ------------------- методы sidebar ---------------------------------------------//
+// ------------------- методы sidebar ---------------------------------------------//
 
     private _toggleOpened(): void {
         this._opened = !this._opened;
@@ -100,108 +102,27 @@ export class RetrainingComponent implements OnInit, AfterViewChecked {
         this.groupService.getGroups().subscribe((res: Group[]) => {
             this.groups = res;
         } );
-
-        /*this.classesForm = new FormGroup({
-            group: new FormControl([]),
-        });*/
     }
 
-    ngAfterViewChecked() {
-
-    }
-
-
+    ngAfterViewChecked() {}
 
     onSubmit() {
         console.log(this.group);
-
-
         this.timetableOfClassesService.findAllSpanByGroupId(this.group).subscribe((res: TimetableOfClassesForEvents[]) => {
-            console.log(res);
+         //   console.log(res);
             this.externalEvents = [];
             for (let i = 0, len = Object.keys(res).length; i < len; i++) {
                 this.externalEvents.push({title: res[i].timetableOfClassesDto.disciplineDto.shortDisciplineName + ' ' +
                                             res[i].timetableOfClassesDto.groupDto.groupName,
                                             description: res[i].timetableOfClassesDto.teacherDto.lastName,
-                                            objectData: res[i].timetableOfClassesDto});
+                                            objectData: res[i].timetableOfClassesDto,
+                                            number: res[i].number});
+
             }
             console.log(this.externalEvents);
         });
         this._opened = false;
-      //  console.log(this.events);
     }
-
-    // метод для передачи Диме периода для ивентов из БД
-/*
-    getDaysPeriod(info) {
-        const startDay = this.calendarComponent.getApi().view.currentStart;
-        const endDay = this.calendarComponent.getApi().view.currentEnd;
-        startDay.setDate(startDay.getDate() + 1);
-        const start = startDay.toISOString().split('T')[0];
-        const end = endDay.toISOString().split('T')[0];
-        console.log('?classDate1=' + start + '&classDate2=' + end);
-        this.time = '?classDate1=' + start + '&classDate2=' + end;
-        this.timetableOfClassesService.getTimetableOfClasses(this.time).subscribe(
-            (data: TimetableOfClasses[]) => {
-                this.timetableOfClasses = data;
-                console.log(this.timetableOfClasses);
-                this.calendarEvents = [];
-
-                // конвертация объектов из БД в event на календарь
-                for (let i = 0, len = Object.keys(data).length; i < len; i++) {
-                    this.calendarEvents.push (
-                        {
-                            title: data[i].disciplineDto.shortDisciplineName + ' ' +  data[i].teacherDto.lastName + ' ауд. ' +
-                                data[i].classroomDto.number,
-                            start: data[i].classDate + 'T' + data[i].beginTime,
-                            end: data[i].classDate + 'T' + data[i].finishTime,
-                            description: data[i].disciplineDto.shortDisciplineName + ' ' + data[i].teacherDto.lastName + ' ауд. ' +
-                                data[i].classroomDto.number + ' группа ' + data[i].groupDto.groupName + ' подгр.' + data[i].subgroup,
-                            color: '#a7f2f5',
-                        }
-                    );
-                }
-                console.log(this.calendarEvents);
-            }
-        );
-    }
-
-
-    handleDateClick(arg) { // handler method
-        alert(arg.dateStr);
-    }
-
-    click(info) {
-        console.log(info.event.extendedProps.description);
-    }
-
-
-
-    eventRender(info) {
-        // console.log(info);
-        this.tooltip = new Tooltip(info.el, {
-            title: info.event.extendedProps.description,
-
-            placement: 'top',
-            trigger: 'hover',
-            container: 'body',
-        });
-        //  console.log(this.tooltip);
-        //  console.log(info.event.extendedProps.description);
-    }
-
-    handleEventMouseLeave(info) {
-        this.tooltip.dispose();
-    }
-
-    drop(date) {
-        console.log('drop: ', date);
-    }
-
-*/
-
-
-
 }
 
 

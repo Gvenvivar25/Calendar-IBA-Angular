@@ -71,6 +71,10 @@
 
             <!-- Body -->
             <app-timetable [events] = "externalEvents"></app-timetable>
+            <app-timetable-detail
+                    *ngIf="timetableDetail">
+
+            </app-timetable-detail>
             <br>
             <br>
             <br>

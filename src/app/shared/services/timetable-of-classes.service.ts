@@ -34,8 +34,29 @@ export class TimetableOfClassesService {
     }
 
     saveOneTimetableOfClasses(timetable: TimetableOfClassesDto): Observable<TimetableOfClasses> {
-      //  const url = `${UrlConstants.URL_TIMETABLE_OF_CLASSES}/need/${groupId}`;
+
         return this.httpClient.post(UrlConstants.URL_TIMETABLE_OF_CLASSES, timetable).pipe(
+            catchError(err => {console.log(err, 'Отсутсвуют данные в БД');
+                               return of(null); })
+        );
+    }
+
+    getOneTimetableOfClasses(id: number): Observable<TimetableOfClasses> {
+        const url = `${UrlConstants.URL_TIMETABLE_OF_CLASSES}/${id}`;
+        return this.httpClient.get<TimetableOfClasses>(url).pipe(
+            catchError(err => {
+                console.log(err, 'Отсутсвуют данные в БД');
+                return of(null);
+            })
+        );
+    }
+
+    updateOneTimetableOfClasses(id: number, newTimetable: TimetableOfClassesDto): Observable<TimetableOfClasses> {
+        const url = `${UrlConstants.URL_TIMETABLE_OF_CLASSES}/${id}`;
+        return this.httpClient.put<TimetableOfClasses>(url, newTimetable).pipe(
+            tap(() => {
+                return console.log(`updated timetableOfClasses id=${id}`);
+            }),
             catchError(err => {console.log(err, 'Отсутсвуют данные в БД');
                                return of(null); })
         );

@@ -45,6 +45,7 @@ export class ReportViewComponent implements OnInit {
   ngOnInit() {
       this.reportName = this.route.snapshot.params.name;
       switch (this.reportName) {
+          case 'report02015':
           case 'timetable': {
               this.isPeriod = true;
               this.isGroup = false;
@@ -81,6 +82,7 @@ export class ReportViewComponent implements OnInit {
               this.isClassroom = false;
               break;
           }
+
       }
       this.groupService.getGroups().subscribe((res: Group[]) => {
           this.groups = res;
@@ -160,6 +162,13 @@ export class ReportViewComponent implements OnInit {
                     });
                 break;
             }
+            case 'report02015': {
+                this.reportService.downloadReportForm02015(this.format, this.reportName, this.startDate, this.endDate).
+                subscribe(response => {
+                    this.createFile(response);
+                });
+                break;
+            }
         }
     }
 
@@ -191,6 +200,13 @@ export class ReportViewComponent implements OnInit {
                     .subscribe(response => {
                         this.showFile(response);
                     });
+                break;
+            }
+            case 'report02015': {
+                this.reportService.downloadReportForm02015(this.format, this.reportName, this.startDate, this.endDate).
+                subscribe(response => {
+                    this.showFile(response);
+                });
                 break;
             }
         }

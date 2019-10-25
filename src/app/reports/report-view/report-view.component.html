@@ -1,1 +1,74 @@
-<p>report-view works!</p>
+<br>
+<div class="container-fluid">
+    <div class="form-row">
+        <div class="col-md-2 form-group" *ngIf="isPeriod">
+                <input type="date" class="form-control" [(ngModel)]="startDate" />
+        </div>
+        <div class="col-md-2 form-group" *ngIf="isPeriod">
+            <input type="date" class="form-control" [(ngModel)]="endDate" />
+        </div>
+
+        <div class="col-md-2" *ngIf="isGroup">
+            <ng-select [(ngModel)]="group"
+                       [items]="groups"
+                       bindLabel="groupName"
+                       bindValue="id"
+                       [multiple]="false"
+                       placeholder="Выберите группу"
+                       clearAllText="Clear"
+            >
+            </ng-select>
+        </div>
+
+        <div class="col-md-2" *ngIf="isTeacher">
+            <ng-select [(ngModel)]="teacher"
+                       [items]="teachers"
+                       bindLabel="lastName"
+                       bindValue="id"
+                       [multiple]="false"
+                       placeholder="Выберите преподавателя"
+                       clearAllText="Clear"
+            >
+            </ng-select>
+        </div>
+
+        <div class="col-md-2" *ngIf="isClassroom">
+            <ng-select [(ngModel)]="classroom"
+                       [items]="classrooms"
+                       bindLabel="number"
+                       bindValue="id"
+                       [multiple]="false"
+                       placeholder="Выберите аудиторию"
+                       clearAllText="Clear"
+            >
+            </ng-select>
+        </div>
+
+        <div class="col-md-2">
+            <ng-select [(ngModel)]="format"
+                       [items]="formats"
+                       bindLabel="value"
+                       bindValue="value"
+                       [multiple]="false"
+                       placeholder="Выберите формат отчета"
+                       clearAllText="Clear"
+            >
+            </ng-select>
+        </div>
+        <div class="col-md-1">
+            <button class="btn btn-info" (click)="showPDF()">Показать</button>
+        </div>
+        <div class="col-md-1">
+            <button class="btn btn-primary" (click)="download()">Скачать</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md" style="text-align:center">
+            <iframe id="viewer" style="width: 100%; height: 90vh"></iframe>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<br>

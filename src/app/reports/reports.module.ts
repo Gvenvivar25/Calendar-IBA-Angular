@@ -12,6 +12,7 @@ import {SheetJSComponent} from './sheetjs.component';
 import {NgxDocViewerModule} from 'ngx-doc-viewer';
 import { NgxDocViewerComponent } from './ngx-doc-viewer/ngx-doc-viewer.component';
 import { ReportViewComponent } from './report-view/report-view.component';
+import { ReportListComponent } from './report-list/report-list.component';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { ReportViewComponent } from './report-view/report-view.component';
       SheetJSComponent,
       NgxDocViewerComponent,
       ReportViewComponent,
+      ReportListComponent,
 
   ],
   imports: [

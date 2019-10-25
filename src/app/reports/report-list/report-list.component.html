@@ -1,0 +1,153 @@
+<!--<router-outlet></router-outlet>-->
+<br>
+<div class="container-fluid offset-1">
+    <div class="row">
+        <div class="col-md-4">
+            <h5>Расписание:</h5>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <a [routerLink]="['/view/', 'timetable']" >Расписание общее</a>
+                </li>
+                <li class="list-group-item">
+                    <a [routerLink]="['/view/', 'timetable-group']">Расписание по группе</a>
+                </li>
+                <li class="list-group-item">
+                    <a [routerLink]="['/view/', 'timetable-teacher']">Расписание по преподавателю</a>
+                </li>
+                <li class="list-group-item">
+                    <a [routerLink]="['/view/', 'timetable-classroom']">Расписание по аудитории</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-md-5">
+            <h5>Отчеты:</h5>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <a [routerLink]="['/view/', 'report-full']">Ведомость выполненной нагрузки ППС (форма Ф02-015) общая</a>
+                </li>
+                <li class="list-group-item">
+                    <a [routerLink]="['/view/', 'report-teacher']">Ведомость выполненной нагрузки ППС (форма Ф02-015) по преподавателю</a>
+                </li>
+                <li class="list-group-item">
+                    <a [routerLink]="['/view/', 'report-typeOfEmployment']">Ведомость выполненной нагрузки ППС (форма Ф02-015) по найму</a>
+                </li>
+                <li class="list-group-item">
+                    <a [routerLink]="['/view/', 'report-groupClasses']">Сводная ведомость учета проведения занятий</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+        <div class="col-md-4">
+            <h5>Отчеты по справочникам:</h5>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <a [routerLink]="['/view/', 'teachers']">Отчет по преподавателям</a>
+                </li>
+                <li class="list-group-item">
+                    <a [routerLink]="['/view/', 'disciplines']">Отчет по предметам</a>
+                </li>
+                <li class="list-group-item">
+                    <a [routerLink]="['/view/', 'groups']">Отчет по группам</a>
+                </li>
+                <li class="list-group-item">
+                    <a [routerLink]="['/view/', 'employees']">Отчет по сотрудникам</a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+<div class="container-fluid">
+   <div class="col-md-4">
+        <div class="form-row">
+            <label>Выберите период отчета: </label>
+        </div>
+            <div class="form-row">
+                <div class="col-md form-group">
+                    <input type="date"  [(ngModel)]="startDate" placeholder="дд-мм-гггг"/>
+                </div>
+                <div class="col-md form-group" style="text-align: center">
+                     -
+                </div>
+                <div class="col-md form-group">
+                    <input type="date"  [(ngModel)]="endDate" placeholder="дд-мм-гггг"/>
+                </div>
+            </div>
+
+
+
+
+        <div class="form-group">
+            <label>Выберите формат отчета: </label>
+            <ng-select [(ngModel)]="format"
+                       [items]="formats"
+                       bindLabel="value"
+                       bindValue="value"
+                       [multiple]="false"
+                       placeholder="Выберите формат отчета"
+                       clearAllText="Clear"
+            >
+            </ng-select>
+
+        </div>
+      &lt;!&ndash;  <div>Selected format: {{format}}</div>&ndash;&gt;
+
+        <div class="form-group">
+            <label>Выберите отчет: </label>
+            <ng-select [(ngModel)]="filename"
+                       [items]="filenames"
+                       bindLabel="name"
+                       bindValue="id"
+                       [multiple]="false"
+                       placeholder="Выберите отчет"
+                       clearAllText="Clear"
+            >
+            </ng-select>
+        </div>
+
+   &lt;!&ndash;     <div>Selected format: {{filename}}</div>&ndash;&gt;
+        &lt;!&ndash;<button class=" btn btn-outline-info" type="submit" style=" width:250px; text-align: left"
+                (click)="getTeachersReport()">Отчет по преподавателям</button>
+        <br>
+        <button class="btn btn-outline-info" type="submit" style=" width:250px; text-align: left"
+                (click)="getDisciplinesReport()">Отчет по предметам</button>&ndash;&gt;
+
+
+    <div>
+        <input type="button" class="btn btn-outline-primary" (click)="download()" value="Скачать отчет"/>
+    </div>
+
+   &lt;!&ndash; <div>
+        <app-ngx-doc-viewer></app-ngx-doc-viewer>
+    </div>&ndash;&gt;
+   </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+
+&lt;!&ndash;
+http://localhost:8080/api/report/disciplines/PDF/report&ndash;&gt;
+-->
+

@@ -1,5 +1,5 @@
 import {
-    AfterViewInit, Component, ElementRef, Input, ViewChild, ViewEncapsulation} from '@angular/core';
+    AfterViewInit, Component, ElementRef, Input, ViewChild} from '@angular/core';
 
 import {FullCalendarComponent} from '@fullcalendar/angular';
 import resourceTimeGridPlugin from '@fullcalendar/resource-timegrid';
@@ -94,7 +94,7 @@ export class TimetableComponent implements  AfterViewInit {
                 const dataObj: ExternalEvent = JSON.parse(data);
 
                 return {
-                    title: eventEl.innerText,
+                    title: eventEl.firstChild.textContent,
                     duration: '00:45',
                     description: dataObj.title + ' ' + dataObj.description,
                     id: null
@@ -167,17 +167,15 @@ export class TimetableComponent implements  AfterViewInit {
 
     eventReceive(event) {
         console.log(event);
-        const data = event.draggedEl.dataset.event;
-        const dataObj = JSON.parse(data);
-     //   console.log('Data' + data);
-     //   console.log('DataObj' + dataObj.objectData.teacherDto);
+        // меняю количество ивентов для перетаскивания в DOM
+        const need = event.draggedEl.childNodes[1].innerText;
+        if (need > 1) {event.draggedEl.childNodes[1].innerText = need - 1; }
+        if (need <= 1) {
+            event.draggedEl.parentNode.removeChild(event.draggedEl); }
 
+        // чтение и запись полученных данных в объект на сервер
+        const dataObj = JSON.parse(event.draggedEl.dataset.event);
         this.getTimetableObjectWithResource(dataObj, event);
-
-      //  console.log(timetable);
-      //  console.log(event);
-      //  console.log(event.draggedEl.dataset.event);
-      //  console.log(event.event._def.resourceIds[0]);
     }
 
     eventDrop(event) {

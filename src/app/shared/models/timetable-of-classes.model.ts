@@ -1,9 +1,9 @@
 import {Time} from '@angular/common';
-import {Group, GroupDto, TypeOfEducation} from '../../dictionaries/groups/group.model';
+import {Group, GroupDto} from '../../dictionaries/groups/group.model';
 import {Discipline} from '../../dictionaries/disciplines/discipline.model';
 import {Classroom, ClassroomDto} from '../../dictionaries/classrooms/classroom.model';
 import {Teacher, TeacherDto} from '../../dictionaries/teachers/teacher.model';
-import {DescriptionOfPlan, DescriptionOfPlanDto, TypeOfWork} from '../../dictionaries/courses/course.model';
+import {TypeOfWork} from '../../dictionaries/courses/course.model';
 
 export class TimetableOfClasses {
     public id: number;
@@ -24,14 +24,14 @@ export class TimetableOfClasses {
 
 export class TimetableOfClassesForEvents {
     timetableOfClassesDto: TimetableOfClasses;
-    number: number;
+    need: number;
 }
 
 export class ExternalEvent {
     title: string;
     description: string;
     objectData: TimetableOfClasses;
-    number: number;
+    need: number;
 }
 
 export class TimetableOfClassesDto {

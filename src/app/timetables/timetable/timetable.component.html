@@ -3,24 +3,29 @@
     <div class="row">
         <div class="space col-md-2"  #external>
             <p>Занятия:</p>
-            <div class="fc-event" ngDraggable [zIndex]="99999" [zIndexMoving]="99999" [trackPosition]="false"
+            <ul class="list-group">
+                <li class="fc-event" ngDraggable [zIndex]="99999" [zIndexMoving]="99999" [trackPosition]="false"
+                    style="display: block; margin: 1em 0; padding: 0.5em; cursor: move;"
+                    *ngFor="let event of events" [attr.data-event]="getEvent(event)">
+                    {{event.title}} <span class="badge badge-danger">{{event.need}}</span>
+
+                </li>
+            </ul>
+            <!--<div class="fc-event" ngDraggable [zIndex]="99999" [zIndexMoving]="99999" [trackPosition]="false"
                  style="display: block; margin: 1em 0; padding: 0.5em; cursor: move;"
                  *ngFor="let event of events" [attr.data-event]="getEvent(event)">
                 {{event.title}}
-            </div>
+            </div>-->
             <!--<div style="border: 1px solid black">{{event.number}}</div>-->
         </div>
         <div class="col-md-10">
             <full-calendar
                     #fullcalendar
-
-
                     schedulerLicenseKey="GPL-My-Project-Is-Open-Source"
                     defaultView="resourceTimeGridDay"
                     defaultDate="2019-09-30"
                     resourceLabelText="Rooms"
                     [resources]="resources"
-
                     [views]="views"
                     [plugins]="plugins"
                     locale="ru"
@@ -49,7 +54,6 @@
                     (eventReceive)="eventReceive($event)"
                     (eventDrop)="eventDrop($event)"
                     (dateClick)="handleDateClick($event)"
-
             ></full-calendar>
         </div>
 

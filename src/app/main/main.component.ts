@@ -1,7 +1,7 @@
-import {AfterViewInit, Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import { Component, ViewChild, ViewEncapsulation} from '@angular/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import {EventInput, OptionsInput} from '@fullcalendar/core';
+import {EventInput} from '@fullcalendar/core';
 import timeGrigPlugin from '@fullcalendar/timegrid';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import listPlugin from '@fullcalendar/list';
@@ -113,7 +113,7 @@ export class MainComponent {
                             end: data[i].classDate + 'T' + data[i].finishTime,
                             description: data[i].disciplineDto.shortDisciplineName + ' ' + data[i].teacherDto.lastName + ' ауд. ' +
                                 data[i].classroomDto.number + ' группа ' + data[i].groupDto.groupName + ' подгр.' + data[i].subgroup,
-                            color: '#a7f2f5',
+                            color: '#88ff71',
                         }
                     );
                 }

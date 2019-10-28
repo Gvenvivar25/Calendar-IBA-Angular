@@ -20,7 +20,7 @@ import {JwtInterceptor} from './shared/helpers/jwt.interceptor';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AuthenticationService} from './shared/services/authentication.service';
 import {TimetablesModule} from './timetables/timetables.module';
-import {TimetablesComponent} from './timetables/timetables.component';
+import { Page404Component } from './shared/components/page404/page404.component';
 
 
 
@@ -32,6 +32,7 @@ import {TimetablesComponent} from './timetables/timetables.component';
     MainComponent,
     SignInComponent,
     AlertComponent,
+    Page404Component,
 
   ],
   imports: [

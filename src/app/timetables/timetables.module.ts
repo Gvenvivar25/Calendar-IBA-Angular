@@ -13,13 +13,15 @@ import {NgSelectModule} from '@ng-select/ng-select';
 import {AngularDraggableModule} from 'angular2-draggable';
 import { TimetableComponent } from './timetable/timetable.component';
 import { TimetableDetailComponent } from './timetable/timetable-detail/timetable-detail.component';
+import { BookingComponent } from './booking/booking.component';
 
 @NgModule({
   declarations: [
       TimetablesComponent,
       RetrainingComponent,
       TimetableComponent,
-      TimetableDetailComponent
+      TimetableDetailComponent,
+      BookingComponent
   ],
   imports: [
         CommonModule,

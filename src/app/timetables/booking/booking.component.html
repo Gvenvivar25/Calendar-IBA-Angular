@@ -1,0 +1,31 @@
+<div class="container-fluid">
+    <full-calendar
+            #fullcalendar
+            defaultView="timeGridWeek"
+            defaultDate="2019-09-29"
+            [plugins]="plugins"
+            locale="ru"
+            timeZone="local"
+            [editable]="true"
+            [selectable]="true"
+            [droppable]="false"
+            [events]="calendarEvents"
+            [minTime]="'08:00'"
+            [maxTime]="'22:00'"
+            [allDaySlot]="false"
+            [slotEventOverlap]="false"
+            [slotLabelFormat]="slotLabelFormat"
+            [slotLabelInterval]="'00:15'"
+            [slotDuration]="'00:15'"
+            [firstDay]="1"
+            [weekends]="true"
+            [header]="header"
+            [buttonText]="buttonText"
+            [height]="parent"
+
+            (eventMouseEnter)="eventRender($event)"
+            (datesRender)="getDaysPeriod($event)"
+            (dateClick)="handleDateClick($event)"
+
+    ></full-calendar>
+</div>

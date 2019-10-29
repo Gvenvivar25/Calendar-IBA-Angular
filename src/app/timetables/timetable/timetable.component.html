@@ -1,14 +1,15 @@
 
 <div class="flex-container">
     <div class="row">
-        <div class="space col-md-2"  #external>
-            <p>Занятия:</p>
+        <div class=" col-md-2"  #external>
+            <p class="space">Занятия:</p>
             <ul class="list-group">
-                <li class="fc-event" ngDraggable [zIndex]="99999" [zIndexMoving]="99999" [trackPosition]="false"
-                    style="display: block; margin: 1em 0; padding: 0.5em; cursor: move;"
+                <li class="list-group-item list-group-item-primary d-flex justify-content-between align-items-center" ngDraggable [zIndex]="99999" [zIndexMoving]="99999" [trackPosition]="false"
+                    style=" margin: 5px 0; padding: 3px; cursor: move; text-align: left"
                     *ngFor="let event of events" [attr.data-event]="getEvent(event)">
-                    {{event.title}} <span class="badge badge-danger">{{event.need}}</span>
 
+                    {{event.title}}
+                    <span class="badge badge-success">{{event.need}}</span>
                 </li>
             </ul>
             <!--<div class="fc-event" ngDraggable [zIndex]="99999" [zIndexMoving]="99999" [trackPosition]="false"

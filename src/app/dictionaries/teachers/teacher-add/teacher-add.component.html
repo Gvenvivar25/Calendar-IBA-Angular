@@ -66,6 +66,20 @@
                     </ng-select>
                 </div>
         </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label >Цвет</label>
+                <input class="form-control"
+                       [style.background]="color"
+                       [cpOKButton]="true"
+                       [cpSaveClickOutside]="false"
+                       [cpOKButtonClass]= "'btn btn-primary btn-xs'"
+                       [cpCancelButton]="true"
+                       [cpCancelButtonClass]= "'btn btn-primary btn-xs'"
+                       [(colorPicker)]="color"
+                />
+            </div>
+        </div>
 
     <div class="form-row">
             <div class="col-md form-group">

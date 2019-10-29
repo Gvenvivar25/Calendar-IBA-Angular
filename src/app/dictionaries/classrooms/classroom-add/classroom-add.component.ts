@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ClassroomService} from '../classroom.service';
-import {TypeOfClassroom} from '../classroom.model';
+import {Classroom, TypeOfClassroom} from '../classroom.model';
 
 @Component({
   selector: 'app-classroom-add',
@@ -13,6 +13,7 @@ export class ClassroomAddComponent implements OnInit {
 
     classroomForm: FormGroup;
     typesOfClassroom: TypeOfClassroom[];
+    color: string;
     constructor(private route: ActivatedRoute, private router: Router, private classroomService: ClassroomService) {
     }
 
@@ -28,8 +29,13 @@ export class ClassroomAddComponent implements OnInit {
     }
 
     onSubmit(form: NgForm) {
+        const classroom: Classroom = new Classroom();
+        classroom.number = this.classroomForm.value.number;
+        classroom.typeOfClassroom = this.classroomForm.value.typeOfClassroom;
+        classroom.color = this.color;
+        console.log(classroom);
         console.log('Submitted!', form);
-        this.classroomService.saveClassroom(form).subscribe(() => this.gotoClassroomList());
+        this.classroomService.saveClassroom(classroom).subscribe(() => this.gotoClassroomList());
     }
 
     gotoClassroomList() {

@@ -15,6 +15,7 @@ export class ClassroomEditComponent implements OnInit {
     typesOfClassroom: TypeOfClassroom[];
     typeOfClassroom: string;
     id: number;
+    color: string;
 
     constructor(private classroomService: ClassroomService, private route: ActivatedRoute, private router: Router) {
         this.classroomEditForm = this.createFormGroup();
@@ -32,9 +33,10 @@ export class ClassroomEditComponent implements OnInit {
         this.classroomService.getClassroom(id).subscribe(res => {
             console.log(res);
             this.typeOfClassroom = res.typeOfClassroom.value;
+            this.color = res.color;
             this.classroomEditForm.patchValue({
                 number: res.number,
-                typeOfClassroom: res.typeOfClassroom.id
+                typeOfClassroom: res.typeOfClassroom.id,
             });
         });
     }
@@ -48,6 +50,8 @@ export class ClassroomEditComponent implements OnInit {
 
     onSubmit() {
         const result: Classroom = Object.assign({}, this.classroomEditForm.value);
+        result.color = this.color;
+        console.log(result);
         this.classroomService.updateClassroom(this.id, result)
             .subscribe(() => {console.log('Submitted!'); this.gotoClassroomList(); });
     }

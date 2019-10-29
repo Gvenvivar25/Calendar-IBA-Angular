@@ -21,7 +21,8 @@
                     <th>№</th>
                     <th>Номер аудитории</th>
                     <th>Тип аудитории</th>
-                    <th>Краткое наименование типа</th>
+                    <th>Тип</th>
+                    <th>Цвет</th>
                     <th></th>
 
                 </tr>
@@ -38,6 +39,9 @@
                         <td>{{classroom.number}} </td>
                         <td>{{classroom.typeOfClassroom.value}}</td>
                         <td>{{classroom.typeOfClassroom.short_value}}</td>
+                        <td >
+                            <div class="circle" [ngStyle]="{'background-color': classroom.color}"></div>
+                        </td>
                         <td class="td-p-4">
                             <button class="btn-edit" title="Редактировать" [routerLink]="['edit', classroom.id]" >
                                 <span class="oi oi-pencil"></span>
@@ -55,8 +59,6 @@
 
     </div>
 </div>
-<br>
-<br>
-<br>
+
 
 

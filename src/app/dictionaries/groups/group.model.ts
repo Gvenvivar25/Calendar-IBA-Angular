@@ -6,6 +6,8 @@ export class Group {
     public numberOfSubgroup: number;
     public typeOfEducation: TypeOfEducation;
     public descriptionOfPlanDto: DescriptionOfPlan;
+    public color: string;
+
 }
 
 export class TypeOfEducation {
@@ -21,4 +23,5 @@ export class GroupDto {
     public numberOfSubgroup: number;
     public typeOfEducation: string;
     public descriptionOfPlanDto: DescriptionOfPlanDto;
+    public color: string;
 }

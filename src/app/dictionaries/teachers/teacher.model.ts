@@ -4,6 +4,7 @@ export class Teacher {
     public firstName: string;
     public patronymic: string;
     public typeOfEmployment: {id: string; value: string};
+    public color: string;
 }
 
 export class TeacherRequest {
@@ -24,4 +25,5 @@ export class TeacherDto {
     public firstName: string;
     public patronymic: string;
     public typeOfEmployment: string;
+    public color: string;
 }

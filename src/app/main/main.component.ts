@@ -113,7 +113,7 @@ export class MainComponent {
                             end: data[i].classDate + 'T' + data[i].finishTime,
                             description: data[i].disciplineDto.shortDisciplineName + ' ' + data[i].teacherDto.lastName + ' ауд. ' +
                                 data[i].classroomDto.number + ' группа ' + data[i].groupDto.groupName + ' подгр.' + data[i].subgroup,
-                            color: '#88ff71',
+                            color: data[i].classroomDto.color,
                         }
                     );
                 }

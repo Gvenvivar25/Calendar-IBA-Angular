@@ -1,6 +1,6 @@
 <div class="col-sm-6">
     <form [formGroup]="groupEditForm" (ngSubmit)="onSubmit()">
-        <p>Введите новые данные о группе: </p>
+        <p>Внесите изменения в данные о группе: </p>
 
         <div class="form-group">
             <label >Наименование группы</label>
@@ -48,6 +48,19 @@
             <p *ngIf="!groupEditForm.get('numberOfSubgroup').valid
                         && groupEditForm.get('numberOfSubgroup').touched" class="alert alert-danger">
                 Поле не заполнено или введены не цифры. Введите цифры от 1 до 9!</p>
+        </div>
+
+        <div class="form-group">
+            <label >Цвет</label>
+            <input class="form-control"
+                   [style.background]="color"
+                   [cpOKButton]="true"
+                   [cpSaveClickOutside]="false"
+                   [cpOKButtonClass]= "'btn btn-primary btn-xs'"
+                   [cpCancelButton]="true"
+                   [cpCancelButtonClass]= "'btn btn-primary btn-xs'"
+                   [(colorPicker)]="color"
+            />
         </div>
 
         <br>

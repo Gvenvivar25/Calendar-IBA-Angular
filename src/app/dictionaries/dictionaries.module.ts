@@ -41,6 +41,7 @@ import { EmployeeDetailComponent } from './employees/employee-detail/employee-de
 import { UserListComponent } from './users/user-list/user-list.component';
 import { UserAddComponent } from './users/user-add/user-add.component';
 import { UserEditComponent } from './users/user-edit/user-edit.component';
+import { ColorPickerModule } from 'ngx-color-picker';
 
 @NgModule ({
     declarations: [
@@ -87,6 +88,7 @@ import { UserEditComponent } from './users/user-edit/user-edit.component';
         DictionariesRoutingModule,
         SidebarModule.forRoot(),
         NgSelectModule,
+        ColorPickerModule,
 
     ],
     providers: [DisciplinesService]

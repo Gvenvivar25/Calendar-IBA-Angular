@@ -1,7 +1,25 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+
+.circle {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+}
+
 .space {
-  border: 2px outset #39648a;
+  /*border: 2px outset #39648a;
   border-radius: 2%;
-  background-color: #cdeaff;
+  background-color: #cdeaff;*/
   color: #0c0a73;
   font-weight: bold;
   text-align: center;
@@ -110,6 +128,7 @@ th.fc-resource-cell {
 
 .navbar-dark,  .page-footer {
     background-color: #4c7091;
+  padding: 0px 16px;
 }
 
 .nav-link {

@@ -15,6 +15,7 @@ export class TeacherEditComponent implements OnInit {
     typesE: Type [];
     typeOfEmployment: string;
     id: number;
+    color: string;
 
     constructor(private teachersService: TeachersService, private route: ActivatedRoute, private router: Router) {
         this.teacherEditForm = this.createFormGroup();
@@ -31,6 +32,7 @@ export class TeacherEditComponent implements OnInit {
     getTeacher(id: number) {
         this.teachersService.getTeacher(id).subscribe(res => {
             console.log(res);
+            this.color = res.color;
             this.typeOfEmployment = res.typeOfEmployment.value;
             console.log(this.typeOfEmployment);
             this.teacherEditForm.patchValue({
@@ -67,6 +69,7 @@ export class TeacherEditComponent implements OnInit {
     // часть объекта отправляю для добавления на сервер, сразу получаю id препода и с ним добавляю предметы к преподу
     onSubmit() {
         const result: Teacher = Object.assign({}, this.teacherEditForm.value);
+        result.color = this.color;
         console.log(result);
         this.teachersService.updateTeacher(this.id, result)
             .subscribe(() => {console.log('Submitted!');

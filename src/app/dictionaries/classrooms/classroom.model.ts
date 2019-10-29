@@ -2,6 +2,7 @@ export class Classroom {
     public id: number;
     public number: string;
     public typeOfClassroom: TypeOfClassroom;
+    public color: string;
 }
 
 export class TypeOfClassroom {
@@ -15,5 +16,6 @@ export class ClassroomDto {
     public id: number;
     public number: string;
     public typeOfClassroom: string;
+    public color: string;
 }
 

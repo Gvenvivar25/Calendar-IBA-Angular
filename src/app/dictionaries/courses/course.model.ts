@@ -23,6 +23,7 @@ export class LessonPlan {
 export class TypeOfWork {
     public id: string;
     public value: string;
+    public short_value: string;
 }
 
 export class TypeOfCourse {

@@ -48,6 +48,7 @@
     "jquery-ui-dist": "^1.12.1",
     "moment": "^2.24.0",
     "ng-sidebar": "^9.1.1",
+    "ngx-color-picker": "^8.2.0",
     "ngx-doc-viewer": "^0.1.22",
     "ngx-extended-pdf-viewer": "^1.7.1",
     "ngx-toastr": "^10.2.0",

@@ -87,7 +87,7 @@ export class TimetableComponent implements  AfterViewInit {
     ngAfterViewInit(): void {
 
         new Draggable(this.external.nativeElement, {
-            itemSelector: '.fc-event',
+            itemSelector: '.list-group-item',
             eventData(eventEl) {
                 // получаю из div data-event в строку и конвертирую в json, дальше беру необходимые данные
                 const data: string = eventEl.getAttribute('data-event');
@@ -119,7 +119,8 @@ export class TimetableComponent implements  AfterViewInit {
             firstName: dataObj.objectData.teacherDto.firstName,
             lastName: dataObj.objectData.teacherDto.lastName,
             patronymic: dataObj.objectData.teacherDto.patronymic,
-            typeOfEmployment: dataObj.objectData.teacherDto.typeOfEmployment.id
+            typeOfEmployment: dataObj.objectData.teacherDto.typeOfEmployment.id,
+            color: dataObj.objectData.teacherDto.color
         };
 
         timetable.groupDto = {
@@ -132,6 +133,7 @@ export class TimetableComponent implements  AfterViewInit {
                 description: dataObj.objectData.groupDto.descriptionOfPlanDto.description,
                 typeOfCourse: dataObj.objectData.groupDto.descriptionOfPlanDto.typeOfCourse.id,
             },
+            color: dataObj.objectData.groupDto.color
         };
 
         timetable.typeOfWork = dataObj.objectData.typeOfWork.id;
@@ -152,13 +154,12 @@ export class TimetableComponent implements  AfterViewInit {
             timetable.classroomDto = {
                 id: res.id,
                 number: res.number,
-                typeOfClassroom: res.typeOfClassroom.id
-
+                typeOfClassroom: res.typeOfClassroom.id,
+                color: res.color
             };
             console.log(timetable.classroomDto);
             this.timetableOfClassesService.saveOneTimetableOfClasses(timetable).subscribe((result: TimetableOfClasses) => {
                 console.log('Пришло с сервера' + JSON.stringify(result));
-               // event.event.extendedProps.setData(JSON, {id: '123'});
                 event.event.setExtendedProp('id', result.id);
                 console.log(event);
             } );
@@ -198,7 +199,8 @@ export class TimetableComponent implements  AfterViewInit {
                 firstName: res.teacherDto.firstName,
                 lastName: res.teacherDto.lastName,
                 patronymic: res.teacherDto.patronymic,
-                typeOfEmployment: res.teacherDto.typeOfEmployment.id
+                typeOfEmployment: res.teacherDto.typeOfEmployment.id,
+                color: res.teacherDto.color
             };
 
             timetable.groupDto = {
@@ -211,6 +213,7 @@ export class TimetableComponent implements  AfterViewInit {
                     description: res.groupDto.descriptionOfPlanDto.description,
                     typeOfCourse: res.groupDto.descriptionOfPlanDto.typeOfCourse.id,
                 },
+                color: res.groupDto.color
             };
 
             timetable.typeOfWork = res.typeOfWork.id;
@@ -231,7 +234,8 @@ export class TimetableComponent implements  AfterViewInit {
                 timetable.classroomDto = {
                     id: res2.id,
                     number: res2.number,
-                    typeOfClassroom: res2.typeOfClassroom.id
+                    typeOfClassroom: res2.typeOfClassroom.id,
+                    color: res2.color
 
                 };
                 console.log(timetable.classroomDto);
@@ -265,8 +269,8 @@ export class TimetableComponent implements  AfterViewInit {
                     this.calendarEvents.push (
                         {
                             id: data[i].id,
-                            title: data[i].disciplineDto.shortDisciplineName + ' гр. ' +
-                                data[i].groupDto.groupName,
+                            title: data[i].disciplineDto.shortDisciplineName + ' ' + data[i].typeOfWork.short_value + ' гр. №' +
+                                data[i].groupDto.groupName + ' подгр. №' + data[i].subgroup,
                             resourceId: data[i].classroomDto.id,
                             start: data[i].classDate + 'T' + data[i].beginTime,
                             end: data[i].classDate + 'T' + data[i].finishTime,

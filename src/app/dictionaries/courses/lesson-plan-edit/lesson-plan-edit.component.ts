@@ -65,7 +65,8 @@ export class LessonPlanEditComponent implements OnInit {
                         lastName: res[i].lastName,
                         firstName: res[i].firstName,
                         patronymic: res[i].patronymic,
-                        typeOfEmployment: res[i].typeOfEmployment.id
+                        typeOfEmployment: res[i].typeOfEmployment.id,
+                        color: res[i].color
                     });
             }
         });

@@ -18,6 +18,7 @@ export class TeacherAddComponent implements OnInit {
     disciplines: Discipline [];
     discId: number[];
     id: number;
+    color: string;
 
   constructor(private teachersService: TeachersService, private route: ActivatedRoute, private router: Router,
               private disciplinesService: DisciplinesService) {
@@ -67,6 +68,7 @@ export class TeacherAddComponent implements OnInit {
      result.teacherData = Object.assign({}, result.teacherData);
      result.disciplinesData = Object.assign({}, result.disciplinesData);
      this.discId = result.disciplinesData;
+     result.teacherData.color = this.color;
      this.teachersService.saveTeacher(result.teacherData)
          .subscribe(res => { this.id = res.id;
                              for (let i = 0, len = Object.keys(this.discId).length; i < len; i++) {

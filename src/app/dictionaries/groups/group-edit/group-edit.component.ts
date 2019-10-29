@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {GroupService} from '../group.service';
-import { TypeOfEducation} from '../group.model';
+import {Group, TypeOfEducation} from '../group.model';
 import {DescriptionOfPlan, DescriptionOfPlanDto} from '../../courses/course.model';
 import {TypeOfEducationService} from '../../../shared/services/type-of-education.service';
 import {DescriptionOfPlanService} from '../../../shared/services/description-of-plan.service';
@@ -17,6 +17,7 @@ export class GroupEditComponent implements OnInit {
 
     groupEditForm: FormGroup;
     id: number;
+    color: string;
 
     typesOfEducation: TypeOfEducation [];
     descriptionsOfPlan: DescriptionOfPlanDto [];
@@ -57,6 +58,7 @@ export class GroupEditComponent implements OnInit {
     getGroup(id: number) {
         this.groupService.getGroup(id).subscribe(res => {
             console.log(res);
+            this.color = res.color;
             this.groupEditForm.patchValue({
                 groupName: res.groupName,
                 typeOfEducation: res.typeOfEducation.id,
@@ -76,7 +78,9 @@ export class GroupEditComponent implements OnInit {
     }
 
     onSubmit() {
-        this.groupService.updateGroup(this.id, this.groupEditForm.value)
+        const result: Group = Object.assign({}, this.groupEditForm.value);
+        result.color = this.color;
+        this.groupService.updateGroup(this.id, result)
             .subscribe(() => {console.log('Submitted!'); this.gotoGroupList(); });
     }
 

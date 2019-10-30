@@ -9,7 +9,7 @@ const routes: Routes = [
     {path: 'reports', component: ReportListComponent, canActivate: [AuthGuard]/*, children: [
             {path: 'view', component: ReportViewComponent}
         ]*/},
-    {path: 'view/:name', component: ReportViewComponent, canActivate: [AuthGuard]}
+    {path: 'reports/:name', component: ReportViewComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

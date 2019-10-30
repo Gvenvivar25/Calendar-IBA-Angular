@@ -1,36 +1,90 @@
 <div class="container-fluid">
-    <h4 class="text-center">Добро пожаловать в приложение "Расписание!"</h4>
+    <div class="row">
+        <div class="col-md-3">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <button class="btn btn-outline-primary" (click)="loadClassroomEvents()">Аудитории</button>
+                </li>
+                <li class="nav-item">
+                    <button class="btn btn-outline-primary" (click)="loadTeacherEvents()">Преподаватели</button>
+                </li>
+                <li class="nav-item">
+                    <button class="btn btn-outline-primary" (click)="loadGroupEvents()">Группы</button>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-3" *ngIf="isGroup">
+            <ng-select [(ngModel)]="group"
+                       [items]="groups"
+                       bindLabel="groupName"
+                       bindValue="id"
+                       [multiple]="false"
+                       placeholder="Отбор по группе"
+                       clearAllText="Clear"
+            >
+            </ng-select>
+        </div>
 
+        <div class="col-md-3" *ngIf="isTeacher">
+            <ng-select [(ngModel)]="teacher"
+                       [items]="teachers"
+                       bindLabel="lastName"
+                       bindValue="id"
+                       [multiple]="false"
+                       placeholder="Отбор по преподавателю"
+                       clearAllText="Clear"
+            >
+            </ng-select>
+        </div>
 
-    <div>
-        <full-calendar
-
-                #calendar
-                defaultView="timeGridWeek"
-                [plugins]="calendarPlugins"
-                locale="ru"
-                timeZone="local"
-
-                defaultDate="2019-09-29"
-                [editable]="false"
-                [selectable]="true"
-                [events]="calendarEvents"
-                [minTime]="'08:00'"
-                [maxTime]="'22:00'"
-                [allDaySlot]="false"
-                [slotEventOverlap]="false"
-                [slotLabelFormat]="slotLabelFormat"
-                [slotLabelInterval]="'00:20'"
-                [slotDuration]="'00:20'"
-                [firstDay]="1"
-                [weekends]="true"
-                [header]="header"
-                [buttonText]="buttonText"
-                [height]="parent"
-                (dateClick)="handleDateClick($event)"
-                (eventMouseEnter)="eventRender($event)"
-                (eventMouseLeave)="handleEventMouseLeave($event)"
-                (datesRender)="getDaysPeriod($event)"
-        ></full-calendar>
+        <div class="col-md-3" *ngIf="isClassroom">
+            <ng-select [(ngModel)]="classroom"
+                       [items]="classrooms"
+                       bindLabel="number"
+                       bindValue="id"
+                       [multiple]="false"
+                       placeholder="Отбор по аудитории"
+                       clearAllText="Clear"
+            >
+            </ng-select>
+        </div>
+        <div class="col-md-1">
+            <button class="btn btn-outline-primary" (click)="loadOneClassroomEvents()" *ngIf="isClassroom">ОК</button>
+            <button class="btn btn-outline-primary" (click)="loadOneTeacherEvents()" *ngIf="isTeacher">ОК</button>
+            <button class="btn btn-outline-primary" (click)="loadOneGroupEvents()" *ngIf="isGroup">ОК</button>
+        </div>
     </div>
+
+    <full-calendar
+
+            #calendar
+            defaultView="timeGridWeek"
+            [plugins]="calendarPlugins"
+            locale="ru"
+            timeZone="local"
+            defaultDate="2019-09-29"
+            [editable]="false"
+            [selectable]="true"
+            [events]="calendarEvents"
+            [minTime]="'08:00'"
+            [maxTime]="'22:00'"
+            [allDaySlot]="false"
+            [slotEventOverlap]="false"
+            [slotLabelFormat]="slotLabelFormat"
+            [slotLabelInterval]="'00:20'"
+            [slotDuration]="'00:20'"
+            [firstDay]="1"
+            [weekends]="true"
+            [header]="header"
+            [buttonText]="buttonText"
+            [height]="parent"
+            (dateClick)="handleDateClick($event)"
+            (eventMouseEnter)="eventRender($event)"
+            (eventMouseLeave)="handleEventMouseLeave($event)"
+            (datesRender)="getDaysPeriod($event)"
+    ></full-calendar>
+
 </div>
+<br>
+<br>
+

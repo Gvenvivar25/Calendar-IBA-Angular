@@ -1,4 +1,4 @@
-import { Component, ViewChild, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import {EventInput} from '@fullcalendar/core';
@@ -8,6 +8,13 @@ import listPlugin from '@fullcalendar/list';
 import Tooltip from 'tooltip.js';
 import {TimetableOfClasses} from '../shared/models/timetable-of-classes.model';
 import {TimetableOfClassesService} from '../shared/services/timetable-of-classes.service';
+import {Group} from '../dictionaries/groups/group.model';
+import {Teacher} from '../dictionaries/teachers/teacher.model';
+import {Classroom} from '../dictionaries/classrooms/classroom.model';
+import {GroupService} from '../dictionaries/groups/group.service';
+import {TeachersService} from '../dictionaries/teachers/teachers.service';
+import {ClassroomService} from '../dictionaries/classrooms/classroom.service';
+import {ActivatedRoute} from '@angular/router';
 
 
 @Component({
@@ -18,52 +25,30 @@ import {TimetableOfClassesService} from '../shared/services/timetable-of-classes
     providers: []
 })
 
-export class MainComponent {
+export class MainComponent implements OnInit {
     tooltip: Tooltip;
     timetableOfClasses: TimetableOfClasses [];
     calendarEvents: EventInput [];
     time: string;
 
+    group;
+    groups: Group[];
+    teacher;
+    teachers: Teacher[];
+    classroom;
+    classrooms: Classroom[];
+
+    filter: string;
+    isGroup: boolean;
+    isTeacher: boolean;
+    isClassroom: boolean;
+
     @ViewChild('calendar', {static: false}) calendarComponent: FullCalendarComponent;
-    constructor(private timetableOfClassesService: TimetableOfClassesService) {
-    }
+
+
 
 
     // ------------------- настройки отображения расписания ----------------------------------//
-
-    /*events =  {
-        url: 'http://localhost:8080/api/timetable_of_classes?classDate=2019-09-09',
-        method: 'POST',
-        extraParams: {
-            custom_param1: 'something',
-            custom_param2: 'somethingelse'
-        },
-        failure() {
-        alert('there was an error while fetching events!');
-    },
-    color: 'yellow',   // a non-ajax option
-    textColor: 'black' // a non-ajax option
-};*/
-
-    /*calendarEvents = [{
-        events: [
-            {title: 'Java1', description: 'Java1, препод: Салапура, группа ПП1.18', start: '2019-09-17T08:30:00',
-                end: '2019-09-17T09:20:00', allDay: false, customRender: true},
-            { title: 'Java1', start: '2019-09-17T08:50:00', description: 'Java1, препод: Storojev, группа ПП1.18',
-                end: '2019-09-17T09:50:00', allDay: false },
-            { title: 'АПИС', date: '2019-09-17T11:20:00', description: 'Java2', end: '2019-09-17T12:40:00', allDay: false },
-            { title: 'Android', date: '2019-09-19T10:40:00', end: '2019-09-19T13:50:00', allDay: false }
-        ],
-        color: '#07f59e'
-    },
-        {
-            events: [
-                {title: 'Java1', start: '2019-09-18T08:30:00', description: 'Java3', end: '2019-09-18T09:20:00', allDay: false},
-                { title: 'Android', date: '2019-09-19T10:40:00', end: '2019-09-19T13:50:00', allDay: false }
-            ],
-            color: '#f5f30f'
-        }
-    ];*/
 
     calendarPlugins = [dayGridPlugin, timeGrigPlugin, interactionPlugin, listPlugin];
 
@@ -86,47 +71,213 @@ export class MainComponent {
         meridiem: 'short'};
 
     // ------------------- конец настроек расписания ----------------------------------//
+    constructor(private timetableOfClassesService: TimetableOfClassesService, private groupService: GroupService,
+                private teacherService: TeachersService,
+                private classroomService: ClassroomService,
+                private route: ActivatedRoute) {  }
 
+    ngOnInit(): void {
+        this.isGroup = false;
+        this.isTeacher = false;
+        this.isClassroom = true;
 
- // метод для передачи Диме периода для ивентов из БД
-    getDaysPeriod(info) {
+        this.groupService.getGroups().subscribe((res: Group[]) => {
+            this.groups = res;
+        });
+        this.teacherService.getTeachers().subscribe((res: Teacher[]) => {
+            this.teachers = res;
+        });
+        this.classroomService.getClassrooms().subscribe((res: Classroom[]) => {
+            this.classrooms = res;
+        });
+    }
+    loadClassroomEvents() {
+        this.isGroup = false;
+        this.isTeacher = false;
+        this.isClassroom = true;
+        this.group = null;
+        this.teacher = null;
+        this.getDaysPeriod();
+    }
+
+    loadGroupEvents() {
+        this.isGroup = true;
+        this.isTeacher = false;
+        this.isClassroom = false;
+        this.teacher = null;
+        this.classroom = null;
+        this.getDaysPeriod();
+    }
+
+    loadTeacherEvents() {
+        this.isGroup = false;
+        this.isTeacher = true;
+        this.isClassroom = false;
+        this.classroom = null;
+        this.group = null;
+        this.getDaysPeriod();
+    }
+
+    loadOneClassroomEvents() {
+        if (this.classroom != null) {
+            this.timetableOfClassesService.getTimetableOfClassesOfClassroom(this.time, this.classroom)
+                .subscribe( (data: TimetableOfClasses[]) => {
+                    this.timetableOfClasses = data;
+                    console.log(this.timetableOfClasses);
+                    this.calendarEvents = [];
+
+                    // конвертация объектов из БД в event на календарь
+                    for (let i = 0, len = Object.keys(data).length; i < len; i++) {
+                        if (this.isClassroom) {
+                            this.calendarEvents.push(
+                                {
+                                    title: data[i].classroomDto.number,
+                                    start: data[i].classDate + 'T' + data[i].beginTime,
+                                    end: data[i].classDate + 'T' + data[i].finishTime,
+                                    description: data[i].disciplineDto.shortDisciplineName + ' ' + data[i].teacherDto.lastName + ' ауд. ' +
+                                    data[i].classroomDto.number + ' группа ' + data[i].groupDto.groupName + ' подгр.' + data[i].subgroup,
+                                    color: data[i].classroomDto.color,
+                                }
+                            );
+                        }
+                    }
+                    console.log(this.calendarEvents);
+                });
+        } else {this.getDaysPeriod(); }
+    }
+
+    loadOneTeacherEvents() {
+        if (this.teacher != null) {
+            this.timetableOfClassesService.getTimetableOfClassesOfTeacher(this.time, this.teacher)
+                .subscribe( (data: TimetableOfClasses[]) => {
+                    this.timetableOfClasses = data;
+                    console.log(this.timetableOfClasses);
+                    this.calendarEvents = [];
+
+                    // конвертация объектов из БД в event на календарь
+                    for (let i = 0, len = Object.keys(data).length; i < len; i++) {
+                        if (this.isTeacher) {
+                            this.calendarEvents.push(
+                                {
+                                    title: data[i].teacherDto.lastName,
+                                    start: data[i].classDate + 'T' + data[i].beginTime,
+                                    end: data[i].classDate + 'T' + data[i].finishTime,
+                                    description: data[i].disciplineDto.shortDisciplineName + ' ' + data[i].teacherDto.lastName + ' ауд. ' +
+                                    data[i].classroomDto.number + ' группа ' + data[i].groupDto.groupName + ' подгр.' + data[i].subgroup,
+                                    color: data[i].teacherDto.color,
+                                }
+                            );
+                        }
+                    }
+                    console.log(this.calendarEvents);
+                });
+        } else {this.getDaysPeriod(); }
+    }
+
+    loadOneGroupEvents() {
+        if (this.group != null) {
+            this.timetableOfClassesService.getTimetableOfClassesOfGroup(this.time, this.group)
+                .subscribe( (data: TimetableOfClasses[]) => {
+                    this.timetableOfClasses = data;
+                    console.log(this.timetableOfClasses);
+                    this.calendarEvents = [];
+
+                    // конвертация объектов из БД в event на календарь
+                    for (let i = 0, len = Object.keys(data).length; i < len; i++) {
+                        if (this.isGroup) {
+                            this.calendarEvents.push(
+                                {
+                                    title: data[i].groupDto.groupName + ' ' + data[i].subgroup,
+                                    start: data[i].classDate + 'T' + data[i].beginTime,
+                                    end: data[i].classDate + 'T' + data[i].finishTime,
+                                    description: data[i].disciplineDto.shortDisciplineName + ' ' + data[i].teacherDto.lastName + ' ауд. ' +
+                                    data[i].classroomDto.number + ' группа ' + data[i].groupDto.groupName + ' подгр.' + data[i].subgroup,
+                                    color: data[i].groupDto.color,
+                                }
+                            );
+                        }
+                    }
+                    console.log(this.calendarEvents);
+                });
+        } else {this.getDaysPeriod(); }
+    }
+
+    getPeriod(): string {
         const startDay = this.calendarComponent.getApi().view.currentStart;
         const endDay = this.calendarComponent.getApi().view.currentEnd;
         startDay.setDate(startDay.getDate() + 1);
         const start = startDay.toISOString().split('T')[0];
         const end = endDay.toISOString().split('T')[0];
         console.log('?classDate1=' + start + '&classDate2=' + end);
-        this.time = '?classDate1=' + start + '&classDate2=' + end;
-        this.timetableOfClassesService.getTimetableOfClasses(this.time).subscribe(
-            (data: TimetableOfClasses[]) => {
-                this.timetableOfClasses = data;
-                console.log(this.timetableOfClasses);
-                this.calendarEvents = [];
+        return '?classDate1=' + start + '&classDate2=' + end;
+    }
 
-                // конвертация объектов из БД в event на календарь
-                for (let i = 0, len = Object.keys(data).length; i < len; i++) {
-                    this.calendarEvents.push (
-                        {
-                            title: data[i].disciplineDto.shortDisciplineName + ' ' +  data[i].teacherDto.lastName + ' ауд. ' +
-                                data[i].classroomDto.number,
-                            start: data[i].classDate + 'T' + data[i].beginTime,
-                            end: data[i].classDate + 'T' + data[i].finishTime,
-                            description: data[i].disciplineDto.shortDisciplineName + ' ' + data[i].teacherDto.lastName + ' ауд. ' +
-                                data[i].classroomDto.number + ' группа ' + data[i].groupDto.groupName + ' подгр.' + data[i].subgroup,
-                            color: data[i].classroomDto.color,
+    // метод для передачи Диме периода для ивентов из БД
+    getDaysPeriod() {
+        this.time = this.getPeriod();
+        if (this.classroom != null) {
+            this.loadOneClassroomEvents();
+        } else if (this.teacher != null) {
+            this.loadOneTeacherEvents();
+        } else if (this.group != null) {
+            this.loadOneGroupEvents();
+        } else {
+            this.timetableOfClassesService.getTimetableOfClasses(this.time).subscribe(
+                (data: TimetableOfClasses[]) => {
+                    this.timetableOfClasses = data;
+                    console.log(this.timetableOfClasses);
+                    this.calendarEvents = [];
+
+                    // конвертация объектов из БД в event на календарь
+                    for (let i = 0, len = Object.keys(data).length; i < len; i++) {
+                        if (this.isClassroom) {
+                            this.calendarEvents.push(
+                                {
+                                    title: /*data[i].disciplineDto.shortDisciplineName + ' ' + data[i].teacherDto.lastName + ' ауд. ' +*/
+                                    data[i].classroomDto.number,
+                                    start: data[i].classDate + 'T' + data[i].beginTime,
+                                    end: data[i].classDate + 'T' + data[i].finishTime,
+                                    description: data[i].disciplineDto.shortDisciplineName + ' ' + data[i].teacherDto.lastName + ' ауд. ' +
+                                    data[i].classroomDto.number + ' группа ' + data[i].groupDto.groupName + ' подгр.' + data[i].subgroup,
+                                    color: data[i].classroomDto.color,
+                                }
+                            );
                         }
-                    );
+                        if (this.isTeacher) {
+                            this.calendarEvents.push(
+                                {
+                                    title: data[i].teacherDto.lastName,
+                                    start: data[i].classDate + 'T' + data[i].beginTime,
+                                    end: data[i].classDate + 'T' + data[i].finishTime,
+                                    description: data[i].disciplineDto.shortDisciplineName + ' ' + data[i].teacherDto.lastName + ' ауд. ' +
+                                    data[i].classroomDto.number + ' группа ' + data[i].groupDto.groupName + ' подгр.' + data[i].subgroup,
+                                    color: data[i].teacherDto.color,
+                                }
+                            );
+                        }
+                        if (this.isGroup) {
+                            this.calendarEvents.push(
+                                {
+                                    title: data[i].groupDto.groupName + ' ' + data[i].subgroup,
+                                    start: data[i].classDate + 'T' + data[i].beginTime,
+                                    end: data[i].classDate + 'T' + data[i].finishTime,
+                                    description: data[i].disciplineDto.shortDisciplineName + ' ' + data[i].teacherDto.lastName + ' ауд. ' +
+                                    data[i].classroomDto.number + ' группа ' + data[i].groupDto.groupName + ' подгр.' + data[i].subgroup,
+                                    color: data[i].groupDto.color,
+                                }
+                            );
+                        }
+
+                    }
+                    console.log(this.calendarEvents);
                 }
-                console.log(this.calendarEvents);
-            }
-        );
-
+            );
         }
+    }
 
-/*    MouseOver(event) {
-        console.log(event);
 
-    }*/
+
+
     handleDateClick(arg) { // handler method
         alert(arg.dateStr);
     }
@@ -136,9 +287,8 @@ export class MainComponent {
     }
 
 
-
     eventRender(info) {
-       // console.log(info);
+        // console.log(info);
         this.tooltip = new Tooltip(info.el, {
             title: info.event.extendedProps.description,
 
@@ -146,53 +296,12 @@ export class MainComponent {
             trigger: 'hover',
             container: 'body',
         });
-      //  console.log(this.tooltip);
-      //  console.log(info.event.extendedProps.description);
+        //  console.log(this.tooltip);
+        //  console.log(info.event.extendedProps.description);
     }
 
     handleEventMouseLeave(info) {
         this.tooltip.dispose();
     }
-
-
-    /*handleDateClick(arg) {
-        if (confirm('Would you like to add an event to ' + arg.dateStr + ' ?')) {
-            this.calendarEvents = this.calendarEvents.events.concat({ // add new event data. must create new array
-                title: 'New Event',
-                start: arg.date,
-                allDay: arg.allDay
-            });
-        }
-    }*/
-
-
-    /* eventClick(model) {
-         console.log(model);
-     }
-     eventDragStop(model) {
-         console.log(model);
-     }
-     dateClick(model) {
-         console.log(model);
-     }*/
-    /* updateHeader() {
-         this.option.header = {
-             left: 'prev,next myCustomButton',
-             center: 'title',
-             right: ''
-         };
-     }
-     updateEvents() {
-         this.calendarEvents = [{
-             title: 'Updaten Event',
-             start: this.yearMonth + '-08',
-             end: this.yearMonth + '-10'
-         }];
-     }
-     get yearMonth(): string {
-         const dateObj = new Date();
-         return dateObj.getUTCFullYear() + '-' + (dateObj.getUTCMonth() + 1);
-     }*/
-
 
 }

@@ -24,6 +24,7 @@ import { Page404Component } from './shared/components/page404/page404.component'
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,8 +34,8 @@ import { Page404Component } from './shared/components/page404/page404.component'
     SignInComponent,
     AlertComponent,
     Page404Component,
-
   ],
+
   imports: [
     BrowserModule,
     HttpClientModule,

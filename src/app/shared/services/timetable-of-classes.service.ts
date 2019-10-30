@@ -25,6 +25,30 @@ export class TimetableOfClassesService {
 
     }
 
+    getTimetableOfClassesOfGroup(time, groupId): Observable<TimetableOfClasses []> {
+        const url = `${UrlConstants.URL_TIMETABLE_OF_CLASSES}/span/group/${groupId}${time}`;
+        return this.httpClient.get<TimetableOfClasses []>(url).pipe(
+            catchError(err => {console.log(err, 'Отсутсвуют данные в БД');
+                               return of(null); })
+        );
+    }
+
+    getTimetableOfClassesOfTeacher(time, teacherId): Observable<TimetableOfClasses []> {
+        const url = `${UrlConstants.URL_TIMETABLE_OF_CLASSES}/span/teacher/${teacherId}${time}`;
+        return this.httpClient.get<TimetableOfClasses []>(url).pipe(
+            catchError(err => {console.log(err, 'Отсутсвуют данные в БД');
+                               return of(null); })
+        );
+    }
+
+    getTimetableOfClassesOfClassroom(time, classroomId): Observable<TimetableOfClasses []> {
+        const url = `${UrlConstants.URL_TIMETABLE_OF_CLASSES}/span/classroom/${classroomId}${time}`;
+        return this.httpClient.get<TimetableOfClasses []>(url).pipe(
+            catchError(err => {console.log(err, 'Отсутсвуют данные в БД');
+                               return of(null); })
+        );
+    }
+
     findAllSpanByGroupId(groupId): Observable<TimetableOfClassesForEvents[]> {
         const url = `${UrlConstants.URL_TIMETABLE_OF_CLASSES}/need/${groupId}`;
         return this.httpClient.get<TimetableOfClassesForEvents []>(url).pipe(

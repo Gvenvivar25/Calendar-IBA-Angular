@@ -81,7 +81,16 @@ export class TimetableOfClassesService {
             tap(() => {
                 return console.log(`updated timetableOfClasses id=${id}`);
             }),
-            catchError(err => {console.log(err, 'Отсутсвуют данные в БД');
+            catchError(err => {console.log(err, 'Не удалось обновить запись');
+                               return of(null); })
+        );
+    }
+
+    deleteOneTimetableOfClasses(id: number): Observable<any> {
+        const url = `${UrlConstants.URL_TIMETABLE_OF_CLASSES}/${id}`;
+        return this.httpClient.delete(url, httpOptions).pipe(
+            tap(() => console.log(`deleted timetableOfClasses id=${id}`)),
+            catchError(err => {console.log(err, 'Не удалось удалить запись');
                                return of(null); })
         );
     }

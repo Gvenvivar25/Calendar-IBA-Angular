@@ -234,3 +234,10 @@ button {
     margin-bottom: 5px;
     margin-right: 5px;
 }
+
+.calendar-trash {
+  border: 2px solid blue;
+
+}
+
+.fc-fri, .fc-mon, .fc-wed, .fc-sun { background-color: rgba(254, 255, 126, 0.15); }

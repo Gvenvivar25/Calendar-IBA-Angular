@@ -114,8 +114,11 @@ export class RetrainingComponent implements OnInit, AfterViewChecked {
             for (let i = 0, len = Object.keys(res).length; i < len; i++) {
                 this.externalEvents.push({title: res[i].timetableOfClassesDto.disciplineDto.shortDisciplineName + ' ' +
                                             res[i].timetableOfClassesDto.typeOfWork.short_value + ' ' +
-                                            res[i].timetableOfClassesDto.groupDto.groupName + '/' + res[i].timetableOfClassesDto.subgroup,
-                                            description: res[i].timetableOfClassesDto.teacherDto.lastName,
+                                            res[i].timetableOfClassesDto.groupDto.groupName + '-' + res[i].timetableOfClassesDto.subgroup,
+                                            description: res[i].timetableOfClassesDto.disciplineDto.disciplineName + ' '
+                                                + res[i].timetableOfClassesDto.teacherDto.lastName + ' группа ' +
+                                                res[i].timetableOfClassesDto.groupDto.groupName + ' подгр.'
+                                                + res[i].timetableOfClassesDto.subgroup,
                                             objectData: res[i].timetableOfClassesDto,
                                             need: res[i].need});
 

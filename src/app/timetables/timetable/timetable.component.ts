@@ -92,6 +92,7 @@ export class TimetableComponent implements  AfterViewInit {
                 // получаю из div data-event в строку и конвертирую в json, дальше беру необходимые данные
                 const data: string = eventEl.getAttribute('data-event');
                 const dataObj: ExternalEvent = JSON.parse(data);
+                console.log(dataObj.description);
 
                 return {
                     title: eventEl.firstChild.textContent,
@@ -103,6 +104,28 @@ export class TimetableComponent implements  AfterViewInit {
             }
         });
 
+    }
+
+    eventDragStop(event) {
+        let trashEl = document.getElementById('fcTrash') as HTMLElement;
+
+        let x1 = trashEl.offsetLeft - 100;
+        let x2 = trashEl.offsetLeft + trashEl.offsetWidth + 20;
+        let y1 = trashEl.offsetTop + 60;
+        let y2 = trashEl.offsetTop + trashEl.offsetHeight + 120;
+
+        console.log(x1 + ' ' + x2 + ' ' + y1 + ' ' + y2);
+        console.log(event);
+
+        if (event.jsEvent.pageX >= x1 && event.jsEvent.pageX <= x2 &&
+            event.jsEvent.pageY >= y1 && event.jsEvent.pageY <= y2) {
+            event.event.remove();
+            let id;
+            if (event.event.id !== 'null') {
+                id = event.event.id;
+            } else {id = event.event.extendedProps.id; }
+            this.timetableOfClassesService.deleteOneTimetableOfClasses(id).subscribe();
+        }
     }
 
     getEvent(event) {
@@ -161,6 +184,9 @@ export class TimetableComponent implements  AfterViewInit {
             this.timetableOfClassesService.saveOneTimetableOfClasses(timetable).subscribe((result: TimetableOfClasses) => {
                 console.log('Пришло с сервера' + JSON.stringify(result));
                 event.event.setExtendedProp('id', result.id);
+             //   event.id = result.id;
+             //   event.event.id = result.id.toString();
+             //   event.event.setProp('id', result.id.toString());
                 console.log(event);
             } );
         });
@@ -242,7 +268,7 @@ export class TimetableComponent implements  AfterViewInit {
                 this.timetableOfClassesService.updateOneTimetableOfClasses(id, timetable).subscribe((result: TimetableOfClasses) => {
                     console.log('Пришло с сервера' + JSON.stringify(result));
                     event.event.setExtendedProp('id', result.id);
-                    console.log(event);
+                   // console.log(event);
                 } );
             });
             }
@@ -266,6 +292,7 @@ export class TimetableComponent implements  AfterViewInit {
 
                 // конвертация объектов из БД в event на календарь
                 for (let i = 0, len = Object.keys(data).length; i < len; i++) {
+                    if (data[i].status === false) {
                     this.calendarEvents.push (
                         {
                             id: data[i].id,
@@ -277,8 +304,27 @@ export class TimetableComponent implements  AfterViewInit {
                             description: data[i].disciplineDto.disciplineName + ' ' + data[i].teacherDto.lastName + ' ауд. ' +
                                 data[i].classroomDto.number + ' группа ' + data[i].groupDto.groupName + ' подгр.' + data[i].subgroup,
                             color: '#a7f2f5',
+                            editable: true,
+                            resourceEditable: true
                         }
                     );
+                   } else {
+                        this.calendarEvents.push (
+                            {
+                                id: data[i].id,
+                                title: data[i].disciplineDto.shortDisciplineName + ' ' + data[i].typeOfWork.short_value + ' гр. №' +
+                                    data[i].groupDto.groupName + ' подгр. №' + data[i].subgroup,
+                                resourceId: data[i].classroomDto.id,
+                                start: data[i].classDate + 'T' + data[i].beginTime,
+                                end: data[i].classDate + 'T' + data[i].finishTime,
+                                description: data[i].disciplineDto.disciplineName + ' ' + data[i].teacherDto.lastName + ' ауд. ' +
+                                    data[i].classroomDto.number + ' группа ' + data[i].groupDto.groupName + ' подгр.' + data[i].subgroup,
+                                color: '#a7f2f5',
+                                editable: false,
+                                resourceEditable: false
+                            }
+                        );
+                    }
                 }
                 console.log(this.calendarEvents);
             }

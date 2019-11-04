@@ -209,7 +209,7 @@ export class MainComponent implements OnInit {
         const start = startDay.toISOString().split('T')[0];
         const end = endDay.toISOString().split('T')[0];
         console.log('?classDate1=' + start + '&classDate2=' + end);
-        return '?classDate1=' + start + '&classDate2=' + end;
+        return '?d1=' + start + '&d2=' + end;
     }
 
     // метод для передачи Диме периода для ивентов из БД

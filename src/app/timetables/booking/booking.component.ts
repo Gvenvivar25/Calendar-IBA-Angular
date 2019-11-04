@@ -66,7 +66,7 @@ export class BookingComponent implements OnInit {
         const start = startDay.toISOString().split('T')[0];
         const end = endDay.toISOString().split('T')[0];
         console.log('?classDate1=' + start + '&classDate2=' + end);
-        this.time = '?classDate1=' + start + '&classDate2=' + end;
+        this.time = '?d1=' + start + '&d2=' + end;
         this.timetableOfClassesService.getTimetableOfClasses(this.time).subscribe(
             (data: TimetableOfClasses[]) => {
                 this.timetableOfClasses = data;

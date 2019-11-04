@@ -19,6 +19,7 @@ export class TimetableOfClasses {
     public classroomDto: Classroom;
     public teacherDto: Teacher;
     public status: boolean;
+    public reserved: boolean;
 
 }
 
@@ -48,4 +49,21 @@ export class TimetableOfClassesDto {
     public classroomDto: ClassroomDto;
     public teacherDto: TeacherDto;
     public status: boolean;
+    public reserved: boolean;
+}
+
+export class NewEvent {
+    id: number;
+    title: string;
+    day: Date;
+    startTime: Time;
+    endTime: Time;
+    classroom: Classroom;
+    teacher: Teacher;
+    group: Group;
+    typeOfWork: string;
+    discipline: Discipline;
+    subgroup: number;
+    status: boolean;
+    public reserved: boolean;
 }

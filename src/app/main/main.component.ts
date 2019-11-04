@@ -60,7 +60,7 @@ export class MainComponent implements OnInit {
         list:     'Список'
     };
     header = {
-        left: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek',
+        left: 'dayGridMonth,timeGridWeek,timeGridDay,',
         center: 'title',
         right:  'prev,next today'};
 

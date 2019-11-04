@@ -1,5 +1,4 @@
 <div class="container-fluid">
-
     <full-calendar
             #fullcalendar
             schedulerLicenseKey="GPL-My-Project-Is-Open-Source"
@@ -30,15 +29,4 @@
             (dateClick)="handleDateClick($event)"
 
     ></full-calendar>
-    <app-timetable-detail
-            *ngIf="timetableDetail"
-            [isNew]="isNew"
-            [event]="timetableDetail"
-            (add)="onAdd($event)"
-            (update)="onUpdate($event)"
-            (closed)="onCloseTimetableDetail()">
-
-    </app-timetable-detail>
 </div>
-<br>
-<br>

@@ -14,6 +14,7 @@ import {AngularDraggableModule} from 'angular2-draggable';
 import { TimetableComponent } from './timetable/timetable.component';
 import { TimetableDetailComponent } from './timetable/timetable-detail/timetable-detail.component';
 import { BookingComponent } from './booking/booking.component';
+import { BookingTimetableComponent } from './booking/booking-timetable/booking-timetable.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { BookingComponent } from './booking/booking.component';
       RetrainingComponent,
       TimetableComponent,
       TimetableDetailComponent,
-      BookingComponent
+      BookingComponent,
+      BookingTimetableComponent
   ],
   imports: [
         CommonModule,

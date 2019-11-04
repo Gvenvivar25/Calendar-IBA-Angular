@@ -1,13 +1,14 @@
 import {Component, ElementRef, Input, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import {ExternalEvent, NewEvent, TimetableOfClasses, TimetableOfClassesDto} from '../../shared/models/timetable-of-classes.model';
+import {TimetableOfClassesService} from '../../shared/services/timetable-of-classes.service';
 import {FullCalendarComponent} from '@fullcalendar/angular';
-import {ExternalEvent, TimetableOfClasses} from '../../shared/models/timetable-of-classes.model';
 import Tooltip from 'tooltip.js';
 import {EventInput} from '@fullcalendar/core/structs/event';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import resourceTimeGridPlugin from '@fullcalendar/resource-timegrid';
-import {TimetableOfClassesService} from '../../shared/services/timetable-of-classes.service';
+
 
 @Component({
   selector: 'app-booking',
@@ -16,10 +17,14 @@ import {TimetableOfClassesService} from '../../shared/services/timetable-of-clas
   encapsulation: ViewEncapsulation.None,
 })
 export class BookingComponent implements OnInit {
+
+    timetableDetail: NewEvent;
+    isNew = null;
+
     @ViewChild('fullcalendar', {static: false}) fullcalendar: FullCalendarComponent;
     @ViewChild('external', {static: true}) external: ElementRef;
     @Input() public events: ExternalEvent[];
-
+  //  @Output() requestNewEvent = new EventEmitter<NewEvent>();
     tooltip: Tooltip;
     timetableOfClasses: TimetableOfClasses [];
     calendarEvents: EventInput [];
@@ -48,13 +53,13 @@ export class BookingComponent implements OnInit {
 
     plugins = [dayGridPlugin, interactionPlugin, timeGridPlugin, resourceTimeGridPlugin];
 
-  constructor(private el: ElementRef,
-              private timetableOfClassesService: TimetableOfClassesService) { }
+    constructor(private el: ElementRef,
+                private timetableOfClassesService: TimetableOfClassesService) { }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+    }
 // метод для передачи Диме периода для ивентов из БД
-    getDaysPeriod(info) {
+    getDaysPeriod() {
         const startDay = this.fullcalendar.getApi().view.currentStart;
         const endDay = this.fullcalendar.getApi().view.currentEnd;
         startDay.setDate(startDay.getDate() + 1);
@@ -70,19 +75,57 @@ export class BookingComponent implements OnInit {
 
                 // конвертация объектов из БД в event на календарь
                 for (let i = 0, len = Object.keys(data).length; i < len; i++) {
-                    this.calendarEvents.push (
-                        {
-                            id: data[i].id,
-                            title: data[i].disciplineDto.shortDisciplineName + ' гр. ' +
-                                data[i].groupDto.groupName,
-                            resourceId: data[i].classroomDto.id,
-                            start: data[i].classDate + 'T' + data[i].beginTime,
-                            end: data[i].classDate + 'T' + data[i].finishTime,
-                            description: data[i].disciplineDto.disciplineName + ' ' + data[i].teacherDto.lastName + ' ауд. ' +
-                                data[i].classroomDto.number + ' группа ' + data[i].groupDto.groupName + ' подгр.' + data[i].subgroup,
-                            color: '#ffac50',
-                        }
-                    );
+                    if (data[i].reserved === true) {
+                        this.calendarEvents.push (
+                            {
+                                id: data[i].id,
+                                title: 'Бронь!' + data[i].disciplineDto.shortDisciplineName + ' ' + data[i].typeOfWork.short_value
+                                    + ' гр. №' + data[i].groupDto.groupName + ' подгр. №' + data[i].subgroup,
+                                resourceId: data[i].classroomDto.id,
+                                start: data[i].classDate + 'T' + data[i].beginTime,
+                                end: data[i].classDate + 'T' + data[i].finishTime,
+                                description: data[i].disciplineDto.disciplineName + ' ' + data[i].teacherDto.lastName + ' ауд. ' +
+                                    data[i].classroomDto.number + ' группа ' + data[i].groupDto.groupName + ' подгр.' + data[i].subgroup,
+                                color: '#d8a1a1',
+                                editable: true,
+                                resourceEditable: true
+                            }
+                        );
+                    } else if (data[i].status === false) {
+                        // не подтвержденные ивенты
+                        this.calendarEvents.push (
+                            {
+                                id: data[i].id,
+                                title: data[i].disciplineDto.shortDisciplineName + ' ' + data[i].typeOfWork.short_value + ' гр. №' +
+                                    data[i].groupDto.groupName + ' подгр. №' + data[i].subgroup,
+                                resourceId: data[i].classroomDto.id,
+                                start: data[i].classDate + 'T' + data[i].beginTime,
+                                end: data[i].classDate + 'T' + data[i].finishTime,
+                                description: data[i].disciplineDto.disciplineName + ' ' + data[i].teacherDto.lastName + ' ауд. ' +
+                                    data[i].classroomDto.number + ' группа ' + data[i].groupDto.groupName + ' подгр.' + data[i].subgroup,
+                                color: '#cccad8',
+                                editable: true,
+                                resourceEditable: true
+                            }
+                        );
+                    }   else {
+                        // подтвержденные ивенты
+                        this.calendarEvents.push (
+                            {
+                                id: data[i].id,
+                                title: data[i].disciplineDto.shortDisciplineName + ' ' + data[i].typeOfWork.short_value + ' гр. №' +
+                                    data[i].groupDto.groupName + ' подгр. №' + data[i].subgroup,
+                                resourceId: data[i].classroomDto.id,
+                                start: data[i].classDate + 'T' + data[i].beginTime,
+                                end: data[i].classDate + 'T' + data[i].finishTime,
+                                description: data[i].disciplineDto.disciplineName + ' ' + data[i].teacherDto.lastName + ' ауд. ' +
+                                    data[i].classroomDto.number + ' группа ' + data[i].groupDto.groupName + ' подгр.' + data[i].subgroup,
+                                color: '#2490f5',
+                                editable: false,
+                                resourceEditable: false
+                            }
+                        );
+                    }
                 }
                 console.log(this.calendarEvents);
             }
@@ -90,7 +133,38 @@ export class BookingComponent implements OnInit {
     }
 
     handleDateClick(arg) { // handler method
-        alert(arg.dateStr);
+        //  alert(arg.dateStr);
+        console.log(arg);
+      //  this.requestNewEvent.emit(this.createNewEvent(arg));
+
+        this.timetableDetail = this.createNewEvent(arg);
+        this.isNew = true;
+    }
+
+    eventClick(info) {
+        alert('Event: ' + info.event.title);
+
+
+        // change the border color just for fun
+        info.el.style.borderColor = 'red';
+    }
+
+    createNewEvent(arg): NewEvent {
+        const newEvent: NewEvent = new NewEvent();
+        newEvent.title = 'lalala';
+
+        newEvent.day = arg.dateStr.split('T')[0];
+        const day = new Date(arg.date);
+        console.log(day);
+        day.setMinutes(day.getMinutes() + 45);
+        console.log(day.toTimeString());
+
+
+        newEvent.startTime = arg.dateStr.substring(11, 16);
+        newEvent.endTime = day.toTimeString().substring(0, 5);
+        // newEvent.endTime.hours = newEvent.startTime.hours;
+        // newEvent.endTime.minutes = newEvent.startTime.minutes + 45;
+        return newEvent;
     }
 
     eventRender(info) {
@@ -105,4 +179,87 @@ export class BookingComponent implements OnInit {
         //  console.log(this.tooltip);
         //  console.log(info.event.extendedProps.description);
     }
+
+    handleEventMouseLeave(info) {
+        this.tooltip.dispose();
+    }
+
+
+    onRequestNewEvent(e: NewEvent): void {
+        this.isNew = true;
+        this.timetableDetail = e;
+    }
+
+    onRequestUpdateEvent(e: NewEvent): void {
+        this.isNew = false;
+        this.timetableDetail = e;
+    }
+
+    onCloseTimetableDetail(): void {
+        this.timetableDetail = null;
+        this.isNew = null;
+    }
+
+    onAdd(event: NewEvent): void {
+        this.timetableDetail = event;
+        console.log(this.timetableDetail);
+        const timetable: TimetableOfClassesDto = new TimetableOfClassesDto();
+        timetable.id = null;
+        timetable.disciplineDto = event.discipline;
+        timetable.teacherDto = {
+            id: event.teacher.id,
+            firstName: event.teacher.firstName,
+            lastName: event.teacher.lastName,
+            patronymic: event.teacher.patronymic,
+            typeOfEmployment: event.teacher.typeOfEmployment.id,
+            color: event.teacher.color
+        };
+
+        timetable.groupDto = {
+            id: event.group.id,
+            groupName: event.group.groupName,
+            numberOfSubgroup: event.group.numberOfSubgroup,
+            typeOfEducation: event.group.typeOfEducation.id,
+            descriptionOfPlanDto: {
+                id: event.group.descriptionOfPlanDto.id,
+                description: event.group.descriptionOfPlanDto.description,
+                typeOfCourse: event.group.descriptionOfPlanDto.typeOfCourse.id,
+            },
+            color: event.group.color
+        };
+
+        timetable.typeOfWork = event.typeOfWork;
+        timetable.lessonNumber = 0;
+        timetable.pairNumber = 0;
+        timetable.subgroup = event.subgroup;
+        timetable.status = event.status;
+        timetable.reserved = event.reserved;
+        timetable.classDate = event.day;
+        timetable.beginTime = event.startTime;
+        timetable.finishTime = event.endTime;
+        timetable.classroomDto = {
+            id: event.classroom.id,
+        number: event.classroom.number,
+        typeOfClassroom: event.classroom.typeOfClassroom.id,
+        color: event.classroom.color
+        };
+        console.log(timetable);
+        this.timetableOfClassesService.saveOneTimetableOfClasses(timetable).subscribe( res => {
+            this.getDaysPeriod(); }
+        );
+
+        this.onCloseTimetableDetail();
+    }
+
+    onUpdate(event: NewEvent): void {
+        /* this.appointments = this.appointments.map(
+             a => a.id === appointment.id ? { ...a, ...appointment } : a
+         );*/
+        this.onCloseTimetableDetail();
+    }
+
+    onEventUpdated(event: NewEvent): void {
+        this.onUpdate(event);
+    }
+
 }

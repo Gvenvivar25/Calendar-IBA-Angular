@@ -1,5 +1,6 @@
 import {
-    AfterViewInit, Component, ElementRef, Input, ViewChild} from '@angular/core';
+    AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, ViewChild
+} from '@angular/core';
 
 import {FullCalendarComponent} from '@fullcalendar/angular';
 import resourceTimeGridPlugin from '@fullcalendar/resource-timegrid';
@@ -9,7 +10,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import {EventInput} from '@fullcalendar/core/structs/event';
 import {ClassroomService} from '../../dictionaries/classrooms/classroom.service';
 import {Classroom} from '../../dictionaries/classrooms/classroom.model';
-import {ExternalEvent, TimetableOfClasses, TimetableOfClassesDto} from '../../shared/models/timetable-of-classes.model';
+import {ExternalEvent, NewEvent, TimetableOfClasses, TimetableOfClassesDto} from '../../shared/models/timetable-of-classes.model';
 import Tooltip from 'tooltip.js';
 import {TimetableOfClassesService} from '../../shared/services/timetable-of-classes.service';
 
@@ -25,7 +26,7 @@ export class TimetableComponent implements  AfterViewInit {
     @ViewChild('fullcalendar', {static: false}) fullcalendar: FullCalendarComponent;
     @ViewChild('external', {static: true}) external: ElementRef;
     @Input() public events: ExternalEvent[];
-
+    @Output() requestNewEvent = new EventEmitter<NewEvent>();
     tooltip: Tooltip;
     timetableOfClasses: TimetableOfClasses [];
     calendarEvents: EventInput [];
@@ -107,12 +108,12 @@ export class TimetableComponent implements  AfterViewInit {
     }
 
     eventDragStop(event) {
-        let trashEl = document.getElementById('fcTrash') as HTMLElement;
+        const trashEl = document.getElementById('fcTrash') as HTMLElement;
 
-        let x1 = trashEl.offsetLeft - 100;
-        let x2 = trashEl.offsetLeft + trashEl.offsetWidth + 20;
-        let y1 = trashEl.offsetTop + 60;
-        let y2 = trashEl.offsetTop + trashEl.offsetHeight + 120;
+        const x1 = trashEl.offsetLeft - 100;
+        const x2 = trashEl.offsetLeft + trashEl.offsetWidth + 20;
+        const y1 = trashEl.offsetTop + 60;
+        const y2 = trashEl.offsetTop + trashEl.offsetHeight + 120;
 
         console.log(x1 + ' ' + x2 + ' ' + y1 + ' ' + y2);
         console.log(event);
@@ -164,6 +165,7 @@ export class TimetableComponent implements  AfterViewInit {
         timetable.pairNumber = dataObj.objectData.pairNumber;
         timetable.subgroup = dataObj.objectData.subgroup;
         timetable.status = false;
+        timetable.reserved = false;
         timetable.classDate = event.event.start.toISOString().split('T')[0];
         timetable.beginTime = event.event.start.toTimeString().slice(0, 8);
         timetable.finishTime = event.event.end.toTimeString().slice(0, 8);
@@ -247,6 +249,7 @@ export class TimetableComponent implements  AfterViewInit {
             timetable.pairNumber = res.pairNumber;
             timetable.subgroup = res.subgroup;
             timetable.status = false;
+            timetable.reserved = false;
             timetable.classDate = event.event.start.toISOString().split('T')[0];
             timetable.beginTime = event.event.start.toTimeString().slice(0, 8);
             timetable.finishTime = event.event.end.toTimeString().slice(0, 8);
@@ -293,6 +296,7 @@ export class TimetableComponent implements  AfterViewInit {
                 // конвертация объектов из БД в event на календарь
                 for (let i = 0, len = Object.keys(data).length; i < len; i++) {
                     if (data[i].status === false) {
+                        // не подтвержденные ивенты
                     this.calendarEvents.push (
                         {
                             id: data[i].id,
@@ -303,12 +307,13 @@ export class TimetableComponent implements  AfterViewInit {
                             end: data[i].classDate + 'T' + data[i].finishTime,
                             description: data[i].disciplineDto.disciplineName + ' ' + data[i].teacherDto.lastName + ' ауд. ' +
                                 data[i].classroomDto.number + ' группа ' + data[i].groupDto.groupName + ' подгр.' + data[i].subgroup,
-                            color: '#a7f2f5',
+                            color: '#f5a7a2',
                             editable: true,
                             resourceEditable: true
                         }
                     );
                    } else {
+                        // подтвержденные ивенты
                         this.calendarEvents.push (
                             {
                                 id: data[i].id,
@@ -319,7 +324,7 @@ export class TimetableComponent implements  AfterViewInit {
                                 end: data[i].classDate + 'T' + data[i].finishTime,
                                 description: data[i].disciplineDto.disciplineName + ' ' + data[i].teacherDto.lastName + ' ауд. ' +
                                     data[i].classroomDto.number + ' группа ' + data[i].groupDto.groupName + ' подгр.' + data[i].subgroup,
-                                color: '#a7f2f5',
+                                color: '#69f574',
                                 editable: false,
                                 resourceEditable: false
                             }
@@ -332,7 +337,9 @@ export class TimetableComponent implements  AfterViewInit {
     }
 
     handleDateClick(arg) { // handler method
-        alert(arg.dateStr);
+      //  alert(arg.dateStr);
+        console.log(arg);
+        this.requestNewEvent.emit(this.createNewEvent(arg));
     }
 
     eventClick(info) {
@@ -362,6 +369,13 @@ export class TimetableComponent implements  AfterViewInit {
 
     handleEventMouseLeave(info) {
         this.tooltip.dispose();
+    }
+
+    createNewEvent(arg): NewEvent {
+        const newEvent: NewEvent = new NewEvent();
+        newEvent.title = 'lalala';
+        newEvent.day = arg.date.getDate();
+        return newEvent;
     }
 
 }

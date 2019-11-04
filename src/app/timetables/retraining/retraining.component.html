@@ -37,18 +37,18 @@
                 >
                 </ng-select>
             </div>
-            <!--<div class="col-md">
-                <ng-select
-                        [items]="typesOfPosition"
-                        bindLabel="value"
-                        bindValue="id"
-                        [multiple]="false"
-                        placeholder="Выберите предмет"
-                        clearAllText="Clear"
-                        formControlName="typeOfPosition"
+    <p>Выберите предмет (если нужно)</p>
+            <div class="col-md">
+                <ng-select [(ngModel)]="discipline"
+                           [items]="disciplines"
+                           bindLabel="shortDisciplineName"
+                           bindValue="id"
+                           [multiple]="false"
+                           placeholder="Выберите предмет"
+                           clearAllText="Clear"
                 >
                 </ng-select>
-            </div>-->
+            </div>
         <br>
         <div class="col-md" style="text-align: center">
             <button type="submit" class="btn btn-light" (click)="onSubmit()" >Создать</button>
@@ -70,9 +70,17 @@
         <section class="demo-contents">
 
             <!-- Body -->
-            <app-timetable [events] = "externalEvents"></app-timetable>
+            <app-timetable [events] = "externalEvents"
+                           (requestNewEvent)="onRequestNewEvent($event)"
+                           (requestUpdateEvent)="onRequestUpdateEvent($event)"
+                           (eventUpdated)="onEventUpdated($event)"></app-timetable>
             <app-timetable-detail
-                    *ngIf="timetableDetail">
+                    *ngIf="timetableDetail"
+                    [isNew]="isNew"
+                    [event]="timetableDetail"
+                    (add)="onAdd($event)"
+                    (update)="onUpdate($event)"
+                    (closed)="onCloseTimetableDetail()">
 
             </app-timetable-detail>
 

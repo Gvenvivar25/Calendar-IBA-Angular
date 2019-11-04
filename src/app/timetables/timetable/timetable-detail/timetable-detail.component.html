@@ -1,1 +1,122 @@
-<p>timetable-detail works!</p>
+<div class="container-fluid">
+    <h4 *ngIf="!isNew">Изменить бронь: '{{event?.title}}'</h4>
+    <h4 *ngIf="isNew">Новая бронь аудитории</h4>
+    <form [formGroup]="detailBookingForm">
+        <!--<div class="form-group">
+            <label>Title:
+                <input type="text" formControlName="title"/>
+            </label>
+        </div>-->
+        <div class="grid-container">
+            <div class="group-item2">
+                <label>Дата:</label>
+                    <input type="date" class="form-control" formControlName="day"/>
+
+            </div>
+
+            <div class="grid-item">
+                <label>Время начала:</label>
+                    <input type="time" class="form-control" formControlName="startTime"/>
+
+            </div>
+            <div class="grid-item">
+                <label>Время окончания:</label>
+                    <input type="time" class="form-control" formControlName="endTime"/>
+
+            </div>
+
+
+        <div class="group-item3">
+            <label>Группа: </label>
+                <ng-select formControlName="group"
+                           [items]="groups"
+                           bindLabel="groupName"
+                           [multiple]="false"
+                           placeholder="Выберите группу"
+                           clearAllText="Clear"
+                >
+                </ng-select>
+
+        </div>
+
+        <div class="grid-item">
+            <label>Номер подгруппы:</label>
+                <input type="number" class="form-control" formControlName="subgroup"/>
+
+        </div>
+
+        <div class="group-item2">
+            <label>Предмет:</label>
+                <ng-select formControlName="discipline"
+                           [items]="disciplines"
+                           bindLabel="shortDisciplineName"
+
+                           [multiple]="false"
+                           placeholder="Выберите предмет"
+                           clearAllText="Clear"
+                >
+                </ng-select>
+
+        </div>
+
+        <div class="group-item2">
+            <label>Преподаватель:</label>
+                <ng-select formControlName="teacher"
+                           [items]="teachers"
+                           bindLabel="lastName"
+
+                           [multiple]="false"
+                           placeholder="Выберите преподавателя"
+                           clearAllText="Clear"
+                >
+                </ng-select>
+
+        </div>
+
+        <div class="group-item2">
+            <label>Вид занятия:</label>
+                <ng-select formControlName="typeOfWork"
+                           [items]="typesOfWork"
+                           bindLabel="value"
+                           bindValue="id"
+                           [multiple]="false"
+                           placeholder="Выберите вид занятия"
+                           clearAllText="Clear"
+                >
+                </ng-select>
+
+        </div>
+
+        <div class="group-item2">
+            <label>Аудитория:</label>
+                <ng-select formControlName="classroom"
+                           [items]="classrooms"
+                           bindLabel="number"
+                           notFoundText="Нет свободных аудиторий"
+                           [multiple]="false"
+                           placeholder="Выберите свободную аудиторию"
+                           clearAllText="Clear"
+                >
+                </ng-select>
+
+        </div>
+        <div class="grid-item">
+            <label>Забронировано:
+                 <input type="checkbox" formControlName="reserved"/>
+            </label>
+        </div>
+
+        <div class="grid-item">
+            <label>Утверждено:
+                <input type="checkbox" formControlName="status"/>
+            </label>
+        </div>
+
+
+        </div>
+        <button type="submit" class="btn btn-success" *ngIf="isNew" (click)="onAdd()">Добавить</button>
+        <button type="submit" class="btn btn-warning" *ngIf="!isNew" (click)="onUpdate()">Обновить</button>
+        <button type="submit" class="btn btn-danger" *ngIf="!isNew" (click)="onDelete()">Удалить</button>
+        <button type="button" class="btn btn-secondary" (click)="closed.emit()">Отмена</button>
+    </form>
+</div>

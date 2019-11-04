@@ -1,9 +1,11 @@
 import {AfterViewChecked, Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {ExternalEvent, TimetableOfClassesForEvents} from '../../shared/models/timetable-of-classes.model';
+import {ExternalEvent, NewEvent, TimetableOfClassesForEvents} from '../../shared/models/timetable-of-classes.model';
 import {TimetableOfClassesService} from '../../shared/services/timetable-of-classes.service';
 import {GroupService} from '../../dictionaries/groups/group.service';
 import {Group} from '../../dictionaries/groups/group.model';
-import {EventInput} from '@fullcalendar/core';
+
+import {Discipline} from '../../dictionaries/disciplines/discipline.model';
+import {DisciplinesService} from '../../dictionaries/disciplines/disciplines.service';
 
 @Component({
   selector: 'app-retraining',
@@ -13,7 +15,8 @@ import {EventInput} from '@fullcalendar/core';
 })
 export class RetrainingComponent implements OnInit, AfterViewChecked {
 
-    constructor(private timetableOfClassesService: TimetableOfClassesService, private groupService: GroupService) {}
+    constructor(private timetableOfClassesService: TimetableOfClassesService, private groupService: GroupService,
+                private disciplinesService: DisciplinesService) {}
 
     private _opened: boolean = false;
     private _modeNum: number = 1;
@@ -35,8 +38,10 @@ export class RetrainingComponent implements OnInit, AfterViewChecked {
 
     group: Group;
     groups: Group [];
+    discipline: Discipline;
+    disciplines: Discipline[];
     externalEvents: ExternalEvent[];
-    timetableDetail: EventInput;
+    timetableDetail: NewEvent;
     isNew = null;
 
 // ------------------- методы sidebar ---------------------------------------------//
@@ -102,6 +107,9 @@ export class RetrainingComponent implements OnInit, AfterViewChecked {
         this.groupService.getGroups().subscribe((res: Group[]) => {
             this.groups = res;
         } );
+        this.disciplinesService.getDisciplines().subscribe((res: Discipline[]) => {
+            this.disciplines = res;
+        });
     }
 
     ngAfterViewChecked() {}
@@ -126,6 +134,37 @@ export class RetrainingComponent implements OnInit, AfterViewChecked {
             console.log(this.externalEvents);
         });
         this._opened = false;
+    }
+
+    onRequestNewEvent(e: NewEvent): void {
+        this.isNew = true;
+        this.timetableDetail = e;
+    }
+
+    onRequestUpdateEvent(e: NewEvent): void {
+        this.isNew = false;
+        this.timetableDetail = e;
+    }
+
+    onCloseTimetableDetail(): void {
+        this.timetableDetail = null;
+        this.isNew = null;
+    }
+
+    onAdd(event: NewEvent): void {
+       // this.appointments = [...this.appointments, { id: new Date().getTime().toString(), ...appointment }];
+        this.onCloseTimetableDetail();
+    }
+
+    onUpdate(event: NewEvent): void {
+       /* this.appointments = this.appointments.map(
+            a => a.id === appointment.id ? { ...a, ...appointment } : a
+        );*/
+        this.onCloseTimetableDetail();
+    }
+
+    onEventUpdated(event: NewEvent): void {
+        this.onUpdate(event);
     }
 }
 

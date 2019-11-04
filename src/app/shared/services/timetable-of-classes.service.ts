@@ -4,6 +4,7 @@ import {Observable, of} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 import {TimetableOfClasses, TimetableOfClassesDto, TimetableOfClassesForEvents} from '../models/timetable-of-classes.model';
 import {UrlConstants} from '../url-constants';
+import {Classroom} from '../../dictionaries/classrooms/classroom.model';
 
 const httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -91,6 +92,14 @@ export class TimetableOfClassesService {
         return this.httpClient.delete(url, httpOptions).pipe(
             tap(() => console.log(`deleted timetableOfClasses id=${id}`)),
             catchError(err => {console.log(err, 'Не удалось удалить запись');
+                               return of(null); })
+        );
+    }
+
+    getAllFreeClassrooms(date: string, startTime: string, endTime: string): Observable<Classroom []> {
+        const url = `${UrlConstants.URL_TIMETABLE_OF_CLASSES}/free?d=${date}&t1=${startTime}&t2=${endTime}`;
+        return this.httpClient.get<TimetableOfClasses []>(url).pipe(
+            catchError(err => {console.log(err, 'Отсутсвуют данные в БД');
                                return of(null); })
         );
     }

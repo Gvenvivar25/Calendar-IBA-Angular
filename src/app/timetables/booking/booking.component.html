@@ -26,9 +26,10 @@
             [buttonText]="buttonText"
             [height]="1150"
             (eventMouseEnter)="eventRender($event)"
+            (eventMouseLeave)="handleEventMouseLeave($event)"
             (datesRender)="getDaysPeriod($event)"
             (dateClick)="handleDateClick($event)"
-
+            (eventClick)="eventClick($event)"
     ></full-calendar>
     <app-timetable-detail
             *ngIf="timetableDetail"

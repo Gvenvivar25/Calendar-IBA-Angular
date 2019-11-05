@@ -8,6 +8,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import resourceTimeGridPlugin from '@fullcalendar/resource-timegrid';
+import {Time} from '@angular/common';
 
 
 @Component({
@@ -161,7 +162,7 @@ export class BookingComponent implements OnInit {
 
 
         newEvent.startTime = arg.dateStr.substring(11, 16);
-        newEvent.endTime = day.toTimeString().substring(0, 5);
+        newEvent.endTime = day.toTimeString().substring(0, 5) as any;
         // newEvent.endTime.hours = newEvent.startTime.hours;
         // newEvent.endTime.minutes = newEvent.startTime.minutes + 45;
         return newEvent;
@@ -180,20 +181,10 @@ export class BookingComponent implements OnInit {
         //  console.log(info.event.extendedProps.description);
     }
 
-    handleEventMouseLeave(info) {
+    handleEventMouseLeave() {
         this.tooltip.dispose();
     }
 
-
-    onRequestNewEvent(e: NewEvent): void {
-        this.isNew = true;
-        this.timetableDetail = e;
-    }
-
-    onRequestUpdateEvent(e: NewEvent): void {
-        this.isNew = false;
-        this.timetableDetail = e;
-    }
 
     onCloseTimetableDetail(): void {
         this.timetableDetail = null;

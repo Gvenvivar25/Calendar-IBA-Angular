@@ -37,7 +37,8 @@
             [event]="timetableDetail"
             (add)="onAdd($event)"
             (update)="onUpdate($event)"
-            (closed)="onCloseTimetableDetail()">
+            (closed)="onCloseTimetableDetail()"
+            (delete)="onDelete($event)">
 
     </app-timetable-detail>
 </div>

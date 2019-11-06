@@ -8,7 +8,6 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import resourceTimeGridPlugin from '@fullcalendar/resource-timegrid';
-import {Time} from '@angular/common';
 
 
 @Component({
@@ -23,8 +22,6 @@ export class BookingComponent implements OnInit {
     isNew = null;
 
     @ViewChild('fullcalendar', {static: false}) fullcalendar: FullCalendarComponent;
-    @ViewChild('external', {static: true}) external: ElementRef;
-    @Input() public events: ExternalEvent[];
   //  @Output() requestNewEvent = new EventEmitter<NewEvent>();
     tooltip: Tooltip;
     timetableOfClasses: TimetableOfClasses [];
@@ -89,7 +86,7 @@ export class BookingComponent implements OnInit {
                                     data[i].classroomDto.number + ' группа ' + data[i].groupDto.groupName + ' подгр.' + data[i].subgroup,
                                 color: '#d8a1a1',
                                 editable: true,
-                                resourceEditable: true
+                                resourceEditable: false
                             }
                         );
                     } else if (data[i].status === false) {
@@ -106,7 +103,7 @@ export class BookingComponent implements OnInit {
                                     data[i].classroomDto.number + ' группа ' + data[i].groupDto.groupName + ' подгр.' + data[i].subgroup,
                                 color: '#cccad8',
                                 editable: true,
-                                resourceEditable: true
+                                resourceEditable: false
                             }
                         );
                     }   else {
@@ -143,11 +140,30 @@ export class BookingComponent implements OnInit {
     }
 
     eventClick(info) {
-        alert('Event: ' + info.event.title);
+        console.log(info.event);
+        if (info.event.startEditable === true) {
 
-
-        // change the border color just for fun
-        info.el.style.borderColor = 'red';
+            this.isNew = false;
+            const eventId: number = parseInt(info.event.id, 10);
+            const timetable: TimetableOfClasses = this.timetableOfClasses.find(obj => obj.id === eventId);
+            console.log(timetable);
+            const updateEvent: NewEvent = new NewEvent();
+            updateEvent.id = timetable.id;
+            updateEvent.title = timetable.classDate + ' ' + timetable.beginTime + ' ауд. ' + timetable.classroomDto.number + ' ' +
+                timetable.disciplineDto.shortDisciplineName + ', ' + timetable.groupDto.groupName;
+            updateEvent.day = timetable.classDate;
+            updateEvent.startTime = timetable.beginTime;
+            updateEvent.endTime = timetable.finishTime;
+            updateEvent.reserved = timetable.reserved;
+            updateEvent.status = timetable.status;
+            updateEvent.classroom = timetable.classroomDto;
+            updateEvent.discipline = timetable.disciplineDto;
+            updateEvent.group = timetable.groupDto;
+            updateEvent.teacher = timetable.teacherDto;
+            updateEvent.subgroup = timetable.subgroup;
+            updateEvent.typeOfWork = timetable.typeOfWork;
+            this.timetableDetail = updateEvent;
+        }
     }
 
     createNewEvent(arg): NewEvent {
@@ -191,6 +207,7 @@ export class BookingComponent implements OnInit {
         this.isNew = null;
     }
 
+
     onAdd(event: NewEvent): void {
         this.timetableDetail = event;
         console.log(this.timetableDetail);
@@ -219,7 +236,7 @@ export class BookingComponent implements OnInit {
             color: event.group.color
         };
 
-        timetable.typeOfWork = event.typeOfWork;
+        timetable.typeOfWork = event.typeOfWork.id;
         timetable.lessonNumber = 0;
         timetable.pairNumber = 0;
         timetable.subgroup = event.subgroup;
@@ -243,14 +260,63 @@ export class BookingComponent implements OnInit {
     }
 
     onUpdate(event: NewEvent): void {
-        /* this.appointments = this.appointments.map(
-             a => a.id === appointment.id ? { ...a, ...appointment } : a
-         );*/
+        this.timetableDetail = event;
+        console.log(this.timetableDetail);
+        const timetable: TimetableOfClassesDto = new TimetableOfClassesDto();
+        timetable.id = event.id;
+        timetable.disciplineDto = event.discipline;
+        timetable.teacherDto = {
+            id: event.teacher.id,
+            firstName: event.teacher.firstName,
+            lastName: event.teacher.lastName,
+            patronymic: event.teacher.patronymic,
+            typeOfEmployment: event.teacher.typeOfEmployment.id,
+            color: event.teacher.color
+        };
+
+        timetable.groupDto = {
+            id: event.group.id,
+            groupName: event.group.groupName,
+            numberOfSubgroup: event.group.numberOfSubgroup,
+            typeOfEducation: event.group.typeOfEducation.id,
+            descriptionOfPlanDto: {
+                id: event.group.descriptionOfPlanDto.id,
+                description: event.group.descriptionOfPlanDto.description,
+                typeOfCourse: event.group.descriptionOfPlanDto.typeOfCourse.id,
+            },
+            color: event.group.color
+        };
+
+        timetable.typeOfWork = event.typeOfWork.id;
+        timetable.lessonNumber = 0;
+        timetable.pairNumber = 0;
+        timetable.subgroup = event.subgroup;
+        timetable.status = event.status;
+        timetable.reserved = event.reserved;
+        timetable.classDate = event.day;
+        timetable.beginTime = event.startTime;
+        timetable.finishTime = event.endTime;
+        timetable.classroomDto = {
+            id: event.classroom.id,
+            number: event.classroom.number,
+            typeOfClassroom: event.classroom.typeOfClassroom.id,
+            color: event.classroom.color
+        };
+        console.log(timetable);
+        this.timetableOfClassesService.updateOneTimetableOfClasses(timetable.id, timetable).subscribe( () => {
+            this.getDaysPeriod(); }
+        );
         this.onCloseTimetableDetail();
     }
 
-    onEventUpdated(event: NewEvent): void {
-        this.onUpdate(event);
+    onDelete(event: NewEvent): void {
+        this.timetableOfClassesService.deleteOneTimetableOfClasses(event.id).subscribe(() => {
+            this.getDaysPeriod(); });
+        this.onCloseTimetableDetail();
     }
+
+    /*onEventUpdated(event: NewEvent): void {
+        this.onUpdate(event);
+    }*/
 
 }

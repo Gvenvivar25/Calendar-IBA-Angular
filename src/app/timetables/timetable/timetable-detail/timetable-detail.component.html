@@ -78,7 +78,7 @@
                 <ng-select formControlName="typeOfWork"
                            [items]="typesOfWork"
                            bindLabel="value"
-                           bindValue="id"
+
                            [multiple]="false"
                            placeholder="Выберите вид занятия"
                            clearAllText="Clear"
@@ -114,7 +114,7 @@
 
 
         </div>
-        <button type="submit" class="btn btn-success" *ngIf="isNew" (click)="onAdd()">Добавить</button>
+        <button type="submit" class="btn btn-success" [disabled]="!detailBookingForm.valid" *ngIf="isNew" (click)="onAdd()">Добавить</button>
         <button type="submit" class="btn btn-warning" *ngIf="!isNew" (click)="onUpdate()">Обновить</button>
         <button type="submit" class="btn btn-danger" *ngIf="!isNew" (click)="onDelete()">Удалить</button>
         <button type="button" class="btn btn-secondary" (click)="closed.emit()">Отмена</button>

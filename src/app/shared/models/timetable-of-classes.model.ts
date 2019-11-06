@@ -61,7 +61,7 @@ export class NewEvent {
     classroom: Classroom;
     teacher: Teacher;
     group: Group;
-    typeOfWork: string;
+    typeOfWork: TypeOfWork;
     discipline: Discipline;
     subgroup: number;
     status: boolean;

@@ -25,6 +25,7 @@ export class TimetableDetailComponent implements OnInit, OnChanges {
     @Output() closed = new EventEmitter();
     @Output() add = new EventEmitter<NewEvent>();
     @Output() update = new EventEmitter<NewEvent>();
+    @Output() delete = new EventEmitter<NewEvent>();
     detailBookingForm: FormGroup;
 
     groups: Group[];
@@ -38,6 +39,7 @@ export class TimetableDetailComponent implements OnInit, OnChanges {
               private teachersService: TeachersService, private descriptionOfPlanService: DescriptionOfPlanService,
               private classroomsService: ClassroomService, private timetableOfClassesService: TimetableOfClassesService) {
       this.detailBookingForm = this.formBuilder.group({
+          id: [null],
           day: [null, Validators.required],
           startTime: ['', Validators.required],
           endTime: ['', Validators.required],
@@ -59,10 +61,10 @@ export class TimetableDetailComponent implements OnInit, OnChanges {
       if (simpleChanges.event && simpleChanges.event.currentValue) {
           this.detailBookingForm.patchValue({ ...this.event });
       }
+
     }
 
     onAdd(): void {
-      console.log(this.detailBookingForm.get('day').value);
       const newEvent: NewEvent = this.detailBookingForm.value;
       console.log(newEvent);
       this.add.emit(newEvent);
@@ -71,6 +73,11 @@ export class TimetableDetailComponent implements OnInit, OnChanges {
     onUpdate(): void {
         const updateEvent: NewEvent = this.detailBookingForm.value;
         this.update.emit(updateEvent);
+    }
+
+    onDelete(): void {
+        const deleteEvent: NewEvent = this.detailBookingForm.value;
+        this.delete.emit(deleteEvent);
     }
 
     ngOnInit(): void {

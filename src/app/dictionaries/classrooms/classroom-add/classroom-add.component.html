@@ -1,4 +1,4 @@
-<div class="card my-10">
+<div class="col-md-6">
     <div class="card-body">
         <form [formGroup]="classroomForm" (ngSubmit)="onSubmit(classroomForm.value)">
             <div class="form-group">
@@ -35,6 +35,7 @@
                        [cpOKButtonClass]= "'btn btn-primary btn-xs'"
                        [cpCancelButton]="true"
                        [cpCancelButtonClass]= "'btn btn-primary btn-xs'"
+                       [cpCancelButtonText]="'Отмена'"
                        [(colorPicker)]="color"
                        />
 

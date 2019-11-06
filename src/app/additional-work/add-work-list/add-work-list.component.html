@@ -1,0 +1,76 @@
+<div class="container-fluid">
+
+    <div class="row" >
+        <div class="col-sm-12" >
+            <h3>Дополнительная нагрузка преподавателей</h3>
+        </div>
+    </div>
+
+    <hr>
+    <div class="row">
+        <div class="col-md-3 form-group">
+            <input type="date" class="form-control" [(ngModel)]="startDate" />
+        </div>
+        <div class="col-md-3 form-group">
+            <input type="date" class="form-control" [(ngModel)]="endDate" />
+        </div>
+        <div class="col-md-2 form-group">
+            <button class="btn btn-info" (click)="loadAddWorks()">Найти</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm">
+            <button class="btn-add" title="Добавить" (click)="onAdd()" > <span class="oi oi-plus"></span> Добавить </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm">
+            <table class="table table-active">
+                <thead class="thead-light">
+                <tr>
+
+                    <th>№</th>
+                    <th>Месяц</th>
+                    <th>Преподаватель</th>
+                    <th>Группа</th>
+                    <th>Тип работы</th>
+                    <th>Часы</th>
+                    <th></th>
+
+                </tr>
+                </thead>
+
+
+                <tbody>
+                <ng-template ngFor let-addWorkOfTeacher [ngForOf]="addWorks" let-i="index"
+                >
+                    <tr>
+
+                        <td scope="row"> {{i+1}}</td>
+
+                        <td>{{addWorkOfTeacher.date}} </td>
+                        <td>{{addWorkOfTeacher.teacherDto.lastName}} {{addWorkOfTeacher.teacherDto.firstName|slice:0:1}}.{{addWorkOfTeacher.teacherDto.patronymic|slice:0:1}}.</td>
+                        <td>{{addWorkOfTeacher.groupDto.groupName}}</td>
+                        <td>{{addWorkOfTeacher.typeOfAddWork.value}}</td>
+                        <td>{{addWorkOfTeacher.hour}}</td>
+                        <td class="td-p-4">
+                            <button class="btn-edit" title="Редактировать" [routerLink]="['edit', addWorkOfTeacher.id]" >
+                                <span class="oi oi-pencil"></span>
+                            </button>
+                            <button class="btn-delete" title="Удалить" (click)="onDeleteAddWork(addWorkOfTeacher)">
+                                <span class="oi oi-trash"></span>
+                            </button>
+                        </td>
+                    </tr>
+                </ng-template>
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+
+
+

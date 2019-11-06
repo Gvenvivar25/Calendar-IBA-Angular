@@ -1,10 +1,11 @@
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
-import {catchError, tap} from 'rxjs/operators';
+import {catchError, map, tap} from 'rxjs/operators';
 import {TimetableOfClasses, TimetableOfClassesDto, TimetableOfClassesForEvents} from '../models/timetable-of-classes.model';
 import {UrlConstants} from '../url-constants';
 import {Classroom} from '../../dictionaries/classrooms/classroom.model';
+import {AddWorkOfTeacher} from '../../additional-work/add-work-of-teacher.model';
 
 const httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})

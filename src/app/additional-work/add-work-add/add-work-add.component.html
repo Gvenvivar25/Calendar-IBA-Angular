@@ -1,0 +1,64 @@
+<div class="col-md-6">
+    <div class="card-body">
+        <form [formGroup]="addWorkForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label >Дата</label>
+                <input type="date" formControlName="date" class="form-control">
+
+                <!--<p *ngIf="!classroomForm.get('number').valid
+                && classroomForm.get('number').touched" class="alert alert-danger">
+                    Поле обязательно для заполнения. Введите номер аудитории!</p>-->
+            </div>
+
+            <div class="form-group">
+                <label>Преподаватель</label>
+                <ng-select
+                        [items]="teachers"
+                        bindLabel="lastName"
+                        [multiple]="false"
+                        placeholder="Выберите преподавателя"
+                        clearAllText="Clear"
+                        formControlName="teacherDto"
+                >
+                </ng-select>
+            </div>
+
+            <div class="form-group">
+                <label>Группа</label>
+                <ng-select
+                        [items]="groups"
+                        bindLabel="groupName"
+                        [multiple]="false"
+                        placeholder="Выберите группу"
+                        clearAllText="Clear"
+                        formControlName="groupDto"
+                >
+                </ng-select>
+            </div>
+
+            <div class="form-group">
+                <label>Тип работы</label>
+                <ng-select
+                        [items]="typesOfAddWork"
+                        bindLabel="value"
+                        [multiple]="false"
+                        placeholder="Выберите тип работы"
+                        clearAllText="Clear"
+                        formControlName="typeOfAddWork"
+                >
+                </ng-select>
+            </div>
+
+            <div class="form-group">
+                <label >Количество часов работ</label>
+                <input type="number" formControlName="hour" class="form-control">
+            </div>
+
+            <button type="submit" [disabled]="!addWorkForm.valid" class="btn btn-info">Добавить</button>
+            <button type="button" class="btn btn-warning"  (click)="gotoAddWorkList()">Отмена</button>
+
+        </form>
+    </div>
+</div>
+
+

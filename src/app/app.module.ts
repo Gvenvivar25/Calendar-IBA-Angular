@@ -21,6 +21,9 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AuthenticationService} from './shared/services/authentication.service';
 import {TimetablesModule} from './timetables/timetables.module';
 import { Page404Component } from './shared/components/page404/page404.component';
+import { AddWorkListComponent } from './additional-work/add-work-list/add-work-list.component';
+import { AddWorkAddComponent } from './additional-work/add-work-add/add-work-add.component';
+import { AddWorkEditComponent } from './additional-work/add-work-edit/add-work-edit.component';
 
 
 
@@ -34,6 +37,9 @@ import { Page404Component } from './shared/components/page404/page404.component'
     SignInComponent,
     AlertComponent,
     Page404Component,
+    AddWorkListComponent,
+    AddWorkAddComponent,
+    AddWorkEditComponent,
   ],
 
   imports: [

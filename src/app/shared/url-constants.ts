@@ -22,4 +22,6 @@ export class UrlConstants {
     public static URL_TIMETABLE_OF_CLASSES = environment.apiUrl + '/api/timetable_of_classes';
     public static URL_USER = environment.apiUrl + '/api/users';
     public static URL_AUTH = environment.apiUrl + '/api/auth';
+    public static URL_ADDWORK = environment.apiUrl + '/api/addworks';
+    public static URL_TYPE_OF_ADD_WORK = environment.apiUrl + '/api/types_of_add_work';
 }

@@ -96,7 +96,7 @@ export class ReportService {
     downloadReportForm02015(format: string, name: string, start: string, end: string): Observable<any>  {
         let headers = new HttpHeaders();
         headers = headers.append('Accept', 'text/csv; charset=utf-8');
-        const url = `${UrlConstants.URL_TEACHER_REPORT}/${format}/${name}/form2015?d1=${start}&d2=${end}`;
+        const url = `${UrlConstants.URL_TEACHER_REPORT}/form02015/${format}/${name}?d1=${start}&d2=${end}`;
         return this.httpClient.get(url, {
             headers,
             responseType: 'blob' as 'json'

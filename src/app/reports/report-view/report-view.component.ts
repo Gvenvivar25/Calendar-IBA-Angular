@@ -60,6 +60,7 @@ export class ReportViewComponent implements OnInit {
               this.isClassroom = false;
               break;
           }
+          case 'report-teacher02015':
           case 'timetable-teacher': {
               this.isPeriod = true;
               this.isGroup = false;
@@ -141,14 +142,16 @@ export class ReportViewComponent implements OnInit {
                 break;
             }
             case 'timetable-teacher': {
-                this.reportService.downloadTimetableForTeacherForPeriod(this.format, this.reportName, this.teacher, this.startDate, this.endDate).
+                this.reportService.downloadTimetableForTeacherForPeriod(this.format, this.reportName, this.teacher, this.startDate,
+                    this.endDate).
                 subscribe(response => {
                     this.createFile(response);
                 });
                 break;
             }
             case 'timetable-group': {
-                this.reportService.downloadTimetableForGroupForPeriod(this.format, this.reportName, this.group, this.startDate, this.endDate).
+                this.reportService.downloadTimetableForGroupForPeriod(this.format, this.reportName, this.group, this.startDate,
+                    this.endDate).
                 subscribe(response => {
                     this.createFile(response);
                 });
@@ -169,27 +172,38 @@ export class ReportViewComponent implements OnInit {
                 });
                 break;
             }
+            case 'report-teacher02015': {
+                this.reportService.downloadReportForm02015ForTeacher(this.teacher, this.format, this.reportName, this.startDate,
+                    this.endDate).
+                subscribe(response => {
+                    this.createFile(response);
+                });
+                break;
+            }
         }
     }
 
     showPDF() {
         switch (this.reportName) {
             case 'timetable': {
-                this.reportService.downloadAllTimetableForPeriod(this.format, this.reportName, this.startDate, this.endDate).subscribe(response => {
+                this.reportService.downloadAllTimetableForPeriod(this.format, this.reportName, this.startDate, this.endDate).
+                subscribe(response => {
                     this.showFile(response);
                 });
                 break;
             }
             case 'timetable-teacher': {
                 console.log(this.teacher);
-                this.reportService.downloadTimetableForTeacherForPeriod(this.format, this.reportName, this.teacher, this.startDate, this.endDate).subscribe(response => {
+                this.reportService.downloadTimetableForTeacherForPeriod(this.format, this.reportName, this.teacher, this.startDate,
+                    this.endDate).subscribe(response => {
                     this.showFile(response);
                 });
                 break;
             }
             case 'timetable-group': {
                 console.log(this.group);
-                this.reportService.downloadTimetableForGroupForPeriod(this.format, this.reportName, this.group, this.startDate, this.endDate).subscribe(response => {
+                this.reportService.downloadTimetableForGroupForPeriod(this.format, this.reportName, this.group, this.startDate,
+                    this.endDate).subscribe(response => {
                     this.showFile(response);
                 });
                 break;
@@ -204,6 +218,14 @@ export class ReportViewComponent implements OnInit {
             }
             case 'report02015': {
                 this.reportService.downloadReportForm02015(this.format, this.reportName, this.startDate, this.endDate).
+                subscribe(response => {
+                    this.showFile(response);
+                });
+                break;
+            }
+            case 'report-teacher02015': {
+                this.reportService.downloadReportForm02015ForTeacher(this.teacher, this.format, this.reportName, this.startDate,
+                    this.endDate).
                 subscribe(response => {
                     this.showFile(response);
                 });

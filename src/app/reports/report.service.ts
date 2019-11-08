@@ -106,4 +106,18 @@ export class ReportService {
                                    return of(null); })
             );
     }
+
+    downloadReportForm02015ForTeacher(id: number, format: string, name: string, start: string, end: string): Observable<any>  {
+        let headers = new HttpHeaders();
+        headers = headers.append('Accept', 'text/csv; charset=utf-8');
+        const url = `${UrlConstants.URL_TEACHER_REPORT}/${id}/form02015/${format}/${name}?d1=${start}&d2=${end}`;
+        return this.httpClient.get(url, {
+            headers,
+            responseType: 'blob' as 'json'
+        })
+            .pipe(
+                catchError(err => {console.log(err, 'Не удалось загрузить отчет по расписанию по преподавателю');
+                                   return of(null); })
+            );
+    }
 }

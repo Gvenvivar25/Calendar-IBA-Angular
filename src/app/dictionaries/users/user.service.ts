@@ -4,7 +4,7 @@ import {Observable, of} from 'rxjs';
 
 import {catchError, tap} from 'rxjs/operators';
 import {UrlConstants} from '../../shared/url-constants';
-import {RoleDto, Status, User} from './user.model';
+import {RoleDto, RoleName, Status, User} from './user.model';
 
 
 const httpOptions = {
@@ -75,10 +75,42 @@ export class UserService {
         );
     }
 
-    getAllRoles(): Observable<RoleDto []> {
-        return this.httpClient.get<RoleDto[]>(UrlConstants.URL_ROLE).pipe(
+    getAllRoles(): Observable<RoleName []> {
+        return this.httpClient.get<RoleName[]>(UrlConstants.URL_ROLE).pipe(
             catchError(err => {
                 console.log(err, 'Отсутсвуют данные в БД');
+                return of(null);
+            })
+        );
+    }
+
+    getAllRolesOfUser(id: number): Observable<RoleDto []> {
+        const url = `${UrlConstants.URL_USER}/${id}/roles`;
+        return this.httpClient.get<RoleDto[]>(url).pipe(
+            catchError(err => {
+                console.log(err, 'Отсутсвуют данные в БД');
+                return of(null);
+            })
+        );
+    }
+
+    deleteUserRole(id: number, role: string) {
+        const url = `${UrlConstants.URL_USER}/${id}/roles?rolename=${role}`;
+        return this.httpClient.delete(url, httpOptions).pipe(
+            tap(() => console.log(`deleted userRole id=${id}`)),
+            catchError(err => {
+                console.log(err, 'Не удалось удалить пользователя');
+                return of(null);
+            })
+        );
+    }
+
+    addRoleToUser(userId: number, role: string): Observable<RoleDto> {
+        const url = `${UrlConstants.URL_USER}/${userId}/roles?rolename=${role}`;
+        return this.httpClient.post<RoleDto>(url, null).pipe(
+            tap((res: RoleDto) => console.log(`added role id=${res.id}`)),
+            catchError(err => {
+                console.log(err, 'Не удалось добавить роль');
                 return of(null);
             })
         );

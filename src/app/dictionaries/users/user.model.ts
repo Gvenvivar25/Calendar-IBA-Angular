@@ -14,6 +14,11 @@ export class RoleDto {
     public name: string;
 }
 
+export class RoleName {
+    id: string;
+    value: string;
+}
+
 export class Status {
     public id: number;
     public value: string;

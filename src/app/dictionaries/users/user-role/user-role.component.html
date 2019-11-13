@@ -2,27 +2,27 @@
     <div class="col-md">
         <label>Назначение роли пользователю</label>
         <hr>
-        <p><b>Пользователь:</b> {{usernme}}</p>
+        <p><b>Пользователь:</b> {{username}}</p>
 
-        <form [formGroup]="UserRoleForm">
+        <form [formGroup]="userRoleForm">
 
 
             <div class="form-group">
-                <label>Форма образования </label>
+                <label>Роль </label>
                 <ng-select
-                        [items]="typesOfEducation"
+                        [items]="roles"
                         bindLabel="value"
-                        bindValue="id"
+
                         [multiple]="false"
-                        placeholder="Выберите форму образования"
+                        placeholder="Выберите роль пользователя"
                         clearAllText="Clear"
-                        formControlName="typeOfEducation"
+                        formControlName="role"
                 >
                 </ng-select>
             </div>
 
-            <button type="submit" [disabled]="!studentsAddForm" (click)="onAdd()" class="btn btn-info">Добавить</button>
-            <button type="button" class="btn btn-warning"  (click)=" gotoGroupsList()">Отмена</button>
+            <button type="submit" [disabled]="!userRoleForm" (click)="onAdd()" class="btn btn-info">Добавить</button>
+            <button type="button" class="btn btn-warning"  (click)=" gotoUsersList()">Отмена</button>
 
             <div class="form-row">
                 <div class="col-md form-group">
@@ -30,26 +30,19 @@
                     <table class="table table-active">
                         <thead class="thead-light">
                         <tr>
-
                             <th>№</th>
-                            <th>Дата</th>
-                            <th>Подгруппа</th>
-                            <th>Количество студентов</th>
+                            <th>Роль</th>
                             <th></th>
-
                         </tr>
                         </thead>
                         <tbody>
-                        <ng-template ngFor let-numberOfStudents [ngForOf]="numbersOfStudents" let-i="index">
+                        <ng-template ngFor let-role [ngForOf]="userRoles" let-i="index">
                             <tr>
                                 <td scope="row"> {{i+1}}</td>
-                                <td>{{numberOfStudents.date}} </td>
-                                <td>{{numberOfStudents.subgroup}}</td>
-
-                                <td>{{numberOfStudents.quantity}}</td>
+                                <td>{{role.value}} </td>
                                 <td >
                                     <button class="btn btn-danger btn-sm" title="Удалить"
-                                            (click)="onDeleteStudents(numberOfStudents.id)">
+                                            (click)="onDeleteRole(role.id)">
                                         Удалить
                                     </button>
                                 </td>

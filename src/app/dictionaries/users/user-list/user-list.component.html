@@ -22,6 +22,7 @@
                     <th>Логин</th>
                     <th>ФИО</th>
                     <th>Email</th>
+                    <th>Статус</th>
                     <th></th>
 
                 </tr>
@@ -31,13 +32,14 @@
                 <tbody>
                 <ng-template ngFor let-user [ngForOf]="users" let-i="index"
                 >
-                    <tr>
+                    <tr [ngStyle]="{'color':setUserColor(user.status.id)}">
 
                         <td scope="row"> {{i+1}}</td>
 
                         <td>{{user.username}} </td>
                         <td>{{user.lastName}} {{user.firstName}} {{user.patronymic}}</td>
                         <td>{{user.email}}</td>
+                        <td>{{user.status.value}}</td>
                         <td class="td-p-4">
                             <button class="btn-edit-yellow" title="Роли" [routerLink]="['roles', user.id]" >
                                 <span class="oi oi-lock-unlocked"></span>

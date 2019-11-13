@@ -13,7 +13,6 @@ import {Classroom} from '../../dictionaries/classrooms/classroom.model';
 import {ExternalEvent, NewEvent, TimetableOfClasses, TimetableOfClassesDto} from '../../shared/models/timetable-of-classes.model';
 import Tooltip from 'tooltip.js';
 import {TimetableOfClassesService} from '../../shared/services/timetable-of-classes.service';
-import {duration} from 'moment';
 
 
 @Component({
@@ -28,6 +27,7 @@ export class TimetableComponent implements  AfterViewInit {
     @ViewChild('external', {static: true}) external: ElementRef;
     @Input() public events: ExternalEvent[];
     @Output() requestNewEvent = new EventEmitter<NewEvent>();
+    @Output() clickButtonOk = new EventEmitter<string>();
     tooltip: Tooltip;
     timetableOfClasses: TimetableOfClasses [];
     calendarEvents: EventInput [];
@@ -127,7 +127,9 @@ export class TimetableComponent implements  AfterViewInit {
             if (event.event.id !== 'null') {
                 id = event.event.id;
             } else {id = event.event.extendedProps.id; }
-            this.timetableOfClassesService.deleteOneTimetableOfClasses(id).subscribe();
+            this.timetableOfClassesService.deleteOneTimetableOfClasses(id).subscribe(() => {
+                this.clickButtonOk.emit('OK');
+            });
         }
     }
 

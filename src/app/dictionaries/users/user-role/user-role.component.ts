@@ -3,7 +3,6 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {RoleDto, RoleName, User} from '../user.model';
 import {UserService} from '../user.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {NumberOfStudents, NumberOfStudentsDto} from '../../groups/group.model';
 
 @Component({
   selector: 'app-user-role',
@@ -50,7 +49,7 @@ export class UserRoleComponent implements OnInit {
     onAdd() {
       const result = Object.assign({}, this.userRoleForm.value);
       const role = result.role.id;
-      this.userService.addRoleToUser(this.id, role).subscribe(() => this.gotoUsersList());
+      this.userService.addRoleToUser(this.id, role).subscribe(() => this.getUserRole(this.id));
     }
 
     onDeleteRole(idRole: string) {

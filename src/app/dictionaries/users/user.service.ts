@@ -107,8 +107,8 @@ export class UserService {
 
     addRoleToUser(userId: number, role: string): Observable<RoleDto> {
         const url = `${UrlConstants.URL_USER}/${userId}/roles?rolename=${role}`;
-        return this.httpClient.post<RoleDto>(url, null).pipe(
-            tap((res: RoleDto) => console.log(`added role id=${res.id}`)),
+        return this.httpClient.put(url, httpOptions).pipe(
+           // tap((res: RoleDto) => console.log(`added role id=${res.id}`)),
             catchError(err => {
                 console.log(err, 'Не удалось добавить роль');
                 return of(null);

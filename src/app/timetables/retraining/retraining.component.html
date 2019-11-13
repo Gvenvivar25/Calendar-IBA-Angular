@@ -73,6 +73,7 @@
             <app-timetable [events] = "externalEvents"
                            (requestNewEvent)="onRequestNewEvent($event)"
                            (requestUpdateEvent)="onRequestUpdateEvent($event)"
+                           (clickButtonOk)="onClickButtonOk($event)"
                            (eventUpdated)="onEventUpdated($event)"></app-timetable>
             <app-timetable-detail
                     *ngIf="timetableDetail"

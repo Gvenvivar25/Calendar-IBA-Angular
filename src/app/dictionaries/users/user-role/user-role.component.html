@@ -22,7 +22,7 @@
             </div>
 
             <button type="submit" [disabled]="!userRoleForm" (click)="onAdd()" class="btn btn-info">Добавить</button>
-            <button type="button" class="btn btn-warning"  (click)=" gotoUsersList()">Отмена</button>
+            <button type="button" class="btn btn-warning"  (click)=" gotoUsersList()">Закрыть</button>
 
             <div class="form-row">
                 <div class="col-md form-group">
@@ -39,10 +39,10 @@
                         <ng-template ngFor let-role [ngForOf]="userRoles" let-i="index">
                             <tr>
                                 <td scope="row"> {{i+1}}</td>
-                                <td>{{role.value}} </td>
+                                <td>{{role.name.value}} </td>
                                 <td >
                                     <button class="btn btn-danger btn-sm" title="Удалить"
-                                            (click)="onDeleteRole(role.id)">
+                                            (click)="onDeleteRole(role.name.id)">
                                         Удалить
                                     </button>
                                 </td>

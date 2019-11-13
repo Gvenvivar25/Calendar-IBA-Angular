@@ -11,7 +11,7 @@ export class User {
 
 export class RoleDto {
     public id: number;
-    public name: string;
+    public name: RoleName;
 }
 
 export class RoleName {
@@ -20,6 +20,6 @@ export class RoleName {
 }
 
 export class Status {
-    public id: number;
+    public id: string;
     public value: string;
 }

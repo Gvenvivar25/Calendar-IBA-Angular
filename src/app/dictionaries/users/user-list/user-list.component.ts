@@ -35,4 +35,16 @@ export class UserListComponent implements OnInit {
         this.router.navigate(['./add'], {relativeTo: this.route});
     }
 
+// цвет строки пользователя в зависимости от статуса
+    setUserColor(status) {
+        switch (status) {
+            case 'ACTIVE':
+                return 'green';
+            case 'NOT_ACTIVE':
+                return 'blue';
+            case 'DELETED':
+                return 'red';
+        }
+    }
+
 }

@@ -6,7 +6,6 @@ import {Group} from '../../dictionaries/groups/group.model';
 
 import {Discipline} from '../../dictionaries/disciplines/discipline.model';
 import {DisciplinesService} from '../../dictionaries/disciplines/disciplines.service';
-import {AddWorkOfTeacher} from '../../additional-work/add-work-of-teacher.model';
 
 @Component({
   selector: 'app-retraining',
@@ -200,6 +199,11 @@ export class RetrainingComponent implements OnInit, AfterViewChecked {
 
     onEventUpdated(event: NewEvent): void {
         this.onUpdate(event);
+    }
+
+    onClickButtonOk(event: string) {
+        this.onSubmit();
+
     }
 }
 

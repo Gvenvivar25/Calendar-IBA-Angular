@@ -5,7 +5,6 @@ import {catchError, map, tap} from 'rxjs/operators';
 import {TimetableOfClasses, TimetableOfClassesDto, TimetableOfClassesForEvents} from '../models/timetable-of-classes.model';
 import {UrlConstants} from '../url-constants';
 import {Classroom} from '../../dictionaries/classrooms/classroom.model';
-import {AddWorkOfTeacher} from '../../additional-work/add-work-of-teacher.model';
 
 const httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -53,6 +52,14 @@ export class TimetableOfClassesService {
 
     findAllSpanByGroupId(groupId): Observable<TimetableOfClassesForEvents[]> {
         const url = `${UrlConstants.URL_TIMETABLE_OF_CLASSES}/need/${groupId}`;
+        return this.httpClient.get<TimetableOfClassesForEvents []>(url).pipe(
+            catchError(err => {console.log(err, 'Отсутсвуют данные в БД');
+                               return of(null); })
+        );
+    }
+
+    findAllSpanByGroupIdFilterDiscipline(groupId, discId): Observable<TimetableOfClassesForEvents[]> {
+        const url = `${UrlConstants.URL_TIMETABLE_OF_CLASSES}/need/${groupId}?d=${discId}`;
         return this.httpClient.get<TimetableOfClassesForEvents []>(url).pipe(
             catchError(err => {console.log(err, 'Отсутсвуют данные в БД');
                                return of(null); })

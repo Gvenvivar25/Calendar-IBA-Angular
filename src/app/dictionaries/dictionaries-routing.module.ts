@@ -34,6 +34,8 @@ import {UserListComponent} from './users/user-list/user-list.component';
 import {UserAddComponent} from './users/user-add/user-add.component';
 import {UserEditComponent} from './users/user-edit/user-edit.component';
 import {AuthGuard} from '../shared/helpers/auth.guard';
+import {GroupAddStudentsComponent} from './groups/group-add-students/group-add-students.component';
+import {UserRoleComponent} from './users/user-role/user-role.component';
 
 
 const dictionariesRoutes: Routes = [
@@ -66,6 +68,7 @@ const dictionariesRoutes: Routes = [
             {path: 'groups', component: GroupListComponent},
             {path: 'groups/add', component: GroupAddComponent},
             {path: 'groups/detail', component: GroupDetailComponent},
+            {path: 'groups/students/:id', component: GroupAddStudentsComponent},
             {path: 'groups/edit/:id', component: GroupEditComponent},
 
             {path: 'employees', component: EmployeeListComponent},
@@ -75,6 +78,7 @@ const dictionariesRoutes: Routes = [
 
             {path: 'users', component: UserListComponent},
             {path: 'users/add', component: UserAddComponent},
+            {path: 'users/roles/:id', component: UserRoleComponent},
             {path: 'users/edit/:id', component: UserEditComponent},
         ]}
 ];

@@ -42,6 +42,8 @@ import { UserListComponent } from './users/user-list/user-list.component';
 import { UserAddComponent } from './users/user-add/user-add.component';
 import { UserEditComponent } from './users/user-edit/user-edit.component';
 import { ColorPickerModule } from 'ngx-color-picker';
+import { GroupAddStudentsComponent } from './groups/group-add-students/group-add-students.component';
+import { UserRoleComponent } from './users/user-role/user-role.component';
 
 @NgModule ({
     declarations: [
@@ -77,7 +79,9 @@ import { ColorPickerModule } from 'ngx-color-picker';
         EmployeeDetailComponent,
         UserListComponent,
         UserAddComponent,
-        UserEditComponent
+        UserEditComponent,
+        GroupAddStudentsComponent,
+        UserRoleComponent
     ],
     imports: [
         CommonModule,

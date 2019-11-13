@@ -134,8 +134,11 @@ export class MainComponent implements OnInit {
                                     title: data[i].classroomDto.number,
                                     start: data[i].classDate + 'T' + data[i].beginTime,
                                     end: data[i].classDate + 'T' + data[i].finishTime,
-                                    description: data[i].disciplineDto.shortDisciplineName + ' ' + data[i].teacherDto.lastName + ' ауд. ' +
-                                    data[i].classroomDto.number + ' группа ' + data[i].groupDto.groupName + ' подгр.' + data[i].subgroup,
+                                    description: data[i].beginTime.toString().substring(0, 5) + '-' +
+                                        data[i].finishTime.toString().substring(0, 5) + ', ' + data[i].disciplineDto.shortDisciplineName +
+                                        ' ' + data[i].teacherDto.lastName + ' ' + data[i].teacherDto.firstName.substring(0, 1) + '.' +
+                                        data[i].teacherDto.patronymic.substring(0, 1) + '. ' + ', к. ' + data[i].classroomDto.number +
+                                        ' гр. ' + data[i].groupDto.groupName + '-' + data[i].subgroup,
                                     color: data[i].classroomDto.color,
                                 }
                             );
@@ -162,8 +165,11 @@ export class MainComponent implements OnInit {
                                     title: data[i].teacherDto.lastName,
                                     start: data[i].classDate + 'T' + data[i].beginTime,
                                     end: data[i].classDate + 'T' + data[i].finishTime,
-                                    description: data[i].disciplineDto.shortDisciplineName + ' ' + data[i].teacherDto.lastName + ' ауд. ' +
-                                    data[i].classroomDto.number + ' группа ' + data[i].groupDto.groupName + ' подгр.' + data[i].subgroup,
+                                    description: data[i].beginTime.toString().substring(0, 5) + '-' +
+                                        data[i].finishTime.toString().substring(0, 5) + ', ' + data[i].disciplineDto.shortDisciplineName +
+                                        ' ' + data[i].teacherDto.lastName + ' ' + data[i].teacherDto.firstName.substring(0, 1) + '.' +
+                                        data[i].teacherDto.patronymic.substring(0, 1) + '. ' + ', к. ' + data[i].classroomDto.number +
+                                        ' гр. ' + data[i].groupDto.groupName + '-' + data[i].subgroup,
                                     color: data[i].teacherDto.color,
                                 }
                             );
@@ -190,8 +196,11 @@ export class MainComponent implements OnInit {
                                     title: data[i].groupDto.groupName + ' ' + data[i].subgroup,
                                     start: data[i].classDate + 'T' + data[i].beginTime,
                                     end: data[i].classDate + 'T' + data[i].finishTime,
-                                    description: data[i].disciplineDto.shortDisciplineName + ' ' + data[i].teacherDto.lastName + ' ауд. ' +
-                                    data[i].classroomDto.number + ' группа ' + data[i].groupDto.groupName + ' подгр.' + data[i].subgroup,
+                                    description: data[i].beginTime.toString().substring(0, 5) + '-' +
+                                        data[i].finishTime.toString().substring(0, 5) + ', ' + data[i].disciplineDto.shortDisciplineName +
+                                        ' ' + data[i].teacherDto.lastName + ' ' + data[i].teacherDto.firstName.substring(0, 1) + '.' +
+                                        data[i].teacherDto.patronymic.substring(0, 1) + '. ' + ', к. ' + data[i].classroomDto.number +
+                                        ' гр. ' + data[i].groupDto.groupName + '-' + data[i].subgroup,
                                     color: data[i].groupDto.color,
                                 }
                             );
@@ -234,11 +243,14 @@ export class MainComponent implements OnInit {
                             this.calendarEvents.push(
                                 {
                                     title: /*data[i].disciplineDto.shortDisciplineName + ' ' + data[i].teacherDto.lastName + ' ауд. ' +*/
-                                    data[i].classroomDto.number,
+                                    'к. ' + data[i].classroomDto.number,
                                     start: data[i].classDate + 'T' + data[i].beginTime,
                                     end: data[i].classDate + 'T' + data[i].finishTime,
-                                    description: data[i].disciplineDto.shortDisciplineName + ' ' + data[i].teacherDto.lastName + ' ауд. ' +
-                                    data[i].classroomDto.number + ' группа ' + data[i].groupDto.groupName + ' подгр.' + data[i].subgroup,
+                                    description: data[i].beginTime.toString().substring(0, 5) + '-' +
+                                        data[i].finishTime.toString().substring(0, 5) + ', ' + data[i].disciplineDto.shortDisciplineName +
+                                        ' ' + data[i].teacherDto.lastName + ' ' + data[i].teacherDto.firstName.substring(0, 1) + '.' +
+                                        data[i].teacherDto.patronymic.substring(0, 1) + '. ' + ', к. ' + data[i].classroomDto.number +
+                                        ' гр. ' + data[i].groupDto.groupName + '-' + data[i].subgroup,
                                     color: data[i].classroomDto.color,
                                 }
                             );
@@ -249,8 +261,11 @@ export class MainComponent implements OnInit {
                                     title: data[i].teacherDto.lastName,
                                     start: data[i].classDate + 'T' + data[i].beginTime,
                                     end: data[i].classDate + 'T' + data[i].finishTime,
-                                    description: data[i].disciplineDto.shortDisciplineName + ' ' + data[i].teacherDto.lastName + ' ауд. ' +
-                                    data[i].classroomDto.number + ' группа ' + data[i].groupDto.groupName + ' подгр.' + data[i].subgroup,
+                                    description: data[i].beginTime.toString().substring(0, 5) + '-' +
+                                        data[i].finishTime.toString().substring(0, 5) + ', ' + data[i].disciplineDto.shortDisciplineName +
+                                        ' ' + data[i].teacherDto.lastName + ' ' + data[i].teacherDto.firstName.substring(0, 1) + '.' +
+                                        data[i].teacherDto.patronymic.substring(0, 1) + '. ' + ', к. ' + data[i].classroomDto.number +
+                                        ' гр. ' + data[i].groupDto.groupName + '-' + data[i].subgroup,
                                     color: data[i].teacherDto.color,
                                 }
                             );
@@ -261,8 +276,11 @@ export class MainComponent implements OnInit {
                                     title: data[i].groupDto.groupName + ' ' + data[i].subgroup,
                                     start: data[i].classDate + 'T' + data[i].beginTime,
                                     end: data[i].classDate + 'T' + data[i].finishTime,
-                                    description: data[i].disciplineDto.shortDisciplineName + ' ' + data[i].teacherDto.lastName + ' ауд. ' +
-                                    data[i].classroomDto.number + ' группа ' + data[i].groupDto.groupName + ' подгр.' + data[i].subgroup,
+                                    description: data[i].beginTime.toString().substring(0, 5) + '-' +
+                                        data[i].finishTime.toString().substring(0, 5) + ', ' + data[i].disciplineDto.shortDisciplineName +
+                                        ' ' + data[i].teacherDto.lastName + ' ' + data[i].teacherDto.firstName.substring(0, 1) + '.' +
+                                        data[i].teacherDto.patronymic.substring(0, 1) + '. ' + ', к. ' + data[i].classroomDto.number +
+                                        ' гр. ' + data[i].groupDto.groupName + '-' + data[i].subgroup,
                                     color: data[i].groupDto.color,
                                 }
                             );

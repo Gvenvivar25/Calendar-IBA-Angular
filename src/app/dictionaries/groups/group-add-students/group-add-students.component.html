@@ -1,0 +1,69 @@
+<div class="container">
+    <div class="col-md">
+        <label >Добавить количество студентов в группу на дату</label>
+        <hr>
+        <p><b>Группа:</b> {{groupName}}</p>
+        <form [formGroup]="studentsAddForm">
+
+
+            <div class="form-group">
+                <label >Дата</label>
+                <input type="date" formControlName="date" class="form-control" >
+            </div>
+
+            <div class="form-group">
+                <label >Подгруппа</label>
+                <input type="number" formControlName="subgroup"
+                       class="form-control"  placeholder="Введите номер подгруппы">
+            </div>
+
+            <div class="form-group">
+                <label >Количество человек</label>
+                <input type="number" formControlName="quantity"
+                       class="form-control"  placeholder="Введите количество студентов">
+            </div>
+
+            <button type="submit" [disabled]="!studentsAddForm" (click)="onAdd()" class="btn btn-info">Добавить</button>
+            <button type="button" class="btn btn-warning"  (click)=" gotoGroupsList()">Отмена</button>
+
+            <div class="form-row">
+                <div class="col-md form-group">
+                    <label>Текущие записи:</label>
+                    <table class="table table-active">
+                        <thead class="thead-light">
+                        <tr>
+
+                            <th>№</th>
+                            <th>Дата</th>
+                            <th>Подгруппа</th>
+                            <th>Количество студентов</th>
+                            <th></th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <ng-template ngFor let-numberOfStudents [ngForOf]="numbersOfStudents" let-i="index">
+                            <tr>
+                                <td scope="row"> {{i+1}}</td>
+                                <td>{{numberOfStudents.date}} </td>
+                                <td>{{numberOfStudents.subgroup}}</td>
+
+                                <td>{{numberOfStudents.quantity}}</td>
+                                <td >
+                                    <button class="btn btn-danger btn-sm" title="Удалить"
+                                            (click)="onDeleteStudents(numberOfStudents.id)">
+                                        Удалить
+                                    </button>
+                                </td>
+                            </tr>
+                        </ng-template>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+

@@ -6,4 +6,15 @@ export class User {
     public firstName: string;
     public patronymic: string;
     public email: string;
+    public status: Status;
+}
+
+export class RoleDto {
+    public id: number;
+    public name: string;
+}
+
+export class Status {
+    public id: number;
+    public value: string;
 }

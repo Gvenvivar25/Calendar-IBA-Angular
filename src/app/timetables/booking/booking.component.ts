@@ -82,8 +82,11 @@ export class BookingComponent implements OnInit {
                                 resourceId: data[i].classroomDto.id,
                                 start: data[i].classDate + 'T' + data[i].beginTime,
                                 end: data[i].classDate + 'T' + data[i].finishTime,
-                                description: data[i].disciplineDto.disciplineName + ' ' + data[i].teacherDto.lastName + ' ауд. ' +
-                                    data[i].classroomDto.number + ' группа ' + data[i].groupDto.groupName + ' подгр.' + data[i].subgroup,
+                                description: data[i].beginTime.toString().substring(0, 5) + '-' +
+                                    data[i].finishTime.toString().substring(0, 5) + ', ' + data[i].disciplineDto.shortDisciplineName +
+                                    ' ' + data[i].teacherDto.lastName + ' ' + data[i].teacherDto.firstName.substring(0, 1) + '.' +
+                                    data[i].teacherDto.patronymic.substring(0, 1) + '. ' + ', к. ' + data[i].classroomDto.number +
+                                    ' гр. ' + data[i].groupDto.groupName + '-' + data[i].subgroup,
                                 color: '#d8a1a1',
                                 editable: true,
                                 resourceEditable: false
@@ -99,8 +102,11 @@ export class BookingComponent implements OnInit {
                                 resourceId: data[i].classroomDto.id,
                                 start: data[i].classDate + 'T' + data[i].beginTime,
                                 end: data[i].classDate + 'T' + data[i].finishTime,
-                                description: data[i].disciplineDto.disciplineName + ' ' + data[i].teacherDto.lastName + ' ауд. ' +
-                                    data[i].classroomDto.number + ' группа ' + data[i].groupDto.groupName + ' подгр.' + data[i].subgroup,
+                                description: data[i].beginTime.toString().substring(0, 5) + '-' +
+                                    data[i].finishTime.toString().substring(0, 5) + ', ' + data[i].disciplineDto.shortDisciplineName +
+                                    ' ' + data[i].teacherDto.lastName + ' ' + data[i].teacherDto.firstName.substring(0, 1) + '.' +
+                                    data[i].teacherDto.patronymic.substring(0, 1) + '. ' + ', к. ' + data[i].classroomDto.number +
+                                    ' гр. ' + data[i].groupDto.groupName + '-' + data[i].subgroup,
                                 color: '#cccad8',
                                 editable: true,
                                 resourceEditable: false
@@ -116,8 +122,11 @@ export class BookingComponent implements OnInit {
                                 resourceId: data[i].classroomDto.id,
                                 start: data[i].classDate + 'T' + data[i].beginTime,
                                 end: data[i].classDate + 'T' + data[i].finishTime,
-                                description: data[i].disciplineDto.disciplineName + ' ' + data[i].teacherDto.lastName + ' ауд. ' +
-                                    data[i].classroomDto.number + ' группа ' + data[i].groupDto.groupName + ' подгр.' + data[i].subgroup,
+                                description: data[i].beginTime.toString().substring(0, 5) + '-' +
+                                    data[i].finishTime.toString().substring(0, 5) + ', ' + data[i].disciplineDto.shortDisciplineName +
+                                    ' ' + data[i].teacherDto.lastName + ' ' + data[i].teacherDto.firstName.substring(0, 1) + '.' +
+                                    data[i].teacherDto.patronymic.substring(0, 1) + '. ' + ', к. ' + data[i].classroomDto.number +
+                                    ' гр. ' + data[i].groupDto.groupName + '-' + data[i].subgroup,
                                 color: '#2490f5',
                                 editable: false,
                                 resourceEditable: false

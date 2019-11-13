@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UserService} from '../user.service';
+import {Status} from '../user.model';
 
 
 @Component({
@@ -11,11 +12,15 @@ import {UserService} from '../user.service';
 })
 export class UserAddComponent implements OnInit {
     userForm: FormGroup;
+    statuses: Status[];
 
     constructor(private route: ActivatedRoute, private router: Router, private userService: UserService) {
     }
 
     ngOnInit() {
+        this.userService.getAllStatuses().subscribe((res: Status[]) => {
+            this.statuses = res;
+        });
         this.userForm = new FormGroup({
             username: new FormControl('', Validators.required),
             password: new FormControl('', Validators.required),
@@ -23,6 +28,7 @@ export class UserAddComponent implements OnInit {
             firstName: new FormControl('', Validators.required),
             patronymic: new FormControl('', Validators.required),
             email: new FormControl('', Validators.required),
+            status: new FormControl([], Validators.required),
         });
     }
 

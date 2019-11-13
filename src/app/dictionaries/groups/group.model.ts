@@ -25,3 +25,21 @@ export class GroupDto {
     public descriptionOfPlanDto: DescriptionOfPlanDto;
     public color: string;
 }
+
+export class NumberOfStudents {
+    public id: number;
+    public date: Date;
+    public groupDto: Group;
+    public subgroup: number;
+    public quantity: number;
+
+}
+
+export class NumberOfStudentsDto {
+    public id: number;
+    public date: Date;
+    public groupDto: GroupDto;
+    public subgroup: number;
+    public quantity: number;
+
+}

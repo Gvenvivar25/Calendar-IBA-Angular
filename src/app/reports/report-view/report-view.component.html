@@ -44,7 +44,7 @@
             </ng-select>
         </div>
 
-        <div class="col-md-2">
+        <!--<div class="col-md-2">
             <ng-select [(ngModel)]="format"
                        [items]="formats"
                        bindLabel="value"
@@ -54,12 +54,20 @@
                        clearAllText="Clear"
             >
             </ng-select>
-        </div>
+        </div>-->
         <div class="col-md-1">
             <button class="btn btn-info" (click)="showPDF()">Показать</button>
         </div>
-        <div class="col-md-1">
+        <!--<div class="col-md-1">
             <button class="btn btn-primary" (click)="download()">Скачать</button>
+        </div>-->
+        <div class="col-md-3">
+            Скачать:
+            <button class="btn btn-outline-primary" title="Скачать PDF" (click)="download('PDF')"><img src="./assets/pdf-icon3.png"></button>
+
+            <button class="btn btn-outline-primary" title="Скачать Word" (click)="download('DOCX')"><span><img src="./assets/word-icon.png"></span></button>
+
+            <button class="btn btn-outline-primary" title="Скачать Excel" (click)="download('XLSX')"><span><img src="./assets/excel-icon.png"></span></button>
         </div>
     </div>
 

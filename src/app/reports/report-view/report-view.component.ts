@@ -53,6 +53,7 @@ export class ReportViewComponent implements OnInit {
               this.isClassroom = false;
               break;
           }
+          case 'report-group02015':
           case 'timetable-group': {
               this.isPeriod = true;
               this.isGroup = true;
@@ -102,8 +103,8 @@ export class ReportViewComponent implements OnInit {
             this.blob = new Blob([response], {type: 'application/xlsx'});
             fileSaver.saveAs(this.blob, this.reportName + '.' + this.format);
         }
-        if (this.format === 'DOC') {
-            this.blob = new Blob([response], {type: 'application/doc'});
+        if (this.format === 'DOCX') {
+            this.blob = new Blob([response], {type: 'application/docx'});
             fileSaver.saveAs(this.blob, this.reportName + '.' + this.format);
         }
         if (this.format === 'PDF') {
@@ -113,7 +114,7 @@ export class ReportViewComponent implements OnInit {
     }
 
     showFile(response) {
-        if (this.format === 'XLSX') {
+        /*if (this.format === 'XLSX') {
             this.blob = new Blob([response], {type: 'application/xlsx'});
             fileSaver.saveAs(this.blob, this.reportName + '.' + this.format);
         }
@@ -128,11 +129,17 @@ export class ReportViewComponent implements OnInit {
             iframe.setAttribute('src', objUrl);
             URL.revokeObjectURL(objUrl);
 
-        }
+        }*/
+        this.blob = new Blob([response], {type: 'application/pdf'});
+        const objUrl = URL.createObjectURL(this.blob);
+        const iframe = document.getElementById('viewer');
+        iframe.setAttribute('src', objUrl);
+        URL.revokeObjectURL(objUrl);
     }
 
-    download() {
+    download(format) {
        // console.log(this.startDate, this.endDate);
+        this.format = format;
         switch (this.reportName) {
             case 'timetable': {
                 this.reportService.downloadAllTimetableForPeriod(this.format, this.reportName, this.startDate, this.endDate).
@@ -174,6 +181,14 @@ export class ReportViewComponent implements OnInit {
             }
             case 'report-teacher02015': {
                 this.reportService.downloadReportForm02015ForTeacher(this.teacher, this.format, this.reportName, this.startDate,
+                    this.endDate).
+                subscribe(response => {
+                    this.createFile(response);
+                });
+                break;
+            }
+            case 'report-group02015': {
+                this.reportService.downloadReportForm02015ForGroup(this.group, this.format, this.reportName, this.startDate,
                     this.endDate).
                 subscribe(response => {
                     this.createFile(response);
@@ -225,6 +240,14 @@ export class ReportViewComponent implements OnInit {
             }
             case 'report-teacher02015': {
                 this.reportService.downloadReportForm02015ForTeacher(this.teacher, this.format, this.reportName, this.startDate,
+                    this.endDate).
+                subscribe(response => {
+                    this.showFile(response);
+                });
+                break;
+            }
+            case 'report-group02015': {
+                this.reportService.downloadReportForm02015ForGroup(this.group, this.format, this.reportName, this.startDate,
                     this.endDate).
                 subscribe(response => {
                     this.showFile(response);

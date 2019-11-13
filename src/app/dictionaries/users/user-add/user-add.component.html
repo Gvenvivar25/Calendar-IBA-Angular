@@ -66,6 +66,22 @@
                 </div>
             </div>
 
+            <div class="form-row">
+                <div class="col-md form-group">
+                    <label>Статус</label>
+                    <ng-select
+                            [items]="statuses"
+                            bindLabel="value"
+                            bindValue="id"
+                            [multiple]="false"
+                            placeholder="Выберите статус пользователя"
+                            clearAllText="Clear"
+                            formControlName="status"
+                    >
+                    </ng-select>
+                </div>
+            </div>
+
             <button type="submit" [disabled]="!userForm.valid" class="btn btn-info">Добавить</button>
             <button type="button" class="btn btn-warning"  (click)="gotoUserList()">Отмена</button>
 

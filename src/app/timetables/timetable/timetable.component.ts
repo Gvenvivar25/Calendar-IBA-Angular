@@ -13,6 +13,7 @@ import {Classroom} from '../../dictionaries/classrooms/classroom.model';
 import {ExternalEvent, NewEvent, TimetableOfClasses, TimetableOfClassesDto} from '../../shared/models/timetable-of-classes.model';
 import Tooltip from 'tooltip.js';
 import {TimetableOfClassesService} from '../../shared/services/timetable-of-classes.service';
+import {duration} from 'moment';
 
 
 @Component({
@@ -94,11 +95,12 @@ export class TimetableComponent implements  AfterViewInit {
                 const data: string = eventEl.getAttribute('data-event');
                 const dataObj: ExternalEvent = JSON.parse(data);
                 console.log(dataObj.description);
+                console.log(eventEl);
 
                 return {
                     title: eventEl.firstChild.textContent,
                     duration: '00:45',
-                    description: dataObj.title + ' ' + dataObj.description,
+                    description: dataObj.description,
                     id: null
 
                 };
@@ -196,6 +198,11 @@ export class TimetableComponent implements  AfterViewInit {
 
     eventReceive(event) {
         console.log(event);
+        const time = event.event.start.toTimeString().substring(0, 5) + '-' + event.event.end.toTimeString().substring(0, 5) + ', ' +
+            event.event.extendedProps.description;
+        console.log(time);
+        event.event.setExtendedProp('description', time);
+        console.log(event.event.extendedProps.description);
         // меняю количество ивентов для перетаскивания в DOM
         const need = event.draggedEl.childNodes[1].innerText;
         if (need > 1) {event.draggedEl.childNodes[1].innerText = need - 1; }
@@ -305,8 +312,11 @@ export class TimetableComponent implements  AfterViewInit {
                             resourceId: data[i].classroomDto.id,
                             start: data[i].classDate + 'T' + data[i].beginTime,
                             end: data[i].classDate + 'T' + data[i].finishTime,
-                            description: data[i].disciplineDto.disciplineName + ' ' + data[i].teacherDto.lastName + ' ауд. ' +
-                                data[i].classroomDto.number + ' группа ' + data[i].groupDto.groupName + ' подгр.' + data[i].subgroup,
+                            description: data[i].beginTime.toString().substring(0, 5) + '-' +
+                                data[i].finishTime.toString().substring(0, 5) + ', ' + data[i].disciplineDto.shortDisciplineName +
+                                ' ' + data[i].teacherDto.lastName + ' ' + data[i].teacherDto.firstName.substring(0, 1) + '.' +
+                                data[i].teacherDto.patronymic.substring(0, 1) + '. ' + ', к. ' + data[i].classroomDto.number +
+                                ' гр. ' + data[i].groupDto.groupName + '-' + data[i].subgroup,
                             color: '#f5a7a2',
                             editable: true,
                             resourceEditable: true
@@ -322,8 +332,11 @@ export class TimetableComponent implements  AfterViewInit {
                                 resourceId: data[i].classroomDto.id,
                                 start: data[i].classDate + 'T' + data[i].beginTime,
                                 end: data[i].classDate + 'T' + data[i].finishTime,
-                                description: data[i].disciplineDto.disciplineName + ' ' + data[i].teacherDto.lastName + ' ауд. ' +
-                                    data[i].classroomDto.number + ' группа ' + data[i].groupDto.groupName + ' подгр.' + data[i].subgroup,
+                                description: data[i].beginTime.toString().substring(0, 5) + '-' +
+                                    data[i].finishTime.toString().substring(0, 5) + ', ' + data[i].disciplineDto.shortDisciplineName +
+                                    ' ' + data[i].teacherDto.lastName + ' ' + data[i].teacherDto.firstName.substring(0, 1) + '.' +
+                                    data[i].teacherDto.patronymic.substring(0, 1) + '. ' + ', к. ' + data[i].classroomDto.number +
+                                    ' гр. ' + data[i].groupDto.groupName + '-' + data[i].subgroup,
                                 color: '#69f574',
                                 editable: false,
                                 resourceEditable: false
@@ -339,7 +352,7 @@ export class TimetableComponent implements  AfterViewInit {
     handleDateClick(arg) { // handler method
       //  alert(arg.dateStr);
         console.log(arg);
-        this.requestNewEvent.emit(this.createNewEvent(arg));
+      //  this.requestNewEvent.emit(this.createNewEvent(arg));
     }
 
     eventClick(info) {
@@ -348,10 +361,6 @@ export class TimetableComponent implements  AfterViewInit {
 
         // change the border color just for fun
         info.el.style.borderColor = 'red';
-    }
-
-    dateClick(event) {
-        console.log(event);
     }
 
     eventRender(info) {
@@ -369,13 +378,6 @@ export class TimetableComponent implements  AfterViewInit {
 
     handleEventMouseLeave(info) {
         this.tooltip.dispose();
-    }
-
-    createNewEvent(arg): NewEvent {
-        const newEvent: NewEvent = new NewEvent();
-        newEvent.title = 'lalala';
-        newEvent.day = arg.date.getDate();
-        return newEvent;
     }
 
 }

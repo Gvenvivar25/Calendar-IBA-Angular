@@ -3,6 +3,7 @@ import {FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ClassroomService} from '../classroom.service';
 import {Classroom, TypeOfClassroom} from '../classroom.model';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-classroom-add',
@@ -14,7 +15,8 @@ export class ClassroomAddComponent implements OnInit {
     classroomForm: FormGroup;
     typesOfClassroom: TypeOfClassroom[];
     color: string;
-    constructor(private route: ActivatedRoute, private router: Router, private classroomService: ClassroomService) {
+    constructor(private route: ActivatedRoute, private router: Router, private classroomService: ClassroomService,
+                ) {
     }
 
     ngOnInit() {
@@ -35,7 +37,9 @@ export class ClassroomAddComponent implements OnInit {
         classroom.color = this.color;
         console.log(classroom);
         console.log('Submitted!', form);
-        this.classroomService.saveClassroom(classroom).subscribe(() => this.gotoClassroomList());
+        this.classroomService.saveClassroom(classroom).subscribe(() => {
+            this.gotoClassroomList(); });
+
     }
 
     gotoClassroomList() {

@@ -1,0 +1,24 @@
+.calendar-container {
+  border: 1px solid transparent;
+  border-color: #fff #ddd;
+  margin: 0 2em 2em
+}
+
+.popper,
+.tooltip {
+  position: absolute;
+  z-index: 9999;
+
+  width: 180px;
+  border-radius: 1px;
+
+  padding: 1px;
+  text-align: center;
+  opacity: 1;
+}
+.style5 .tooltip {
+
+  max-width: 250px;
+  width: auto;
+  font-size: .8rem;
+}

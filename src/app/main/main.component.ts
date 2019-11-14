@@ -15,6 +15,7 @@ import {GroupService} from '../dictionaries/groups/group.service';
 import {TeachersService} from '../dictionaries/teachers/teachers.service';
 import {ClassroomService} from '../dictionaries/classrooms/classroom.service';
 import {ActivatedRoute} from '@angular/router';
+import {ToastrService} from 'ngx-toastr';
 
 
 @Component({
@@ -73,8 +74,7 @@ export class MainComponent implements OnInit {
     // ------------------- конец настроек расписания ----------------------------------//
     constructor(private timetableOfClassesService: TimetableOfClassesService, private groupService: GroupService,
                 private teacherService: TeachersService,
-                private classroomService: ClassroomService,
-                private route: ActivatedRoute) {  }
+                private classroomService: ClassroomService) {  }
 
     ngOnInit(): void {
         this.isGroup = false;

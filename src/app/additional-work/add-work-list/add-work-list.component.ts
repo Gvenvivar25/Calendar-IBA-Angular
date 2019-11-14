@@ -10,8 +10,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class AddWorkListComponent implements OnInit {
   addWorks: AddWorkOfTeacher[];
-    startDate;
-    endDate;
+    startDate = '2019-11-01';
+    endDate = '2019-11-30';
 
   constructor(private addWorkOfTeacherService: AddWorkOfTeacherService, private router: Router, private route: ActivatedRoute) { }
 

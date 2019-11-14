@@ -6,9 +6,9 @@ import {BookingComponent} from './booking/booking.component';
 
 const timetableRoutes: Routes = [
   //  {path: 'timetables', component: TimetablesComponent},
-    {path: 'retraining', component: RetrainingComponent, canActivate: [AuthGuard]},
-    {path: 'courses', component: RetrainingComponent, canActivate: [AuthGuard]},
-    {path: 'booking', component: BookingComponent, canActivate: [AuthGuard]},
+    {path: 'retraining', component: RetrainingComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_MANAGER'] }},
+    {path: 'courses', component: RetrainingComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_MANAGER'] }},
+    {path: 'booking', component: BookingComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_MANAGER'] }},
 
 ];
 

@@ -12,6 +12,7 @@ import {map} from 'rxjs/operators';
 export class AuthenticationService {
   //  static readonly TOKEN_STORAGE_KEY = 'token';
     auth = UrlConstants.URL_AUTH + '/login';
+  //  private userRole: string;
    /* private currentTokenSubject: BehaviorSubject<Token>;
     public currentToken: Observable<Token>;*/
     private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -26,6 +27,14 @@ export class AuthenticationService {
         return this.loggedIn.asObservable();
     }
 
+   /* getUserRole() {
+        console.log(this.userRole);
+        return this.userRole;
+    }*/
+   get userRole() {
+       return localStorage.getItem('role');
+   }
+
    public setLoggedIn(value) {
         this.loggedIn.next(value);
     }
@@ -37,15 +46,12 @@ export class AuthenticationService {
     public getToken(): string {
         return localStorage.getItem('token');
     }
-    /*public get currentTokenValue(): Token {
-        return this.currentTokenSubject.value;
-    }*/
 
     public login(AuthenticationRequestDto: AuthenticationRequest) {
        return this.http.post<any>(this.auth, AuthenticationRequestDto)
            .pipe(map((res: any) => {
+                localStorage.setItem('role', res.roles[0]);
                 localStorage.setItem('token', res.token);
-             //   this.currentTokenSubject.next(res);
                 this.loggedIn.next(true);
                 return res;
 
@@ -55,6 +61,7 @@ export class AuthenticationService {
     logout() {
         // remove user from local storage to log user out
         localStorage.removeItem('token');
+        localStorage.removeItem('role');
      //   this.currentTokenSubject.next(null);
         this.loggedIn.next(false);
     }

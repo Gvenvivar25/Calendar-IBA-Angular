@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localeIt from '@angular/common/locales/it';
 import { NgSelectModule } from '@ng-select/ng-select';
-registerLocaleData(localeIt);
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -14,7 +13,6 @@ import {DictionariesModule} from './dictionaries/dictionaries.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ReportsModule} from './reports/reports.module';
 import { FullCalendarModule } from '@fullcalendar/angular';
-import { AlertComponent } from './shared/components/alert/alert.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {JwtInterceptor} from './shared/helpers/jwt.interceptor';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
@@ -24,8 +22,10 @@ import { Page404Component } from './shared/components/page404/page404.component'
 import { AddWorkListComponent } from './additional-work/add-work-list/add-work-list.component';
 import { AddWorkAddComponent } from './additional-work/add-work-add/add-work-add.component';
 import { AddWorkEditComponent } from './additional-work/add-work-edit/add-work-edit.component';
+import {ToastrModule} from 'ngx-toastr';
+import { Page403Component } from './shared/components/page403/page403.component';
 
-
+registerLocaleData(localeIt);
 
 
 @NgModule({
@@ -35,11 +35,11 @@ import { AddWorkEditComponent } from './additional-work/add-work-edit/add-work-e
     FooterComponent,
     MainComponent,
     SignInComponent,
-    AlertComponent,
     Page404Component,
     AddWorkListComponent,
     AddWorkAddComponent,
     AddWorkEditComponent,
+    Page403Component,
   ],
 
   imports: [
@@ -53,7 +53,11 @@ import { AddWorkEditComponent } from './additional-work/add-work-edit/add-work-e
     AppRoutingModule,
     NgSelectModule,
     FullCalendarModule,
-    TimetablesModule
+    TimetablesModule,
+    ToastrModule.forRoot({
+        closeButton: true,
+       // positionClass: 'toast-bottom-right'
+    })
   ],
   providers: [AuthenticationService,
       { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }

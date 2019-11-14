@@ -121,50 +121,69 @@ export class RetrainingComponent implements OnInit, AfterViewChecked {
             subscribe((res: TimetableOfClassesForEvents[]) => {
                 //   console.log(res);
                 this.externalEvents = [];
-                for (let i = 0, len = Object.keys(res).length; i < len; i++) {
-                    this.externalEvents.push({
-                        title: res[i].timetableOfClassesDto.disciplineDto.shortDisciplineName + ' ' +
-                            res[i].timetableOfClassesDto.typeOfWork.short_value + ' ' +
-                            res[i].timetableOfClassesDto.groupDto.groupName + '-' +
-                            res[i].timetableOfClassesDto.subgroup,
-                        description: res[i].timetableOfClassesDto.disciplineDto.shortDisciplineName + ' '
-                            + res[i].timetableOfClassesDto.teacherDto.lastName + ' ' +
-                            res[i].timetableOfClassesDto.teacherDto.firstName.substring(0, 1) + '.' +
-                            res[i].timetableOfClassesDto.teacherDto.patronymic.substring(0, 1)  + '., гр. ' +
-                            res[i].timetableOfClassesDto.groupDto.groupName + '-'
-                            + res[i].timetableOfClassesDto.subgroup,
-                        objectData: res[i].timetableOfClassesDto,
-                        need: res[i].need});
+                if (res != null) {
+                    for (let i = 0, len = Object.keys(res).length; i < len; i++) {
+                        this.externalEvents.push({
+                            title: res[i].timetableOfClassesDto.disciplineDto.shortDisciplineName + ' ' +
+                                res[i].timetableOfClassesDto.typeOfWork.short_value + ' ' +
+                                res[i].timetableOfClassesDto.groupDto.groupName + '-' +
+                                res[i].timetableOfClassesDto.subgroup,
+                            description: res[i].timetableOfClassesDto.disciplineDto.shortDisciplineName + ' '
+                                + res[i].timetableOfClassesDto.teacherDto.lastName + ' ' +
+                                res[i].timetableOfClassesDto.teacherDto.firstName.substring(0, 1) + '.' +
+                                res[i].timetableOfClassesDto.teacherDto.patronymic.substring(0, 1) + '., гр. ' +
+                                res[i].timetableOfClassesDto.groupDto.groupName + '-'
+                                + res[i].timetableOfClassesDto.subgroup,
+                            objectData: res[i].timetableOfClassesDto,
+                            need: res[i].need
+                        });
+                    }
+                    this.externalEvents.sort((a: ExternalEvent, b: ExternalEvent): number => {
+                        if (a.title < b.title) {
+                            return -1;
+                        }
+                        if (a.title > b.title) {
+                            return 1;
+                        } else {
+                            return 0;
+                        }
+                    });
+                    console.log(this.externalEvents);
                 }
-                this.externalEvents.sort((a: ExternalEvent, b: ExternalEvent): number => {
-                    if (a.title < b.title) {
-                        return -1; }
-                    if (a.title > b.title) {return 1; } else { return 0; }});
-                console.log(this.externalEvents);
             });
         } else {
             this.timetableOfClassesService.findAllSpanByGroupId(this.group).subscribe((res: TimetableOfClassesForEvents[]) => {
              //   console.log(res);
                 this.externalEvents = [];
-                for (let i = 0, len = Object.keys(res).length; i < len; i++) {
-                    this.externalEvents.push({title: res[i].timetableOfClassesDto.disciplineDto.shortDisciplineName + ' ' +
-                                                res[i].timetableOfClassesDto.typeOfWork.short_value + ' ' +
-                                                res[i].timetableOfClassesDto.groupDto.groupName + '-' +
-                                                res[i].timetableOfClassesDto.subgroup,
-                                                description: res[i].timetableOfClassesDto.disciplineDto.shortDisciplineName + ' '
-                                                    + res[i].timetableOfClassesDto.teacherDto.lastName + ' ' +
-                                                    res[i].timetableOfClassesDto.teacherDto.firstName.substring(0, 1) + '.' +
-                                                    res[i].timetableOfClassesDto.teacherDto.patronymic.substring(0, 1)  + '., гр. ' +
-                                                    res[i].timetableOfClassesDto.groupDto.groupName + '-'
-                                                    + res[i].timetableOfClassesDto.subgroup,
-                                                objectData: res[i].timetableOfClassesDto,
-                                                need: res[i].need});
+                if (res != null) {
+                    for (let i = 0, len = Object.keys(res).length; i < len; i++) {
+                        this.externalEvents.push({
+                            title: res[i].timetableOfClassesDto.disciplineDto.shortDisciplineName + ' ' +
+                                res[i].timetableOfClassesDto.typeOfWork.short_value + ' ' +
+                                res[i].timetableOfClassesDto.groupDto.groupName + '-' +
+                                res[i].timetableOfClassesDto.subgroup,
+                            description: res[i].timetableOfClassesDto.disciplineDto.shortDisciplineName + ' '
+                                + res[i].timetableOfClassesDto.teacherDto.lastName + ' ' +
+                                res[i].timetableOfClassesDto.teacherDto.firstName.substring(0, 1) + '.' +
+                                res[i].timetableOfClassesDto.teacherDto.patronymic.substring(0, 1) + '., гр. ' +
+                                res[i].timetableOfClassesDto.groupDto.groupName + '-'
+                                + res[i].timetableOfClassesDto.subgroup,
+                            objectData: res[i].timetableOfClassesDto,
+                            need: res[i].need
+                        });
+                    }
+                    this.externalEvents.sort((a: ExternalEvent, b: ExternalEvent): number => {
+                        if (a.title < b.title) {
+                            return -1;
+                        }
+                        if (a.title > b.title) {
+                            return 1;
+                        } else {
+                            return 0;
+                        }
+                    });
+                    console.log(this.externalEvents);
                 }
-                this.externalEvents.sort((a: ExternalEvent, b: ExternalEvent): number => {
-                    if (a.title < b.title) {
-                        return -1; }
-                    if (a.title > b.title) {return 1; } else { return 0; }});
-                console.log(this.externalEvents);
             });
         }
         this._opened = false;

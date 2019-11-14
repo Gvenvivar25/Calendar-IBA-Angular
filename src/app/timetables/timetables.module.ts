@@ -15,6 +15,8 @@ import { TimetableComponent } from './timetable/timetable.component';
 import { TimetableDetailComponent } from './timetable/timetable-detail/timetable-detail.component';
 import { BookingComponent } from './booking/booking.component';
 import { BookingTimetableComponent } from './booking/booking-timetable/booking-timetable.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ToastrModule} from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,11 @@ import { BookingTimetableComponent } from './booking/booking-timetable/booking-t
         SidebarModule.forRoot(),
         FullCalendarModule,
         NgSelectModule,
-      AngularDraggableModule
+      AngularDraggableModule,
+      BrowserAnimationsModule,
+      ToastrModule.forRoot({
+          closeButton: true,
+      })
   ]
 })
 export class TimetablesModule { }

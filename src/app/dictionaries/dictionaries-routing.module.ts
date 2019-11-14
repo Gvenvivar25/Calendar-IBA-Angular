@@ -39,7 +39,8 @@ import {UserRoleComponent} from './users/user-role/user-role.component';
 
 
 const dictionariesRoutes: Routes = [
-    {path: 'dictionaries', component: DictionariesComponent, canActivate: [AuthGuard], children: [
+    {path: 'dictionaries', component: DictionariesComponent, canActivate: [AuthGuard], canActivateChild: [AuthGuard],
+        data: { roles: ['ROLE_ADMIN'] }, children: [
             {path: 'disciplines/add', component: DisciplineAddComponent},
             {path: 'disciplines/detail', component: DisciplineDetailComponent},
             {path: 'disciplines/edit/:id', component: DisciplineEditComponent},

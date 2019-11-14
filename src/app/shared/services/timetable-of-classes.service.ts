@@ -5,6 +5,7 @@ import {catchError, map, tap} from 'rxjs/operators';
 import {TimetableOfClasses, TimetableOfClassesDto, TimetableOfClassesForEvents} from '../models/timetable-of-classes.model';
 import {UrlConstants} from '../url-constants';
 import {Classroom} from '../../dictionaries/classrooms/classroom.model';
+import {ToastrService} from 'ngx-toastr';
 
 const httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -15,12 +16,13 @@ const httpOptions = {
 })
 
 export class TimetableOfClassesService {
-    constructor(private httpClient: HttpClient) {}
+    constructor(private httpClient: HttpClient, private toastr: ToastrService) {}
 
     getTimetableOfClasses(time): Observable<TimetableOfClasses []> {
         const url = `${UrlConstants.URL_TIMETABLE_OF_CLASSES}/span${time}`;
         return this.httpClient.get<TimetableOfClasses []>(url).pipe(
-            catchError(err => {console.log(err, 'Отсутсвуют данные в БД');
+            catchError(err => {this.toastr.info(`Нет данных за период`);
+                               console.log(err, 'Отсутсвуют данные в БД');
                                return of(null); })
         );
 
@@ -29,7 +31,8 @@ export class TimetableOfClassesService {
     getTimetableOfClassesOfGroup(time, groupId): Observable<TimetableOfClasses []> {
         const url = `${UrlConstants.URL_TIMETABLE_OF_CLASSES}/span/group/${groupId}${time}`;
         return this.httpClient.get<TimetableOfClasses []>(url).pipe(
-            catchError(err => {console.log(err, 'Отсутсвуют данные в БД');
+            catchError(err => {this.toastr.info(`Нет данных за период`);
+                               console.log(err, 'Отсутсвуют данные в БД');
                                return of(null); })
         );
     }
@@ -37,7 +40,8 @@ export class TimetableOfClassesService {
     getTimetableOfClassesOfTeacher(time, teacherId): Observable<TimetableOfClasses []> {
         const url = `${UrlConstants.URL_TIMETABLE_OF_CLASSES}/span/teacher/${teacherId}${time}`;
         return this.httpClient.get<TimetableOfClasses []>(url).pipe(
-            catchError(err => {console.log(err, 'Отсутсвуют данные в БД');
+            catchError(err => {this.toastr.info(`Нет данных за период`);
+                               console.log(err, 'Отсутсвуют данные в БД');
                                return of(null); })
         );
     }
@@ -45,7 +49,8 @@ export class TimetableOfClassesService {
     getTimetableOfClassesOfClassroom(time, classroomId): Observable<TimetableOfClasses []> {
         const url = `${UrlConstants.URL_TIMETABLE_OF_CLASSES}/span/classroom/${classroomId}${time}`;
         return this.httpClient.get<TimetableOfClasses []>(url).pipe(
-            catchError(err => {console.log(err, 'Отсутсвуют данные в БД');
+            catchError(err => {this.toastr.info(`Нет данных за период`);
+                               console.log(err, 'Отсутсвуют данные в БД');
                                return of(null); })
         );
     }
@@ -53,7 +58,8 @@ export class TimetableOfClassesService {
     findAllSpanByGroupId(groupId): Observable<TimetableOfClassesForEvents[]> {
         const url = `${UrlConstants.URL_TIMETABLE_OF_CLASSES}/need/${groupId}`;
         return this.httpClient.get<TimetableOfClassesForEvents []>(url).pipe(
-            catchError(err => {console.log(err, 'Отсутсвуют данные в БД');
+            catchError(err => {this.toastr.info(`Нет данных по группе`);
+                               console.log(err, 'Отсутсвуют данные в БД');
                                return of(null); })
         );
     }
@@ -61,7 +67,8 @@ export class TimetableOfClassesService {
     findAllSpanByGroupIdFilterDiscipline(groupId, discId): Observable<TimetableOfClassesForEvents[]> {
         const url = `${UrlConstants.URL_TIMETABLE_OF_CLASSES}/need/${groupId}?d=${discId}`;
         return this.httpClient.get<TimetableOfClassesForEvents []>(url).pipe(
-            catchError(err => {console.log(err, 'Отсутсвуют данные в БД');
+            catchError(err => {this.toastr.info(`Нет данных по заданному предмету`);
+                               console.log(err, 'Отсутсвуют данные в БД');
                                return of(null); })
         );
     }
@@ -69,7 +76,9 @@ export class TimetableOfClassesService {
     saveOneTimetableOfClasses(timetable: TimetableOfClassesDto): Observable<TimetableOfClasses> {
 
         return this.httpClient.post(UrlConstants.URL_TIMETABLE_OF_CLASSES, timetable).pipe(
-            catchError(err => {console.log(err, 'Отсутсвуют данные в БД');
+            tap(() => this.toastr.success(`Запись сохранена!`)),
+            catchError(err => {this.toastr.error(`Запись не сохранена`, 'Ошибка');
+                               console.log(err, 'Отсутсвуют данные в БД');
                                return of(null); })
         );
     }
@@ -87,10 +96,9 @@ export class TimetableOfClassesService {
     updateOneTimetableOfClasses(id: number, newTimetable: TimetableOfClassesDto): Observable<TimetableOfClasses> {
         const url = `${UrlConstants.URL_TIMETABLE_OF_CLASSES}/${id}`;
         return this.httpClient.put<TimetableOfClasses>(url, newTimetable).pipe(
-            tap(() => {
-                return console.log(`updated timetableOfClasses id=${id}`);
-            }),
-            catchError(err => {console.log(err, 'Не удалось обновить запись');
+            tap(() => this.toastr.success(`Запись обновлена!`)),
+            catchError(err => {this.toastr.error(`Запись не сохранена`, 'Ошибка');
+                               console.log(err, 'Не удалось обновить запись');
                                return of(null); })
         );
     }

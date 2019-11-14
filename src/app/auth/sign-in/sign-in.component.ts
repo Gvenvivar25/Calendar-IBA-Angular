@@ -24,7 +24,10 @@ export class SignInComponent implements OnInit {
                ) {
       // redirect to home if already logged in
       if (this.authenticationService.currentToken) {
-          this.router.navigate(['/main']);
+          if (this.authenticationService.userRole === 'ROLE_USER') {
+              this.router.navigate(['/reports']);
+          } else {
+          this.router.navigate(['/main']); }
       }
   }
 
@@ -53,7 +56,11 @@ export class SignInComponent implements OnInit {
       this.authenticationService.login(this.authReqDto).pipe(first())
           .subscribe(
               () => {
-                  this.router.navigate([this.returnUrl]);
+                  console.log(this.authenticationService.userRole);
+                  if (this.authenticationService.userRole === 'ROLE_USER') {
+                      this.router.navigate(['/reports/timetable-teacher']);
+                  } else {
+                  this.router.navigate([this.returnUrl]); }
               },
               error => {
                   this.error = error;

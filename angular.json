@@ -35,7 +35,8 @@
               "node_modules/@fullcalendar/daygrid/main.css",
               "node_modules/@fullcalendar/timegrid/main.css",
               "node_modules/@ng-select/ng-select/themes/default.theme.css",
-              "node_modules/jquery-ui-dist/jquery-ui.css"
+              "node_modules/jquery-ui-dist/jquery-ui.css",
+              "node_modules/ngx-toastr/toastr.css"
 
             ],
             "scripts": [

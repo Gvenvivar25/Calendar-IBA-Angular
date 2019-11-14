@@ -1,5 +1,5 @@
 import {
-    AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, ViewChild
+    AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, ViewChild, ViewEncapsulation
 } from '@angular/core';
 
 import {FullCalendarComponent} from '@fullcalendar/angular';
@@ -19,7 +19,7 @@ import {TimetableOfClassesService} from '../../shared/services/timetable-of-clas
   selector: 'app-timetable',
   templateUrl: './timetable.component.html',
   styleUrls: ['./timetable.component.scss'],
-   // encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.None,
 })
 export class TimetableComponent implements  AfterViewInit {
 
@@ -189,7 +189,14 @@ export class TimetableComponent implements  AfterViewInit {
             console.log(timetable.classroomDto);
             this.timetableOfClassesService.saveOneTimetableOfClasses(timetable).subscribe((result: TimetableOfClasses) => {
                 console.log('Пришло с сервера' + JSON.stringify(result));
-                event.event.setExtendedProp('id', result.id);
+                if (result) {
+                    event.event.setExtendedProp('id', result.id);
+                } else {
+                    event.event.remove();
+                    this.clickButtonOk.emit('OK');
+
+                }
+
              //   event.id = result.id;
              //   event.event.id = result.id.toString();
              //   event.event.setProp('id', result.id.toString());
@@ -279,8 +286,14 @@ export class TimetableComponent implements  AfterViewInit {
                 console.log(timetable.classroomDto);
                 this.timetableOfClassesService.updateOneTimetableOfClasses(id, timetable).subscribe((result: TimetableOfClasses) => {
                     console.log('Пришло с сервера' + JSON.stringify(result));
-                    event.event.setExtendedProp('id', result.id);
-                   // console.log(event);
+                    if (result) {
+                        event.event.setExtendedProp('id', result.id);
+                    } else {
+                     //   event.event.remove();
+                     //   this.clickButtonOk.emit('OK');
+
+                    }
+                    console.log(event);
                 } );
             });
             }

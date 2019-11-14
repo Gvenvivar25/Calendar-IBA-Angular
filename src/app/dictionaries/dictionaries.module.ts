@@ -44,6 +44,8 @@ import { UserEditComponent } from './users/user-edit/user-edit.component';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { GroupAddStudentsComponent } from './groups/group-add-students/group-add-students.component';
 import { UserRoleComponent } from './users/user-role/user-role.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ToastrModule} from 'ngx-toastr';
 
 @NgModule ({
     declarations: [
@@ -93,6 +95,10 @@ import { UserRoleComponent } from './users/user-role/user-role.component';
         SidebarModule.forRoot(),
         NgSelectModule,
         ColorPickerModule,
+        BrowserAnimationsModule, // required animations module
+        ToastrModule.forRoot({
+            closeButton: true,
+        })
 
     ],
     providers: [DisciplinesService]

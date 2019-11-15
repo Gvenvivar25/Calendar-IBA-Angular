@@ -1,0 +1,16 @@
+:host {
+  background: rgba(133, 178, 223, 0.95);
+  color: #0d0e7f;
+
+  position: absolute;
+  top: 5%;
+  left: 15%;
+  //  transform: translate(50%, 50%);
+  z-index:9999;
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  display: flex;
+  max-width: 700px;
+  // flex-direction: row;
+}

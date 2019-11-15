@@ -8,11 +8,12 @@ import interactionPlugin, {Draggable} from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import {EventInput} from '@fullcalendar/core/structs/event';
-import {ClassroomService} from '../../dictionaries/classrooms/classroom.service';
-import {Classroom} from '../../dictionaries/classrooms/classroom.model';
-import {ExternalEvent, NewEvent, TimetableOfClasses, TimetableOfClassesDto} from '../../shared/models/timetable-of-classes.model';
+import {ClassroomService} from '../../../dictionaries/classrooms/classroom.service';
+import {Classroom} from '../../../dictionaries/classrooms/classroom.model';
+import {ExternalEvent, NewEvent, TimetableOfClasses, TimetableOfClassesDto} from '../../../shared/models/timetable-of-classes.model';
 import Tooltip from 'tooltip.js';
-import {TimetableOfClassesService} from '../../shared/services/timetable-of-classes.service';
+import {TimetableOfClassesService} from '../../../shared/services/timetable-of-classes.service';
+import {AuthenticationService} from '../../../shared/services/authentication.service';
 
 
 @Component({
@@ -31,13 +32,23 @@ export class TimetableComponent implements  AfterViewInit {
     tooltip: Tooltip;
     timetableOfClasses: TimetableOfClasses [];
     calendarEvents: EventInput [];
+    isTimetableConfirm;
     time: string;
+    startDate: string;
+    endDate: string;
 
 
     header = {
-        left: 'resourceTimeGridWeek, resourceTimeGrid3Days, resourceTimeGridDay, timeGridWeek,',
+        left: 'resourceTimeGridWeek, resourceTimeGrid3Days, resourceTimeGridDay',
         center: 'title',
-        right:  'prev,next today'};
+        right:  'confirmButton, prev,next today'};
+
+    customButtons = {
+        confirmButton: {
+            text: 'Подтвердить занятия',
+            click: this.onConfirm.bind(this)
+        }
+    };
 
     views = {
         resourceTimeGrid5Days: {
@@ -75,7 +86,7 @@ export class TimetableComponent implements  AfterViewInit {
     plugins = [dayGridPlugin, interactionPlugin, timeGridPlugin, resourceTimeGridPlugin];
 
     constructor(private el: ElementRef, private classroomService: ClassroomService,
-                private timetableOfClassesService: TimetableOfClassesService) {
+                private timetableOfClassesService: TimetableOfClassesService, private authService: AuthenticationService) {
         this.classroomService.getClassrooms().subscribe((res: Classroom []) => {
             this.resources = [];
             for (let i = 0, len = Object.keys(res).length; i < len; i++) {
@@ -109,6 +120,11 @@ export class TimetableComponent implements  AfterViewInit {
 
     }
 
+    get isAdmin() {
+        const role = this.authService.userRole;
+        if (role === 'ROLE_ADMIN') { return true; } else { return false; }
+    }
+
     eventDragStop(event) {
         const trashEl = document.getElementById('fcTrash') as HTMLElement;
 
@@ -122,13 +138,15 @@ export class TimetableComponent implements  AfterViewInit {
 
         if (event.jsEvent.pageX >= x1 && event.jsEvent.pageX <= x2 &&
             event.jsEvent.pageY >= y1 && event.jsEvent.pageY <= y2) {
-            event.event.remove();
             let id;
             if (event.event.id !== 'null') {
                 id = event.event.id;
             } else {id = event.event.extendedProps.id; }
-            this.timetableOfClassesService.deleteOneTimetableOfClasses(id).subscribe(() => {
+            this.timetableOfClassesService.deleteOneTimetableOfClasses(id).subscribe((res: any) => {
+                if (res === null) {
+                event.event.remove();
                 this.clickButtonOk.emit('OK');
+                }
             });
         }
     }
@@ -301,18 +319,21 @@ export class TimetableComponent implements  AfterViewInit {
     }
 
     // метод для передачи Диме периода для ивентов из БД
-    getDaysPeriod(info) {
+    getDaysPeriod() {
         const startDay = this.fullcalendar.getApi().view.currentStart;
         const endDay = this.fullcalendar.getApi().view.currentEnd;
         startDay.setDate(startDay.getDate() + 1);
         const start = startDay.toISOString().split('T')[0];
         const end = endDay.toISOString().split('T')[0];
+        this.startDate = start;
+        this.endDate = end;
         console.log('?classDate1=' + start + '&classDate2=' + end);
         this.time = '?d1=' + start + '&d2=' + end;
         this.timetableOfClassesService.getTimetableOfClasses(this.time).subscribe(
             (data: TimetableOfClasses[]) => {
+                this.timetableOfClasses = [];
                 this.timetableOfClasses = data;
-              //  console.log(this.timetableOfClasses);
+                console.log(this.timetableOfClasses);
                 this.calendarEvents = [];
 
                 // конвертация объектов из БД в event на календарь
@@ -359,6 +380,7 @@ export class TimetableComponent implements  AfterViewInit {
                         );
                     }
                 }
+                console.log(this.timetableOfClasses);
                 console.log(this.calendarEvents);
             }
         );
@@ -393,6 +415,21 @@ export class TimetableComponent implements  AfterViewInit {
 
     handleEventMouseLeave(info) {
         this.tooltip.dispose();
+    }
+
+    onCloseTimetableConfirm(): void {
+        this.isTimetableConfirm = false;
+        setTimeout (() => {
+            this.getDaysPeriod();
+        }, 1500);
+    }
+
+    onConfirm() {
+        this.isTimetableConfirm = !this.isTimetableConfirm;
+    }
+
+    onCancel() {
+      //  this.onCloseTimetableConfirm();
     }
 
 }

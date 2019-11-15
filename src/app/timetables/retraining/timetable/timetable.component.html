@@ -1,11 +1,32 @@
 
 <div class="flex-container">
-
     <div class="row">
         <div class=" col-md-2"  #external>
             <div class="row" >
-                <div id="fcTrash" class="calendar-trash offset-9 float-right"><img src="./assets/trashmail.png"
-                     alt="Корзина" style="width: 60px; height: 60px"/></div>
+                <div class="grid-container">
+
+                    <div class="group-item3">
+                        <div id="fcTrash" class="calendar-trash offset-9 float-right">
+                            <img src="./assets/trashmail.png" alt="Корзина" style="width: 60px; height: 60px"/></div>
+                    </div>
+                    <div class="group-item2">
+                        <button class="btn btn-warning" *ngIf="isAdmin" (click)="onCancel()">Отмена подтверждения</button>
+                    </div>
+
+                </div>
+                <!--<div class="col-md-8">
+                    <div class="row">
+                        <button class="btn btn-info">Подтвердить занятия</button>
+                    </div>
+                    <div class="row">
+                        <button class="btn btn-warning">Отменить занятия</button>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div id="fcTrash" class="calendar-trash offset-9 float-right">
+                        <img src="./assets/trashmail.png" alt="Корзина" style="width: 60px; height: 60px"/></div>
+                </div>-->
+
             </div>
             <p class="space">Занятия:</p>
             <ul class="list-group">
@@ -33,6 +54,7 @@
                     defaultDate="2019-11-11"
                     resourceLabelText="Rooms"
                     [resources]="resources"
+                    [customButtons]="customButtons"
                     [views]="views"
                     [plugins]="plugins"
                     locale="ru"
@@ -65,7 +87,18 @@
                     (eventDragStop)="eventDragStop($event)"
 
             ></full-calendar>
+            <div>
+                <app-timetable-confirm
+                        [startDate]="startDate"
+                        [endDate]="endDate"
+                        *ngIf="isTimetableConfirm"
+                        (closed)="onCloseTimetableConfirm()">
+
+                </app-timetable-confirm>
+            </div>
+
         </div>
 
     </div>
+
 </div>

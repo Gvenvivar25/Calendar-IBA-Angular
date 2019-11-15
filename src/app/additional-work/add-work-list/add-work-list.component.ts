@@ -15,7 +15,9 @@ export class AddWorkListComponent implements OnInit {
 
   constructor(private addWorkOfTeacherService: AddWorkOfTeacherService, private router: Router, private route: ActivatedRoute) { }
 
-  ngOnInit() {  }
+  ngOnInit() {
+      this.loadAddWorks();
+  }
 
     loadAddWorks() {
         return this.addWorkOfTeacherService.getAllAddWork(this.startDate, this.endDate)

@@ -1,5 +1,5 @@
-import {Component, ElementRef, Input, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
-import {ExternalEvent, NewEvent, TimetableOfClasses, TimetableOfClassesDto} from '../../shared/models/timetable-of-classes.model';
+import {Component, ElementRef, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
+import { NewEvent, TimetableOfClasses, TimetableOfClassesDto} from '../../shared/models/timetable-of-classes.model';
 import {TimetableOfClassesService} from '../../shared/services/timetable-of-classes.service';
 import {FullCalendarComponent} from '@fullcalendar/angular';
 import Tooltip from 'tooltip.js';
@@ -22,7 +22,7 @@ export class BookingComponent implements OnInit {
     isNew = null;
 
     @ViewChild('fullcalendar', {static: false}) fullcalendar: FullCalendarComponent;
-  //  @Output() requestNewEvent = new EventEmitter<NewEvent>();
+
     tooltip: Tooltip;
     timetableOfClasses: TimetableOfClasses [];
     calendarEvents: EventInput [];

@@ -1,0 +1,75 @@
+/*
+.fc-resource-cell {
+  transform: rotate(-90deg);
+}*/
+.calendar-container {
+  border: 1px solid transparent;
+  border-color: #fff #ddd;
+  margin: 0 2em 2em
+}
+
+.demo-contents {
+  padding: 0 10px;
+}
+
+.popper,
+.tooltip {
+  position: absolute;
+  z-index: 9999;
+
+  width: 180px;
+  border-radius: 1px;
+
+  padding: 1px;
+  text-align: center;
+  opacity: 1;
+}
+.style5 .tooltip {
+
+  max-width: 250px;
+  width: auto;
+  font-size: .8rem;
+}
+.col-md-2, .col-md-10 {
+  padding: 0 5px;
+}
+/*
+
+
+.btn.btn-info, .btn.btn-warning {
+  padding: 4px 10px;
+  margin: 0 5px;
+}
+
+.row {
+  margin: 0 -13px;
+}*/
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  padding: 5px;
+}
+
+.grid-item {
+  padding:  0 5px;
+}
+
+.group-item2 {
+  grid-column: span 2;
+  padding:  0 5px;
+}
+
+.group-item3 {
+  grid-row: span 2;
+  padding:  0 5px;
+}
+
+.fc-myCustomButton-button fc-button fc-button-primary {
+  background-color: #00afaf;
+}
+
+/*
+jhh*/
+
+

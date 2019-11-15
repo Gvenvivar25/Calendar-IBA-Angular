@@ -58,7 +58,7 @@ export class TimetableOfClassesService {
     findAllSpanByGroupId(groupId): Observable<TimetableOfClassesForEvents[]> {
         const url = `${UrlConstants.URL_TIMETABLE_OF_CLASSES}/need/${groupId}`;
         return this.httpClient.get<TimetableOfClassesForEvents []>(url).pipe(
-            catchError(err => {this.toastr.info(`Нет данных по группе`);
+            catchError(err => {// this.toastr.info(`Нет данных по группе`);
                                console.log(err, 'Отсутсвуют данные в БД');
                                return of(null); })
         );
@@ -103,13 +103,13 @@ export class TimetableOfClassesService {
         );
     }
 
-    deleteOneTimetableOfClasses(id: number): Observable<any> {
+    deleteOneTimetableOfClasses(id: number): Observable<string> {
         const url = `${UrlConstants.URL_TIMETABLE_OF_CLASSES}/${id}`;
         return this.httpClient.delete(url, httpOptions).pipe(
             tap(() => this.toastr.success(`Запись удалена!`)),
             catchError(err => {this.toastr.error(`Не удалось удалить запись`, 'Ошибка');
                                console.log(err, 'Не удалось удалить запись');
-                               return of(null); })
+                               return of(err); })
         );
     }
 
@@ -118,6 +118,36 @@ export class TimetableOfClassesService {
         return this.httpClient.get<TimetableOfClasses []>(url).pipe(
             catchError(err => {this.toastr.info(`Нет свободных аудиторий`);
                                console.log(err, 'Отсутсвуют данные в БД');
+                               return of(null); })
+        );
+    }
+
+    confirmTimetableForPeriod(startDate: string, endDate: string) {
+        const url = `${UrlConstants.URL_TIMETABLE_OF_CLASSES}/confirm?d1=${startDate}&d2=${endDate}`;
+        return this.httpClient.put(url, httpOptions).pipe(
+            tap(() => this.toastr.success(`Записи подтверждены!`)),
+            catchError(err => {this.toastr.error(`Записи не подтверждены`, 'Ошибка');
+                               console.log(err, 'Не удалось обновить запись');
+                               return of(null); })
+        );
+    }
+
+    confirmTimetableForGroup(startDate: string, endDate: string, groupId: number) {
+        const url = `${UrlConstants.URL_TIMETABLE_OF_CLASSES}/confirm/group/${groupId}?d1=${startDate}&d2=${endDate}`;
+        return this.httpClient.put(url, httpOptions).pipe(
+            tap(() => this.toastr.success(`Записи подтверждены!`)),
+            catchError(err => {this.toastr.error(`Записи не подтверждены`, 'Ошибка');
+                               console.log(err, 'Не удалось обновить запись');
+                               return of(null); })
+        );
+    }
+
+    confirmTimetableForTeacher(startDate: string, endDate: string, teacherId: number) {
+        const url = `${UrlConstants.URL_TIMETABLE_OF_CLASSES}/confirm/teacher/${teacherId}?d1=${startDate}&d2=${endDate}`;
+        return this.httpClient.put(url, httpOptions).pipe(
+            tap(() => this.toastr.success(`Записи подтверждены!`)),
+            catchError(err => {this.toastr.error(`Записи не подтверждены`, 'Ошибка');
+                               console.log(err, 'Не удалось обновить запись');
                                return of(null); })
         );
     }

@@ -1,0 +1,99 @@
+<div class="container">
+    <h4>Подтверждение занятий</h4>
+    <div>
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample"
+                aria-expanded="false" aria-controls="collapseExample">
+            За период
+        </button>
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample2"
+                aria-expanded="false" aria-controls="collapseExample2">
+            По группе за период
+        </button>
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample3"
+                aria-expanded="false" aria-controls="collapseExample3">
+            По преподавателю за период
+        </button>
+    </div>
+    <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+            <form [formGroup]="confirmForPeriodForm">
+                <div class="row">
+                    <div class="col-md-5 form-group">
+                        <input type="date" class="form-control" formControlName="startDate" />
+                    </div>
+                    <div class="col-md-5 form-group">
+                        <input type="date" class="form-control" formControlName="endDate" />
+                    </div>
+                    <div class="col-md-2 form-group">
+                        <button type="submit" class="btn btn-info" (click)="loadTimetableToConfirmForPeriod()">Найти</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="collapse" id="collapseExample2">
+        <div class="card card-body">
+            <form [formGroup]="confirmForGroupForm">
+                <div class="row">
+                    <div class="col-md-7 form-group">
+                        <label>Группа: </label>
+                        <ng-select formControlName="group"
+                                   [items]="groups"
+                                   bindLabel="groupName"
+                                   bindValue="id"
+                                   [multiple]="false"
+                                   placeholder="Выберите группу"
+                                   clearAllText="Clear"
+                        >
+                        </ng-select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 form-group">
+                        <input type="date" class="form-control" formControlName="startDate" />
+                    </div>
+                    <div class="col-md-5 form-group">
+                        <input type="date" class="form-control" formControlName="endDate" />
+                    </div>
+                    <div class="col-md-2 form-group">
+                        <button type="submit" class="btn btn-info" (click)="loadTimetableToConfirmForGroup()">Найти</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <div class="collapse" id="collapseExample3">
+        <div class="card card-body">
+            <form [formGroup]="confirmForTeacherForm">
+                <div class="row">
+                    <div class="col-md-7 form-group">
+                        <label>Преподаватель: </label>
+                        <ng-select formControlName="teacher"
+                                   [items]="teachers"
+                                   bindLabel="lastName"
+                                   bindValue="id"
+                                   [multiple]="false"
+                                   placeholder="Выберите преподавателя"
+                                   clearAllText="Clear"
+                        >
+                        </ng-select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 form-group">
+                        <input type="date" class="form-control" formControlName="startDate" />
+                    </div>
+                    <div class="col-md-5 form-group">
+                        <input type="date" class="form-control" formControlName="endDate" />
+                    </div>
+                    <div class="col-md-2 form-group">
+                        <button type="submit" class="btn btn-info" (click)="loadTimetableToConfirmForTeacher()">Найти</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+</div>

@@ -3,6 +3,7 @@ import {Injectable} from '@angular/core';
 import {catchError} from 'rxjs/operators';
 import {Observable, of} from 'rxjs';
 import {UrlConstants} from '../shared/url-constants';
+import {ToastrService} from 'ngx-toastr';
 
 
 
@@ -11,7 +12,7 @@ import {UrlConstants} from '../shared/url-constants';
 })
 export class ReportService {
 
-    constructor(private httpClient: HttpClient) {}
+    constructor(private httpClient: HttpClient, private toastr: ToastrService) {}
 
 
     downloadReport(format: string, name: string): Observable<any>  {
@@ -23,7 +24,8 @@ export class ReportService {
             responseType: 'blob' as 'json'
         })
             .pipe(
-                catchError(err => {console.log(err, 'Отсутсвуют данные в БД');
+                catchError(err => {this.toastr.error(`Не удалось загрузить отчет`, 'Ошибка');
+                                   console.log(err, 'Отсутсвуют данные в БД');
                                    return of(null); })
             );
     }
@@ -37,7 +39,8 @@ export class ReportService {
             responseType: 'blob' as 'json'
         })
             .pipe(
-                catchError(err => {console.log(err, 'Отсутсвуют данные в БД');
+                catchError(err => {this.toastr.error(`Не удалось загрузить отчет`, 'Ошибка');
+                                   console.log(err, 'Отсутсвуют данные в БД');
                                    return of(null); })
             );
     }
@@ -46,7 +49,8 @@ export class ReportService {
         const url = `${UrlConstants.URL_DISCIPLINE_REPORT}${format}/${name}`;
         return this.httpClient.get(url)
             .pipe(
-                catchError(err => {console.log(err, 'Отсутсвуют данные в БД');
+                catchError(err => {this.toastr.error(`Не удалось загрузить отчет`, 'Ошибка');
+                                   console.log(err, 'Отсутсвуют данные в БД');
                                    return of(null); })
             );
     }
@@ -60,7 +64,8 @@ export class ReportService {
             responseType: 'blob' as 'json'
         })
             .pipe(
-                catchError(err => {console.log(err, 'Не удалось загрузить отчет по расписанию');
+                catchError(err => {this.toastr.error(`Не удалось загрузить отчет`, 'Ошибка');
+                                   console.log(err, 'Не удалось загрузить отчет по расписанию');
                                    return of(null); })
             );
     }
@@ -74,7 +79,8 @@ export class ReportService {
             responseType: 'blob' as 'json'
         })
             .pipe(
-                catchError(err => {console.log(err, 'Не удалось загрузить отчет по расписанию');
+                catchError(err => {this.toastr.error(`Не удалось загрузить отчет`, 'Ошибка');
+                                   console.log(err, 'Не удалось загрузить отчет по расписанию');
                                    return of(null); })
             );
     }
@@ -88,7 +94,8 @@ export class ReportService {
             responseType: 'blob' as 'json'
         })
             .pipe(
-                catchError(err => {console.log(err, 'Не удалось загрузить отчет по расписанию');
+                catchError(err => {this.toastr.error(`Не удалось загрузить отчет`, 'Ошибка');
+                                   console.log(err, 'Не удалось загрузить отчет по расписанию');
                                    return of(null); })
             );
     }
@@ -102,7 +109,8 @@ export class ReportService {
             responseType: 'blob' as 'json'
         })
             .pipe(
-                catchError(err => {console.log(err, 'Не удалось загрузить отчет по расписанию');
+                catchError(err => {this.toastr.error(`Не удалось загрузить отчет`, 'Ошибка');
+                                   console.log(err, 'Не удалось загрузить отчет по расписанию');
                                    return of(null); })
             );
     }
@@ -116,7 +124,8 @@ export class ReportService {
             responseType: 'blob' as 'json'
         })
             .pipe(
-                catchError(err => {console.log(err, 'Не удалось загрузить отчет по расписанию по преподавателю');
+                catchError(err => {this.toastr.error(`Не удалось загрузить отчет`, 'Ошибка');
+                                   console.log(err, 'Не удалось загрузить отчет по расписанию по преподавателю');
                                    return of(null); })
             );
     }
@@ -130,7 +139,8 @@ export class ReportService {
             responseType: 'blob' as 'json'
         })
             .pipe(
-                catchError(err => {console.log(err, 'Не удалось загрузить отчет по расписанию по группе');
+                catchError(err => {this.toastr.error(`Не удалось загрузить отчет`, 'Ошибка');
+                                   console.log(err, 'Не удалось загрузить отчет по расписанию по группе');
                                    return of(null); })
             );
     }

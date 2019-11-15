@@ -5,6 +5,7 @@ import {catchError, tap} from 'rxjs/operators';
 import {Teacher, Type} from './teacher.model';
 import {Discipline} from '../disciplines/discipline.model';
 import {UrlConstants} from '../../shared/url-constants';
+import {ToastrService} from 'ngx-toastr';
 
 
 const httpOptions = {
@@ -15,11 +16,13 @@ const httpOptions = {
     providedIn: 'root'
 })
 export class TeachersService {
-    constructor(private httpClient: HttpClient) {}
+    constructor(private httpClient: HttpClient, private toastr: ToastrService) {}
+    
     getTeachers(): Observable<Teacher[]> {
         return this.httpClient.get<Teacher[]>(UrlConstants.URL_TEACHER)
             .pipe(
-                catchError(err => {console.log(err, 'Отсутсвуют данные в БД');
+                catchError(err => {this.toastr.error(`Отсутсвуют данные в БД`, 'Ошибка');
+                                   console.log(err, 'Отсутсвуют данные в БД');
                                    return of(null); })
             );
     }
@@ -28,15 +31,17 @@ export class TeachersService {
         const url = `${UrlConstants.URL_TEACHER}/${id}`;
         return this.httpClient.get<Teacher>(url)
             .pipe(
-                catchError(err => {console.log(err, 'Отсутсвуют данные в БД');
+                catchError(err => {this.toastr.error(`Отсутсвуют данные в БД`, 'Ошибка');
+                                   console.log(err, 'Отсутсвуют данные в БД');
                                    return of(null); })
             );
     }
 
     saveTeacher(teacher): Observable<Teacher> {
         return this.httpClient.post<Teacher>(UrlConstants.URL_TEACHER, teacher).pipe(
-            tap((res: Teacher) => console.log(`added teacher id=${res.id}`)),
-            catchError(err => {console.log(err, 'Не удалось добавить преподавателя');
+            tap((res: Teacher) => this.toastr.success(`Преподаватель добавлен!`)),
+            catchError(err => {this.toastr.error(`Не удалось добавить преподавателя`, 'Ошибка');
+                               console.log(err, 'Не удалось добавить преподавателя');
                                return of(null); })
         );
     }
@@ -45,10 +50,9 @@ export class TeachersService {
         const url = `${UrlConstants.URL_TEACHER}/${id}`;
         teacher.id = id;
         return this.httpClient.put(url, teacher, httpOptions).pipe(
-            tap(() => {
-                return console.log(`updated teacher id=${id}`);
-            }),
-            catchError(err => {console.log(err, 'Отсутсвуют данные в БД');
+            tap(() => this.toastr.success(`Запись обновлена!`)),
+            catchError(err => {this.toastr.error(`Не удалось обновить запись`, 'Ошибка');
+                               console.log(err, 'Не удалось обновить запись');
                                return of(null); })
         );
     }
@@ -56,15 +60,17 @@ export class TeachersService {
     deleteTeacher(id: number): Observable<any> {
         const url = `${UrlConstants.URL_TEACHER}/${id}`;
         return this.httpClient.delete(url, httpOptions).pipe(
-            tap(() => console.log(`deleted teacher id=${id}`)),
-            catchError(err => {console.log(err, 'Не удалось удалить преподавателя');
+            tap(() => this.toastr.success(`Преподаватель удален!`)),
+            catchError(err => {this.toastr.error(`Не удалось удалить преподавателя`, 'Ошибка');
+                               console.log(err, 'Не удалось удалить преподавателя');
                                return of(null); })
         );
     }
 
     getTypesOfEmployment() {
         return this.httpClient.get<Type []>(UrlConstants.URL_TYPE_OF_EMPLOYMENT).pipe(
-            catchError(err => {console.log(err, 'Отсутсвуют данные в БД');
+            catchError(err => {this.toastr.error(`Отсутсвуют данные в БД`, 'Ошибка');
+                               console.log(err, 'Отсутсвуют данные в БД');
                                return of(null); })
         );
     }
@@ -72,8 +78,9 @@ export class TeachersService {
     addDisciplineToTeacher(idTeacher: number, idDiscipline: number) {
         const url = `${UrlConstants.URL_TEACHER}/${idTeacher}/disciplines/${idDiscipline}`;
         return this.httpClient.put(url, [idTeacher, idDiscipline], httpOptions).pipe(
-            tap(() => console.log(`added discipline id=${idDiscipline} to teacher id=${idTeacher}`)),
-            catchError(err => {console.log(err, 'Не удалось добавить дисциплину');
+            tap(() => this.toastr.success(`Запись добавлена!`)),
+            catchError(err => {this.toastr.error(`Не удалось добавить предмет`, 'Ошибка');
+                               console.log(err, 'Не удалось добавить предмет');
                                return of(null); })
         );
     }
@@ -81,7 +88,8 @@ export class TeachersService {
     getAllDisciplinesOfTeacher(id: number): Observable<Discipline[]> {
         const url = `${UrlConstants.URL_TEACHER}/${id}/disciplines`;
         return this.httpClient.get<Discipline []>(url).pipe(
-            catchError(err => {console.log(err, 'Отсутсвуют данные в БД');
+            catchError(err => {this.toastr.error(`Отсутсвуют данные в БД`, 'Ошибка');
+                               console.log(err, 'Отсутсвуют данные в БД');
                                return of(null); })
         );
 
@@ -90,8 +98,9 @@ export class TeachersService {
     deleteDisciplineOfTeacher(idTeacher: number, idDiscipline: number) {
         const url = `${UrlConstants.URL_TEACHER}/${idTeacher}/disciplines/${idDiscipline}`;
         return this.httpClient.delete(url, httpOptions).pipe(
-            tap(() => console.log(`deleted discipline id=${idDiscipline} of teacher id=${idTeacher}`)),
-            catchError(err => {console.log(err, 'Не удалось удалить дисциплину преподавателя');
+            tap(() => this.toastr.success(`Запись удалена!`)),
+            catchError(err => {this.toastr.error(`Не удалось удалить предмет преподавателя`, 'Ошибка');
+                               console.log(err, 'Не удалось удалить предмет преподавателя');
                                return of(null); })
         );
     }

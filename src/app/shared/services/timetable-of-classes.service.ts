@@ -86,9 +86,9 @@ export class TimetableOfClassesService {
     getOneTimetableOfClasses(id: number): Observable<TimetableOfClasses> {
         const url = `${UrlConstants.URL_TIMETABLE_OF_CLASSES}/${id}`;
         return this.httpClient.get<TimetableOfClasses>(url).pipe(
-            catchError(err => {
-                console.log(err, 'Отсутсвуют данные в БД');
-                return of(null);
+            catchError(err => {this.toastr.info(`Нет данных за период`);
+                               console.log(err, 'Отсутсвуют данные в БД');
+                               return of(null);
             })
         );
     }
@@ -106,8 +106,9 @@ export class TimetableOfClassesService {
     deleteOneTimetableOfClasses(id: number): Observable<any> {
         const url = `${UrlConstants.URL_TIMETABLE_OF_CLASSES}/${id}`;
         return this.httpClient.delete(url, httpOptions).pipe(
-            tap(() => console.log(`deleted timetableOfClasses id=${id}`)),
-            catchError(err => {console.log(err, 'Не удалось удалить запись');
+            tap(() => this.toastr.success(`Запись удалена!`)),
+            catchError(err => {this.toastr.error(`Не удалось удалить запись`, 'Ошибка');
+                               console.log(err, 'Не удалось удалить запись');
                                return of(null); })
         );
     }
@@ -115,7 +116,8 @@ export class TimetableOfClassesService {
     getAllFreeClassrooms(date: string, startTime: string, endTime: string): Observable<Classroom []> {
         const url = `${UrlConstants.URL_TIMETABLE_OF_CLASSES}/free?d=${date}&t1=${startTime}&t2=${endTime}`;
         return this.httpClient.get<TimetableOfClasses []>(url).pipe(
-            catchError(err => {console.log(err, 'Отсутсвуют данные в БД');
+            catchError(err => {this.toastr.info(`Нет свободных аудиторий`);
+                               console.log(err, 'Отсутсвуют данные в БД');
                                return of(null); })
         );
     }

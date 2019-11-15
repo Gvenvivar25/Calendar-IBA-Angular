@@ -22,14 +22,16 @@ export class ClassroomService {
     getClassroom(id: number): Observable<Classroom> {
         const url = `${UrlConstants.URL_CLASSROOM}/${id}`;
         return this.httpClient.get<Classroom>(url).pipe(
-            catchError(err => {console.log(err, 'Отсутсвуют данные в БД');
+            catchError(err => {this.toastr.error(`Отсутсвуют данные в БД`, 'Ошибка');
+                               console.log(err, 'Отсутсвуют данные в БД');
                                return of(null); })
             );
     }
 
     getClassrooms(): Observable<Classroom []> {
         return this.httpClient.get<Classroom[]>(UrlConstants.URL_CLASSROOM).pipe(
-            catchError(err => {console.log(err, 'Отсутсвуют данные в БД');
+            catchError(err => {this.toastr.error(`Отсутсвуют данные в БД`, 'Ошибка');
+                               console.log(err, 'Отсутсвуют данные в БД');
                                return of(null); })
         );
 

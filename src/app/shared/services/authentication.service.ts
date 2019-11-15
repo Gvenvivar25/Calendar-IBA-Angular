@@ -1,36 +1,27 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {UrlConstants} from '../url-constants';
-import {Router} from '@angular/router';
 import {AuthenticationRequest} from '../models/auth.model';
-import {BehaviorSubject} from 'rxjs';
-import {map} from 'rxjs/operators';
+import {BehaviorSubject, of} from 'rxjs';
+import {catchError, map} from 'rxjs/operators';
+import {ToastrService} from 'ngx-toastr';
 
 
 @Injectable({ providedIn: 'root' })
 
 export class AuthenticationService {
-  //  static readonly TOKEN_STORAGE_KEY = 'token';
+
     auth = UrlConstants.URL_AUTH + '/login';
-  //  private userRole: string;
-   /* private currentTokenSubject: BehaviorSubject<Token>;
-    public currentToken: Observable<Token>;*/
+
     private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-    constructor(private http: HttpClient, private router: Router) {
-           /* this.currentTokenSubject = new BehaviorSubject<Token>(JSON.parse(localStorage.getItem('token')));
-            this.currentToken = this.currentTokenSubject.asObservable();*/
-        }
+    constructor(private http: HttpClient, private toastr: ToastrService) {}
 
     get isLoggedIn() {
         console.log(this.loggedIn);
         return this.loggedIn.asObservable();
     }
 
-   /* getUserRole() {
-        console.log(this.userRole);
-        return this.userRole;
-    }*/
    get userRole() {
        return localStorage.getItem('role');
    }
@@ -54,47 +45,18 @@ export class AuthenticationService {
                 localStorage.setItem('token', res.token);
                 this.loggedIn.next(true);
                 return res;
-
-            }));
+            }),
+               catchError(err => {this.toastr.error(`Неверный логин или пароль`, 'Ошибка');
+                                  console.log(err, 'Неверный логин или пароль');
+                                  return of(null); }));
     }
 
     logout() {
-        // remove user from local storage to log user out
         localStorage.removeItem('token');
         localStorage.removeItem('role');
-     //   this.currentTokenSubject.next(null);
         this.loggedIn.next(false);
     }
 
-    /*public isLoggedIn(): boolean {
-        console.log(this.currentTokenSubject.value);
-        if (this.currentTokenSubject.value == null) { return false; } else { return true; }
-      //  return !!this.currentTokenSubject.value;
-    }*/
-
-    /*public login(AuthenticationRequestDto: AuthenticationRequest): void {
-       this.http.post(this.auth, AuthenticationRequestDto, httpOptions)
-            .subscribe((res: any) => {
-                localStorage.setItem('token', res.token);
-                this.router.navigate([this.redirectToUrl]);
-            });
-    }*/
-
-   /* private saveToken(token: string) {
-        localStorage.setItem(AuthenticationService.TOKEN_STORAGE_KEY, token);
-    }*/
-
-    /*public logout(): void {
-        this.tokenService.logout()
-            .subscribe(() => {
-                localStorage.removeItem(AuthenticationService.TOKEN_STORAGE_KEY);
-            });
-    }*/
-
-
 }
 
-export class Token {
-    public username: string;
-    public token: string;
-}
+

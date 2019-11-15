@@ -4,6 +4,7 @@ import {Observable, of} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 import {Group, NumberOfStudents} from './group.model';
 import {UrlConstants} from '../../shared/url-constants';
+import {ToastrService} from 'ngx-toastr';
 
 const httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -14,27 +15,30 @@ const httpOptions = {
 })
 
 export class GroupService {
-    constructor(private httpClient: HttpClient) {}
+    constructor(private httpClient: HttpClient, private toastr: ToastrService) {}
 
     getGroup(id: number): Observable<Group> {
         const url = `${UrlConstants.URL_GROUP}/${id}`;
         return this.httpClient.get<Group>(url).pipe(
-            catchError(err => {console.log(err, 'Отсутсвуют данные в БД');
+            catchError(err => {this.toastr.error(`Отсутсвуют данные в БД`, 'Ошибка');
+                               console.log(err, 'Отсутсвуют данные в БД');
                                return of(null); })
         );
     }
 
     getGroups(): Observable<Group []> {
         return this.httpClient.get<Group []>(UrlConstants.URL_GROUP).pipe(
-            catchError(err => {console.log(err, 'Отсутсвуют данные в БД');
+            catchError(err => {this.toastr.error(`Отсутсвуют данные в БД`, 'Ошибка');
+                               console.log(err, 'Отсутсвуют данные в БД');
                                return of(null); })
         );
     }
 
     saveGroup(group): Observable<Group> {
         return this.httpClient.post<Group>(UrlConstants.URL_GROUP, group).pipe(
-            tap((res: Group) => console.log(`added group id=${res.id}`)),
-            catchError(err => {console.log(err, 'Не удалось добавить группу');
+            tap(() => this.toastr.success(`Группа добавлена!`)),
+            catchError(err => {this.toastr.error(`Не удалось добавить группу`, 'Ошибка');
+                               console.log(err, 'Не удалось добавить группу');
                                return of(null); })
         );
     }
@@ -43,9 +47,9 @@ export class GroupService {
         const url = `${UrlConstants.URL_GROUP}/${id}`;
         group.id = id;
         return this.httpClient.put(url, group, httpOptions).pipe(
-            tap(() => {return console.log(`updated group id=${id}`);
-            }),
-            catchError(err => {console.log(err, 'Не удалось обновить группу');
+            tap(() => this.toastr.success(`Запись обновлена!`)),
+            catchError(err => {this.toastr.error(`Не удалось обновить запись`, 'Ошибка');
+                               console.log(err, 'Не удалось обновить запись');
                                return of(null); })
         );
     }
@@ -53,8 +57,9 @@ export class GroupService {
     deleteGroup(id: number) {
         const url = `${UrlConstants.URL_GROUP}/${id}`;
         return this.httpClient.delete(url, httpOptions).pipe(
-            tap(() => console.log(`deleted group id=${id}`)),
-            catchError(err => {console.log(err, 'Не удалось удалить группу');
+            tap(() => this.toastr.success(`Группа удалена!`)),
+            catchError(err => {this.toastr.error(`Не удалось удалить группу`, 'Ошибка');
+                               console.log(err, 'Не удалось удалить группу');
                                return of(null); })
         );
     }
@@ -62,8 +67,9 @@ export class GroupService {
     saveNumberOfStudents(numberOfPersons): Observable<NumberOfStudents> {
         const url = `${UrlConstants.URL_GROUP}/quantity`;
         return this.httpClient.post<NumberOfStudents>(url, numberOfPersons).pipe(
-            tap((res: NumberOfStudents) => console.log(`added students to group id=${res.groupDto.id}`)),
-            catchError(err => {console.log(err, 'Не удалось добавить студентов в группу');
+            tap(() => this.toastr.success(`Количество студентов добавлено в группу!`)),
+            catchError(err => {this.toastr.error(`Не удалось добавить количество студентов в группу`, 'Ошибка');
+                               console.log(err, 'Не удалось добавить студентов в группу');
                                return of(null); })
         );
     }
@@ -71,7 +77,8 @@ export class GroupService {
     getAllNumberOfStudents(id: number): Observable<NumberOfStudents[]> {
         const url = `${UrlConstants.URL_GROUP}/quantity/group/${id}`;
         return this.httpClient.get<NumberOfStudents[]>(url).pipe(
-            catchError(err => {console.log(err, 'Отсутсвуют данные в БД');
+            catchError(err => {this.toastr.error(`Отсутсвуют данные в БД`, 'Ошибка');
+                               console.log(err, 'Отсутсвуют данные в БД');
                                return of(null); })
         );
     }
@@ -79,8 +86,9 @@ export class GroupService {
     deleteNumberOfStudents(id: number) {
         const url = `${UrlConstants.URL_GROUP}/quantity/${id}`;
         return this.httpClient.delete(url, httpOptions).pipe(
-            tap(() => console.log(`deleted studentsNumber id=${id}`)),
-            catchError(err => {console.log(err, 'Не удалось удалить запись');
+            tap(() => this.toastr.success(`Запись удалена!`)),
+            catchError(err => {this.toastr.error(`Не удалось удалить запись`, 'Ошибка');
+                               console.log(err, 'Не удалось удалить запись');
                                return of(null); })
         );
     }

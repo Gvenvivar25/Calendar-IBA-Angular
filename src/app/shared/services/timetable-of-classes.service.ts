@@ -123,7 +123,7 @@ export class TimetableOfClassesService {
     }
 
     confirmTimetableForPeriod(startDate: string, endDate: string) {
-        const url = `${UrlConstants.URL_TIMETABLE_OF_CLASSES}/confirm?d1=${startDate}&d2=${endDate}`;
+        const url = `${UrlConstants.URL_TIMETABLE_OF_CLASSES}/confirm/span?d1=${startDate}&d2=${endDate}`;
         return this.httpClient.put(url, httpOptions).pipe(
             tap(() => this.toastr.success(`Записи подтверждены!`)),
             catchError(err => {this.toastr.error(`Записи не подтверждены`, 'Ошибка');
@@ -145,6 +145,16 @@ export class TimetableOfClassesService {
     confirmTimetableForTeacher(startDate: string, endDate: string, teacherId: number) {
         const url = `${UrlConstants.URL_TIMETABLE_OF_CLASSES}/confirm/teacher/${teacherId}?d1=${startDate}&d2=${endDate}`;
         return this.httpClient.put(url, httpOptions).pipe(
+            tap(() => this.toastr.success(`Записи подтверждены!`)),
+            catchError(err => {this.toastr.error(`Записи не подтверждены`, 'Ошибка');
+                               console.log(err, 'Не удалось обновить запись');
+                               return of(null); })
+        );
+    }
+
+    confirmTimetable(timetableId: number[]) {
+        const url = `${UrlConstants.URL_TIMETABLE_OF_CLASSES}/confirms`;
+        return this.httpClient.put(url, timetableId).pipe(
             tap(() => this.toastr.success(`Записи подтверждены!`)),
             catchError(err => {this.toastr.error(`Записи не подтверждены`, 'Ошибка');
                                console.log(err, 'Не удалось обновить запись');

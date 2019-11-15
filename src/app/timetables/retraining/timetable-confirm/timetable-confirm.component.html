@@ -29,6 +29,26 @@
                     </div>
                 </div>
             </form>
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <input type="checkbox" [(ngModel)]="masterSelected" name="list_name" value="m1"
+                                   (change)="checkUncheckAll()"/> <strong>Выбрать все/ Снять выбор</strong>
+                        </li>
+                    </ul>
+                    <ul class="list-group">
+                        <li class="list-group-item" *ngFor="let item of timetables">
+                            <input type="checkbox" [(ngModel)]="item.isSelected" name="list_name"
+                                   (change)="isAllSelected()"/>
+                            {{item.title}}
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-success" (click)="confirmTimetables()">Подтвердить</button>
+                </div>
+            </div>
         </div>
     </div>
     <div class="collapse" id="collapseExample2">
@@ -59,8 +79,27 @@
                         <button type="submit" class="btn btn-info" (click)="loadTimetableToConfirmForGroup()">Найти</button>
                     </div>
                 </div>
-
             </form>
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <input type="checkbox" [(ngModel)]="masterSelected" name="list_name" value="m1"
+                                   (change)="checkUncheckAll()"/> <strong>Выбрать все/ Снять выбор</strong>
+                        </li>
+                    </ul>
+                    <ul class="list-group">
+                        <li class="list-group-item" *ngFor="let item of timetables">
+                            <input type="checkbox" [(ngModel)]="item.isSelected" name="list_name"
+                                   (change)="isAllSelected()"/>
+                            {{item.title}}
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-success" (click)="confirmTimetables()">Подтвердить</button>
+                </div>
+            </div>
         </div>
     </div>
     <div class="collapse" id="collapseExample3">
@@ -91,8 +130,27 @@
                         <button type="submit" class="btn btn-info" (click)="loadTimetableToConfirmForTeacher()">Найти</button>
                     </div>
                 </div>
-
             </form>
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <input type="checkbox" [(ngModel)]="masterSelected" name="list_name" value="m1"
+                                   (change)="checkUncheckAll()"/> <strong>Выбрать все/ Снять выбор</strong>
+                        </li>
+                    </ul>
+                    <ul class="list-group">
+                        <li class="list-group-item" *ngFor="let item of timetables">
+                            <input type="checkbox" [(ngModel)]="item.isSelected" name="list_name"
+                                   (change)="isAllSelected()"/>
+                            {{item.title}}
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-success" (click)="confirmTimetables()">Подтвердить</button>
+                </div>
+            </div>
         </div>
     </div>
 

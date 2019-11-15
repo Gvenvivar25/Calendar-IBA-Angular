@@ -5,6 +5,7 @@ import {GroupService} from '../../../dictionaries/groups/group.service';
 import {Group} from '../../../dictionaries/groups/group.model';
 import {Teacher} from '../../../dictionaries/teachers/teacher.model';
 import {TeachersService} from '../../../dictionaries/teachers/teachers.service';
+import {TimetableOfClasses} from '../../../shared/models/timetable-of-classes.model';
 
 @Component({
   selector: 'app-timetable-confirm',
@@ -17,12 +18,16 @@ export class TimetableConfirmComponent implements OnInit {
     @Input() endDate: string;
     groups: Group[];
     teachers: Teacher[];
+    timetables: any[];
+    checkedTimetables: number[];
+    masterSelected: boolean;
 
     confirmForPeriodForm: FormGroup;
     confirmForGroupForm: FormGroup;
     confirmForTeacherForm: FormGroup;
     constructor(private formBuilder: FormBuilder, private timetableOfClassesService: TimetableOfClassesService,
                 private groupService: GroupService, private teacherService: TeachersService) {
+        this.masterSelected = false;
 
     }
 
@@ -51,27 +56,108 @@ export class TimetableConfirmComponent implements OnInit {
       });
   }
 
+    checkUncheckAll() {
+        for (let i = 0; i < this.timetables.length; i++) {
+            this.timetables[i].isSelected = this.masterSelected;
+        }
+        this.getCheckedItemList();
+    }
+    isAllSelected() {
+        this.masterSelected = this.timetables.every((item: any) => {
+            return item.isSelected === true;
+        });
+        this.getCheckedItemList();
+    }
+
+    getCheckedItemList() {
+        this.checkedTimetables = [];
+        for (let i = 0; i < this.timetables.length; i++) {
+            if (this.timetables[i].isSelected) {
+                this.checkedTimetables.push(this.timetables[i].id);
+            }
+        }
+      //  this.checkedList = JSON.stringify(this.checkedList);
+    }
+
     loadTimetableToConfirmForPeriod() {
         const start = this.confirmForPeriodForm.get('startDate').value;
         const end = this.confirmForPeriodForm.get('endDate').value;
-        this.timetableOfClassesService.confirmTimetableForPeriod(start, end).subscribe();
-        this.closed.emit();
-
+        const time = '?d1=' + start + '&d2=' + end;
+        this.timetableOfClassesService.getTimetableOfClasses(time).subscribe(
+            (data: TimetableOfClasses[]) => {
+                this.timetables = [];
+                for (let i = 0, len = Object.keys(data).length; i < len; i++) {
+                    if (data[i].status === false && data[i].reserved === false) {
+                        // не подтвержденные ивенты
+                        this.timetables.push (
+                            {
+                                id: data[i].id,
+                                title: data[i].disciplineDto.shortDisciplineName + ' ' +
+                                    data[i].typeOfWork.short_value + ' гр. №' +
+                                    data[i].groupDto.groupName + ' подгр. №' + data[i].subgroup,
+                                isSelected: false
+                            }
+                        );
+                    }
+                }
+            }
+        );
     }
 
     loadTimetableToConfirmForGroup() {
         const start = this.confirmForGroupForm.get('startDate').value;
         const end = this.confirmForGroupForm.get('endDate').value;
+        const time = '?d1=' + start + '&d2=' + end;
         const group = this.confirmForGroupForm.get('group').value;
-        this.timetableOfClassesService.confirmTimetableForGroup(start, end, group).subscribe();
-        this.closed.emit();
+        this.timetableOfClassesService.getTimetableOfClasses(time).subscribe(
+            (data: TimetableOfClasses[]) => {
+                this.timetables = [];
+                for (let i = 0, len = Object.keys(data).length; i < len; i++) {
+                    if (data[i].status === false && data[i].reserved === false && data[i].groupDto.id === group) {
+                        // не подтвержденные ивенты
+                        this.timetables.push (
+                            {
+                                id: data[i].id,
+                                title: data[i].disciplineDto.shortDisciplineName + ' ' +
+                                    data[i].typeOfWork.short_value + ' гр. №' +
+                                    data[i].groupDto.groupName + ' подгр. №' + data[i].subgroup,
+                                isSelected: false
+                            }
+                        );
+                    }
+                }
+            }
+        );
     }
 
     loadTimetableToConfirmForTeacher() {
         const start = this.confirmForTeacherForm.get('startDate').value;
         const end = this.confirmForTeacherForm.get('endDate').value;
+        const time = '?d1=' + start + '&d2=' + end;
         const teacher = this.confirmForTeacherForm.get('teacher').value;
-        this.timetableOfClassesService.confirmTimetableForTeacher(start, end, teacher).subscribe();
+        this.timetableOfClassesService.getTimetableOfClasses(time).subscribe(
+            (data: TimetableOfClasses[]) => {
+                this.timetables = [];
+                for (let i = 0, len = Object.keys(data).length; i < len; i++) {
+                    if (data[i].status === false && data[i].reserved === false && data[i].teacherDto.id === teacher) {
+                        // не подтвержденные ивенты
+                        this.timetables.push (
+                            {
+                                id: data[i].id,
+                                title: data[i].disciplineDto.shortDisciplineName + ' ' +
+                                    data[i].typeOfWork.short_value + ' гр. №' +
+                                    data[i].groupDto.groupName + ' подгр. №' + data[i].subgroup,
+                                isSelected: false
+                            }
+                        );
+                    }
+                }
+            }
+        );
+    }
+
+    confirmTimetables() {
+        this.timetableOfClassesService.confirmTimetable(this.checkedTimetables).subscribe();
         this.closed.emit();
     }
 

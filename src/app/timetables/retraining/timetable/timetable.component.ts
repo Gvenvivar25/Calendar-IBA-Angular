@@ -327,11 +327,10 @@ export class TimetableComponent implements  AfterViewInit {
         const end = endDay.toISOString().split('T')[0];
         this.startDate = start;
         this.endDate = end;
-        console.log('?classDate1=' + start + '&classDate2=' + end);
         this.time = '?d1=' + start + '&d2=' + end;
         this.timetableOfClassesService.getTimetableOfClasses(this.time).subscribe(
             (data: TimetableOfClasses[]) => {
-                this.timetableOfClasses = [];
+                this.fullcalendar.getApi().removeAllEvents();
                 this.timetableOfClasses = data;
                 console.log(this.timetableOfClasses);
                 this.calendarEvents = [];
@@ -421,7 +420,7 @@ export class TimetableComponent implements  AfterViewInit {
         this.isTimetableConfirm = false;
         setTimeout (() => {
             this.getDaysPeriod();
-        }, 1500);
+        }, 500);
     }
 
     onConfirm() {

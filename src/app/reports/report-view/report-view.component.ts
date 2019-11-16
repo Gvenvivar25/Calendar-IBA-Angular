@@ -77,6 +77,7 @@ export class ReportViewComponent implements OnInit {
               break;
           }
           case 'disciplines':
+          case 'groups':
           case 'teachers': {
               this.isPeriod = false;
               this.isGroup = false;
@@ -165,6 +166,7 @@ export class ReportViewComponent implements OnInit {
                 break;
             }
             case 'teachers':
+            case 'groups':
             case 'disciplines': {
                 this.reportService.downloadReport(this.format, this.reportName)
                     .subscribe(response => {
@@ -224,6 +226,7 @@ export class ReportViewComponent implements OnInit {
                 break;
             }
             case 'teachers':
+            case 'groups':
             case 'disciplines': {
                 this.reportService.downloadReport(this.format, this.reportName)
                     .subscribe(response => {

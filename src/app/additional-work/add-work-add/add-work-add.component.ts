@@ -7,7 +7,6 @@ import {Teacher} from '../../dictionaries/teachers/teacher.model';
 import {Group} from '../../dictionaries/groups/group.model';
 import {AddWorkOfTeacher, AddWorkOfTeacherDto, TypeOfAddWork} from '../add-work-of-teacher.model';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Classroom} from '../../dictionaries/classrooms/classroom.model';
 
 @Component({
   selector: 'app-add-work-add',
@@ -22,18 +21,22 @@ export class AddWorkAddComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private groupService: GroupService, private teachersService: TeachersService,
               private addWorkOfTeacherService: AddWorkOfTeacherService, private route: ActivatedRoute, private router: Router) {
+
+  }
+
+
+  ngOnInit() {
+      const date = new Date();
+      const endDate = new Date(date.getFullYear(), date.getMonth(), 1).toISOString().split('T')[0];
+
       this.addWorkForm = this.formBuilder.group({
           id: [null],
-          date: [null, Validators.required],
+          date: [endDate, Validators.required],
           teacherDto: [[], Validators.required],
           groupDto: [[], Validators.required],
           typeOfAddWork: [[], Validators.required],
           hour: ['', Validators.required],
       });
-  }
-
-
-  ngOnInit() {
       this.teachersService.getTeachers().subscribe((res: Teacher[]) => {
           this.teachers = res;
       });

@@ -6,6 +6,7 @@ import {Group} from '../../../dictionaries/groups/group.model';
 import {Teacher} from '../../../dictionaries/teachers/teacher.model';
 import {TeachersService} from '../../../dictionaries/teachers/teachers.service';
 import {TimetableOfClasses} from '../../../shared/models/timetable-of-classes.model';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-timetable-confirm',
@@ -26,7 +27,7 @@ export class TimetableConfirmComponent implements OnInit {
     confirmForGroupForm: FormGroup;
     confirmForTeacherForm: FormGroup;
     constructor(private formBuilder: FormBuilder, private timetableOfClassesService: TimetableOfClassesService,
-                private groupService: GroupService, private teacherService: TeachersService) {
+                private groupService: GroupService, private teacherService: TeachersService, private toastr: ToastrService) {
         this.masterSelected = false;
 
     }
@@ -157,8 +158,13 @@ export class TimetableConfirmComponent implements OnInit {
     }
 
     confirmTimetables() {
+        console.log(this.checkedTimetables);
+        if (this.checkedTimetables !== undefined && this.checkedTimetables.length !== 0) {
         this.timetableOfClassesService.confirmTimetable(this.checkedTimetables).subscribe();
         this.closed.emit();
+        } else {
+            this.toastr.error(`Ни одна запись не выбрана для подтверждения`, 'Ошибка');
+        }
     }
 
 }

@@ -381,6 +381,7 @@ export class TimetableComponent implements  AfterViewInit {
                 }
                 console.log(this.timetableOfClasses);
                 console.log(this.calendarEvents);
+
             }
         );
     }
@@ -421,6 +422,7 @@ export class TimetableComponent implements  AfterViewInit {
         setTimeout (() => {
             this.getDaysPeriod();
         }, 500);
+
     }
 
     onConfirm() {

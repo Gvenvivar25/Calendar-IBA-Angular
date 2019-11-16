@@ -23,7 +23,7 @@ export class AddWorkOfTeacherService {
                 return -1; }
                 if (a.teacherDto.lastName > b.teacherDto.lastName) {return 1; } else { return 0; }} )
             ),
-            catchError(err => {this.toastr.error(`Отсутсвуют данные в БД`, 'Ошибка');
+            catchError(err => {this.toastr.info(`Отсутсвуют данные в БД`);
                                console.log(err, 'Отсутсвуют данные в БД');
                                return of(null); })
         );

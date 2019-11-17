@@ -162,4 +162,14 @@ export class TimetableOfClassesService {
         );
     }
 
+    cancelTimetable(timetableId: number[]) {
+        const url = `${UrlConstants.URL_TIMETABLE_OF_CLASSES}/cancel`;
+        return this.httpClient.put(url, timetableId).pipe(
+            tap(() => this.toastr.success(`Записи отменены!`)),
+            catchError(err => {this.toastr.error(`Записи не отменены`, 'Ошибка');
+                               console.log(err, 'Не удалось обновить запись');
+                               return of(null); })
+        );
+    }
+
 }

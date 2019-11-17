@@ -54,6 +54,7 @@ export class ReportViewComponent implements OnInit {
               break;
           }
           case 'report-group02015':
+          case 'report-groupClasses':
           case 'timetable-group': {
               this.isPeriod = true;
               this.isGroup = true;
@@ -197,6 +198,14 @@ export class ReportViewComponent implements OnInit {
                 });
                 break;
             }
+            case 'report-groupClasses': {
+                this.reportService.downloadReportGroupConsolidated(this.group, this.format, this.reportName, this.startDate,
+                    this.endDate).
+                subscribe(response => {
+                    this.createFile(response);
+                });
+                break;
+            }
         }
     }
 
@@ -251,6 +260,14 @@ export class ReportViewComponent implements OnInit {
             }
             case 'report-group02015': {
                 this.reportService.downloadReportForm02015ForGroup(this.group, this.format, this.reportName, this.startDate,
+                    this.endDate).
+                subscribe(response => {
+                    this.showFile(response);
+                });
+                break;
+            }
+            case 'report-groupClasses': {
+                this.reportService.downloadReportGroupConsolidated(this.group, this.format, this.reportName, this.startDate,
                     this.endDate).
                 subscribe(response => {
                     this.showFile(response);

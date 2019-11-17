@@ -1,20 +1,25 @@
 <div class="container">
-    <h4>Подтверждение занятий</h4>
+    <h4 *ngIf="isConfirm">Подтверждение занятий</h4>
+    <h4 *ngIf="!isConfirm">Отмена подтверждения занятий</h4>
     <div>
-        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample"
-                aria-expanded="false" aria-controls="collapseExample">
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapsePeriod"
+                aria-expanded="false" aria-controls="collapsePeriod">
             За период
         </button>
-        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample2"
-                aria-expanded="false" aria-controls="collapseExample2">
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseGroup"
+                aria-expanded="false" aria-controls="collapseGroup">
             По группе за период
         </button>
-        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample3"
-                aria-expanded="false" aria-controls="collapseExample3">
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseTeacher"
+                aria-expanded="false" aria-controls="collapseTeacher">
             По преподавателю за период
         </button>
+        <!--<button class="btn btn-secondary" type="button" (click)="onClose()">
+            Закрыть
+        </button>-->
     </div>
-    <div class="collapse" id="collapseExample">
+    <!----------------------------------------------------------Период---------------------------------------------->
+    <div class="collapse" id="collapsePeriod">
         <div class="card card-body">
             <form [formGroup]="confirmForPeriodForm">
                 <div class="row">
@@ -25,7 +30,10 @@
                         <input type="date" class="form-control" formControlName="endDate" />
                     </div>
                     <div class="col-md-2 form-group">
-                        <button type="submit" class="btn btn-info" (click)="loadTimetableToConfirmForPeriod()">Найти</button>
+                        <button type="submit" class="btn btn-info" *ngIf="isConfirm"
+                                (click)="loadTimetableToConfirmForPeriod()">Найти</button>
+                        <button type="submit" class="btn btn-info" *ngIf="!isConfirm"
+                                (click)="loadTimetableToCancelForPeriod()">Найти</button>
                     </div>
                 </div>
             </form>
@@ -46,12 +54,16 @@
                     </ul>
                 </div>
                 <div class="col-md-12">
-                    <button type="submit" class="btn btn-success" (click)="confirmTimetables()">Подтвердить</button>
+                    <button type="submit" class="btn btn-success" *ngIf="isConfirm"
+                            (click)="confirmTimetables()">Подтвердить</button>
+                    <button type="submit" class="btn btn-warning" *ngIf="!isConfirm"
+                            (click)="cancelTimetables()">Отменить</button>
                 </div>
             </div>
         </div>
     </div>
-    <div class="collapse" id="collapseExample2">
+    <!----------------------------------------------------------Группа---------------------------------------------->
+    <div class="collapse" id="collapseGroup">
         <div class="card card-body">
             <form [formGroup]="confirmForGroupForm">
                 <div class="row">
@@ -76,7 +88,10 @@
                         <input type="date" class="form-control" formControlName="endDate" />
                     </div>
                     <div class="col-md-2 form-group">
-                        <button type="submit" class="btn btn-info" (click)="loadTimetableToConfirmForGroup()">Найти</button>
+                        <button type="submit" class="btn btn-info" *ngIf="isConfirm"
+                                (click)="loadTimetableToConfirmForGroup()">Найти</button>
+                        <button type="submit" class="btn btn-info" *ngIf="!isConfirm"
+                                (click)="loadTimetableToCancelForGroup()">Найти</button>
                     </div>
                 </div>
             </form>
@@ -97,12 +112,16 @@
                     </ul>
                 </div>
                 <div class="col-md-12">
-                    <button type="submit" class="btn btn-success" (click)="confirmTimetables()">Подтвердить</button>
+                    <button type="submit" class="btn btn-success" *ngIf="isConfirm"
+                            (click)="confirmTimetables()">Подтвердить</button>
+                    <button type="submit" class="btn btn-warning" *ngIf="!isConfirm"
+                            (click)="cancelTimetables()">Отменить</button>
                 </div>
             </div>
         </div>
     </div>
-    <div class="collapse" id="collapseExample3">
+    <!------------------------------------------------------Преподаватель---------------------------------------------->
+    <div class="collapse" id="collapseTeacher">
         <div class="card card-body">
             <form [formGroup]="confirmForTeacherForm">
                 <div class="row">
@@ -127,7 +146,10 @@
                         <input type="date" class="form-control" formControlName="endDate" />
                     </div>
                     <div class="col-md-2 form-group">
-                        <button type="submit" class="btn btn-info" (click)="loadTimetableToConfirmForTeacher()">Найти</button>
+                        <button type="submit" class="btn btn-info" *ngIf="isConfirm"
+                                (click)="loadTimetableToConfirmForTeacher()">Найти</button>
+                        <button type="submit" class="btn btn-info" *ngIf="!isConfirm"
+                                (click)="loadTimetableToCancelForTeacher()">Найти</button>
                     </div>
                 </div>
             </form>
@@ -148,7 +170,10 @@
                     </ul>
                 </div>
                 <div class="col-md-12">
-                    <button type="submit" class="btn btn-success" (click)="confirmTimetables()">Подтвердить</button>
+                    <button type="submit" class="btn btn-success" *ngIf="isConfirm"
+                            (click)="confirmTimetables()">Подтвердить</button>
+                    <button type="submit" class="btn btn-warning" *ngIf="!isConfirm"
+                            (click)="cancelTimetables()">Отменить</button>
                 </div>
             </div>
         </div>

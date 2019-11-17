@@ -62,7 +62,7 @@ export class GroupEditComponent implements OnInit {
             this.groupEditForm.patchValue({
                 groupName: res.groupName,
                 typeOfEducation: res.typeOfEducation.id,
-                descriptionOfPlanDto: this.getDescriptionOfPlanToForm(res.id),
+                descriptionOfPlanDto: this.getDescriptionOfPlanToForm(res.descriptionOfPlanDto.id),
                 numberOfSubgroup: res.numberOfSubgroup,
             });
         });

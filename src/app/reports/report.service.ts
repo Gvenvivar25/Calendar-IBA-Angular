@@ -39,9 +39,14 @@ export class ReportService {
             responseType: 'blob' as 'json'
         })
             .pipe(
-                catchError(err => {this.toastr.error(`Не удалось загрузить отчет`, 'Ошибка');
-                                   console.log(err, 'Отсутсвуют данные в БД');
-                                   return of(null); })
+                catchError(err => { if (err.status === 406) {
+                    this.toastr.error(`Заполните настройки периода отчета`, 'Ошибка');
+                    console.log(err, 'Заполните настройки периода отчета');
+                    return of(null);
+                } else {this.toastr.error(`Не удалось загрузить отчет`, 'Ошибка');
+                    console.log(err, 'Не удалось загрузить отчет по расписанию');
+                    return of(null); }
+                })
             );
     }
 
@@ -64,9 +69,14 @@ export class ReportService {
             responseType: 'blob' as 'json'
         })
             .pipe(
-                catchError(err => {this.toastr.error(`Не удалось загрузить отчет`, 'Ошибка');
-                                   console.log(err, 'Не удалось загрузить отчет по расписанию');
-                                   return of(null); })
+                catchError(err => { if (err.status === 406) {
+                    this.toastr.error(`Заполните настройки периода отчета`, 'Ошибка');
+                    console.log(err, 'Заполните настройки периода отчета');
+                    return of(null);
+                } else {this.toastr.error(`Не удалось загрузить отчет`, 'Ошибка');
+                        console.log(err, 'Не удалось загрузить отчет по расписанию');
+                        return of(null); }
+                })
             );
     }
 
@@ -94,9 +104,14 @@ export class ReportService {
             responseType: 'blob' as 'json'
         })
             .pipe(
-                catchError(err => {this.toastr.error(`Не удалось загрузить отчет`, 'Ошибка');
-                                   console.log(err, 'Не удалось загрузить отчет по расписанию');
-                                   return of(null); })
+                catchError(err => { if (err.status === 406) {
+                    this.toastr.error(`Заполните настройки отчета`, 'Ошибка');
+                    console.log(err, 'Заполните настройки отчета');
+                    return of(null);
+                } else {this.toastr.error(`Не удалось загрузить отчет`, 'Ошибка');
+                    console.log(err, 'Не удалось загрузить отчет по расписанию');
+                    return of(null); }
+                })
             );
     }
 
@@ -109,9 +124,14 @@ export class ReportService {
             responseType: 'blob' as 'json'
         })
             .pipe(
-                catchError(err => {this.toastr.error(`Не удалось загрузить отчет`, 'Ошибка');
-                                   console.log(err, 'Не удалось загрузить отчет по расписанию');
-                                   return of(null); })
+                catchError(err => { if (err.status === 406) {
+                    this.toastr.error(`Заполните настройки отчета`, 'Ошибка');
+                    console.log(err, 'Заполните настройки отчета');
+                    return of(null);
+                } else {this.toastr.error(`Не удалось загрузить отчет`, 'Ошибка');
+                    console.log(err, 'Не удалось загрузить отчет по расписанию');
+                    return of(null); }
+                })
             );
     }
 
@@ -124,9 +144,14 @@ export class ReportService {
             responseType: 'blob' as 'json'
         })
             .pipe(
-                catchError(err => {this.toastr.error(`Не удалось загрузить отчет`, 'Ошибка');
-                                   console.log(err, 'Не удалось загрузить отчет по расписанию по преподавателю');
-                                   return of(null); })
+                catchError(err => { if (err.status === 406) {
+                    this.toastr.error(`Заполните настройки отчета`, 'Ошибка');
+                    console.log(err, 'Заполните настройки отчета');
+                    return of(null);
+                } else {this.toastr.error(`Не удалось загрузить отчет`, 'Ошибка');
+                    console.log(err, 'Не удалось загрузить отчет по расписанию');
+                    return of(null); }
+                })
             );
     }
 
@@ -139,9 +164,33 @@ export class ReportService {
             responseType: 'blob' as 'json'
         })
             .pipe(
-                catchError(err => {this.toastr.error(`Не удалось загрузить отчет`, 'Ошибка');
-                                   console.log(err, 'Не удалось загрузить отчет по расписанию по группе');
-                                   return of(null); })
+                catchError(err => { if (err.status === 406) {
+                    this.toastr.error(`Заполните настройки отчета`, 'Ошибка');
+                    console.log(err, 'Заполните настройки отчета');
+                    return of(null);
+                } else {this.toastr.error(`Не удалось загрузить отчет`, 'Ошибка');
+                    console.log(err, 'Не удалось загрузить отчет по расписанию');
+                    return of(null); }
+                })
+            );
+    }
+    downloadReportGroupConsolidated(id: number, format: string, name: string, start: string, end: string): Observable<any>  {
+        let headers = new HttpHeaders();
+        headers = headers.append('Accept', 'text/csv; charset=utf-8');
+        const url = `${UrlConstants.URL_TEACHER_REPORT}/group/${id}/consolidated/${format}/${name}?d1=${start}&d2=${end}`;
+        return this.httpClient.get(url, {
+            headers,
+            responseType: 'blob' as 'json'
+        })
+            .pipe(
+                catchError(err => { if (err.status === 406) {
+                    this.toastr.error(`Заполните настройки отчета`, 'Ошибка');
+                    console.log(err, 'Заполните настройки отчета');
+                    return of(null);
+                } else {this.toastr.error(`Не удалось загрузить отчет`, 'Ошибка');
+                    console.log(err, 'Не удалось загрузить отчет по расписанию');
+                    return of(null); }
+                })
             );
     }
 }

@@ -17,6 +17,7 @@ export class TimetableConfirmComponent implements OnInit {
     @Output() closed = new EventEmitter();
     @Input() startDate: string;
     @Input() endDate: string;
+    @Input() isConfirm: boolean;
     groups: Group[];
     teachers: Teacher[];
     timetables: any[];
@@ -78,6 +79,10 @@ export class TimetableConfirmComponent implements OnInit {
             }
         }
       //  this.checkedList = JSON.stringify(this.checkedList);
+    }
+
+    onClose() {
+        this.closed.emit();
     }
 
     loadTimetableToConfirmForPeriod() {
@@ -164,6 +169,93 @@ export class TimetableConfirmComponent implements OnInit {
         this.closed.emit();
         } else {
             this.toastr.error(`Ни одна запись не выбрана для подтверждения`, 'Ошибка');
+        }
+    }
+
+    loadTimetableToCancelForPeriod() {
+        const start = this.confirmForPeriodForm.get('startDate').value;
+        const end = this.confirmForPeriodForm.get('endDate').value;
+        const time = '?d1=' + start + '&d2=' + end;
+        this.timetableOfClassesService.getTimetableOfClasses(time).subscribe(
+            (data: TimetableOfClasses[]) => {
+                this.timetables = [];
+                for (let i = 0, len = Object.keys(data).length; i < len; i++) {
+                    if (data[i].status === true && data[i].reserved === false) {
+                        // не подтвержденные ивенты
+                        this.timetables.push (
+                            {
+                                id: data[i].id,
+                                title: data[i].disciplineDto.shortDisciplineName + ' ' +
+                                    data[i].typeOfWork.short_value + ' гр. №' +
+                                    data[i].groupDto.groupName + ' подгр. №' + data[i].subgroup,
+                                isSelected: false
+                            }
+                        );
+                    }
+                }
+            }
+        );
+    }
+
+    loadTimetableToCancelForGroup() {
+        const start = this.confirmForGroupForm.get('startDate').value;
+        const end = this.confirmForGroupForm.get('endDate').value;
+        const time = '?d1=' + start + '&d2=' + end;
+        const group = this.confirmForGroupForm.get('group').value;
+        this.timetableOfClassesService.getTimetableOfClasses(time).subscribe(
+            (data: TimetableOfClasses[]) => {
+                this.timetables = [];
+                for (let i = 0, len = Object.keys(data).length; i < len; i++) {
+                    if (data[i].status === true && data[i].reserved === false && data[i].groupDto.id === group) {
+                        // не подтвержденные ивенты
+                        this.timetables.push (
+                            {
+                                id: data[i].id,
+                                title: data[i].disciplineDto.shortDisciplineName + ' ' +
+                                    data[i].typeOfWork.short_value + ' гр. №' +
+                                    data[i].groupDto.groupName + ' подгр. №' + data[i].subgroup,
+                                isSelected: false
+                            }
+                        );
+                    }
+                }
+            }
+        );
+    }
+
+    loadTimetableToCancelForTeacher() {
+        const start = this.confirmForTeacherForm.get('startDate').value;
+        const end = this.confirmForTeacherForm.get('endDate').value;
+        const time = '?d1=' + start + '&d2=' + end;
+        const teacher = this.confirmForTeacherForm.get('teacher').value;
+        this.timetableOfClassesService.getTimetableOfClasses(time).subscribe(
+            (data: TimetableOfClasses[]) => {
+                this.timetables = [];
+                for (let i = 0, len = Object.keys(data).length; i < len; i++) {
+                    if (data[i].status === true && data[i].reserved === false && data[i].teacherDto.id === teacher) {
+                        // не подтвержденные ивенты
+                        this.timetables.push (
+                            {
+                                id: data[i].id,
+                                title: data[i].disciplineDto.shortDisciplineName + ' ' +
+                                    data[i].typeOfWork.short_value + ' гр. №' +
+                                    data[i].groupDto.groupName + ' подгр. №' + data[i].subgroup,
+                                isSelected: false
+                            }
+                        );
+                    }
+                }
+            }
+        );
+    }
+
+    cancelTimetables() {
+        console.log(this.checkedTimetables);
+        if (this.checkedTimetables !== undefined && this.checkedTimetables.length !== 0) {
+            this.timetableOfClassesService.cancelTimetable(this.checkedTimetables).subscribe();
+            this.closed.emit();
+        } else {
+            this.toastr.error(`Ни одна запись не выбрана для отмены`, 'Ошибка');
         }
     }
 

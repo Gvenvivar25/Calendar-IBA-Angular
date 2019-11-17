@@ -46,9 +46,14 @@ export class AuthenticationService {
                 this.loggedIn.next(true);
                 return res;
             }),
-               catchError(err => {this.toastr.error(`Неверный логин или пароль`, 'Ошибка');
+               catchError(err => { if (err.status === 403) {
+                   this.toastr.error(`Доступ запрещен`, 'Ошибка');
+                   console.log(err, 'Доступ запрещен');
+                   return of(null);
+               } else {this.toastr.error(`Неверный логин или пароль`, 'Ошибка');
                                   console.log(err, 'Неверный логин или пароль');
-                                  return of(null); }));
+                                  return of(null); }
+               }));
     }
 
     logout() {

@@ -33,6 +33,7 @@ export class TimetableComponent implements  AfterViewInit {
     timetableOfClasses: TimetableOfClasses [];
     calendarEvents: EventInput [];
     isTimetableConfirm;
+    isConfirm: boolean;
     time: string;
     startDate: string;
     endDate: string;
@@ -413,12 +414,13 @@ export class TimetableComponent implements  AfterViewInit {
         //  console.log(info.event.extendedProps.description);
     }
 
-    handleEventMouseLeave(info) {
+    handleEventMouseLeave() {
         this.tooltip.dispose();
     }
 
     onCloseTimetableConfirm(): void {
         this.isTimetableConfirm = false;
+        this.isConfirm = null;
         setTimeout (() => {
             this.getDaysPeriod();
         }, 500);
@@ -427,10 +429,12 @@ export class TimetableComponent implements  AfterViewInit {
 
     onConfirm() {
         this.isTimetableConfirm = !this.isTimetableConfirm;
+        this.isConfirm = true;
     }
 
     onCancel() {
-      //  this.onCloseTimetableConfirm();
+        this.isConfirm = false;
+        this.isTimetableConfirm = !this.isTimetableConfirm;
     }
 
 }

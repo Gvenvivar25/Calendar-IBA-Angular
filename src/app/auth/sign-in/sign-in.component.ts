@@ -63,20 +63,9 @@ export class SignInComponent implements OnInit {
                   this.router.navigate([this.returnUrl]); }
               },
               error => {
+                  console.log(error);
                   this.error = error;
                   this.loading = false;
               });
-
-      /*this.authenticationService.login(this.f.username.value, this.f.password.value)
-          .pipe(first())
-          .subscribe(
-              data => {
-                  this.router.navigate([this.returnUrl]);
-              },
-              error => {
-                  this.alertService.error(error);
-                  this.loading = false;
-              });*/
   }
-
 }

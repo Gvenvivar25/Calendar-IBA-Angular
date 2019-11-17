@@ -43,6 +43,9 @@ export class ReportViewComponent implements OnInit {
               private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
+      const date = new Date();
+      this.startDate = new Date(date.getFullYear(), date.getMonth() , 2).toISOString().split('T')[0];
+      this.endDate = new Date(date.getFullYear(), date.getMonth() + 1, 1).toISOString().split('T')[0];
       this.reportName = this.route.snapshot.params.name;
       switch (this.reportName) {
           case 'report02015':

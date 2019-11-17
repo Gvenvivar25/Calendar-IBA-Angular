@@ -1,5 +1,3 @@
-
-
 .row-table{
   display: table;
   width: 100%;
@@ -21,23 +19,12 @@
 }
 
 
-li {
-  border-bottom: #304260 1px solid;
-  padding-bottom: 5px;
-  padding-left: 10px;
-  padding-right: 8px;
-}
-
-.navbar-dark {
-  background-color: #6186a8;
-  padding: 16px;
-}
 
 .menu {
   align-items: center;
-  background: #6186a8;
-  box-shadow: 0 0.1em 1.5em rgba(84,85,85, 0.5);
-  color: white;
+  background: #cef1fc;
+ // box-shadow: 0 0.1em 1.5em rgba(84,85,85, 0.5);
+  color: #009ae5;
   display: flex;
   padding: 3px;
   font-size: 14pt;
@@ -89,7 +76,8 @@ li {
 }
 
 ng-sidebar-container {
-  height: 84vh;
+  height: 86vh;
   padding: 0px;
   position: fixed;
 }
+

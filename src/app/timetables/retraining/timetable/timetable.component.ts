@@ -332,13 +332,33 @@ export class TimetableComponent implements  AfterViewInit {
         this.timetableOfClassesService.getTimetableOfClasses(this.time).subscribe(
             (data: TimetableOfClasses[]) => {
                 this.fullcalendar.getApi().removeAllEvents();
+
                 this.timetableOfClasses = data;
                 console.log(this.timetableOfClasses);
                 this.calendarEvents = [];
 
                 // конвертация объектов из БД в event на календарь
                 for (let i = 0, len = Object.keys(data).length; i < len; i++) {
-                    if (data[i].status === false) {
+                    if (data[i].reserved === true) {
+                        this.calendarEvents.push(
+                            {
+                                id: data[i].id,
+                                title: 'Бронь!' + data[i].disciplineDto.shortDisciplineName + ' ' + data[i].typeOfWork.short_value
+                                    + ' гр. №' + data[i].groupDto.groupName + ' подгр. №' + data[i].subgroup,
+                                resourceId: data[i].classroomDto.id,
+                                start: data[i].classDate + 'T' + data[i].beginTime,
+                                end: data[i].classDate + 'T' + data[i].finishTime,
+                                description: data[i].beginTime.toString().substring(0, 5) + '-' +
+                                    data[i].finishTime.toString().substring(0, 5) + ', ' + data[i].disciplineDto.shortDisciplineName +
+                                    ' ' + data[i].teacherDto.lastName + ' ' + data[i].teacherDto.firstName.substring(0, 1) + '.' +
+                                    data[i].teacherDto.patronymic.substring(0, 1) + '. ' + ', к. ' + data[i].classroomDto.number +
+                                    ' гр. ' + data[i].groupDto.groupName + '-' + data[i].subgroup,
+                                color: '#ed9097',
+                                editable: true,
+                                resourceEditable: false
+                            }
+                        );
+                    } else if (data[i].status === false) {
                         // не подтвержденные ивенты
                     this.calendarEvents.push (
                         {
@@ -353,7 +373,7 @@ export class TimetableComponent implements  AfterViewInit {
                                 ' ' + data[i].teacherDto.lastName + ' ' + data[i].teacherDto.firstName.substring(0, 1) + '.' +
                                 data[i].teacherDto.patronymic.substring(0, 1) + '. ' + ', к. ' + data[i].classroomDto.number +
                                 ' гр. ' + data[i].groupDto.groupName + '-' + data[i].subgroup,
-                            color: '#f5a7a2',
+                            color: '#cccad8',
                             editable: true,
                             resourceEditable: true
                         }
@@ -373,15 +393,107 @@ export class TimetableComponent implements  AfterViewInit {
                                     ' ' + data[i].teacherDto.lastName + ' ' + data[i].teacherDto.firstName.substring(0, 1) + '.' +
                                     data[i].teacherDto.patronymic.substring(0, 1) + '. ' + ', к. ' + data[i].classroomDto.number +
                                     ' гр. ' + data[i].groupDto.groupName + '-' + data[i].subgroup,
-                                color: '#69f574',
+                                color: '#2499ff',
                                 editable: false,
                                 resourceEditable: false
                             }
                         );
                     }
+
                 }
+
                 console.log(this.timetableOfClasses);
                 console.log(this.calendarEvents);
+             //   this.fullcalendar.getApi().view.unrenderDates();
+
+            }
+        );
+    }
+
+    refetchEvents() {
+        const startDay = this.fullcalendar.getApi().view.currentStart;
+        const endDay = this.fullcalendar.getApi().view.currentEnd;
+        startDay.setDate(startDay.getDate() + 1);
+        const start = startDay.toISOString().split('T')[0];
+        const end = endDay.toISOString().split('T')[0];
+        this.startDate = start;
+        this.endDate = end;
+        this.time = '?d1=' + start + '&d2=' + end;
+        this.timetableOfClassesService.getTimetableOfClasses(this.time).subscribe(
+            (data: TimetableOfClasses[]) => {
+
+                this.timetableOfClasses = data;
+                console.log(this.timetableOfClasses);
+                this.calendarEvents = [];
+
+                // конвертация объектов из БД в event на календарь
+                for (let i = 0, len = Object.keys(data).length; i < len; i++) {
+                    if (data[i].reserved === true) {
+                        this.calendarEvents.push(
+                            {
+                                id: data[i].id,
+                                title: 'Бронь!' + data[i].disciplineDto.shortDisciplineName + ' ' + data[i].typeOfWork.short_value
+                                    + ' гр. №' + data[i].groupDto.groupName + ' подгр. №' + data[i].subgroup,
+                                resourceId: data[i].classroomDto.id,
+                                start: data[i].classDate + 'T' + data[i].beginTime,
+                                end: data[i].classDate + 'T' + data[i].finishTime,
+                                description: data[i].beginTime.toString().substring(0, 5) + '-' +
+                                    data[i].finishTime.toString().substring(0, 5) + ', ' + data[i].disciplineDto.shortDisciplineName +
+                                    ' ' + data[i].teacherDto.lastName + ' ' + data[i].teacherDto.firstName.substring(0, 1) + '.' +
+                                    data[i].teacherDto.patronymic.substring(0, 1) + '. ' + ', к. ' + data[i].classroomDto.number +
+                                    ' гр. ' + data[i].groupDto.groupName + '-' + data[i].subgroup,
+                                color: '#ed9097',
+                                editable: true,
+                                resourceEditable: false
+                            }
+                        );
+                    } else if (data[i].status === false) {
+                        // не подтвержденные ивенты
+                        this.calendarEvents.push (
+                            {
+                                id: data[i].id,
+                                title: data[i].disciplineDto.shortDisciplineName + ' ' + data[i].typeOfWork.short_value + ' гр. №' +
+                                    data[i].groupDto.groupName + ' подгр. №' + data[i].subgroup,
+                                resourceId: data[i].classroomDto.id,
+                                start: data[i].classDate + 'T' + data[i].beginTime,
+                                end: data[i].classDate + 'T' + data[i].finishTime,
+                                description: data[i].beginTime.toString().substring(0, 5) + '-' +
+                                    data[i].finishTime.toString().substring(0, 5) + ', ' + data[i].disciplineDto.shortDisciplineName +
+                                    ' ' + data[i].teacherDto.lastName + ' ' + data[i].teacherDto.firstName.substring(0, 1) + '.' +
+                                    data[i].teacherDto.patronymic.substring(0, 1) + '. ' + ', к. ' + data[i].classroomDto.number +
+                                    ' гр. ' + data[i].groupDto.groupName + '-' + data[i].subgroup,
+                                color: '#cccad8',
+                                editable: true,
+                                resourceEditable: true
+                            }
+                        );
+                    } else {
+                        // подтвержденные ивенты
+                        this.calendarEvents.push (
+                            {
+                                id: data[i].id,
+                                title: data[i].disciplineDto.shortDisciplineName + ' ' + data[i].typeOfWork.short_value + ' гр. №' +
+                                    data[i].groupDto.groupName + ' подгр. №' + data[i].subgroup,
+                                resourceId: data[i].classroomDto.id,
+                                start: data[i].classDate + 'T' + data[i].beginTime,
+                                end: data[i].classDate + 'T' + data[i].finishTime,
+                                description: data[i].beginTime.toString().substring(0, 5) + '-' +
+                                    data[i].finishTime.toString().substring(0, 5) + ', ' + data[i].disciplineDto.shortDisciplineName +
+                                    ' ' + data[i].teacherDto.lastName + ' ' + data[i].teacherDto.firstName.substring(0, 1) + '.' +
+                                    data[i].teacherDto.patronymic.substring(0, 1) + '. ' + ', к. ' + data[i].classroomDto.number +
+                                    ' гр. ' + data[i].groupDto.groupName + '-' + data[i].subgroup,
+                                color: '#2499ff',
+                                editable: false,
+                                resourceEditable: false
+                            }
+                        );
+                    }
+
+                }
+
+                console.log(this.timetableOfClasses);
+                console.log(this.calendarEvents);
+                //   this.fullcalendar.getApi().view.unrenderDates();
 
             }
         );
@@ -422,7 +534,7 @@ export class TimetableComponent implements  AfterViewInit {
         this.isTimetableConfirm = false;
         this.isConfirm = null;
         setTimeout (() => {
-            this.getDaysPeriod();
+           this.refetchEvents();
         }, 500);
 
     }

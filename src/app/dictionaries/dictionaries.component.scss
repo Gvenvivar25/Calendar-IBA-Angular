@@ -5,16 +5,27 @@ li {
     padding-right: 8px;
 }
 
-.navbar-dark {
-    background-color: #6186a8;
+.navbar-primary {
+  color: #009ae5;
+    background-color: #cef1fc;
     padding: 16px;
+}
+
+.nav-link {
+  color: #006db7;
+}
+
+.navbar-nav .nav-item.active .nav-link,
+.navbar-nav .nav-item:hover .nav-link {
+    color: #003c81;
+
 }
 
 .menu {
     align-items: center;
-    background: #6186a8;
-    box-shadow: 0 0.1em 1.5em rgba(84,85,85, 0.5);
-    color: white;
+    background: #cef1fc;
+  //  box-shadow: 0 0.1em 1.5em rgba(84,85,85, 0.5);
+    color: #009ae5;
     display: flex;
     padding: 3px;
     font-size: 14pt;

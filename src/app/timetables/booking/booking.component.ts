@@ -87,7 +87,7 @@ export class BookingComponent implements OnInit {
                                     ' ' + data[i].teacherDto.lastName + ' ' + data[i].teacherDto.firstName.substring(0, 1) + '.' +
                                     data[i].teacherDto.patronymic.substring(0, 1) + '. ' + ', к. ' + data[i].classroomDto.number +
                                     ' гр. ' + data[i].groupDto.groupName + '-' + data[i].subgroup,
-                                color: '#d8a1a1',
+                                color: '#ed9097',
                                 editable: true,
                                 resourceEditable: false
                             }

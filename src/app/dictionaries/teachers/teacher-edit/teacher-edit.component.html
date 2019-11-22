@@ -1,11 +1,10 @@
-<div class="col-sm-12">
-    <form [formGroup]="teacherEditForm" >
-<div class="col-sm-8">
-            <p>Введите данные о преподавателе: </p>
+<div class="container-fluid">
+    <div class="col-md-6">
+    <form [formGroup]="teacherEditForm">
+        <h4>Введите новые данные о преподавателе: </h4>
             <div class="form-row">
                 <div class="col-sm form-group">
-
-                    <label >Фамилия</label>
+                    <label >Фамилия: </label>
                     <input type="text" formControlName="lastName"
                            class="form-control"  placeholder="Введите фамилию">
 
@@ -15,7 +14,7 @@
                 </div>
 
                 <div class="col-sm form-group">
-                    <label>Имя</label>
+                    <label>Имя: </label>
                     <input type="text" formControlName="firstName"
                            class="form-control" placeholder="Введите имя">
                     <p *ngIf="!teacherEditForm.get('firstName').valid
@@ -23,12 +22,15 @@
                         Поле обязательно для заполнения. Введите имя!</p>
                 </div>
 
+
+            </div>
+            <div class="form-row">
                 <div class="col-sm form-group">
-                    <label>Отчество</label>
+                    <label>Отчество: </label>
                     <input type="text" formControlName="patronymic"
                            class="form-control" placeholder="Введите отчество">
                     <p *ngIf="!teacherEditForm.get('patronymic').valid
-                    && teacherEditForm.get('patronymic').touched" class="alert alert-danger">
+                        && teacherEditForm.get('patronymic').touched" class="alert alert-danger">
                         Поле обязательно для заполнения. Введите отчество!</p>
                 </div>
             </div>
@@ -44,14 +46,13 @@
                                placeholder="Выберите вид найма"
                                clearAllText="Clear"
                     >
-
                     </ng-select>
 
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-4">
-                    <label >Цвет</label>
+                <div class="form-group col-md-6">
+                    <label >Цвет для преподавателя: </label>
                     <input class="form-control"
                            [style.background]="color"
                            [cpOKButton]="true"
@@ -64,16 +65,13 @@
                     />
                 </div>
             </div>
-
-</div>
-        <div class="form-row">
-            <div class="col-md form-group">
-                <br>
-                <button type="submit" [disabled]="!teacherEditForm.valid" (click)="onSubmit()" class="btn btn-info">Сохранить</button>
-                <button type="button" class="btn btn-warning"  (click)="gotoTeacherList()">Отмена</button>
+        <div class="form-group">
+            <button type="submit" [disabled]="!teacherEditForm.valid" (click)="onSubmit()" class="btn btn-primary">Сохранить</button>
+            <button type="button" class="btn btn-secondary"  (click)="gotoTeacherList()">Отмена</button>
             </div>
-        </div>
+
     </form>
+</div>
 </div>
 
 <br>

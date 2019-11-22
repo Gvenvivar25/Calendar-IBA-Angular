@@ -1,139 +1,123 @@
-<div class="col-sm-12">
-    <form [formGroup]="lessonPlanEditForm">
-        <div class="col-sm-8">
-            <p>Добавьте или удалите предметы для учебного плана: </p>
+<div class="container-fluid">
+    <div class="col-md-8">
+        <form [formGroup]="lessonPlanEditForm">
+            <h4>Добавьте или удалите предметы для учебного плана: </h4>
             <hr>
             <p><b>Учебный план:</b> {{description}}</p>
 
-            <!--Скрытые поля для передачи объекта на сервер-->
+                <!--Скрытые поля для передачи объекта на сервер-->
             <div formGroupName="descriptionOfPlanDto">
-                <input type="hidden" formControlName="id"
-                       class="form-control" >
-                <input type="hidden" formControlName="description"
-                       class="form-control" >
-                <input type="hidden" formControlName="typeOfCourse"
-                       class="form-control" >
+                <input type="hidden" formControlName="id" class="form-control" >
+                <input type="hidden" formControlName="description" class="form-control" >
+                <input type="hidden" formControlName="typeOfCourse" class="form-control" >
             </div>
 
-            <input type="hidden" formControlName="id"
-                   class="form-control" >
+                <!--<input type="hidden" formControlName="id" class="form-control" >-->
 
-            <!---->
+                <!---->
 
-            <hr>
-            <div class="form-row">
-                <div class="col-md form-group">
-                    <label >Добавить новые предметы для учебного плана</label>
-                    <ng-select formControlName="disciplineDto"
-                               [items]="disciplines"
-                               bindLabel="shortDisciplineName"
+                <hr>
+                <div class="form-row">
+                    <div class="col-md form-group">
+                        <label >Предмет:</label>
+                        <ng-select formControlName="disciplineDto"
+                                   [items]="disciplines"
+                                   bindLabel="shortDisciplineName"
 
-                               [multiple]="false"
-                               placeholder="Выберите предмет"
-                               clearAllText="Clear"
-                    >
-                    </ng-select>
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="col-md form-group">
-                    <label >Выбрать преподавателя</label>
-                    <ng-select formControlName="teacherDto"
-                               [items]="teachersDto"
-                               bindLabel="lastName"
-
-                               [multiple]="false"
-                               placeholder="Выберите преподавателя"
-                               clearAllText="Clear"
-                    >
-                    </ng-select>
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="col-md form-group">
-                    <label >Выбрать вид занятий</label>
-                    <ng-select formControlName="typeOfWork"
-                               [items]="typesOfWork"
-                               bindLabel="value"
-                               bindValue="id"
-                               [multiple]="false"
-                               placeholder="Выберите вид занятий"
-                               clearAllText="Clear"
-                    >
-                    </ng-select>
-
+                                   [multiple]="false"
+                                   placeholder="Выберите предмет"
+                                   clearAllText="Clear"
+                        >
+                        </ng-select>
+                    </div>
                 </div>
 
-                <div class="col-md form-group">
-                    <label >Введите количество часов</label>
-                    <input type="number" formControlName="numberOfHours"
-                           class="form-control"  placeholder="Введите количество часов">
+                <div class="form-row">
+                    <div class="col-md form-group">
+                        <label >Преподаватель:</label>
+                        <ng-select formControlName="teacherDto"
+                                   [items]="teachersDto"
+                                   bindLabel="lastName"
 
-                    <p *ngIf="!lessonPlanEditForm.get('numberOfHours').valid
-                    && lessonPlanEditForm.get('numberOfHours').touched" class="alert alert-danger">
-                        Поле обязательно для заполнения. Введите количтво часов предмета!</p>
+                                   [multiple]="false"
+                                   placeholder="Выберите преподавателя"
+                                   clearAllText="Clear"
+                        >
+                        </ng-select>
+                    </div>
                 </div>
-            </div>
-            <div class="form-row">
-                <button type="submit" (click)="onAdd(lessonPlanEditForm.value)" class="btn btn-outline-success">
-                    Добавить
-                </button>
-                <button type="button" class="btn btn-warning"  (click)="gotoCourseList()">Закрыть</button>
-            </div>
-        </div>
+
+                <div class="form-row">
+                    <div class="col-md form-group">
+                        <label >Вид занятий: </label>
+                        <ng-select formControlName="typeOfWork"
+                                   [items]="typesOfWork"
+                                   bindLabel="value"
+                                   bindValue="id"
+                                   [multiple]="false"
+                                   placeholder="Выберите вид занятий"
+                                   clearAllText="Clear"
+                        >
+                        </ng-select>
+
+                    </div>
+
+                    <div class="col-md form-group">
+                        <label >Количество часов: </label>
+                        <input type="number" formControlName="numberOfHours"
+                               class="form-control"  placeholder="Введите количество часов">
+
+                        <p *ngIf="!lessonPlanEditForm.get('numberOfHours').valid
+                        && lessonPlanEditForm.get('numberOfHours').touched" class="alert alert-danger">
+                            Поле обязательно для заполнения. Введите количтво часов предмета!</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" [disabled]="!lessonPlanEditForm.valid"
+                            (click)="onAdd(lessonPlanEditForm.value)" class="btn btn-primary">Добавить
+                    </button>
+                    <button type="button" class="btn btn-secondary"  (click)="gotoCourseList()">Закрыть</button>
+                </div>
 
 
-            <div class="form-row">
-                <div class="col-md form-group">
-                    <label>Предметы в учебном плане:</label>
-                    <table class="table table-active">
-                        <thead class="thead-light">
-                        <tr>
-
-                            <th>№</th>
-                            <th>Предмет</th>
-                            <th>Вид занятий</th>
-                            <th>Количество часов</th>
-                            <th></th>
-
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <ng-template ngFor let-lessonPlan [ngForOf]="lessonPlans" let-i="index">
+                <div class="form-row">
+                    <div class="col-md form-group">
+                        <label>Предметы в учебном плане:</label>
+                        <table class="table table-active">
+                            <thead class="thead-light">
                             <tr>
-                                <td scope="row"> {{i+1}}</td>
-                                <td>{{lessonPlan.disciplineDto.shortDisciplineName}} </td>
-                                <td>{{lessonPlan.typeOfWork.value}}</td>
-
-                                <td>{{lessonPlan.numberOfHours}}</td>
-                                <td >
-                                    <button class="btn btn-danger btn-sm" title="Удалить" (click)="onDeleteLessonPlan(lessonPlan.id)">
-                                            Удалить
-                                    </button>
-                                </td>
+                                <th>№</th>
+                                <th>Предмет</th>
+                                <th>Преподаватель</th>
+                                <th>Вид занятий</th>
+                                <th>Количество часов</th>
+                                <th></th>
                             </tr>
-                        </ng-template>
+                            </thead>
+                            <tbody>
+                            <ng-template ngFor let-lessonPlan [ngForOf]="lessonPlans" let-i="index">
+                                <tr>
+                                    <td scope="row"> {{i+1}}</td>
+                                    <td>{{lessonPlan.disciplineDto.shortDisciplineName}} </td>
+                                    <td>{{lessonPlan.teacherDto.lastName}} {{lessonPlan.teacherDto.firstName| slice:0:1}}.
+                                        {{lessonPlan.teacherDto.patronymic| slice:0:1}}.</td>
+                                    <td>{{lessonPlan.typeOfWork.value}}</td>
+                                    <td>{{lessonPlan.numberOfHours}}</td>
+                                    <td >
+                                        <button class="btn btn-danger btn-sm" title="Удалить" (click)="onDeleteLessonPlan(lessonPlan.id)">
+                                                Удалить
+                                        </button>
+                                    </td>
+                                </tr>
+                            </ng-template>
 
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
-
-
-        <!--<div class="form-row">
-            <div class="col-md form-group">
-                <br>
-                <button type="button" class="btn btn-warning"  (click)="gotoCourseList()">Закрыть</button>
-            </div>
-        </div>-->
-    </form>
+        </form>
+    </div>
 </div>
-
-<br>
-<br>
-
 
 
 

@@ -56,7 +56,7 @@
             </ng-select>
         </div>-->
         <div class="col-md-1">
-            <button class="btn btn-info" (click)="showPDF()">Показать</button>
+            <button class="btn btn-primary" (click)="showPDF()">Показать</button>
         </div>
         <!--<div class="col-md-1">
             <button class="btn btn-primary" (click)="download()">Скачать</button>
@@ -68,6 +68,10 @@
             <button class="btn btn-outline-primary" title="Скачать Word" (click)="download('DOCX')"><span><img src="./assets/word-icon.png"></span></button>
 
             <button class="btn btn-outline-primary" title="Скачать Excel" (click)="download('XLSX')"><span><img src="./assets/excel-icon.png"></span></button>
+        </div>
+
+        <div class="col-md" style="text-align: right">
+            <button class="btn btn-primary"  (click)="gotoReportList()">Назад</button>
         </div>
     </div>
 

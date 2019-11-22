@@ -1,9 +1,9 @@
-<div class="container">
-<div class="row">
-    <div class="col-md-8">
+<div class="container-fluid">
+    <div class="col-md-6">
+        <h4>Введите новые данные о предмете: </h4>
         <form [formGroup]="disciplineForm" (ngSubmit)="onSubmit(disciplineForm.value)">
             <div class="form-group">
-                <label for="shortDisciplineName">Краткое наименование предмета</label>
+                <label for="shortDisciplineName">Краткое наименование предмета:</label>
                 <input
                         type="text"
                         id="shortDisciplineName"
@@ -12,7 +12,7 @@
             </div>
 
             <div class="form-group">
-                        <label for="disciplineName">Полное наименование предмета</label>
+                        <label for="disciplineName">Полное наименование предмета:</label>
                         <input
                                 type="text"
                                 id="disciplineName"
@@ -25,13 +25,12 @@
                 <div class="col-md">
                     <button
                             type="submit"
-                            class="btn btn-success"
+                            class="btn btn-primary"
                             [disabled]="!disciplineForm.valid">Сохранить</button>
-                    <button type="button" class="btn btn-danger" (click)="onCancel()">Отменить</button>
+                    <button type="button" class="btn btn-secondary" (click)="onCancel()">Отменить</button>
                 </div>
             </div>
         </form>
     </div>
-</div>
 
 </div>

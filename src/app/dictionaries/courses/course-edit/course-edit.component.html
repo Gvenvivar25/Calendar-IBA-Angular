@@ -1,8 +1,9 @@
-<div class="card my-10">
-    <div class="card-body">
+<div class="container-fluid">
+    <div class="col-md-6">
         <form [formGroup]="courseEditForm" (ngSubmit)="onSubmit(courseEditForm.value)">
+            <h4>Введите новые данные об учебном плане: </h4>
             <div class="form-group">
-                <label >Наименование учебного плана</label>
+                <label >Наименование учебного плана:</label>
                 <input type="text" formControlName="description"
                        class="form-control"  placeholder="Введите наименование учебного плана">
 
@@ -11,7 +12,7 @@
                     Поле обязательно для заполнения. Введите наименование учебного плана!</p>
             </div>
             <div class="form-group">
-                <label>Вид курса </label>
+                <label>Вид курса: </label>
                 <ng-select
                         [items]="typesOfCourse"
                         bindLabel="value"
@@ -30,9 +31,10 @@
                        class="form-control"  placeholder="Введите количество часов в курсе">
 
             </div>-->
-            <button type="submit" [disabled]="!courseEditForm" class="btn btn-info">Сохранить</button>
-            <button type="button" class="btn btn-warning"  (click)="gotoCoursesList()">Отмена</button>
-
+            <div class="form-group">
+                <button type="submit" [disabled]="!courseEditForm.valid" class="btn btn-primary">Сохранить</button>
+                <button type="button" class="btn btn-secondary"  (click)="gotoCoursesList()">Отмена</button>
+            </div>
         </form>
     </div>
 </div>

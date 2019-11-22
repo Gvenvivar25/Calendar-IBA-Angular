@@ -7,6 +7,8 @@ import {Teacher} from '../../../dictionaries/teachers/teacher.model';
 import {TeachersService} from '../../../dictionaries/teachers/teachers.service';
 import {TimetableOfClasses} from '../../../shared/models/timetable-of-classes.model';
 import {ToastrService} from 'ngx-toastr';
+import {ClassroomService} from '../../../dictionaries/classrooms/classroom.service';
+import {Classroom} from '../../../dictionaries/classrooms/classroom.model';
 
 @Component({
   selector: 'app-timetable-confirm',
@@ -20,6 +22,7 @@ export class TimetableConfirmComponent implements OnInit {
     @Input() isConfirm: boolean;
     groups: Group[];
     teachers: Teacher[];
+    classrooms: Classroom[];
     timetables: any[];
     checkedTimetables: number[];
     masterSelected: boolean;
@@ -27,8 +30,10 @@ export class TimetableConfirmComponent implements OnInit {
     confirmForPeriodForm: FormGroup;
     confirmForGroupForm: FormGroup;
     confirmForTeacherForm: FormGroup;
+    confirmForClassroomForm: FormGroup;
     constructor(private formBuilder: FormBuilder, private timetableOfClassesService: TimetableOfClassesService,
-                private groupService: GroupService, private teacherService: TeachersService, private toastr: ToastrService) {
+                private groupService: GroupService, private teacherService: TeachersService, private toastr: ToastrService,
+                private classroomService: ClassroomService) {
         this.masterSelected = false;
 
     }
@@ -40,6 +45,10 @@ export class TimetableConfirmComponent implements OnInit {
       this.teacherService.getTeachers().subscribe((res: Teacher []) => {
           this.teachers = res;
       });
+      this.classroomService.getClassrooms().subscribe((res: Classroom []) => {
+          this.classrooms = res;
+      });
+
       this.confirmForPeriodForm = this.formBuilder.group({
           startDate: [this.startDate, Validators.required],
           endDate: [this.endDate, Validators.required],
@@ -55,6 +64,12 @@ export class TimetableConfirmComponent implements OnInit {
           startDate: [this.startDate, Validators.required],
           endDate: [this.endDate, Validators.required],
           teacher: [[], Validators.required],
+      });
+
+      this.confirmForClassroomForm = this.formBuilder.group({
+          startDate: [this.startDate, Validators.required],
+          endDate: [this.endDate, Validators.required],
+          classroom: [[], Validators.required],
       });
   }
 
@@ -98,9 +113,9 @@ export class TimetableConfirmComponent implements OnInit {
                         this.timetables.push (
                             {
                                 id: data[i].id,
-                                title: data[i].disciplineDto.shortDisciplineName + ' ' +
-                                    data[i].typeOfWork.short_value + ' гр. №' +
-                                    data[i].groupDto.groupName + ' подгр. №' + data[i].subgroup,
+                                title: data[i].beginTime.toString().substring(0, 5) + '-' + data[i].finishTime.toString().substring(0, 5) +
+                                    ' к.' + data[i].classroomDto.number + ' ' + data[i].disciplineDto.shortDisciplineName +
+                                    ' ' + data[i].typeOfWork.short_value + ' гр. №' + data[i].groupDto.groupName + '-' + data[i].subgroup,
                                 isSelected: false
                             }
                         );
@@ -124,9 +139,9 @@ export class TimetableConfirmComponent implements OnInit {
                         this.timetables.push (
                             {
                                 id: data[i].id,
-                                title: data[i].disciplineDto.shortDisciplineName + ' ' +
-                                    data[i].typeOfWork.short_value + ' гр. №' +
-                                    data[i].groupDto.groupName + ' подгр. №' + data[i].subgroup,
+                                title: data[i].beginTime.toString().substring(0, 5) + '-' + data[i].finishTime.toString().substring(0, 5) +
+                                    ' к.' + data[i].classroomDto.number + ' ' + data[i].disciplineDto.shortDisciplineName +
+                                    ' ' + data[i].typeOfWork.short_value + ' гр. №' + data[i].groupDto.groupName + '-' + data[i].subgroup,
                                 isSelected: false
                             }
                         );
@@ -150,9 +165,35 @@ export class TimetableConfirmComponent implements OnInit {
                         this.timetables.push (
                             {
                                 id: data[i].id,
-                                title: data[i].disciplineDto.shortDisciplineName + ' ' +
-                                    data[i].typeOfWork.short_value + ' гр. №' +
-                                    data[i].groupDto.groupName + ' подгр. №' + data[i].subgroup,
+                                title: data[i].beginTime.toString().substring(0, 5) + '-' + data[i].finishTime.toString().substring(0, 5) +
+                                    ' к.' + data[i].classroomDto.number + ' ' + data[i].disciplineDto.shortDisciplineName +
+                                    ' ' + data[i].typeOfWork.short_value + ' гр. №' + data[i].groupDto.groupName + '-' + data[i].subgroup,
+                                isSelected: false
+                            }
+                        );
+                    }
+                }
+            }
+        );
+    }
+
+    loadTimetableToConfirmForClassroom() {
+        const start = this.confirmForClassroomForm.get('startDate').value;
+        const end = this.confirmForClassroomForm.get('endDate').value;
+        const time = '?d1=' + start + '&d2=' + end;
+        const classroom = this.confirmForClassroomForm.get('classroom').value;
+        this.timetableOfClassesService.getTimetableOfClasses(time).subscribe(
+            (data: TimetableOfClasses[]) => {
+                this.timetables = [];
+                for (let i = 0, len = Object.keys(data).length; i < len; i++) {
+                    if (data[i].status === false && data[i].reserved === false && data[i].classroomDto.id === classroom) {
+                        // не подтвержденные ивенты
+                        this.timetables.push (
+                            {
+                                id: data[i].id,
+                                title: data[i].beginTime.toString().substring(0, 5) + '-' + data[i].finishTime.toString().substring(0, 5) +
+                                    ' к.' + data[i].classroomDto.number + ' ' + data[i].disciplineDto.shortDisciplineName +
+                                    ' ' + data[i].typeOfWork.short_value + ' гр. №' + data[i].groupDto.groupName + '-' + data[i].subgroup,
                                 isSelected: false
                             }
                         );
@@ -185,9 +226,9 @@ export class TimetableConfirmComponent implements OnInit {
                         this.timetables.push (
                             {
                                 id: data[i].id,
-                                title: data[i].disciplineDto.shortDisciplineName + ' ' +
-                                    data[i].typeOfWork.short_value + ' гр. №' +
-                                    data[i].groupDto.groupName + ' подгр. №' + data[i].subgroup,
+                                title: data[i].beginTime.toString().substring(0, 5) + '-' + data[i].finishTime.toString().substring(0, 5) +
+                                    ' к.' + data[i].classroomDto.number + ' ' + data[i].disciplineDto.shortDisciplineName +
+                                    ' ' + data[i].typeOfWork.short_value + ' гр. №' + data[i].groupDto.groupName + '-' + data[i].subgroup,
                                 isSelected: false
                             }
                         );
@@ -211,9 +252,9 @@ export class TimetableConfirmComponent implements OnInit {
                         this.timetables.push (
                             {
                                 id: data[i].id,
-                                title: data[i].disciplineDto.shortDisciplineName + ' ' +
-                                    data[i].typeOfWork.short_value + ' гр. №' +
-                                    data[i].groupDto.groupName + ' подгр. №' + data[i].subgroup,
+                                title: data[i].beginTime.toString().substring(0, 5) + '-' + data[i].finishTime.toString().substring(0, 5) +
+                                    ' к.' + data[i].classroomDto.number + ' ' + data[i].disciplineDto.shortDisciplineName +
+                                    ' ' + data[i].typeOfWork.short_value + ' гр. №' + data[i].groupDto.groupName + '-' + data[i].subgroup,
                                 isSelected: false
                             }
                         );
@@ -237,9 +278,35 @@ export class TimetableConfirmComponent implements OnInit {
                         this.timetables.push (
                             {
                                 id: data[i].id,
-                                title: data[i].disciplineDto.shortDisciplineName + ' ' +
-                                    data[i].typeOfWork.short_value + ' гр. №' +
-                                    data[i].groupDto.groupName + ' подгр. №' + data[i].subgroup,
+                                title: data[i].beginTime.toString().substring(0, 5) + '-' + data[i].finishTime.toString().substring(0, 5) +
+                                    ' к.' + data[i].classroomDto.number + ' ' + data[i].disciplineDto.shortDisciplineName +
+                                    ' ' + data[i].typeOfWork.short_value + ' гр. №' + data[i].groupDto.groupName + '-' + data[i].subgroup,
+                                isSelected: false
+                            }
+                        );
+                    }
+                }
+            }
+        );
+    }
+
+    loadTimetableToCancelForClassroom() {
+        const start = this.confirmForClassroomForm.get('startDate').value;
+        const end = this.confirmForClassroomForm.get('endDate').value;
+        const time = '?d1=' + start + '&d2=' + end;
+        const classroom = this.confirmForClassroomForm.get('teacher').value;
+        this.timetableOfClassesService.getTimetableOfClasses(time).subscribe(
+            (data: TimetableOfClasses[]) => {
+                this.timetables = [];
+                for (let i = 0, len = Object.keys(data).length; i < len; i++) {
+                    if (data[i].status === true && data[i].reserved === false && data[i].classroomDto.id === classroom) {
+                        // не подтвержденные ивенты
+                        this.timetables.push (
+                            {
+                                id: data[i].id,
+                                title: data[i].beginTime.toString().substring(0, 5) + '-' + data[i].finishTime.toString().substring(0, 5) +
+                                    ' к.' + data[i].classroomDto.number + ' ' + data[i].disciplineDto.shortDisciplineName +
+                                    ' ' + data[i].typeOfWork.short_value + ' гр. №' + data[i].groupDto.groupName + '-' + data[i].subgroup,
                                 isSelected: false
                             }
                         );

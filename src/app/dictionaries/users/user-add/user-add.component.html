@@ -1,11 +1,10 @@
-<div class="container">
-    <div>
+<div class="container-fluid">
+    <div class="col-md-6">
         <form [formGroup]="userForm" (ngSubmit)="onSubmit(userForm.value)">
-            <p>Введите данные о пользователе: </p>
+            <h4>Введите данные о пользователе: </h4>
             <div class="form-group">
-                <label >Имя пользователя (логин)</label>
-                <input type="text" formControlName="username"
-                       class="form-control"  placeholder="Введите имя пользователя">
+                <label >Имя пользователя (логин):</label>
+                <input type="text" formControlName="username" class="form-control"  placeholder="Введите имя пользователя">
 
                 <p *ngIf="!userForm.get('username').valid
                 && userForm.get('username').touched" class="alert alert-danger">
@@ -13,9 +12,8 @@
             </div>
 
             <div class="form-group">
-                <label >Пароль</label>
-                <input type="password" formControlName="password"
-                       class="form-control"  placeholder="Введите пароль">
+                <label >Пароль:</label>
+                <input type="password" formControlName="password" class="form-control"  placeholder="Введите пароль">
 
                 <p *ngIf="!userForm.get('password').valid
                 && userForm.get('password').touched" class="alert alert-danger">
@@ -25,9 +23,8 @@
             <div class="form-row">
                 <div class="col-md form-group">
 
-                    <label >Фамилия</label>
-                    <input type="text" formControlName="lastName"
-                           class="form-control"  placeholder="Введите фамилию">
+                    <label >Фамилия:</label>
+                    <input type="text" formControlName="lastName" class="form-control"  placeholder="Введите фамилию">
 
                     <p *ngIf="!userForm.get('lastName').valid
                         && userForm.get('lastName').touched" class="alert alert-danger">
@@ -35,41 +32,32 @@
                 </div>
 
                 <div class="col-md form-group">
-                    <label>Имя</label>
-                    <input type="text" formControlName="firstName"
-                           class="form-control" placeholder="Введите имя">
+                    <label>Имя:</label>
+                    <input type="text" formControlName="firstName" class="form-control" placeholder="Введите имя">
                     <p *ngIf="!userForm.get('firstName').valid
                         && userForm.get('firstName').touched" class="alert alert-danger">
                         Поле обязательно для заполнения. Введите имя!</p>
                 </div>
 
             </div>
-            <div class="form-row">
-                <div class="col-md form-group">
-                    <label>Отчество</label>
-                    <input type="text" formControlName="patronymic"
-                           class="form-control" placeholder="Введите отчество">
-                    <p *ngIf="!userForm.get('patronymic').valid
-                    && userForm.get('patronymic').touched" class="alert alert-danger">
+
+            <div class="form-group">
+                <label>Отчество:</label>
+                <input type="text" formControlName="patronymic" class="form-control" placeholder="Введите отчество">
+                <p *ngIf="!userForm.get('patronymic').valid && userForm.get('patronymic').touched" class="alert alert-danger">
                         Поле обязательно для заполнения. Введите отчество!</p>
-                </div>
             </div>
 
-            <div class="form-row">
-                <div class="col-md form-group">
-                    <label>Email</label>
-                    <input type="text" formControlName="email"
-                           class="form-control" placeholder="Введите email">
-                    <p *ngIf="!userForm.get('email').valid
-                    && userForm.get('email').touched" class="alert alert-danger">
+            <div class="form-group">
+                <label>Email:</label>
+                <input type="text" formControlName="email" class="form-control" placeholder="Введите email">
+                <p *ngIf="!userForm.get('email').valid && userForm.get('email').touched" class="alert alert-danger">
                         Поле обязательно для заполнения. Введите email</p>
-                </div>
             </div>
 
-            <div class="form-row">
-                <div class="col-md form-group">
-                    <label>Статус</label>
-                    <ng-select
+            <div class="form-group">
+                <label>Статус:</label>
+                <ng-select
                             [items]="statuses"
                             bindLabel="value"
                             bindValue="id"
@@ -77,14 +65,14 @@
                             placeholder="Выберите статус пользователя"
                             clearAllText="Clear"
                             formControlName="status"
-                    >
-                    </ng-select>
-                </div>
+                >
+                </ng-select>
             </div>
 
-            <button type="submit" [disabled]="!userForm.valid" class="btn btn-info">Добавить</button>
-            <button type="button" class="btn btn-warning"  (click)="gotoUserList()">Отмена</button>
-
+            <div class="form-group">
+                <button type="submit" [disabled]="!userForm.valid" class="btn btn-primary">Добавить</button>
+                <button type="button" class="btn btn-secondary"  (click)="gotoUserList()">Отмена</button>
+            </div>
         </form>
     </div>
 </div>

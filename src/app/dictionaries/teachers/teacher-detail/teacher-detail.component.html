@@ -1,20 +1,24 @@
 <div class="row">
 <div class="col-sm-6">
-    <p>Id: {{id}}</p>
-    <p>Фамилия: {{lastName}}</p>
-    <p>Имя: {{firstName}}</p>
-    <p>Отчество: {{patronymic}}</p>
-    <p>Вид занятости: {{typeOfEmployment}}</p>
+    <p><b>Фамилия:</b> {{lastName}}</p>
+    <p><b>Имя:</b> {{firstName}}</p>
+    <p><b>Отчество:</b> {{patronymic}}</p>
+    <p><b>Вид занятости:</b> {{typeOfEmployment}}</p>
 </div>
 
     <div class="col-sm-6">
-        <div class="card-header">
-            <p>Предметы преподавателя</p>
+        <p><b>Предметы преподавателя</b></p>
+        <ul class="list-group list-group-flush"  *ngFor="let discipline of disciplines">
+            <li class="list-group-item" style="background-color: rgba(206,241,252,0.11);" *ngIf="disciplines!=null">{{discipline.shortDisciplineName}}</li>
+        </ul>
+
+        <!--<div class="card-header">
+            <p><b>Предметы преподавателя</b></p>
         <div class=" w-75 card bg-light" *ngFor="let discipline of disciplines" >
             <div class="card-body" *ngIf="disciplines!=null">
                 {{discipline.shortDisciplineName}}
             </div>
         </div>
-        </div>
+        </div>-->
     </div>
 </div>

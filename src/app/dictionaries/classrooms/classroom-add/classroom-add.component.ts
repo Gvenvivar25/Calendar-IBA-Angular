@@ -26,7 +26,7 @@ export class ClassroomAddComponent implements OnInit {
         } );
         this.classroomForm = new FormGroup({
             number: new FormControl('', Validators.required),
-            typeOfClassroom: new FormControl('', Validators.required),
+            typeOfClassroom: new FormControl([], Validators.required),
         });
     }
 

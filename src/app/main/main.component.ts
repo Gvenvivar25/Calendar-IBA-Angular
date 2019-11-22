@@ -14,9 +14,6 @@ import {Classroom} from '../dictionaries/classrooms/classroom.model';
 import {GroupService} from '../dictionaries/groups/group.service';
 import {TeachersService} from '../dictionaries/teachers/teachers.service';
 import {ClassroomService} from '../dictionaries/classrooms/classroom.service';
-import {ActivatedRoute} from '@angular/router';
-import {ToastrService} from 'ngx-toastr';
-
 
 @Component({
     selector: 'app-main',
@@ -242,8 +239,7 @@ export class MainComponent implements OnInit {
                         if (this.isClassroom) {
                             this.calendarEvents.push(
                                 {
-                                    title: /*data[i].disciplineDto.shortDisciplineName + ' ' + data[i].teacherDto.lastName + ' ауд. ' +*/
-                                    'к. ' + data[i].classroomDto.number,
+                                    title: data[i].classroomDto.number,
                                     start: data[i].classDate + 'T' + data[i].beginTime,
                                     end: data[i].classDate + 'T' + data[i].finishTime,
                                     description: data[i].beginTime.toString().substring(0, 5) + '-' +

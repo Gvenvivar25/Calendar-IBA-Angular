@@ -1,17 +1,22 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-4">
+        <!--<div class="col-md-4">
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                    <button class="btn btn-outline-primary" (click)="loadClassroomEvents()">Аудитории</button>
+                    <button class="btn btn-primary" (click)="loadClassroomEvents()">Аудитории</button>
                 </li>
                 <li class="nav-item">
-                    <button class="btn btn-outline-primary" (click)="loadTeacherEvents()">Преподаватели</button>
+                    <button class="btn btn-primary" (click)="loadTeacherEvents()">Преподаватели</button>
                 </li>
                 <li class="nav-item">
-                    <button class="btn btn-outline-primary" (click)="loadGroupEvents()">Группы</button>
+                    <button class="btn btn-primary" (click)="loadGroupEvents()">Группы</button>
                 </li>
             </ul>
+        </div>-->
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button class="btn btn-outline-info" (click)="loadClassroomEvents()">Аудитории</button>
+            <button class="btn btn-outline-info" (click)="loadTeacherEvents()">Преподаватели</button>
+            <button class="btn btn-outline-info" (click)="loadGroupEvents()">Группы</button>
         </div>
         <div class="col-md-3" *ngIf="isGroup">
             <ng-select [(ngModel)]="group"
@@ -49,9 +54,9 @@
             </ng-select>
         </div>
         <div class="col-md-1">
-            <button class="btn btn-outline-primary" (click)="loadOneClassroomEvents()" *ngIf="isClassroom">ОК</button>
-            <button class="btn btn-outline-primary" (click)="loadOneTeacherEvents()" *ngIf="isTeacher">ОК</button>
-            <button class="btn btn-outline-primary" (click)="loadOneGroupEvents()" *ngIf="isGroup">ОК</button>
+            <button class="btn btn-outline-info" (click)="loadOneClassroomEvents()" *ngIf="isClassroom">ОК</button>
+            <button class="btn btn-outline-info" (click)="loadOneTeacherEvents()" *ngIf="isTeacher">ОК</button>
+            <button class="btn btn-outline-info" (click)="loadOneGroupEvents()" *ngIf="isGroup">ОК</button>
         </div>
     </div>
 

@@ -1,10 +1,11 @@
-<div class="container">
+<div class="container-fluid">
+    <div class="col-md-6">
     <form [formGroup]="employeeAddForm" (ngSubmit)="onSubmit()">
-        <p>Введите данные о сотруднике: </p>
+        <h4>Новый сотрудник: </h4>
             <div class="form-row">
                 <div class="col-md form-group">
 
-                    <label >Фамилия</label>
+                    <label >Фамилия: </label>
                     <input type="text" formControlName="lastName"
                            class="form-control"  placeholder="Введите фамилию">
 
@@ -14,7 +15,7 @@
                 </div>
 
                 <div class="col-md form-group">
-                    <label>Имя</label>
+                    <label>Имя: </label>
                     <input type="text" formControlName="firstName"
                            class="form-control" placeholder="Введите имя">
                     <p *ngIf="!employeeAddForm.get('firstName').valid
@@ -25,7 +26,7 @@
             </div>
             <div class="form-row">
                 <div class="col-md form-group">
-                    <label>Отчество</label>
+                    <label>Отчество: </label>
                     <input type="text" formControlName="patronymic"
                            class="form-control" placeholder="Введите отчество">
                     <p *ngIf="!employeeAddForm.get('patronymic').valid
@@ -68,29 +69,31 @@
         <div class="form-row">
             <div class="col-md form-group">
                 <label >Дата приема:</label>
-                <input type="date"  formControlName="startDate" placeholder="дд-мм-гггг"/>
+                <input type="date"  class="form-control" formControlName="startDate" placeholder="дд-мм-гггг"/>
             </div>
-        </div>
-
-        <div class="form-row">
             <div class="col-md form-group">
                 <label >Дата увольнения:</label>
-                <input type="date"  formControlName="endDate" placeholder="дд-мм-гггг"/>
+                <input type="date"  class="form-control" formControlName="endDate" placeholder="дд-мм-гггг"/>
             </div>
         </div>
 
-        <div class="form-row">
+        <!--<div class="form-row">
             <div class="col-md form-group">
-                <br>
-                <button type="submit" [disabled]="!employeeAddForm.valid" class="btn btn-info">Добавить</button>
-                <button type="button" class="btn btn-warning"  (click)="gotoEmployeeList()">Отмена</button>
+                <label >Дата увольнения:</label>
+                <input type="date"  class="form-control" formControlName="endDate" placeholder="дд-мм-гггг"/>
             </div>
-        </div>
+        </div>-->
+
+
+            <div class="form-group">
+                <button type="submit" [disabled]="!employeeAddForm.valid" class="btn btn-primary">Добавить</button>
+                <button type="button" class="btn btn-secondary"  (click)="gotoEmployeeList()">Отмена</button>
+            </div>
+
     </form>
+    </div>
 </div>
 
-<br>
-<br>
-<br>
+
 
 

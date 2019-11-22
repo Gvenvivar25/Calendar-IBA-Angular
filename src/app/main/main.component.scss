@@ -22,3 +22,12 @@
   width: auto;
   font-size: .8rem;
 }
+
+.ng-select-container {
+  margin: 3px 3px 3px 3px;
+}
+
+.ng-select .ng-select-container {
+  border: 1px solid #17a2b8;
+  color: #163e70;
+}

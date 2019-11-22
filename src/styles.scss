@@ -72,7 +72,7 @@ hr {
 
 
 .btn-delete {
-    background-color: firebrick;
+    background-color: #bfbebc;
     border: none;
     color: white;
     padding: 5px 10px;
@@ -87,7 +87,7 @@ hr {
 }
 
 .btn-edit {
-    background-color: darkcyan;
+    background-color: #5aafd8;
     border: none;
     color: white;
     padding: 5px 10px;
@@ -97,12 +97,33 @@ hr {
     margin-right: 10px;
     border-radius: 5px;
     &:hover {
-        background-color: #00afaf;
+        background-color: #ffe710;
     }
 }
 
+.btn-edit-primary {
+  background-color: transparent;
+  border: none;
+  color: #0e1070;
+  padding: 5px 10px;
+  font-size: 18px;
+  cursor: pointer;
+  margin-top: 5px;
+  margin-right: 10px;
+  border-radius: 2px;
+  &:hover {
+    color: #5aafd8;
+  }
+  &:active {
+    outline: none;
+  }
+  &:focus {
+    outline: none;
+  }
+}
+
 .btn-edit-yellow {
-  background-color: #d4bc10;
+  background-color: #2a60ff;
   border: none;
   color: white;
   padding: 5px 10px;
@@ -112,7 +133,7 @@ hr {
   margin-right: 10px;
   border-radius: 5px;
   &:hover {
-    background-color: #ffe710;
+    background-color: #38cd36;
   }
 }
 
@@ -127,7 +148,7 @@ hr {
     margin-bottom: 5px;
     border-radius: 5px;
     &:hover {
-        background-color: #00ee8e;
+        background-color: #38cd36;
     }
 }
 
@@ -137,7 +158,7 @@ button {
 }
 
 .calendar-trash {
-  border: 2px solid blue;
+
 
 }
 .fc-event, .fc-event-dot {
@@ -178,17 +199,23 @@ button {
 .tooltip {
   position: absolute;
   z-index: 9999;
-  background: #FFC107;
+ // background: #2433ff;
   color: black;
   width: 150px;
   border-radius: 3px;
-  box-shadow: 0 0 2px rgba(0,0,0,0.5);
+//  box-shadow: 0 0 2px rgba(0,0,0,0.5);
   padding: 10px;
   text-align: center;
 }
+
+.tooltip-inner {
+  background-color: #1f2d3f;
+  color: white;
+
+}
 .style5 .tooltip {
-  background: #1E252B;
-  color: #FFFFFF;
+//  background: #1E252B;
+//  color: #FFFFFF;
   max-width: 200px;
   width: auto;
   font-size: .8rem;
@@ -205,7 +232,7 @@ button {
 
 .tooltip .tooltip-arrow,
 .popper .popper__arrow {
-  border-color: #FFC107;
+  border-color: #050fc1;
 }
 .style5 .tooltip .tooltip-arrow {
   border-color: #1E252B;
@@ -273,12 +300,12 @@ button {
 
 /*-------------Table-----------------------------------------*/
 
-.table-head {
-  background-color: rgba(97, 134, 168, 0);
+.table-dictionary {
+  background-color: rgba(206, 241, 252, 0.35);
 }
 
 .table-active, .table-striped {
-  background-color: rgba(101, 232, 255, 0.1);
+  background-color: rgb(255, 255, 255);
   color: #003c81;
 }
 
@@ -297,5 +324,32 @@ button {
 }
 
 .table .thead-light th {
-  background-color: rgba(91, 195, 238, 0.29);
+  background-color: rgba(206, 241, 252, 0.35);
+}
+
+.form-group {
+  margin: 0 0 10px 0px;
+}
+
+.form-control {
+  color: #050d7a;
+  border: 1px solid #163e70;
+}
+
+.ng-select .ng-select-container {
+  border: 1px solid #163e70;
+  color: #163e70;
+}
+
+::-webkit-input-placeholder {
+  color: #70120f;
+}
+
+.ng-has-value .ng-placeholder {
+  color: red;
+}
+
+.btn-outline-info {
+  margin: 3px 0px 3px -1px;
+
 }

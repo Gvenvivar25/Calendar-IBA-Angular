@@ -102,6 +102,9 @@ export class ReportViewComponent implements OnInit {
       });
 
   }
+    gotoReportList() {
+        this.router.navigate(['/reports']);
+    }
 
     createFile(response) {
         if (this.format === 'XLSX') {

@@ -1,8 +1,9 @@
-<div class="card my-10">
-    <div class="card-body">
+<div class="container-fluid">
+    <div class="col-md-6">
+        <h4>Новый учебный план: </h4>
         <form [formGroup]="courseForm" (ngSubmit)="onSubmit(courseForm.value)">
             <div class="form-group">
-                <label >Наименование учебного плана</label>
+                <label >Наименование учебного плана: </label>
                 <input type="text" formControlName="description"
                        class="form-control"  placeholder="Введите наименование учебного плана">
 
@@ -12,7 +13,7 @@
              </div>
 
             <div class="form-group">
-                <label>Вид курса </label>
+                <label>Вид курса: </label>
                 <ng-select
                         [items]="typesOfCourse"
                         bindLabel="value"
@@ -26,14 +27,14 @@
             </div>
 
             <!--<div class="form-group">
-                <label>Количество часов в курсе</label>
+                <label>Количество часов в курсе: </label>
                 <input type="text" formControlName="numberOfHours"
                        class="form-control"  placeholder="Введите количество часов в курсе">
-
             </div>-->
-            <button type="submit" [disabled]="!courseForm" class="btn btn-info">Добавить</button>
-            <button type="button" class="btn btn-warning"  (click)="gotoCoursesList()">Отмена</button>
-
+            <div class="form-group">
+                <button type="submit" [disabled]="!courseForm.valid" class="btn btn-primary">Добавить</button>
+                <button type="button" class="btn btn-secondary"  (click)="gotoCoursesList()">Отмена</button>
+            </div>
         </form>
     </div>
 </div>

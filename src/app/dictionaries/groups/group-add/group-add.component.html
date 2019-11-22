@@ -1,8 +1,9 @@
-<div class="card col-md-8 offset-2">
-    <div class="card-body">
+<div class="container-fluid">
+    <div class="col-md-6">
+        <h4>Новая группа: </h4>
         <form [formGroup]="groupForm" (ngSubmit)="onSubmit()">
             <div class="form-group">
-                <label >Наименование группы</label>
+                <label >Наименование группы: </label>
                 <input type="text" formControlName="groupName"
                        class="form-control"  placeholder="Введите наименование группы">
 
@@ -10,10 +11,8 @@
                     && groupForm.get('groupName').touched" class="alert alert-danger">
                     Поле обязательно для заполнения. Введите наименование группы!</p>
             </div>
-
-
             <div class="form-group">
-                <label>Форма образования </label>
+                <label>Форма образования: </label>
                 <ng-select
                         [items]="typesOfEducation"
                         bindLabel="value"
@@ -27,7 +26,7 @@
             </div>
 
             <div class="form-group">
-                <label>Учебный план </label>
+                <label>Учебный план: </label>
                 <ng-select
                         [items]="descriptionsOfPlan"
                         bindLabel="description"
@@ -40,7 +39,7 @@
             </div>
 
             <div class="form-group">
-                <label >Количество подгрупп</label>
+                <label >Количество подгрупп: </label>
                 <input type="text" formControlName="numberOfSubgroup"
                        class="form-control"  placeholder="Введите количество подгрупп">
 
@@ -49,22 +48,23 @@
                     Поле не заполнено или введены не цифры. Введите цифры от 1 до 9!</p>
             </div>
 
-            <div class="form-group col-md-4">
-                <label >Цвет</label>
+            <div class="form-group col-md-6" style="padding: 0">
+                <label >Цвет для группы: </label>
                 <input class="form-control"
                        [style.background]="color"
                        [cpOKButton]="true"
                        [cpSaveClickOutside]="false"
                        [cpOKButtonClass]= "'btn btn-primary btn-xs'"
                        [cpCancelButton]="true"
-                       [cpCancelButtonClass]= "'btn btn-primary btn-xs'"
+                       [cpCancelButtonClass]= "'btn btn-secondary btn-xs'"
                        [cpCancelButtonText]="'Отмена'"
                        [(colorPicker)]="color"
                 />
             </div>
-            <button type="submit" [disabled]="!groupForm" class="btn btn-info">Добавить</button>
-            <button type="button" class="btn btn-warning"  (click)=" gotoGroupsList()">Отмена</button>
-
+            <div class="form-group">
+                <button type="submit" [disabled]="!groupForm.valid" class="btn btn-primary">Добавить</button>
+                <button type="button" class="btn btn-secondary"  (click)=" gotoGroupsList()">Отмена</button>
+            </div>
         </form>
     </div>
 </div>

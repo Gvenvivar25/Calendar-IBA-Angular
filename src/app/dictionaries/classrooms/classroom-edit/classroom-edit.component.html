@@ -1,10 +1,10 @@
+<div class="container-fluid">
 <div class="col-sm-6">
     <form [formGroup]="classroomEditForm" (ngSubmit)="onSubmit()">
-        <p>Введите новые данные об аудитории: </p>
-
+        <h4>Введите новые данные об аудитории: </h4>
         <div class="form-row">
             <div class="col-md form-group">
-                <label >Номер аудитории</label>
+                <label >Номер аудитории:</label>
                 <input type="text" formControlName="number"
                        class="form-control"  placeholder="Введите номер аудитории">
 
@@ -32,7 +32,7 @@
 
         <div class="form-row">
             <div class="col-md form-group">
-                <label>Выберите цвет аудитории: </label>
+                <label>Выберите цвет для аудитории: </label>
 
                 <input class="form-control"
                         [style.background]="color"
@@ -50,13 +50,13 @@
 
         <br>
         <button type="submit" [disabled]="!classroomEditForm.valid"
-                class="btn btn-info">Сохранить</button>
-        <button type="button" class="btn btn-warning"  (click)="gotoClassroomList()">Отмена</button>
+                class="btn btn-primary">Сохранить</button>
+        <button type="button" class="btn btn-secondary"  (click)="gotoClassroomList()">Отмена</button>
 
 
     </form>
 </div>
-
+</div>
 <br>
 <br>
 <br>

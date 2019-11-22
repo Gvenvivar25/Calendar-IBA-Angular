@@ -14,7 +14,7 @@
     </div>
     <div class="row">
         <div class="col-sm">
-            <table class="table table-striped">
+            <table class="table table-active">
                 <thead class="thead-light">
                 <tr>
                     <th></th>
@@ -51,7 +51,7 @@
                             </button>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="table-dictionary">
                         <td colspan="6" *ngIf="rowSelected==employee.id" >
                             <app-employee-detail [idEmp]="employee.id"></app-employee-detail>
                         </td>

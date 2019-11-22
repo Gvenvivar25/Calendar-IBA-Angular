@@ -1,12 +1,10 @@
-<div class="container">
-    <div class="col-md-8">
+<div class="container-fluid">
+    <div class="col-md-6">
         <form [formGroup]="userEditForm" (ngSubmit)="onSubmit(userEditForm.value)">
-            <p>Введите  новые данные о пользователе: </p>
+            <h4>Введите  новые данные о пользователе: </h4>
             <div class="form-group">
-                <label >Имя пользователя (логин)</label>
-                <input type="text" formControlName="username"
-                       class="form-control"  placeholder="Введите имя пользователя">
-
+                <label >Имя пользователя (логин):</label>
+                <input type="text" formControlName="username" class="form-control"  placeholder="Введите имя пользователя">
                 <p *ngIf="!userEditForm.get('username').valid
                 && userEditForm.get('username').touched" class="alert alert-danger">
                     Поле обязательно для заполнения. Введите имя пользователя!</p>
@@ -24,10 +22,8 @@
 
             <div class="form-row">
                 <div class="col-md form-group">
-
-                    <label >Фамилия</label>
-                    <input type="text" formControlName="lastName"
-                           class="form-control"  placeholder="Введите фамилию">
+                    <label >Фамилия: </label>
+                    <input type="text" formControlName="lastName" class="form-control"  placeholder="Введите фамилию">
 
                     <p *ngIf="!userEditForm.get('lastName').valid
                         && userEditForm.get('lastName').touched" class="alert alert-danger">
@@ -35,40 +31,35 @@
                 </div>
 
                 <div class="col-md form-group">
-                    <label>Имя</label>
-                    <input type="text" formControlName="firstName"
-                           class="form-control" placeholder="Введите имя">
+                    <label>Имя: </label>
+                    <input type="text" formControlName="firstName" class="form-control" placeholder="Введите имя">
                     <p *ngIf="!userEditForm.get('firstName').valid
                         && userEditForm.get('firstName').touched" class="alert alert-danger">
                         Поле обязательно для заполнения. Введите имя!</p>
                 </div>
 
             </div>
-            <div class="form-row">
-                <div class="col-md form-group">
-                    <label>Отчество</label>
-                    <input type="text" formControlName="patronymic"
-                           class="form-control" placeholder="Введите отчество">
-                    <p *ngIf="!userEditForm.get('patronymic').valid
+
+            <div class="form-group">
+                <label>Отчество: </label>
+                <input type="text" formControlName="patronymic" class="form-control" placeholder="Введите отчество">
+                <p *ngIf="!userEditForm.get('patronymic').valid
                     && userEditForm.get('patronymic').touched" class="alert alert-danger">
                         Поле обязательно для заполнения. Введите отчество!</p>
-                </div>
             </div>
 
-            <div class="form-row">
-                <div class="col-md form-group">
-                    <label>Email</label>
-                    <input type="text" formControlName="email"
-                           class="form-control" placeholder="Введите email">
-                    <p *ngIf="!userEditForm.get('email').valid
+            <div class="form-group">
+                <label>Email</label>
+                <input type="text" formControlName="email" class="form-control" placeholder="Введите email">
+                <p *ngIf="!userEditForm.get('email').valid
                     && userEditForm.get('email').touched" class="alert alert-danger">
                         Поле обязательно для заполнения. Введите email</p>
-                </div>
             </div>
 
-            <button type="submit" [disabled]="!userEditForm.valid" class="btn btn-info">Сохранить</button>
-            <button type="button" class="btn btn-warning"  (click)="gotoUserList()">Отмена</button>
-
+            <div class="form-group">
+                <button type="submit" [disabled]="!userEditForm.valid" class="btn btn-primary">Сохранить</button>
+                <button type="button" class="btn btn-secondary"  (click)="gotoUserList()">Отмена</button>
+            </div>
         </form>
     </div>
 </div>

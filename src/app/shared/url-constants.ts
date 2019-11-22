@@ -46,7 +46,7 @@ export class UrlConstants {
     public static URL_DESCRIPTION_OF_PLAN = environment.apiUrl + '/api/v1/plans';
     public static URL_TIMETABLE_OF_CLASSES = environment.apiUrl + '/api/v1/timetable';
     public static URL_USER = environment.apiUrl + '/api/v1/users';
-    public static URL_ROLE = environment.apiUrl + '/api/v1/roles";';
+    public static URL_ROLE = environment.apiUrl + '/api/v1/roles';
     public static URL_STATUS = environment.apiUrl + '/api/v1/users/status';
     public static URL_AUTH = environment.apiUrl + '/api/v1/auth';
     public static URL_ADDWORK = environment.apiUrl + '/api/v1/addworks';

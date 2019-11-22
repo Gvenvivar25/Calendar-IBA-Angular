@@ -1,31 +1,29 @@
-<div class="container">
-    <div class="row">
-        <div class="col-md-8">
-        <form [formGroup]="disciplineAddForm" (ngSubmit)="onSubmit(disciplineAddForm.value)">
-            <div class="form-group">
-                <label >Краткое наименование предмета</label>
-                <input type="text" formControlName="shortDisciplineName"
-                       class="form-control"  placeholder="Введите краткое наименование предмета">
+<div class="container-fluid">
+        <div class="col-md-6">
+            <h4>Новый предмет: </h4>
+            <form [formGroup]="disciplineAddForm" (ngSubmit)="onSubmit(disciplineAddForm.value)">
+                <div class="form-group">
+                    <label >Краткое наименование предмета:</label>
+                    <input type="text" formControlName="shortDisciplineName"
+                           class="form-control"  placeholder="Введите краткое наименование предмета">
 
-                <p *ngIf="!disciplineAddForm.get('shortDisciplineName').valid
-                && disciplineAddForm.get('shortDisciplineName').touched" class="alert alert-danger">
-                    Поле обязательно для заполнения. Введите наименование!</p>
-            </div>
+                    <p *ngIf="!disciplineAddForm.get('shortDisciplineName').valid
+                    && disciplineAddForm.get('shortDisciplineName').touched" class="alert alert-danger">
+                        Поле обязательно для заполнения. Введите наименование!</p>
+                </div>
 
-            <div class="form-group">
-                <label>Полное наименование предмета</label>
-                <input type="text" formControlName="disciplineName"
-                       class="form-control" placeholder="Введите полное наименование предмета">
-                <p *ngIf="!disciplineAddForm.get('disciplineName').valid
-                && disciplineAddForm.get('disciplineName').touched" class="alert alert-danger">
-                    Поле обязательно для заполнения. Введите полное наименование!</p>
-
-            </div>
-            <button type="submit" [disabled]="!disciplineAddForm.valid" class="btn btn-info">Добавить</button>
-            <button type="button" class="btn btn-warning"  (click)="gotoDisciplineList()">Отмена</button>
-
-        </form>
+                <div class="form-group">
+                    <label>Полное наименование предмета:</label>
+                    <input type="text" formControlName="disciplineName"
+                           class="form-control" placeholder="Введите полное наименование предмета">
+                    <p *ngIf="!disciplineAddForm.get('disciplineName').valid
+                    && disciplineAddForm.get('disciplineName').touched" class="alert alert-danger">
+                        Поле обязательно для заполнения. Введите полное наименование!</p>
+                </div>
+                <div class="form-group">
+                    <button type="submit" [disabled]="!disciplineAddForm.valid" class="btn btn-primary">Добавить</button>
+                    <button type="button" class="btn btn-secondary"  (click)="gotoDisciplineList()">Отмена</button>
+                </div>
+            </form>
         </div>
-    </div>
-
 </div>

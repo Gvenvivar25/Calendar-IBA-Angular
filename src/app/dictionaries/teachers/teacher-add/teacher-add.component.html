@@ -1,98 +1,92 @@
-<form [formGroup]="teacherAddForm" (ngSubmit)="onSubmit()">
-    <p>Введите данные о преподавателе: </p>
-    <div formGroupName="teacherData">
-        <div class="form-row">
+<div class="container-fluid">
+    <div class="col-md-6">
+        <form [formGroup]="teacherAddForm" (ngSubmit)="onSubmit()">
+            <h4>Новый преподаватель: </h4>
+            <div formGroupName="teacherData">
+                <div class="form-row">
                     <div class="col-md form-group">
-
-                        <label >Фамилия</label>
+                        <label >Фамилия: </label>
                         <input type="text" formControlName="lastName"
-                               class="form-control"  placeholder="Введите фамилию">
+                                       class="form-control"  placeholder="Введите фамилию">
 
                         <p *ngIf="!teacherAddForm.get('teacherData.lastName').valid
-                        && teacherAddForm.get('teacherData.lastName').touched" class="alert alert-danger">
-                            Поле обязательно для заполнения. Введите фамилию!</p>
+                                && teacherAddForm.get('teacherData.lastName').touched" class="alert alert-danger">
+                                    Поле обязательно для заполнения. Введите фамилию!</p>
                     </div>
 
                     <div class="col-md form-group">
-                        <label>Имя</label>
+                        <label>Имя: </label>
                         <input type="text" formControlName="firstName"
-                               class="form-control" placeholder="Введите имя">
+                                       class="form-control" placeholder="Введите имя">
                         <p *ngIf="!teacherAddForm.get('teacherData.firstName').valid
-                        && teacherAddForm.get('teacherData.firstName').touched" class="alert alert-danger">
-                            Поле обязательно для заполнения. Введите имя!</p>
+                                && teacherAddForm.get('teacherData.firstName').touched" class="alert alert-danger">
+                                    Поле обязательно для заполнения. Введите имя!</p>
                     </div>
 
+                        </div>
+                <div class="form-row">
+                        <div class="col-md form-group">
+                            <label>Отчество: </label>
+                            <input type="text" formControlName="patronymic"
+                                   class="form-control" placeholder="Введите отчество">
+                            <p *ngIf="!teacherAddForm.get('teacherData.patronymic').valid
+                            && teacherAddForm.get('teacherData.patronymic').touched" class="alert alert-danger">
+                                Поле обязательно для заполнения. Введите отчество!</p>
+                        </div>
                 </div>
-        <div class="form-row">
-                <div class="col-md form-group">
-                    <label>Отчество</label>
-                    <input type="text" formControlName="patronymic"
-                           class="form-control" placeholder="Введите отчество">
-                    <p *ngIf="!teacherAddForm.get('teacherData.patronymic').valid
-                    && teacherAddForm.get('teacherData.patronymic').touched" class="alert alert-danger">
-                        Поле обязательно для заполнения. Введите отчество!</p>
-                </div>
-        </div>
-        <div class="form-row">
-                <div class="col-md form-group">
-                    <label>Вид найма </label>
-                    <ng-select
-                               [items]="types"
-                               bindLabel="value"
-                               bindValue="id"
-                               [multiple]="false"
-                               placeholder="Выберите вид найма"
-                               clearAllText="Clear"
-                               formControlName="typeOfEmployment"
-                    >
-                    </ng-select>
+                <div class="form-row">
+                        <div class="col-md form-group">
+                            <label>Вид найма: </label>
+                            <ng-select
+                                       [items]="types"
+                                       bindLabel="value"
+                                       bindValue="id"
+                                       [multiple]="false"
+                                       placeholder="Выберите вид найма"
+                                       clearAllText="Clear"
+                                       formControlName="typeOfEmployment"
+                            >
+                            </ng-select>
 
+                        </div>
                 </div>
-        </div>
-    </div>
-
-        <div class="form-row">
-                <div class="col-md form-group">
-                    <label >Предметы преподавателя</label>
-                    <ng-select
-                               [items]="disciplines"
-                               bindLabel="shortDisciplineName"
-                               bindValue="id"
-                               [multiple]="true"
-                               placeholder="Выберите один или несколько предметов, которые ведет преподаватель"
-                               clearAllText="Clear"
-                               formControlName="disciplinesData"
-                               >
-                    </ng-select>
-                </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-4">
-                <label >Цвет</label>
-                <input class="form-control"
-                       [style.background]="color"
-                       [cpOKButton]="true"
-                       [cpSaveClickOutside]="false"
-                       [cpOKButtonClass]= "'btn btn-primary btn-xs'"
-                       [cpCancelButton]="true"
-                       [cpCancelButtonClass]= "'btn btn-primary btn-xs'"
-                       [cpCancelButtonText]="'Отмена'"
-                       [(colorPicker)]="color"
-                />
             </div>
-        </div>
 
-    <div class="form-row">
-            <div class="col-md form-group">
-                <br>
-                <button type="submit" [disabled]="!teacherAddForm.valid" class="btn btn-info">Добавить</button>
-                <button type="button" class="btn btn-warning"  (click)="gotoTeacherList()">Отмена</button>
+                <div class="form-row">
+                        <div class="col-md form-group">
+                            <label >Предметы преподавателя: </label>
+                            <ng-select
+                                       [items]="disciplines"
+                                       bindLabel="shortDisciplineName"
+                                       bindValue="id"
+                                       [multiple]="true"
+                                       placeholder="Выберите один или несколько предметов, которые ведет преподаватель"
+                                       clearAllText="Clear"
+                                       formControlName="disciplinesData"
+                                       >
+                            </ng-select>
+                        </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label >Цвет для преподавателя: </label>
+                        <input class="form-control"
+                               [style.background]="color"
+                               [cpOKButton]="true"
+                               [cpSaveClickOutside]="false"
+                               [cpOKButtonClass]= "'btn btn-primary btn-xs'"
+                               [cpCancelButton]="true"
+                               [cpCancelButtonClass]= "'btn btn-primary btn-xs'"
+                               [cpCancelButtonText]="'Отмена'"
+                               [(colorPicker)]="color"
+                        />
+                    </div>
+                </div>
+            <div class="form-group">
+                <button type="submit" [disabled]="!teacherAddForm.valid" class="btn btn-primary">Добавить</button>
+                <button type="button" class="btn btn-secondary"  (click)="gotoTeacherList()">Отмена</button>
             </div>
+
+           </form>
     </div>
-   </form>
-
-
-<br>
-<br>
-<br>
-
+</div>

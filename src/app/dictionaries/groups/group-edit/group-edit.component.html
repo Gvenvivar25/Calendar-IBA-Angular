@@ -1,9 +1,9 @@
-<div class="col-sm-6">
+<div class="container-fluid">
+<div class="col-md-6">
     <form [formGroup]="groupEditForm" (ngSubmit)="onSubmit()">
-        <p>Внесите изменения в данные о группе: </p>
-
+        <h4>Внесите новые данные о группе: </h4>
         <div class="form-group">
-            <label >Наименование группы</label>
+            <label >Наименование группы: </label>
             <input type="text" formControlName="groupName"
                    class="form-control"  placeholder="Введите наименование группы">
             <p *ngIf="!groupEditForm.get('groupName').valid
@@ -13,7 +13,7 @@
 
 
         <div class="form-group">
-            <label>Форма образования </label>
+            <label>Форма образования: </label>
             <ng-select
                     [items]="typesOfEducation"
                     bindLabel="value"
@@ -27,7 +27,7 @@
         </div>
 
         <div class="form-group">
-            <label>Учебный план </label>
+            <label>Учебный план: </label>
             <ng-select
                     [items]="descriptionsOfPlan"
                     bindLabel="description"
@@ -41,7 +41,7 @@
         </div>
 
         <div class="form-group">
-            <label >Количество подгрупп</label>
+            <label >Количество подгрупп: </label>
             <input type="text" formControlName="numberOfSubgroup"
                    class="form-control"  placeholder="Введите количество подгрупп">
 
@@ -51,7 +51,7 @@
         </div>
 
         <div class="form-group">
-            <label >Цвет</label>
+            <label >Цвет для группы: </label>
             <input class="form-control"
                    [style.background]="color"
                    [cpOKButton]="true"
@@ -63,18 +63,14 @@
                    [(colorPicker)]="color"
             />
         </div>
-
-        <br>
-        <button type="submit" [disabled]="!groupEditForm.valid"
-                class="btn btn-info">Сохранить</button>
-        <button type="button" class="btn btn-warning"  (click)="gotoGroupList()">Отмена</button>
-
+        <div class="form-group">
+            <button type="submit" [disabled]="!groupEditForm.valid" class="btn btn-primary">Сохранить</button>
+            <button type="button" class="btn btn-secondary"  (click)="gotoGroupList()">Отмена</button>
+        </div>
 
     </form>
 </div>
-
-<br>
-<br>
+</div>
 <br>
 
 

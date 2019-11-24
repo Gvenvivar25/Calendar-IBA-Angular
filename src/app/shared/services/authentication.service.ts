@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {UrlConstants} from '../url-constants';
-import {AuthenticationRequest} from '../models/auth.model';
+import {AuthenticationModel} from '../models/auth.model';
 import {BehaviorSubject, of} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {ToastrService} from 'ngx-toastr';
@@ -38,8 +38,8 @@ export class AuthenticationService {
         return localStorage.getItem('token');
     }
 
-    public login(AuthenticationRequestDto: AuthenticationRequest) {
-       return this.http.post<any>(this.auth, AuthenticationRequestDto)
+    public login(authenticationRequestDto: AuthenticationModel) {
+       return this.http.post<any>(this.auth, authenticationRequestDto)
            .pipe(map((res: any) => {
                 localStorage.setItem('role', res.roles[0]);
                 localStorage.setItem('token', res.token);
@@ -51,8 +51,8 @@ export class AuthenticationService {
                    console.log(err, 'Доступ запрещен');
                    return of(null);
                } else {this.toastr.error(`Неверный логин или пароль`, 'Ошибка');
-                                  console.log(err, 'Неверный логин или пароль');
-                                  return of(null); }
+                       console.log(err, 'Неверный логин или пароль');
+                       return of(null); }
                }));
     }
 

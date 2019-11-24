@@ -18,7 +18,7 @@
             <button class="btn btn-outline-info" (click)="loadTeacherEvents()">Преподаватели</button>
             <button class="btn btn-outline-info" (click)="loadGroupEvents()">Группы</button>
         </div>
-        <div class="col-md-3" *ngIf="isGroup">
+        <div class="col-md-3 " *ngIf="isGroup">
             <ng-select [(ngModel)]="group"
                        [items]="groups"
                        bindLabel="groupName"

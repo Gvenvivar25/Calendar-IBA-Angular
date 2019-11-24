@@ -24,8 +24,9 @@ import { AddWorkAddComponent } from './additional-work/add-work-add/add-work-add
 import { AddWorkEditComponent } from './additional-work/add-work-edit/add-work-edit.component';
 import {ToastrModule} from 'ngx-toastr';
 import { Page403Component } from './shared/components/page403/page403.component';
+import {AddWorkModule} from './additional-work/add-work.module';
 
-registerLocaleData(localeIt);
+/*registerLocaleData(localeIt);*/
 
 
 @NgModule({
@@ -36,9 +37,6 @@ registerLocaleData(localeIt);
     MainComponent,
     SignInComponent,
     Page404Component,
-    AddWorkListComponent,
-    AddWorkAddComponent,
-    AddWorkEditComponent,
     Page403Component,
   ],
 
@@ -49,11 +47,12 @@ registerLocaleData(localeIt);
     FormsModule,
     ReactiveFormsModule,
     DictionariesModule,
+    TimetablesModule,
+    AddWorkModule,
     ReportsModule,
     AppRoutingModule,
     NgSelectModule,
     FullCalendarModule,
-    TimetablesModule,
     ToastrModule.forRoot({
         closeButton: true,
        // positionClass: 'toast-bottom-right'

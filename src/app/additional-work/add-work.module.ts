@@ -1,32 +1,30 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReportsRoutingModule } from './reports-routing.module';
+import { AddWorkRoutingModule } from './add-work-routing.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
 import {HttpClientModule} from '@angular/common/http';
 import {NgSelectModule} from '@ng-select/ng-select';
-import {ReportsComponent} from './reports.component';
-import {NgxDocViewerModule} from 'ngx-doc-viewer';
-import { ReportViewComponent } from './report-view/report-view.component';
-import { ReportListComponent } from './report-list/report-list.component';
+import {AddWorkListComponent} from './add-work-list/add-work-list.component';
+import {AddWorkAddComponent} from './add-work-add/add-work-add.component';
+import {AddWorkEditComponent} from './add-work-edit/add-work-edit.component';
 
 
 @NgModule({
   declarations: [
-      ReportsComponent,
-      ReportViewComponent,
-      ReportListComponent,
+      AddWorkListComponent,
+      AddWorkAddComponent,
+      AddWorkEditComponent,
 
   ],
   imports: [
       CommonModule,
-      ReportsRoutingModule,
+      AddWorkRoutingModule,
       ReactiveFormsModule,
       BrowserModule,
       HttpClientModule,
       FormsModule,
       NgSelectModule,
-      NgxDocViewerModule,
 ]
 })
-export class ReportsModule { }
+export class AddWorkModule { }

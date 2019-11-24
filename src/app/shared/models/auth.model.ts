@@ -1,4 +1,4 @@
-export class AuthenticationRequest {
+export class AuthenticationModel {
     public uername: string;
     public password: string;
 }

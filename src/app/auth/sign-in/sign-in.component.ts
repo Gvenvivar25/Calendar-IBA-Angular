@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {AuthenticationRequest} from '../../shared/models/auth.model';
 import {AuthenticationService} from '../../shared/services/authentication.service';
 import {first} from 'rxjs/operators';
+import {AuthenticationModel} from '../../shared/models/auth.model';
 
 @Component({
   selector: 'app-sign-in',
@@ -16,7 +16,7 @@ export class SignInComponent implements OnInit {
     submitted = false;
     returnUrl: string;
     error = '';
-    authReqDto: AuthenticationRequest;
+    authReqDto: AuthenticationModel;
 
 
   constructor( private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router,

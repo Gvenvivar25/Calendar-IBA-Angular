@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Course, DescriptionOfPlan} from '../course.model';
-import {DescriptionOfPlanService} from '../../../shared/services/description-of-plan.service';
+import {DescriptionOfPlanService} from '../description-of-plan.service';
 
 @Component({
   selector: 'app-course-list',

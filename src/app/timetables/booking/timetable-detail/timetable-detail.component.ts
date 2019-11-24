@@ -7,7 +7,7 @@ import {DisciplinesService} from '../../../dictionaries/disciplines/disciplines.
 import {TeachersService} from '../../../dictionaries/teachers/teachers.service';
 import {Discipline} from '../../../dictionaries/disciplines/discipline.model';
 import {Teacher} from '../../../dictionaries/teachers/teacher.model';
-import {DescriptionOfPlanService} from '../../../shared/services/description-of-plan.service';
+import {DescriptionOfPlanService} from '../../../dictionaries/courses/description-of-plan.service';
 import {TypeOfWork} from '../../../dictionaries/courses/course.model';
 import {ClassroomService} from '../../../dictionaries/classrooms/classroom.service';
 import {Classroom} from '../../../dictionaries/classrooms/classroom.model';

@@ -4,7 +4,7 @@ import {Discipline} from '../../disciplines/discipline.model';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DisciplinesService} from '../../disciplines/disciplines.service';
 import {DescriptionOfPlan, LessonPlan, TypeOfWork} from '../course.model';
-import {DescriptionOfPlanService} from '../../../shared/services/description-of-plan.service';
+import {DescriptionOfPlanService} from '../description-of-plan.service';
 import {Teacher, TeacherDto} from '../../teachers/teacher.model';
 import {TeachersService} from '../../teachers/teachers.service';
 

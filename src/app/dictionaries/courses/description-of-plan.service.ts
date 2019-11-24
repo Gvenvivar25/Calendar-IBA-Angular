@@ -2,8 +2,8 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
-import { DescriptionOfPlan, LessonPlan, TypeOfWork} from '../../dictionaries/courses/course.model';
-import {UrlConstants} from '../url-constants';
+import { DescriptionOfPlan, LessonPlan, TypeOfWork} from './course.model';
+import {UrlConstants} from '../../shared/url-constants';
 import {ToastrService} from 'ngx-toastr';
 
 const httpOptions = {

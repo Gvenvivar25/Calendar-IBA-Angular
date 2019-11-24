@@ -4,8 +4,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {GroupService} from '../group.service';
 import {Group, TypeOfEducation} from '../group.model';
 import {DescriptionOfPlan, DescriptionOfPlanDto} from '../../courses/course.model';
-import {TypeOfEducationService} from '../../../shared/services/type-of-education.service';
-import {DescriptionOfPlanService} from '../../../shared/services/description-of-plan.service';
+import {TypeOfEducationService} from '../../courses/type-of-education.service';
+import {DescriptionOfPlanService} from '../../courses/description-of-plan.service';
 import {Classroom} from '../../classrooms/classroom.model';
 
 @Component({

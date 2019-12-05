@@ -25,6 +25,8 @@
                     <th>Подгруппы</th>
                     <th>Цвет</th>
                     <th></th>
+                    <th></th>
+                    <th></th>
 
                 </tr>
                 </thead>
@@ -45,11 +47,19 @@
                         </td>
                         <td class="td-p-4">
                             <button class="btn-edit-yellow" title="Добавить количество человек в группу" [routerLink]="['students', group.id]" >
-                                <span class="oi oi-people"></span>
+                                <span class="oi oi-people"> </span>
                             </button>
+
+                        </td>
+                        <td class="td-p-4">
+
                             <button class="btn-edit" title="Редактировать" [routerLink]="['edit', group.id]" >
                                 <span class="oi oi-pencil"></span>
                             </button>
+
+                        </td>
+                        <td class="td-p-4">
+
                             <button class="btn-delete" title="Удалить" (click)="onDelete(group)">
                                 <span class="oi oi-trash"></span>
                             </button>

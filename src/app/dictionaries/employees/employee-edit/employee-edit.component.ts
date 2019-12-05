@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {TypeOfPosition} from '../employee.model';
-import {Department} from '../../departments/department.model';
-import {EmployeeService} from '../employee.service';
+import {TypeOfPosition} from '../../../shared/models/employee.model';
+import {Department} from '../../../shared/models/department.model';
+import {EmployeeService} from '../../../shared/services/employee.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {DepartmentService} from '../../departments/department.service';
+import {DepartmentService} from '../../../shared/services/department.service';
 
 @Component({
   selector: 'app-employee-edit',

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Discipline} from '../../disciplines/discipline.model';
+import {Discipline} from '../../../shared/models/discipline.model';
 import {ActivatedRoute, Router} from '@angular/router';
-import {DisciplinesService} from '../../disciplines/disciplines.service';
-import {DescriptionOfPlan, LessonPlan, TypeOfWork} from '../course.model';
-import {DescriptionOfPlanService} from '../description-of-plan.service';
-import {Teacher, TeacherDto} from '../../teachers/teacher.model';
-import {TeachersService} from '../../teachers/teachers.service';
+import {DisciplinesService} from '../../../shared/services/disciplines.service';
+import {DescriptionOfPlan, LessonPlan, TypeOfWork} from '../../../shared/models/course.model';
+import {DescriptionOfPlanService} from '../../../shared/services/description-of-plan.service';
+import {Teacher, TeacherDto} from '../../../shared/models/teacher.model';
+import {TeachersService} from '../../../shared/services/teachers.service';
 
 @Component({
   selector: 'app-lesson-plan-edit',

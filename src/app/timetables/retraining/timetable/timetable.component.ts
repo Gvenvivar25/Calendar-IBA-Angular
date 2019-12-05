@@ -1,20 +1,16 @@
-import {
-    AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, ViewChild, ViewEncapsulation
-} from '@angular/core';
-
+import {AfterViewInit, Component, ElementRef, EventEmitter, Input, Output, ViewChild, ViewEncapsulation} from '@angular/core';
 import {FullCalendarComponent} from '@fullcalendar/angular';
 import resourceTimeGridPlugin from '@fullcalendar/resource-timegrid';
 import interactionPlugin, {Draggable} from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import {EventInput} from '@fullcalendar/core/structs/event';
-import {ClassroomService} from '../../../dictionaries/classrooms/classroom.service';
-import {Classroom} from '../../../dictionaries/classrooms/classroom.model';
+import {ClassroomService} from '../../../shared/services/classroom.service';
+import {Classroom} from '../../../shared/models/classroom.model';
 import {ExternalEvent, NewEvent, TimetableOfClasses, TimetableOfClassesDto} from '../../../shared/models/timetable-of-classes.model';
 import Tooltip from 'tooltip.js';
 import {TimetableOfClassesService} from '../../../shared/services/timetable-of-classes.service';
 import {AuthenticationService} from '../../../shared/services/authentication.service';
-
 
 @Component({
   selector: 'app-timetable',
@@ -37,7 +33,6 @@ export class TimetableComponent implements  AfterViewInit {
     time: string;
     startDate: string;
     endDate: string;
-
 
     header = {
         left: 'resourceTimeGridWeek, resourceTimeGrid3Days, resourceTimeGridDay',
@@ -95,7 +90,6 @@ export class TimetableComponent implements  AfterViewInit {
             }
             console.log(this.resources);
         });
-
     }
 
     ngAfterViewInit(): void {
@@ -103,22 +97,17 @@ export class TimetableComponent implements  AfterViewInit {
         new Draggable(this.external.nativeElement, {
             itemSelector: '.list-group-item',
             eventData(eventEl) {
-                // получаю из div data-event в строку и конвертирую в json, дальше беру необходимые данные
                 const data: string = eventEl.getAttribute('data-event');
                 const dataObj: ExternalEvent = JSON.parse(data);
-                console.log(dataObj.description);
-                console.log(eventEl);
 
                 return {
                     title: eventEl.firstChild.textContent,
                     duration: '00:45',
                     description: dataObj.description,
                     id: null
-
                 };
             }
         });
-
     }
 
     get isAdmin() {
@@ -133,10 +122,6 @@ export class TimetableComponent implements  AfterViewInit {
         const x2 = trashEl.offsetLeft + trashEl.offsetWidth + 20;
         const y1 = trashEl.offsetTop + 60;
         const y2 = trashEl.offsetTop + trashEl.offsetHeight + 120;
-
-        console.log(x1 + ' ' + x2 + ' ' + y1 + ' ' + y2);
-        console.log(event);
-
         if (event.jsEvent.pageX >= x1 && event.jsEvent.pageX <= x2 &&
             event.jsEvent.pageY >= y1 && event.jsEvent.pageY <= y2) {
             let id;
@@ -169,7 +154,6 @@ export class TimetableComponent implements  AfterViewInit {
             typeOfEmployment: dataObj.objectData.teacherDto.typeOfEmployment.id,
             color: dataObj.objectData.teacherDto.color
         };
-
         timetable.groupDto = {
             id: dataObj.objectData.groupDto.id,
             groupName: dataObj.objectData.groupDto.groupName,
@@ -182,7 +166,6 @@ export class TimetableComponent implements  AfterViewInit {
             },
             color: dataObj.objectData.groupDto.color
         };
-
         timetable.typeOfWork = dataObj.objectData.typeOfWork.id;
         timetable.lessonNumber = dataObj.objectData.lessonNumber;
         timetable.pairNumber = dataObj.objectData.pairNumber;
@@ -196,7 +179,7 @@ export class TimetableComponent implements  AfterViewInit {
         if ( event.event._def.resourceIds[0] != null) {
             classroomId = event.event._def.resourceIds[0];
         } else {
-            classroomId = 1; // изменить потом на получение id с календаря
+            classroomId = 1;
         }
         this.classroomService.getClassroom(classroomId).subscribe((res: Classroom) => {
             timetable.classroomDto = {
@@ -205,45 +188,32 @@ export class TimetableComponent implements  AfterViewInit {
                 typeOfClassroom: res.typeOfClassroom.id,
                 color: res.color
             };
-            console.log(timetable.classroomDto);
             this.timetableOfClassesService.saveOneTimetableOfClasses(timetable).subscribe((result: TimetableOfClasses) => {
-                console.log('Пришло с сервера' + JSON.stringify(result));
                 if (result) {
                     event.event.setExtendedProp('id', result.id);
                 } else {
                     event.event.remove();
                     this.clickButtonOk.emit('OK');
-
                 }
-
-             //   event.id = result.id;
-             //   event.event.id = result.id.toString();
-             //   event.event.setProp('id', result.id.toString());
-                console.log(event);
             } );
         });
     }
 
     eventReceive(event) {
-        console.log(event);
         const time = event.event.start.toTimeString().substring(0, 5) + '-' + event.event.end.toTimeString().substring(0, 5) + ', ' +
             event.event.extendedProps.description;
-        console.log(time);
         event.event.setExtendedProp('description', time);
-        console.log(event.event.extendedProps.description);
         // меняю количество ивентов для перетаскивания в DOM
         const need = event.draggedEl.childNodes[1].innerText;
         if (need > 1) {event.draggedEl.childNodes[1].innerText = need - 1; }
         if (need <= 1) {
             event.draggedEl.parentNode.removeChild(event.draggedEl); }
-
         // чтение и запись полученных данных в объект на сервер
         const dataObj = JSON.parse(event.draggedEl.dataset.event);
         this.getTimetableObjectWithResource(dataObj, event);
     }
 
     eventDrop(event) {
-        console.log(event);
         let id: number;
         if (event.event.id !== 'null') {
             id = event.event.id;
@@ -251,9 +221,7 @@ export class TimetableComponent implements  AfterViewInit {
             id = event.oldEvent.extendedProps.id;
         }
 
-        console.log(id);
         this.timetableOfClassesService.getOneTimetableOfClasses(id).subscribe((res: TimetableOfClasses) => {
-            console.log(res);
             const timetable: TimetableOfClassesDto = new TimetableOfClassesDto();
             timetable.id = res.id;
             timetable.disciplineDto = res.disciplineDto;
@@ -265,7 +233,6 @@ export class TimetableComponent implements  AfterViewInit {
                 typeOfEmployment: res.teacherDto.typeOfEmployment.id,
                 color: res.teacherDto.color
             };
-
             timetable.groupDto = {
                 id: res.groupDto.id,
                 groupName: res.groupDto.groupName,
@@ -278,7 +245,6 @@ export class TimetableComponent implements  AfterViewInit {
                 },
                 color: res.groupDto.color
             };
-
             timetable.typeOfWork = res.typeOfWork.id;
             timetable.lessonNumber = res.lessonNumber;
             timetable.pairNumber = res.pairNumber;
@@ -292,7 +258,7 @@ export class TimetableComponent implements  AfterViewInit {
             if ( event.event._def.resourceIds[0] != null) {
                 classroomId = event.event._def.resourceIds[0];
             } else {
-                classroomId = 1; // изменить потом на получение id с календаря
+                classroomId = 1;
             }
             this.classroomService.getClassroom(classroomId).subscribe((res2: Classroom) => {
                 timetable.classroomDto = {
@@ -307,19 +273,13 @@ export class TimetableComponent implements  AfterViewInit {
                     console.log('Пришло с сервера' + JSON.stringify(result));
                     if (result) {
                         event.event.setExtendedProp('id', result.id);
-                    } else {
-                     //   event.event.remove();
-                     //   this.clickButtonOk.emit('OK');
-
                     }
-                    console.log(event);
                 } );
             });
             }
         );
     }
 
-    // метод для передачи Диме периода для ивентов из БД
     getDaysPeriod() {
         const startDay = this.fullcalendar.getApi().view.currentStart;
         const endDay = this.fullcalendar.getApi().view.currentEnd;
@@ -334,7 +294,6 @@ export class TimetableComponent implements  AfterViewInit {
                 this.fullcalendar.getApi().removeAllEvents();
 
                 this.timetableOfClasses = data;
-                console.log(this.timetableOfClasses);
                 this.calendarEvents = [];
 
                 // конвертация объектов из БД в event на календарь
@@ -401,11 +360,6 @@ export class TimetableComponent implements  AfterViewInit {
                     }
 
                 }
-
-                console.log(this.timetableOfClasses);
-                console.log(this.calendarEvents);
-             //   this.fullcalendar.getApi().view.unrenderDates();
-
             }
         );
     }
@@ -421,11 +375,8 @@ export class TimetableComponent implements  AfterViewInit {
         this.time = '?d1=' + start + '&d2=' + end;
         this.timetableOfClassesService.getTimetableOfClasses(this.time).subscribe(
             (data: TimetableOfClasses[]) => {
-
                 this.timetableOfClasses = data;
-                console.log(this.timetableOfClasses);
                 this.calendarEvents = [];
-
                 // конвертация объектов из БД в event на календарь
                 for (let i = 0, len = Object.keys(data).length; i < len; i++) {
                     if (data[i].reserved === true) {
@@ -490,40 +441,17 @@ export class TimetableComponent implements  AfterViewInit {
                     }
 
                 }
-
-                console.log(this.timetableOfClasses);
-                console.log(this.calendarEvents);
-                //   this.fullcalendar.getApi().view.unrenderDates();
-
             }
         );
     }
 
-    handleDateClick(arg) { // handler method
-      //  alert(arg.dateStr);
-        console.log(arg);
-      //  this.requestNewEvent.emit(this.createNewEvent(arg));
-    }
-
-    eventClick(info) {
-        alert('Event: ' + info.event.title);
-
-
-        // change the border color just for fun
-        info.el.style.borderColor = 'red';
-    }
-
     eventRender(info) {
-        // console.log(info);
         this.tooltip = new Tooltip(info.el, {
             title: info.event.extendedProps.description,
-
             placement: 'top',
             trigger: 'hover',
             container: 'body',
         });
-        //  console.log(this.tooltip);
-        //  console.log(info.event.extendedProps.description);
     }
 
     handleEventMouseLeave() {
@@ -536,7 +464,6 @@ export class TimetableComponent implements  AfterViewInit {
         setTimeout (() => {
            this.refetchEvents();
         }, 500);
-
     }
 
     onConfirm() {
@@ -548,5 +475,4 @@ export class TimetableComponent implements  AfterViewInit {
         this.isConfirm = false;
         this.isTimetableConfirm = !this.isTimetableConfirm;
     }
-
 }

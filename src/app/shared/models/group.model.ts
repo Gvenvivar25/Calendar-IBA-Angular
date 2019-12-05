@@ -1,4 +1,4 @@
-import {DescriptionOfPlan, DescriptionOfPlanDto} from '../courses/course.model';
+import {DescriptionOfPlan, DescriptionOfPlanDto} from './course.model';
 
 export class Group {
     public id: number;

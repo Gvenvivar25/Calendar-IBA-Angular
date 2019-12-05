@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {DepartmentService} from '../department.service';
-import {Department} from '../department.model';
+import {DepartmentService} from '../../../shared/services/department.service';
+import {Department} from '../../../shared/models/department.model';
 
 @Component({
   selector: 'app-department-edit',

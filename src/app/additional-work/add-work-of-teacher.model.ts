@@ -1,5 +1,5 @@
-import {Teacher, TeacherDto} from '../dictionaries/teachers/teacher.model';
-import {Group, GroupDto} from '../dictionaries/groups/group.model';
+import {Teacher, TeacherDto} from '../shared/models/teacher.model';
+import {Group, GroupDto} from '../shared/models/group.model';
 
 export class AddWorkOfTeacher {
     public id: number;

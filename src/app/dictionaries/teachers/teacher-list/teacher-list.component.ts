@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 
-import {Teacher} from '../teacher.model';
-import {TeachersService} from '../teachers.service';
+import {Teacher} from '../../../shared/models/teacher.model';
+import {TeachersService} from '../../../shared/services/teachers.service';
 
 @Component({
   selector: 'app-teacher-list',

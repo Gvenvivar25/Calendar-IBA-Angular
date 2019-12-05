@@ -1,14 +1,14 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {TimetableOfClassesService} from '../../../shared/services/timetable-of-classes.service';
-import {GroupService} from '../../../dictionaries/groups/group.service';
-import {Group} from '../../../dictionaries/groups/group.model';
-import {Teacher} from '../../../dictionaries/teachers/teacher.model';
-import {TeachersService} from '../../../dictionaries/teachers/teachers.service';
+import {GroupService} from '../../../shared/services/group.service';
+import {Group} from '../../../shared/models/group.model';
+import {Teacher} from '../../../shared/models/teacher.model';
+import {TeachersService} from '../../../shared/services/teachers.service';
 import {TimetableOfClasses} from '../../../shared/models/timetable-of-classes.model';
 import {ToastrService} from 'ngx-toastr';
-import {ClassroomService} from '../../../dictionaries/classrooms/classroom.service';
-import {Classroom} from '../../../dictionaries/classrooms/classroom.model';
+import {ClassroomService} from '../../../shared/services/classroom.service';
+import {Classroom} from '../../../shared/models/classroom.model';
 
 @Component({
   selector: 'app-timetable-confirm',

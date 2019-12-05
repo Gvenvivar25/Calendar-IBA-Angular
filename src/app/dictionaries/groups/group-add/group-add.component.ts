@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {GroupService} from '../group.service';
-import {Group, TypeOfEducation} from '../group.model';
-import {DescriptionOfPlan, DescriptionOfPlanDto} from '../../courses/course.model';
-import {TypeOfEducationService} from '../../courses/type-of-education.service';
-import {DescriptionOfPlanService} from '../../courses/description-of-plan.service';
-import {Classroom} from '../../classrooms/classroom.model';
+import {GroupService} from '../../../shared/services/group.service';
+import {Group, TypeOfEducation} from '../../../shared/models/group.model';
+import {DescriptionOfPlan, DescriptionOfPlanDto} from '../../../shared/models/course.model';
+import {TypeOfEducationService} from '../../../shared/services/type-of-education.service';
+import {DescriptionOfPlanService} from '../../../shared/services/description-of-plan.service';
+
 
 @Component({
   selector: 'app-group-add',

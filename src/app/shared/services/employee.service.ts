@@ -2,8 +2,8 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
-import {Employee, TypeOfPosition} from './employee.model';
-import {UrlConstants} from '../../shared/url-constants';
+import {Employee, TypeOfPosition} from '../models/employee.model';
+import {UrlConstants} from '../url-constants';
 import {ToastrService} from 'ngx-toastr';
 
 const httpOptions = {

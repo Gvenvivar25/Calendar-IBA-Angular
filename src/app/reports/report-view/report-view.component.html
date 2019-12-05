@@ -2,10 +2,10 @@
 <div class="container-fluid">
     <div class="form-row">
         <div class="col-md-2 form-group" *ngIf="isPeriod">
-                <input type="date" class="form-control" [(ngModel)]="startDate" />
+                <input title="startDate" type="date" class="form-control" [(ngModel)]="startDate" />
         </div>
         <div class="col-md-2 form-group" *ngIf="isPeriod">
-            <input type="date" class="form-control" [(ngModel)]="endDate" />
+            <input title="endDate" type="date" class="form-control" [(ngModel)]="endDate" />
         </div>
 
         <div class="col-md-2" *ngIf="isGroup">
@@ -55,14 +55,15 @@
             >
             </ng-select>
         </div>-->
-        <div class="col-md-1">
+        <div class="col-md">
             <button class="btn btn-primary" (click)="showPDF()">Показать</button>
         </div>
         <!--<div class="col-md-1">
             <button class="btn btn-primary" (click)="download()">Скачать</button>
         </div>-->
+
         <div class="col-md-3">
-            Скачать:
+                Скачать:
             <button class="btn btn-outline-primary" title="Скачать PDF" (click)="download('PDF')"><img src="./assets/pdf-icon3.png"></button>
 
             <button class="btn btn-outline-primary" title="Скачать Word" (click)="download('DOCX')"><span><img src="./assets/word-icon.png"></span></button>

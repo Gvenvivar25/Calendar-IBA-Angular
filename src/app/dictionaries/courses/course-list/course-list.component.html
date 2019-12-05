@@ -21,7 +21,7 @@
                     <th>№</th>
                     <th>Наименование учебного плана</th>
                     <th>Вид курса</th>
-                    <th>Количество часов в плане</th>
+                   <!-- <th>Количество часов в плане</th>-->
                     <th></th>
 
                 </tr>
@@ -37,7 +37,7 @@
 
                         <td>{{course.description}} </td>
                         <td>{{course.typeOfCourse.short_value}} </td>
-                        <td></td>
+                        <!--<td></td>-->
                         <td class="td-p-4">
                             <button class="btn-edit-yellow" title="Добавить/удалить дисциплины в учебный план"
                                     [routerLink]="['lessonplans', course.id]" >

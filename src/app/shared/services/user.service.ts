@@ -3,8 +3,8 @@ import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
 
 import {catchError, tap} from 'rxjs/operators';
-import {UrlConstants} from '../../shared/url-constants';
-import {RoleDto, RoleName, Status, User} from './user.model';
+import {UrlConstants} from '../url-constants';
+import {RoleDto, RoleName, Status, User} from '../models/user.model';
 import {ToastrService} from 'ngx-toastr';
 
 
@@ -43,7 +43,7 @@ export class UserService {
 
     saveUser(user): Observable<User> {
         return this.httpClient.post<User>(UrlConstants.URL_USER, user).pipe(
-            tap((res: User) => this.toastr.success(`Пользователь добавлен!`)),
+            tap(() => this.toastr.success(`Пользователь добавлен!`)),
             catchError(err => {this.toastr.error('Не удалось добавить пользователя', 'Ошибка');
                                console.log(err, 'Не удалось добавить пользователя');
                                return of(null);

@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {DisciplinesService} from '../disciplines.service';
-import {Discipline} from '../discipline.model';
+import {DisciplinesService} from '../../../shared/services/disciplines.service';
+import {Discipline} from '../../../shared/models/discipline.model';
 
 @Component({
     selector: 'app-discipline-detail',

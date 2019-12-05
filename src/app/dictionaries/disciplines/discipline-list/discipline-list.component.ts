@@ -1,7 +1,7 @@
 import {Component,  OnInit} from '@angular/core';
-import {DisciplinesService} from '../disciplines.service';
+import {DisciplinesService} from '../../../shared/services/disciplines.service';
 
-import {Discipline} from '../discipline.model';
+import {Discipline} from '../../../shared/models/discipline.model';
 import {ActivatedRoute, Router} from '@angular/router';
 
 

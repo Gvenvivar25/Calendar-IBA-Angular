@@ -1,5 +1,5 @@
-import {Discipline} from '../disciplines/discipline.model';
-import {Teacher} from '../teachers/teacher.model';
+import {Discipline} from './discipline.model';
+import {Teacher} from './teacher.model';
 
 export class Course {
     public id: number;

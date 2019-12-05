@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Course, TypeOfCourse} from '../course.model';
-import {DescriptionOfPlanService} from '../description-of-plan.service';
+import {Course, TypeOfCourse} from '../../../shared/models/course.model';
+import {DescriptionOfPlanService} from '../../../shared/services/description-of-plan.service';
 
-import {TypeOfCourseService} from '../type-of-course.service';
+import {TypeOfCourseService} from '../../../shared/services/type-of-course.service';
 
 
 @Component({

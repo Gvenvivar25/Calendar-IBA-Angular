@@ -2,9 +2,9 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
-import {Teacher, Type} from './teacher.model';
-import {Discipline} from '../disciplines/discipline.model';
-import {UrlConstants} from '../../shared/url-constants';
+import {Teacher, Type} from '../models/teacher.model';
+import {Discipline} from '../models/discipline.model';
+import {UrlConstants} from '../url-constants';
 import {ToastrService} from 'ngx-toastr';
 
 
@@ -17,7 +17,7 @@ const httpOptions = {
 })
 export class TeachersService {
     constructor(private httpClient: HttpClient, private toastr: ToastrService) {}
-    
+
     getTeachers(): Observable<Teacher[]> {
         return this.httpClient.get<Teacher[]>(UrlConstants.URL_TEACHER)
             .pipe(
@@ -39,7 +39,7 @@ export class TeachersService {
 
     saveTeacher(teacher): Observable<Teacher> {
         return this.httpClient.post<Teacher>(UrlConstants.URL_TEACHER, teacher).pipe(
-            tap((res: Teacher) => this.toastr.success(`Преподаватель добавлен!`)),
+            tap(() => this.toastr.success(`Преподаватель добавлен!`)),
             catchError(err => {this.toastr.error(`Не удалось добавить преподавателя`, 'Ошибка');
                                console.log(err, 'Не удалось добавить преподавателя');
                                return of(null); })

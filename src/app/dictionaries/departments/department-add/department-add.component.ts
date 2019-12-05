@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {DepartmentService} from '../department.service';
+import {DepartmentService} from '../../../shared/services/department.service';
 
 @Component({
   selector: 'app-department-add',

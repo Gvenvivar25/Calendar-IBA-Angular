@@ -14,7 +14,6 @@ import {AngularDraggableModule} from 'angular2-draggable';
 import { TimetableComponent } from './retraining/timetable/timetable.component';
 import { TimetableDetailComponent } from './booking/timetable-detail/timetable-detail.component';
 import { BookingComponent } from './booking/booking.component';
-import { BookingTimetableComponent } from './booking/booking-timetable/booking-timetable.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
 import { TimetableConfirmComponent } from './retraining/timetable-confirm/timetable-confirm.component';
@@ -25,7 +24,6 @@ import { TimetableConfirmComponent } from './retraining/timetable-confirm/timeta
       TimetableComponent,
       TimetableDetailComponent,
       BookingComponent,
-      BookingTimetableComponent,
       TimetableConfirmComponent
   ],
   imports: [

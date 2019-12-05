@@ -1,9 +1,9 @@
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
-import { TypeOfEducation} from '../groups/group.model';
+import { TypeOfEducation} from '../models/group.model';
 import {catchError} from 'rxjs/operators';
-import {UrlConstants} from '../../shared/url-constants';
+import {UrlConstants} from '../url-constants';
 import {ToastrService} from 'ngx-toastr';
 
 

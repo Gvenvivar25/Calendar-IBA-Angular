@@ -77,8 +77,9 @@ export class BookingComponent implements OnInit {
                         this.calendarEvents.push (
                             {
                                 id: data[i].id,
-                                title: 'Бронь!' + data[i].disciplineDto.shortDisciplineName + ' ' + data[i].typeOfWork.short_value
-                                    + ' гр. №' + data[i].groupDto.groupName + ' подгр. №' + data[i].subgroup,
+                                /*title: 'Бронь!' + data[i].disciplineDto.shortDisciplineName + ' ' + data[i].typeOfWork.short_value
+                                    + ' гр. №' + data[i].groupDto.groupName + ' подгр. №' + data[i].subgroup,*/
+                                title: 'Бронь!' + data[i].classroomDto.number + 'к.',
                                 resourceId: data[i].classroomDto.id,
                                 start: data[i].classDate + 'T' + data[i].beginTime,
                                 end: data[i].classDate + 'T' + data[i].finishTime,
@@ -97,8 +98,7 @@ export class BookingComponent implements OnInit {
                         this.calendarEvents.push (
                             {
                                 id: data[i].id,
-                                title: data[i].disciplineDto.shortDisciplineName + ' ' + data[i].typeOfWork.short_value + ' гр. №' +
-                                    data[i].groupDto.groupName + ' подгр. №' + data[i].subgroup,
+                                title: data[i].classroomDto.number + 'к.',
                                 resourceId: data[i].classroomDto.id,
                                 start: data[i].classDate + 'T' + data[i].beginTime,
                                 end: data[i].classDate + 'T' + data[i].finishTime,
@@ -117,8 +117,7 @@ export class BookingComponent implements OnInit {
                         this.calendarEvents.push (
                             {
                                 id: data[i].id,
-                                title: data[i].disciplineDto.shortDisciplineName + ' ' + data[i].typeOfWork.short_value + ' гр. №' +
-                                    data[i].groupDto.groupName + ' подгр. №' + data[i].subgroup,
+                                title: data[i].classroomDto.number + 'к.',
                                 resourceId: data[i].classroomDto.id,
                                 start: data[i].classDate + 'T' + data[i].beginTime,
                                 end: data[i].classDate + 'T' + data[i].finishTime,
@@ -261,7 +260,7 @@ export class BookingComponent implements OnInit {
         color: event.classroom.color
         };
         console.log(timetable);
-        this.timetableOfClassesService.saveOneTimetableOfClasses(timetable).subscribe( res => {
+        this.timetableOfClassesService.saveOneTimetableOfClasses(timetable).subscribe( () => {
             this.getDaysPeriod(); }
         );
 

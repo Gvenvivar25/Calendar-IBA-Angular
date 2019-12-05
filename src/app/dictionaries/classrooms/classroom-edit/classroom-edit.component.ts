@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Classroom, TypeOfClassroom} from '../classroom.model';
-import {ClassroomService} from '../classroom.service';
+import {Classroom, TypeOfClassroom} from '../../../shared/models/classroom.model';
+import {ClassroomService} from '../../../shared/services/classroom.service';
 
 @Component({
   selector: 'app-classroom-edit',

@@ -5,10 +5,10 @@ import {AuthGuard} from '../shared/helpers/auth.guard';
 import {BookingComponent} from './booking/booking.component';
 
 const timetableRoutes: Routes = [
-  //  {path: 'timetables', component: TimetablesComponent},
-    {path: 'retraining', component: RetrainingComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_MANAGER'] }},
-   // {path: 'courses', component: RetrainingComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_MANAGER'] }},
-    {path: 'booking', component: BookingComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_MANAGER'] }},
+    {path: 'retraining', component: RetrainingComponent, canActivate: [AuthGuard],
+        data: { roles: ['ROLE_ADMIN', 'ROLE_MANAGER'] }},
+    {path: 'booking', component: BookingComponent, canActivate: [AuthGuard],
+        data: { roles: ['ROLE_ADMIN', 'ROLE_MANAGER'] }},
 
 ];
 

@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Discipline} from '../../disciplines/discipline.model';
+import {Discipline} from '../../../shared/models/discipline.model';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Teacher} from '../teacher.model';
-import {TeachersService} from '../teachers.service';
+import {Teacher} from '../../../shared/models/teacher.model';
+import {TeachersService} from '../../../shared/services/teachers.service';
 
 @Component({
   selector: 'app-teacher-detail',

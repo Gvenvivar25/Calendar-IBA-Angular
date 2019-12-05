@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators} from '@angular/forms';
-import {TeachersService} from '../teachers.service';
+import {TeachersService} from '../../../shared/services/teachers.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {TeacherRequest, Type} from '../teacher.model';
-import {Discipline} from '../../disciplines/discipline.model';
-import {DisciplinesService} from '../../disciplines/disciplines.service';
+import {TeacherRequest, Type} from '../../../shared/models/teacher.model';
+import {Discipline} from '../../../shared/models/discipline.model';
+import {DisciplinesService} from '../../../shared/services/disciplines.service';
 
 
 @Component({

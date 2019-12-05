@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ClassroomService} from '../classroom.service';
-import {Classroom, TypeOfClassroom} from '../classroom.model';
-import {ToastrService} from 'ngx-toastr';
-
+import {ClassroomService} from '../../../shared/services/classroom.service';
+import {Classroom, TypeOfClassroom} from '../../../shared/models/classroom.model';
+import {FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 @Component({
   selector: 'app-classroom-add',
   templateUrl: './classroom-add.component.html',
@@ -16,27 +14,25 @@ export class ClassroomAddComponent implements OnInit {
     typesOfClassroom: TypeOfClassroom[];
     color: string;
     constructor(private route: ActivatedRoute, private router: Router, private classroomService: ClassroomService,
-                ) {
-    }
+                private formBuilder: FormBuilder) {   }
 
     ngOnInit() {
-
+        this.classroomForm = this.formBuilder.group({
+            number: ['', Validators.required],
+            typeOfClassroom: [[], Validators.required]
+        });
         this.classroomService.getTypesOfClassroom().subscribe((res: TypeOfClassroom[]) => {
             this.typesOfClassroom = res;
         } );
-        this.classroomForm = new FormGroup({
-            number: new FormControl('', Validators.required),
-            typeOfClassroom: new FormControl([], Validators.required),
-        });
+
+
     }
 
-    onSubmit(form: NgForm) {
+    onSubmit() {
         const classroom: Classroom = new Classroom();
         classroom.number = this.classroomForm.value.number;
         classroom.typeOfClassroom = this.classroomForm.value.typeOfClassroom;
         classroom.color = this.color;
-        console.log(classroom);
-        console.log('Submitted!', form);
         this.classroomService.saveClassroom(classroom).subscribe(() => {
             this.gotoClassroomList(); });
 

@@ -23,7 +23,7 @@ export class AuthenticationService {
     }
 
    get userRole() {
-       return localStorage.getItem('role');
+       return sessionStorage.getItem('role');
    }
 
    public setLoggedIn(value) {
@@ -31,18 +31,18 @@ export class AuthenticationService {
     }
 
     public get currentToken(): boolean {
-        return localStorage.getItem('token') !==  null;
+        return sessionStorage.getItem('token') !==  null;
     }
 
     public getToken(): string {
-        return localStorage.getItem('token');
+        return sessionStorage.getItem('token');
     }
 
     public login(authenticationRequestDto: AuthenticationModel) {
        return this.http.post<any>(this.auth, authenticationRequestDto)
            .pipe(map((res: any) => {
-                localStorage.setItem('role', res.roles[0]);
-                localStorage.setItem('token', res.token);
+                sessionStorage.setItem('role', res.roles[0]);
+                sessionStorage.setItem('token', res.token);
                 this.loggedIn.next(true);
                 return res;
             }),
@@ -57,8 +57,8 @@ export class AuthenticationService {
     }
 
     logout() {
-        localStorage.removeItem('token');
-        localStorage.removeItem('role');
+        sessionStorage.removeItem('token');
+        sessionStorage.removeItem('role');
         this.loggedIn.next(false);
     }
 

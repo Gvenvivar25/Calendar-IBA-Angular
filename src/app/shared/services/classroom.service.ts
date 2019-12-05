@@ -1,9 +1,9 @@
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
-import {Classroom, TypeOfClassroom} from './classroom.model';
+import {Classroom, TypeOfClassroom} from '../models/classroom.model';
 import {catchError, tap} from 'rxjs/operators';
-import {UrlConstants} from '../../shared/url-constants';
+import {UrlConstants} from '../url-constants';
 import {ToastrService} from 'ngx-toastr';
 
 

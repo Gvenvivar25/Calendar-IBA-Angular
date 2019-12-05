@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {TeachersService} from '../teachers.service';
+import {TeachersService} from '../../../shared/services/teachers.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {DisciplinesService} from '../../disciplines/disciplines.service';
-import {Discipline} from '../../disciplines/discipline.model';
+import {DisciplinesService} from '../../../shared/services/disciplines.service';
+import {Discipline} from '../../../shared/models/discipline.model';
 import {FormControl, FormGroup} from '@angular/forms';
-import {Teacher} from '../teacher.model';
+import {Teacher} from '../../../shared/models/teacher.model';
 
 @Component({
   selector: 'app-teacher-edit-disciplines',

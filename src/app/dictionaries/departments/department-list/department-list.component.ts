@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Department} from '../department.model';
-import {DepartmentService} from '../department.service';
+import {Department} from '../../../shared/models/department.model';
+import {DepartmentService} from '../../../shared/services/department.service';
 
 @Component({
   selector: 'app-department-list',

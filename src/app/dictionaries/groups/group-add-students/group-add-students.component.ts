@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Group, NumberOfStudents, NumberOfStudentsDto} from '../group.model';
+import {Group, NumberOfStudents, NumberOfStudentsDto} from '../../../shared/models/group.model';
 import {ActivatedRoute, Router} from '@angular/router';
-import {GroupService} from '../group.service';
+import {GroupService} from '../../../shared/services/group.service';
 
 @Component({
   selector: 'app-group-add-students',

@@ -1,10 +1,10 @@
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
 
 import {catchError} from 'rxjs/operators';
-import {TypeOfCourse} from './course.model';
-import {UrlConstants} from '../../shared/url-constants';
+import {TypeOfCourse} from '../models/course.model';
+import {UrlConstants} from '../url-constants';
 import {ToastrService} from 'ngx-toastr';
 
 @Injectable({

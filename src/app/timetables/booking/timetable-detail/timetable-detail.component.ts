@@ -1,16 +1,16 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {NewEvent} from '../../../shared/models/timetable-of-classes.model';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {GroupService} from '../../../dictionaries/groups/group.service';
-import {Group} from '../../../dictionaries/groups/group.model';
-import {DisciplinesService} from '../../../dictionaries/disciplines/disciplines.service';
-import {TeachersService} from '../../../dictionaries/teachers/teachers.service';
-import {Discipline} from '../../../dictionaries/disciplines/discipline.model';
-import {Teacher} from '../../../dictionaries/teachers/teacher.model';
-import {DescriptionOfPlanService} from '../../../dictionaries/courses/description-of-plan.service';
-import {TypeOfWork} from '../../../dictionaries/courses/course.model';
-import {ClassroomService} from '../../../dictionaries/classrooms/classroom.service';
-import {Classroom} from '../../../dictionaries/classrooms/classroom.model';
+import {GroupService} from '../../../shared/services/group.service';
+import {Group} from '../../../shared/models/group.model';
+import {DisciplinesService} from '../../../shared/services/disciplines.service';
+import {TeachersService} from '../../../shared/services/teachers.service';
+import {Discipline} from '../../../shared/models/discipline.model';
+import {Teacher} from '../../../shared/models/teacher.model';
+import {DescriptionOfPlanService} from '../../../shared/services/description-of-plan.service';
+import {TypeOfWork} from '../../../shared/models/course.model';
+import {ClassroomService} from '../../../shared/services/classroom.service';
+import {Classroom} from '../../../shared/models/classroom.model';
 import {TimetableOfClassesService} from '../../../shared/services/timetable-of-classes.service';
 
 @Component({

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {DescriptionOfPlanService} from '../description-of-plan.service';
-import {TypeOfCourseService} from '../type-of-course.service';
-import {TypeOfCourse} from '../course.model';
+import {DescriptionOfPlanService} from '../../../shared/services/description-of-plan.service';
+import {TypeOfCourseService} from '../../../shared/services/type-of-course.service';
+import {TypeOfCourse} from '../../../shared/models/course.model';
 
 @Component({
   selector: 'app-course-add',

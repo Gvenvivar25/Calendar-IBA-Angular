@@ -4,7 +4,7 @@ import {Observable, of} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 import {TimetableOfClasses, TimetableOfClassesDto, TimetableOfClassesForEvents} from '../models/timetable-of-classes.model';
 import {UrlConstants} from '../url-constants';
-import {Classroom} from '../../dictionaries/classrooms/classroom.model';
+import {Classroom} from '../models/classroom.model';
 import {ToastrService} from 'ngx-toastr';
 
 const httpOptions = {

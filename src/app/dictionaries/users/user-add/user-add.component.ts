@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {UserService} from '../user.service';
-import {Status} from '../user.model';
+import {UserService} from '../../../shared/services/user.service';
+import {Status} from '../../../shared/models/user.model';
 
 
 @Component({

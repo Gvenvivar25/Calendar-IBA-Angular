@@ -1,9 +1,9 @@
 import {Time} from '@angular/common';
-import {Group, GroupDto} from '../../dictionaries/groups/group.model';
-import {Discipline} from '../../dictionaries/disciplines/discipline.model';
-import {Classroom, ClassroomDto} from '../../dictionaries/classrooms/classroom.model';
-import {Teacher, TeacherDto} from '../../dictionaries/teachers/teacher.model';
-import {TypeOfWork} from '../../dictionaries/courses/course.model';
+import {Group, GroupDto} from './group.model';
+import {Discipline} from './discipline.model';
+import {Classroom, ClassroomDto} from './classroom.model';
+import {Teacher, TeacherDto} from './teacher.model';
+import {TypeOfWork} from './course.model';
 
 export class TimetableOfClasses {
     public id: number;

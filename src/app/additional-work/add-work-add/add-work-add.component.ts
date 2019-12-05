@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
-import {GroupService} from '../../dictionaries/groups/group.service';
-import {TeachersService} from '../../dictionaries/teachers/teachers.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {GroupService} from '../../shared/services/group.service';
+import {TeachersService} from '../../shared/services/teachers.service';
 import {AddWorkOfTeacherService} from '../add-work-of-teacher.service';
-import {Teacher} from '../../dictionaries/teachers/teacher.model';
-import {Group} from '../../dictionaries/groups/group.model';
+import {Teacher} from '../../shared/models/teacher.model';
+import {Group} from '../../shared/models/group.model';
 import {AddWorkOfTeacher, AddWorkOfTeacherDto, TypeOfAddWork} from '../add-work-of-teacher.model';
 import {ActivatedRoute, Router} from '@angular/router';
 

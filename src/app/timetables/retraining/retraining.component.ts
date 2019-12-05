@@ -1,11 +1,11 @@
 import {AfterViewChecked, Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {ExternalEvent, NewEvent, TimetableOfClassesForEvents} from '../../shared/models/timetable-of-classes.model';
 import {TimetableOfClassesService} from '../../shared/services/timetable-of-classes.service';
-import {GroupService} from '../../dictionaries/groups/group.service';
-import {Group} from '../../dictionaries/groups/group.model';
+import {GroupService} from '../../shared/services/group.service';
+import {Group} from '../../shared/models/group.model';
 
-import {Discipline} from '../../dictionaries/disciplines/discipline.model';
-import {DisciplinesService} from '../../dictionaries/disciplines/disciplines.service';
+import {Discipline} from '../../shared/models/discipline.model';
+import {DisciplinesService} from '../../shared/services/disciplines.service';
 
 @Component({
   selector: 'app-retraining',

@@ -8,12 +8,12 @@ import listPlugin from '@fullcalendar/list';
 import Tooltip from 'tooltip.js';
 import {TimetableOfClasses} from '../shared/models/timetable-of-classes.model';
 import {TimetableOfClassesService} from '../shared/services/timetable-of-classes.service';
-import {Group} from '../dictionaries/groups/group.model';
-import {Teacher} from '../dictionaries/teachers/teacher.model';
-import {Classroom} from '../dictionaries/classrooms/classroom.model';
-import {GroupService} from '../dictionaries/groups/group.service';
-import {TeachersService} from '../dictionaries/teachers/teachers.service';
-import {ClassroomService} from '../dictionaries/classrooms/classroom.service';
+import {Group} from '../shared/models/group.model';
+import {Teacher} from '../shared/models/teacher.model';
+import {Classroom} from '../shared/models/classroom.model';
+import {GroupService} from '../shared/services/group.service';
+import {TeachersService} from '../shared/services/teachers.service';
+import {ClassroomService} from '../shared/services/classroom.service';
 
 @Component({
     selector: 'app-main',

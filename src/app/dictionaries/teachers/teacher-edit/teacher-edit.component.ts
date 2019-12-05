@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators} from '@angular/forms';
-import {Teacher, Type} from '../teacher.model';
-import {TeachersService} from '../teachers.service';
+import {Teacher, Type} from '../../../shared/models/teacher.model';
+import {TeachersService} from '../../../shared/services/teachers.service';
 import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({

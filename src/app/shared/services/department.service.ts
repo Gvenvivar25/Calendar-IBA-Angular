@@ -2,8 +2,8 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
-import {Department} from './department.model';
-import {UrlConstants} from '../../shared/url-constants';
+import {Department} from '../models/department.model';
+import {UrlConstants} from '../url-constants';
 import {ToastrService} from 'ngx-toastr';
 
 const httpOptions = {
@@ -37,7 +37,7 @@ export class DepartmentService {
 
     saveDepartment(department): Observable<Department> {
         return this.httpClient.post<Department>(UrlConstants.URL_DEPARTMENT, department).pipe(
-            tap((res: Department) => this.toastr.success(`Кафедра добавлена!`)),
+            tap(() => this.toastr.success(`Кафедра добавлена!`)),
             catchError(err => {this.toastr.error(`Не удалось добавить кафедру`, 'Ошибка');
                                console.log(err, 'Не удалось добавить кафедру');
                                return of(null); })

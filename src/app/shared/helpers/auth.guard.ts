@@ -20,7 +20,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
 
         if (currentToken) {
             this.authService.setLoggedIn(true);
-            console.log(myRole);
+          //  console.log(myRole);
             if (next.data.roles && next.data.roles.indexOf(myRole) === -1) {
                 // role not authorised so redirect to home page
                 this.router.navigate(['/403']);

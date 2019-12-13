@@ -23,11 +23,18 @@ export class HeaderComponent implements OnInit {
         this.router.navigate(['/sign-in']);
     }
 // сделать нормальное получение роли
-    get isVisible() {
+    get isAdminOrManager() {
      // const role = this.authService.getUserRole();
       const role = this.authService.userRole;
      // if (role === 'ROLE_ADMIN') { return true; } else { return false; }
       if (role === 'ROLE_ADMIN' || role === 'ROLE_MANAGER') { return true; } else { return false; }
+    }
+
+    get isAdminOrManagerOrView() {
+        // const role = this.authService.getUserRole();
+        const role = this.authService.userRole;
+        // if (role === 'ROLE_ADMIN') { return true; } else { return false; }
+        if (role === 'ROLE_ADMIN' || role === 'ROLE_MANAGER' || role === 'ROLE_VIEW') { return true; } else { return false; }
     }
 
     get isAdmin() {

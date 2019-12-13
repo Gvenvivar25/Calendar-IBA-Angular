@@ -12,7 +12,7 @@ import {Page403Component} from './shared/components/page403/page403.component';
 
 const routes: Routes = [
     {path: '', redirectTo: '/sign-in', pathMatch: 'full'},
-    {path: 'main', component: MainComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_MANAGER'] }},
+    {path: 'main', component: MainComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_MANAGER', 'ROLE_VIEW'] }},
     {path: 'sign-in', component: SignInComponent},
     {path: 'retraining', component: RetrainingComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_MANAGER'] }},
     {path: 'booking', component: BookingComponent, canActivate: [AuthGuard], data: { roles: ['ROLE_ADMIN', 'ROLE_MANAGER'] }},

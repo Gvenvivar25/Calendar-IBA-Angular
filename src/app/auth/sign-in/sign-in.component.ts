@@ -58,7 +58,9 @@ export class SignInComponent implements OnInit {
               () => {
                   console.log(this.authenticationService.userRole);
                   if (this.authenticationService.userRole === 'ROLE_USER') {
-                      this.router.navigate(['/reports/timetable-teacher']);
+                      this.router.navigate(['/reports']);
+                  } else if (this.authenticationService.userRole === 'ROLE_GROUP') {
+                      this.router.navigate(['/reports/timetable-group']);
                   } else {
                   this.router.navigate([this.returnUrl]); }
               },

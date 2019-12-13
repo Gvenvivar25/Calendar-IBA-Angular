@@ -22,7 +22,7 @@
                     <th>Краткое наименование</th>
                     <th>Полное наименование</th>
                     <th></th>
-                    <th></th>
+
 
                 </tr>
                 </thead>
@@ -41,14 +41,11 @@
                             <button class="btn-edit" title="Редактировать" [routerLink]="['edit', discipline.id]" >
                                 <span class="oi oi-pencil"></span>
                             </button>
-
-                        </td>
-                        <td class="td-p-4">
-
                             <button class="btn-delete" title="Удалить" (click)="onDeleteDiscipline(discipline)">
                                 <span class="oi oi-trash"></span>
                             </button>
                         </td>
+
                     </tr>
                     <!--<tr class="table-dictionary">
                         <td colspan="6" *ngIf="rowSelected==discipline.id" >

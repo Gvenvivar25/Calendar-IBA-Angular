@@ -291,14 +291,14 @@ export class MainComponent implements OnInit {
 
 
 
-
+/*
     handleDateClick(arg) { // handler method
         alert(arg.dateStr);
     }
 
     click(info) {
         console.log(info.event.extendedProps.description);
-    }
+    }*/
 
 
     eventRender(info) {

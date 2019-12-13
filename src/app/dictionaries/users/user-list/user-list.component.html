@@ -24,8 +24,8 @@
                     <th>Email</th>
                     <th>Статус</th>
                     <th></th>
-                    <th></th>
-                    <th></th>
+                    <!--<th></th>
+                    <th></th>-->
 
                 </tr>
                 </thead>
@@ -46,9 +46,15 @@
                             <button class="btn-edit-yellow" title="Роли" [routerLink]="['roles', user.id]" >
                                 <span class="oi oi-lock-unlocked"></span>
                             </button>
+                            <button class="btn-edit" title="Редактировать" [routerLink]="['edit', user.id]" >
+                                <span class="oi oi-pencil"></span>
+                            </button>
+                            <button class="btn-delete" title="Удалить" (click)="onDeleteUser(user)">
+                                <span class="oi oi-trash"></span>
+                            </button>
 
                         </td>
-                        <td class="td-p-4">
+                        <!--<td class="td-p-4">
 
                             <button class="btn-edit" title="Редактировать" [routerLink]="['edit', user.id]" >
                                 <span class="oi oi-pencil"></span>
@@ -60,7 +66,7 @@
                             <button class="btn-delete" title="Удалить" (click)="onDeleteUser(user)">
                                 <span class="oi oi-trash"></span>
                             </button>
-                        </td>
+                        </td>-->
                     </tr>
                 </ng-template>
 

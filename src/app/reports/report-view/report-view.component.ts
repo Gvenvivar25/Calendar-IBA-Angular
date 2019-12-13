@@ -8,6 +8,7 @@ import {TeachersService} from '../../shared/services/teachers.service';
 import {Classroom} from '../../shared/models/classroom.model';
 import {ClassroomService} from '../../shared/services/classroom.service';
 import * as fileSaver from 'file-saver';
+import {AuthenticationService} from '../../shared/services/authentication.service';
 
 
 @Component({
@@ -40,13 +41,20 @@ export class ReportViewComponent implements OnInit {
 
   constructor(private reportService: ReportService, private groupService: GroupService, private teacherService: TeachersService,
               private classroomService: ClassroomService,
-              private route: ActivatedRoute, private router: Router) { }
+              private route: ActivatedRoute, private router: Router,
+              private authService: AuthenticationService) { }
 
   ngOnInit() {
       const date = new Date();
       this.startDate = new Date(date.getFullYear(), date.getMonth() , 2).toISOString().split('T')[0];
       this.endDate = new Date(date.getFullYear(), date.getMonth() + 1, 1).toISOString().split('T')[0];
       this.reportName = this.route.snapshot.params.name;
+      if (this.isUserRole) {
+          this.teacher = 11;
+      }
+      if (this.isGroupRole) {
+          this.group = 1;
+      }
       switch (this.reportName) {
           case 'report02015':
           case 'timetable': {
@@ -102,6 +110,17 @@ export class ReportViewComponent implements OnInit {
       });
 
   }
+    get isUserRole() {
+        // const role = this.authService.getUserRole();
+        const role = this.authService.userRole;
+        if (role === 'ROLE_USER') { return true; } else { return false; }
+    }
+
+    get isGroupRole() {
+        // const role = this.authService.getUserRole();
+        const role = this.authService.userRole;
+        if (role === 'ROLE_GROUP') { return true; } else { return false; }
+    }
     gotoReportList() {
         this.router.navigate(['/reports']);
     }

@@ -11,7 +11,7 @@
                 <li class="nav-item"
                 routerLinkActive="active"
                 [routerLinkActiveOptions]="{exact: true}">
-                    <a class="nav-link" [routerLink]="'/main'" *ngIf="isVisible">Главная </a>
+                    <a class="nav-link" [routerLink]="'/main'" *ngIf="isAdminOrManagerOrView">Главная </a>
                 </li>
 
                 <li class="nav-item"
@@ -24,7 +24,7 @@
                 <li class="nav-item dropdown"
                     routerLinkActive="active"
                     [routerLinkActiveOptions]="{exact: false}">
-                    <a class="nav-link dropdown-toggle"  id="navbardrop" data-toggle="dropdown" *ngIf="isVisible">
+                    <a class="nav-link dropdown-toggle"  id="navbardrop" data-toggle="dropdown" *ngIf="isAdminOrManager">
                         Расписание
                     </a>
                     <div class="dropdown-menu">
@@ -37,7 +37,7 @@
                 <li class="nav-item"
                     routerLinkActive="active"
                     [routerLinkActiveOptions]="{exact: false}">
-                    <a class="nav-link" [routerLink]="'/addWork'" *ngIf="isVisible">Нагрузка</a>
+                    <a class="nav-link" [routerLink]="'/addWork'" *ngIf="isAdminOrManager">Нагрузка</a>
                 </li>
 
                 <li class="nav-item"

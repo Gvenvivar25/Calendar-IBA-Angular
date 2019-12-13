@@ -88,7 +88,7 @@ export class TimetableComponent implements  AfterViewInit {
             for (let i = 0, len = Object.keys(res).length; i < len; i++) {
                 this.resources.push({id: (res[i].id).toString(), title: res[i].number});
             }
-            console.log(this.resources);
+            // console.log(this.resources);
         });
     }
 
@@ -281,6 +281,7 @@ export class TimetableComponent implements  AfterViewInit {
     }
 
     getDaysPeriod() {
+
         const startDay = this.fullcalendar.getApi().view.currentStart;
         const endDay = this.fullcalendar.getApi().view.currentEnd;
         startDay.setDate(startDay.getDate() + 1);
@@ -291,7 +292,7 @@ export class TimetableComponent implements  AfterViewInit {
         this.time = '?d1=' + start + '&d2=' + end;
         this.timetableOfClassesService.getTimetableOfClasses(this.time).subscribe(
             (data: TimetableOfClasses[]) => {
-                this.fullcalendar.getApi().removeAllEvents();
+              //  this.fullcalendar.getApi().removeAllEvents();
 
                 this.timetableOfClasses = data;
                 this.calendarEvents = [];
@@ -360,8 +361,11 @@ export class TimetableComponent implements  AfterViewInit {
                     }
 
                 }
+                console.log(this.calendarEvents);
+
             }
         );
+
     }
 
     refetchEvents() {
@@ -375,6 +379,7 @@ export class TimetableComponent implements  AfterViewInit {
         this.time = '?d1=' + start + '&d2=' + end;
         this.timetableOfClassesService.getTimetableOfClasses(this.time).subscribe(
             (data: TimetableOfClasses[]) => {
+                this.fullcalendar.getApi().removeAllEvents();
                 this.timetableOfClasses = data;
                 this.calendarEvents = [];
                 // конвертация объектов из БД в event на календарь
@@ -441,8 +446,11 @@ export class TimetableComponent implements  AfterViewInit {
                     }
 
                 }
+
             }
+
         );
+
     }
 
     eventRender(info) {

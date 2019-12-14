@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AddWorkOfTeacherService} from '../add-work-of-teacher.service';
 import {AddWorkOfTeacher} from '../add-work-of-teacher.model';
 import {ActivatedRoute, Router} from '@angular/router';
+import {AuthenticationService} from '../../shared/services/authentication.service';
 
 @Component({
   selector: 'app-add-work-list',
@@ -13,7 +14,8 @@ export class AddWorkListComponent implements OnInit {
     startDate;
     endDate;
 
-  constructor(private addWorkOfTeacherService: AddWorkOfTeacherService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private addWorkOfTeacherService: AddWorkOfTeacherService, private router: Router, private route: ActivatedRoute,
+              private authService: AuthenticationService) { }
 
   ngOnInit() {
       const date = new Date();
@@ -23,6 +25,11 @@ export class AddWorkListComponent implements OnInit {
       console.log(this.endDate);
       this.loadAddWorks();
   }
+
+    get isAdminOrManager() {
+        const role = this.authService.userRole;
+        if (role === 'ROLE_ADMIN' || role === 'ROLE_MANAGER') { return true; } else { return false; }
+    }
 
     loadAddWorks() {
         return this.addWorkOfTeacherService.getAllAddWork(this.startDate, this.endDate)

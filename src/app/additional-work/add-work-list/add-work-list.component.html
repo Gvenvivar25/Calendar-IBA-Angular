@@ -18,7 +18,7 @@
             <button class="btn btn-info" (click)="loadAddWorks()">Найти</button>
         </div>
     </div>
-    <div class="row">
+    <div class="row" *ngIf="isAdminOrManager">
         <div class="col-sm">
             <button class="btn-add" title="Добавить" (click)="onAdd()" > <span class="oi oi-plus"></span> Добавить </button>
         </div>
@@ -53,7 +53,7 @@
                         <td>{{addWorkOfTeacher.groupDto.groupName}}</td>
                         <td>{{addWorkOfTeacher.typeOfAddWork.value}}</td>
                         <td>{{addWorkOfTeacher.hour}}</td>
-                        <td class="td-p-4">
+                        <td class="td-p-4" *ngIf="isAdminOrManager">
                             <button class="btn-edit" title="Редактировать" [routerLink]="['edit', addWorkOfTeacher.id]" >
                                 <span class="oi oi-pencil"></span>
                             </button>

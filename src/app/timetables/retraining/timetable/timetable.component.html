@@ -85,6 +85,7 @@
                     (eventDrop)="eventDrop($event)"
                     (dateClick)="handleDateClick($event)"
                     (eventDragStop)="eventDragStop($event)"
+                    (datesRender)="datesRender($event)"
 
             ></full-calendar>
             <div>
@@ -93,7 +94,7 @@
                         [endDate]="endDate"
                         *ngIf="isTimetableConfirm"
                         [isConfirm]="isConfirm"
-                        (closed)="onCloseTimetableConfirm()">
+                        (closed)="onCloseTimetableConfirm($event)">
 
                 </app-timetable-confirm>
             </div>

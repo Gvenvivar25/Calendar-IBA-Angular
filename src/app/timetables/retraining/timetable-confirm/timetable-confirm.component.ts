@@ -16,7 +16,7 @@ import {Classroom} from '../../../shared/models/classroom.model';
   styleUrls: ['./timetable-confirm.component.scss']
 })
 export class TimetableConfirmComponent implements OnInit {
-    @Output() closed = new EventEmitter();
+    @Output() closed = new EventEmitter<string>();
     @Input() startDate: string;
     @Input() endDate: string;
     @Input() isConfirm: boolean;
@@ -97,7 +97,7 @@ export class TimetableConfirmComponent implements OnInit {
     }
 
     onClose() {
-        this.closed.emit();
+        this.closed.emit('close');
     }
 
     loadTimetableToConfirmForPeriod() {
@@ -207,9 +207,19 @@ export class TimetableConfirmComponent implements OnInit {
         console.log(this.checkedTimetables);
         if (this.checkedTimetables !== undefined && this.checkedTimetables.length !== 0) {
         this.timetableOfClassesService.confirmTimetable(this.checkedTimetables).subscribe();
-        this.closed.emit();
+        this.closed.emit('confirm');
         } else {
             this.toastr.error(`Ни одна запись не выбрана для подтверждения`, 'Ошибка');
+        }
+    }
+
+    cancelTimetables() {
+        console.log(this.checkedTimetables);
+        if (this.checkedTimetables !== undefined && this.checkedTimetables.length !== 0) {
+            this.timetableOfClassesService.cancelTimetable(this.checkedTimetables).subscribe();
+            this.closed.emit('cancel');
+        } else {
+            this.toastr.error(`Ни одна запись не выбрана для отмены`, 'Ошибка');
         }
     }
 
@@ -314,16 +324,6 @@ export class TimetableConfirmComponent implements OnInit {
                 }
             }
         );
-    }
-
-    cancelTimetables() {
-        console.log(this.checkedTimetables);
-        if (this.checkedTimetables !== undefined && this.checkedTimetables.length !== 0) {
-            this.timetableOfClassesService.cancelTimetable(this.checkedTimetables).subscribe();
-            this.closed.emit();
-        } else {
-            this.toastr.error(`Ни одна запись не выбрана для отмены`, 'Ошибка');
-        }
     }
 
 }

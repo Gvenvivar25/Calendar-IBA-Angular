@@ -292,8 +292,9 @@ export class TimetableComponent implements  AfterViewInit {
         this.time = '?d1=' + start + '&d2=' + end;
         this.timetableOfClassesService.getTimetableOfClasses(this.time).subscribe(
             (data: TimetableOfClasses[]) => {
-              //  this.fullcalendar.getApi().removeAllEvents();
-
+                this.fullcalendar.getApi().removeAllEvents();
+                this.fullcalendar.getApi().removeAllEventSources();
+                this.fullcalendar.getApi().rerenderEvents();
                 this.timetableOfClasses = data;
                 this.calendarEvents = [];
 
@@ -380,6 +381,8 @@ export class TimetableComponent implements  AfterViewInit {
         this.timetableOfClassesService.getTimetableOfClasses(this.time).subscribe(
             (data: TimetableOfClasses[]) => {
                 this.fullcalendar.getApi().removeAllEvents();
+                this.fullcalendar.getApi().removeAllEventSources();
+                this.fullcalendar.getApi().rerenderEvents();
                 this.timetableOfClasses = data;
                 this.calendarEvents = [];
                 // конвертация объектов из БД в event на календарь
@@ -446,11 +449,16 @@ export class TimetableComponent implements  AfterViewInit {
                     }
 
                 }
-
+                this.fullcalendar.getApi().removeAllEventSources();
+                this.fullcalendar.getApi().rerenderEvents();
             }
 
         );
 
+    }
+
+    datesRender(info) {
+        console.log(info);
     }
 
     eventRender(info) {
@@ -466,12 +474,18 @@ export class TimetableComponent implements  AfterViewInit {
         this.tooltip.dispose();
     }
 
-    onCloseTimetableConfirm(): void {
-        this.isTimetableConfirm = false;
-        this.isConfirm = null;
-        setTimeout (() => {
-           this.refetchEvents();
-        }, 500);
+    onCloseTimetableConfirm(info): void {
+        console.log(info);
+        if (info === 'close') {
+            this.isTimetableConfirm = false;
+            this.isConfirm = null;
+        } else {
+            this.isTimetableConfirm = false;
+            this.isConfirm = null;
+            setTimeout (() => {
+                this.refetchEvents();
+            }, 500);
+        }
     }
 
     onConfirm() {

@@ -17,7 +17,7 @@
                 <li class="nav-item"
                     routerLinkActive="active"
                     [routerLinkActiveOptions]="{exact: false}">
-                    <a class="nav-link" [routerLink]="'/dictionaries'" *ngIf="isAdmin">Справочники</a>
+                    <a class="nav-link" [routerLink]="'/dictionaries'" *ngIf="isAdminOrManagerOrView">Справочники</a>
                 </li>
 
                 <!-- Dropdown -->
@@ -37,7 +37,7 @@
                 <li class="nav-item"
                     routerLinkActive="active"
                     [routerLinkActiveOptions]="{exact: false}">
-                    <a class="nav-link" [routerLink]="'/addWork'" *ngIf="isAdminOrManager">Нагрузка</a>
+                    <a class="nav-link" [routerLink]="'/addWork'" *ngIf="isAdminOrManagerOrView">Нагрузка</a>
                 </li>
 
                 <li class="nav-item"

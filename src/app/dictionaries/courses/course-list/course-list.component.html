@@ -7,7 +7,7 @@
     </div>
 
     <hr>
-    <div class="row">
+    <div class="row" *ngIf="isAdmin">
         <div class="col-sm">
             <button class="btn-add" title="Добавить" (click)="onAdd()" > <span class="oi oi-plus"></span> Добавить </button>
         </div>
@@ -40,13 +40,13 @@
                         <!--<td></td>-->
                         <td class="td-p-4">
                             <button class="btn-edit-yellow" title="Добавить/удалить дисциплины в учебный план"
-                                    [routerLink]="['lessonplans', course.id]" >
+                                    [routerLink]="['lessonplans', course.id]"  *ngIf="isAdminOrManager">
                                 <span class="oi oi-list"></span>
                             </button>
-                            <button class="btn-edit" title="Редактировать" [routerLink]="['edit', course.id]" >
+                            <button class="btn-edit" title="Редактировать" [routerLink]="['edit', course.id]" *ngIf="isAdmin">
                                 <span class="oi oi-pencil"></span>
                             </button>
-                            <button class="btn-delete" title="Удалить" (click)="onDeleteCourse(course)">
+                            <button class="btn-delete" title="Удалить" (click)="onDeleteCourse(course)" *ngIf="isAdmin">
                                 <span class="oi oi-trash"></span>
                             </button>
                         </td>

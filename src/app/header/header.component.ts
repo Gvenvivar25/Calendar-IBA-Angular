@@ -37,10 +37,10 @@ export class HeaderComponent implements OnInit {
         if (role === 'ROLE_ADMIN' || role === 'ROLE_MANAGER' || role === 'ROLE_VIEW') { return true; } else { return false; }
     }
 
-    get isAdmin() {
+    /*get isAdmin() {
         // const role = this.authService.getUserRole();
         const role = this.authService.userRole;
         if (role === 'ROLE_ADMIN') { return true; } else { return false; }
-    }
+    }*/
 
 }

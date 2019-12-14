@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Course, DescriptionOfPlan} from '../../../shared/models/course.model';
 import {DescriptionOfPlanService} from '../../../shared/services/description-of-plan.service';
+import {AuthenticationService} from '../../../shared/services/authentication.service';
 
 @Component({
   selector: 'app-course-list',
@@ -14,12 +15,23 @@ export class CourseListComponent implements OnInit {
     courses: DescriptionOfPlan [];
     rowSelected: number;
 
-    constructor(private descriptionOfPlanService: DescriptionOfPlanService, private router: Router, private route: ActivatedRoute) {
+    constructor(private descriptionOfPlanService: DescriptionOfPlanService, private router: Router, private route: ActivatedRoute,
+                private authService: AuthenticationService) {
         this.rowSelected = -1;
     }
 
     ngOnInit() {
         this.loadCourses();
+    }
+
+    get isAdmin() {
+        const role = this.authService.userRole;
+        if (role === 'ROLE_ADMIN') { return true; } else { return false; }
+    }
+
+    get isAdminOrManager() {
+        const role = this.authService.userRole;
+        if (role === 'ROLE_ADMIN' || role === 'ROLE_MANAGER') { return true; } else { return false; }
     }
 
     loadCourses() {

@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {AuthenticationService} from '../shared/services/authentication.service';
 
 @Component({
     selector: 'app-dictionaries',
@@ -22,6 +23,18 @@ export class DictionariesComponent {
 
     private _MODES: Array<string> = ['over', 'push', 'slide'];
     private _POSITIONS: Array<string> = ['left', 'right', 'top', 'bottom'];
+
+    constructor(private authService: AuthenticationService) {}
+
+    get isAdmin() {
+        const role = this.authService.userRole;
+        if (role === 'ROLE_ADMIN') { return true; } else { return false; }
+    }
+
+    get isAdminOrManagerOrView() {
+        const role = this.authService.userRole;
+        if (role === 'ROLE_ADMIN' || role === 'ROLE_MANAGER' || role === 'ROLE_VIEW') { return true; } else { return false; }
+    }
 
     private _toggleOpened(): void {
         this._opened = !this._opened;

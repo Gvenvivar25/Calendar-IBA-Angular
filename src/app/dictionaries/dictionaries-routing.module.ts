@@ -69,8 +69,9 @@ const dictionariesRoutes: Routes = [
             {path: 'groups', component: GroupListComponent},
             {path: 'groups/add', component: GroupAddComponent},
             {path: 'groups/detail', component: GroupDetailComponent},
-            {path: 'groups/students/:id', component: GroupAddStudentsComponent},
             {path: 'groups/edit/:id', component: GroupEditComponent},
+         //   {path: 'groups/students/:id', component: GroupAddStudentsComponent},
+
 
             {path: 'employees', component: EmployeeListComponent},
             {path: 'employees/add', component: EmployeeAddComponent},

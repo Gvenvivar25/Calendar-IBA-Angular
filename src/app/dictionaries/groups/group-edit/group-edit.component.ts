@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {GroupService} from '../../../shared/services/group.service';
-import {Group, TypeOfEducation} from '../../../shared/models/group.model';
-import {DescriptionOfPlan, DescriptionOfPlanDto} from '../../../shared/models/course.model';
+import { GroupDto, TypeOfEducation} from '../../../shared/models/group.model';
+import {DescriptionOfPlan} from '../../../shared/models/course.model';
 import {TypeOfEducationService} from '../../../shared/services/type-of-education.service';
 import {DescriptionOfPlanService} from '../../../shared/services/description-of-plan.service';
 
@@ -20,7 +20,7 @@ export class GroupEditComponent implements OnInit {
     color: string;
 
     typesOfEducation: TypeOfEducation [];
-    descriptionsOfPlan: DescriptionOfPlanDto [];
+    descriptionsOfPlan: DescriptionOfPlan [];
 
     constructor(private route: ActivatedRoute, private router: Router,
                 private groupService: GroupService,
@@ -31,38 +31,26 @@ export class GroupEditComponent implements OnInit {
     ngOnInit() {
         this.id = this.route.snapshot.params.id;
         this.descriptionOfPlanService.getDescriptionOfPlans().subscribe((res: DescriptionOfPlan[]) => {
-            this.descriptionsOfPlan = [];
-            for (let i = 0, len = Object.keys(res).length; i < len; i++) {
-                this.descriptionsOfPlan.push(
-                    {
-                        id: res[i].id,
-                        description: res[i].description,
-                        typeOfCourse: res[i].typeOfCourse.id
-                    });
-            }
+            this.descriptionsOfPlan = res;
         } );
-        this.getGroup(this.route.snapshot.params.id);
-
 
         this.typeOfEducationService.getTypesOfEducation().subscribe((res: TypeOfEducation[]) => {
             this.typesOfEducation = res;
         } );
+        this.getGroup(this.route.snapshot.params.id);
 
 
-    }
-// метод для изменения объекта DescriptionOfPlanDto для того, чтобы потом закинуть на сервер
-    getDescriptionOfPlanToForm(id: number): DescriptionOfPlanDto {
-        return this.descriptionsOfPlan.find(res => res.id === id);
     }
 
     getGroup(id: number) {
         this.groupService.getGroup(id).subscribe(res => {
             console.log(res);
+            console.log(res.descriptionOfPlanDto.id);
             this.color = res.color;
             this.groupEditForm.patchValue({
                 groupName: res.groupName,
                 typeOfEducation: res.typeOfEducation.id,
-                descriptionOfPlanDto: this.getDescriptionOfPlanToForm(res.descriptionOfPlanDto.id),
+                descriptionOfPlanDto: res.descriptionOfPlanDto,
                 numberOfSubgroup: res.numberOfSubgroup,
             });
         });
@@ -78,8 +66,18 @@ export class GroupEditComponent implements OnInit {
     }
 
     onSubmit() {
-        const result: Group = Object.assign({}, this.groupEditForm.value);
+        const result: GroupDto = new GroupDto();
+       // result.id = this.id;
+        result.groupName = this.groupEditForm.controls.groupName.value;
+        result.typeOfEducation = this.groupEditForm.controls.typeOfEducation.value;
+        result.numberOfSubgroup = +this.groupEditForm.controls.numberOfSubgroup.value;
         result.color = this.color;
+        result.descriptionOfPlanDto = {
+            id: this.groupEditForm.controls.descriptionOfPlanDto.value.id,
+            typeOfCourse: this.groupEditForm.controls.descriptionOfPlanDto.value.typeOfCourse.id,
+            description: this.groupEditForm.controls.descriptionOfPlanDto.value.description,
+        };
+
         this.groupService.updateGroup(this.id, result)
             .subscribe(() => {console.log('Submitted!'); this.gotoGroupList(); });
     }

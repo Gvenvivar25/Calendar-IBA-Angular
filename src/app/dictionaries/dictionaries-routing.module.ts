@@ -70,7 +70,7 @@ const dictionariesRoutes: Routes = [
             {path: 'groups/add', component: GroupAddComponent},
             {path: 'groups/detail', component: GroupDetailComponent},
             {path: 'groups/edit/:id', component: GroupEditComponent},
-         //   {path: 'groups/students/:id', component: GroupAddStudentsComponent},
+            {path: 'groups/students/:id', component: GroupAddStudentsComponent},
 
 
             {path: 'employees', component: EmployeeListComponent},

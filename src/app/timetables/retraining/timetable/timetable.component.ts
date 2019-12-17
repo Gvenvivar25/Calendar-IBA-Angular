@@ -362,7 +362,7 @@ export class TimetableComponent implements  AfterViewInit {
                     }
 
                 }
-                console.log(this.calendarEvents);
+              //  console.log(this.calendarEvents);
 
             }
         );

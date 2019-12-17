@@ -141,7 +141,7 @@ export class MainComponent implements OnInit {
                             );
                         }
                     }
-                    console.log(this.calendarEvents);
+                //    console.log(this.calendarEvents);
                 });
         } else {this.getDaysPeriod(); }
     }
@@ -172,7 +172,7 @@ export class MainComponent implements OnInit {
                             );
                         }
                     }
-                    console.log(this.calendarEvents);
+                 //   console.log(this.calendarEvents);
                 });
         } else {this.getDaysPeriod(); }
     }
@@ -203,7 +203,7 @@ export class MainComponent implements OnInit {
                             );
                         }
                     }
-                    console.log(this.calendarEvents);
+                  //  console.log(this.calendarEvents);
                 });
         } else {this.getDaysPeriod(); }
     }
@@ -231,7 +231,7 @@ export class MainComponent implements OnInit {
             this.timetableOfClassesService.getTimetableOfClasses(this.time).subscribe(
                 (data: TimetableOfClasses[]) => {
                     this.timetableOfClasses = data;
-                    console.log(this.timetableOfClasses);
+                  //  console.log(this.timetableOfClasses);
                     this.calendarEvents = [];
 
                     // конвертация объектов из БД в event на календарь
@@ -283,7 +283,7 @@ export class MainComponent implements OnInit {
                         }
 
                     }
-                    console.log(this.calendarEvents);
+                 //   console.log(this.calendarEvents);
                 }
             );
         }

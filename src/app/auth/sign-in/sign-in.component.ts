@@ -53,6 +53,7 @@ export class SignInComponent implements OnInit {
       this.loading = true;
       this.authReqDto = Object.assign({}, this.signInForm.value);
       console.log(this.authReqDto);
+      console.log(window.location.origin);
       this.authenticationService.login(this.authReqDto).pipe(first())
           .subscribe(
               () => {
